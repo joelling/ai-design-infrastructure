@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
+.claude/launch.json
+
+# Vite build output
+design/viewer/dist/
+design/viewer/.vite/

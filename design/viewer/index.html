@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Process</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <header class="sidebar-header">
+      <h1 class="logo">Design<br>Process</h1>
+      <p class="logo-sub">specification</p>
+    </header>
+    <nav id="nav"></nav>
+    <footer class="sidebar-footer">
+      <div class="sync-indicator" id="sync-indicator">
+        <span class="sync-dot"></span>
+        <span class="sync-label">Watching for changes</span>
+      </div>
+    </footer>
+  </aside>
+
+  <main class="content" id="content">
+    <article class="article" id="article">
+      <div class="article-loading">
+        <p>Select a chapter from the sidebar</p>
+      </div>
+    </article>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
