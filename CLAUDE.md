@@ -35,7 +35,7 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 - **HARD BLOCK:** Figma execution requires canvas briefs for the screen being built
 
 ### TIER 1 — DISCOVERY (understanding the problem)
-1. **`design-discovery`** — Problem framing, stakeholder map, competitive analysis, design brief
+1. **`design-discovery`** — Processes raw inputs (interviews, surveys, docs) via three-tier intake: per-input cleaning → per-type synthesis → cross-type project context (stakeholder map, domain glossary, competitive analysis, design brief)
 2. **`design-user-models`** — Personas, empathy maps, jobs-to-be-done
 
 ### TIER 2 — DEFINITION (tech & UI agnostic)

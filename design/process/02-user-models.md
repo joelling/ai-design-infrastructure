@@ -18,6 +18,8 @@ Think in three layers:
 ## Inputs
 
 - `design/discovery/stakeholder-map.md` — identifies who needs personas
+- `design/discovery/qualitative-synthesis.md` — evidence base for grounding personas in real user data (pain signals, goals, mental models)
+- `design/discovery/quantitative-synthesis.md` — behavioral patterns and metrics that inform usage frequency and context of use
 - `design/discovery/design-brief.md` — provides problem context
 - Spec user stories — ground personas in documented needs, not imagination
 
