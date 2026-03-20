@@ -14,6 +14,13 @@ description: >
 
 # Coded Prototype — Making Designs Interactive
 
+> **Quick reference**
+> - **Purpose:** Translate Figma screens into running, interactive prototypes with drift detection
+> - **Inputs:** Canvas briefs, Figma screens (MCP), walking skeleton, interaction model (hard deps)
+> - **Outputs:** Prototype code, manifest, drift log → `design/13-prototype/`
+> - **Hard rules:** Canvas briefs authoritative for intent. Figma authoritative for visuals. Walking skeleton first, then secondary flows.
+> - **Common mistake:** Building screens without checking the canvas brief first — the brief is the spec, not Figma alone
+
 ## Purpose
 
 Translate Figma screens into a running, interactive prototype that can be navigated, tested, and validated. The prototype is technology agnostic — it adapts to the project's chosen stack. Its job is to prove that the design works as an experience, not just as static screens.
@@ -42,18 +49,18 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 
 | Required | What it provides | How to check |
 |----------|-----------------|-------------|
-| Canvas briefs | Per-screen spec | `design/canvas/[screen]-brief.md` exists |
+| Canvas briefs | Per-screen spec | `design/12-canvas/[screen]-brief.md` exists |
 | Figma screens | Visual reference | Figma MCP connection live, screens built |
-| Walking skeleton | Flow order | `design/stories/walking-skeleton.md` exists |
-| Interaction model | Behavioral specs | `design/interaction/interaction-model.md` exists |
+| Walking skeleton | Flow order | `design/04-stories/walking-skeleton.md` exists |
+| Interaction model | Behavioral specs | `design/06-interaction/interaction-model.md` exists |
 
 ### Soft dependencies (used if available)
 
-- `design/stories/release-slices.md` — scope boundaries
-- `design/interaction/behavioral-spec.md` — detailed given/when/then
-- `design/interaction/error-strategy.md` — error handling patterns
-- `design/accessibility/keyboard-nav-plan.md` — keyboard navigation
-- `design/content/microcopy-patterns.md` — dynamic content patterns
+- `design/04-stories/release-slices.md` — scope boundaries
+- `design/06-interaction/behavioral-spec.md` — detailed given/when/then
+- `design/06-interaction/error-strategy.md` — error handling patterns
+- `design/09-accessibility/keyboard-nav-plan.md` — keyboard navigation
+- `design/08-content/microcopy-patterns.md` — dynamic content patterns
 
 ---
 
@@ -67,7 +74,7 @@ Choose a stack appropriate for the project. Common options:
 - Svelte/Vue — lightweight component model
 - Any framework — the process doesn't prescribe
 
-Scaffold in `design/prototype/`. Create the manifest file.
+Scaffold in `design/13-prototype/`. Create the manifest file.
 
 ### Step 2 — Build screen by screen
 
@@ -126,7 +133,7 @@ When this mode runs, perform drift detection:
 
 ### Drift log
 
-Log all drifts to `design/prototype/drift-log.md`:
+Log all drifts to `design/13-prototype/drift-log.md`:
 
 ```markdown
 ## Drift Log
@@ -146,9 +153,9 @@ Each screen in the manifest carries a sync hash. When any node changes, hashes a
 
 | File | What it contains |
 |------|-----------------|
-| `design/prototype/manifest.md` | Screen-to-file mapping, tech stack, sync hashes, build/run instructions |
-| `design/prototype/drift-log.md` | Record of detected drifts and resolutions |
-| `design/prototype/[project files]` | The prototype source code |
+| `design/13-prototype/manifest.md` | Screen-to-file mapping, tech stack, sync hashes, build/run instructions |
+| `design/13-prototype/drift-log.md` | Record of detected drifts and resolutions |
+| `design/13-prototype/[project files]` | The prototype source code |
 
 ### Manifest format
 
@@ -189,10 +196,16 @@ Each screen in the manifest carries a sync hash. When any node changes, hashes a
 
 ---
 
+## Split-review note
+
+> Per `design/process/00-skill-architecture.md` principle P2 (Independent Re-invocation) and P6 (Failure Blast Radius): if drift-sync logic becomes complex enough for independent re-invocation — e.g., designers routinely run sync checks without building new screens — evaluate extracting `design-prototype-sync` as a separate skill.
+
+---
+
 ## Output checklist
 
-- [ ] `design/prototype/manifest.md` — complete with all screen mappings and sync hashes
-- [ ] `design/prototype/drift-log.md` — all drifts logged and resolved
+- [ ] `design/13-prototype/manifest.md` — complete with all screen mappings and sync hashes
+- [ ] `design/13-prototype/drift-log.md` — all drifts logged and resolved
 - [ ] Walking skeleton flow works end-to-end
 - [ ] All screens match their canvas briefs (content, states, components)
 - [ ] All screens visually match their Figma implementations

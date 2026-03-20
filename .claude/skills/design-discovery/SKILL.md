@@ -14,6 +14,13 @@ description: >
 
 # Discovery — Signal Processing & Project Context
 
+> **Quick reference**
+> - **Purpose:** Transform raw inputs into structured design knowledge
+> - **Inputs:** Interviews, surveys, analytics, briefs, specs, regulatory docs
+> - **Outputs:** Stakeholder map, domain glossary, competitive analysis, design brief → `design/01-discovery/`
+> - **Hard rules:** Clean each input individually (Tier 1) before synthesizing (Tier 2). Note contradictions, don't reconcile silently. No UI solutions here.
+> - **Common mistake:** Skipping Tier 1 (per-input cleaning) and jumping straight to synthesis, losing source provenance
+
 ## Purpose
 
 Transform raw, messy project inputs into structured design knowledge. Inputs come in many formats — Teams transcripts, handwritten notes, survey CSVs, regulatory PDFs. This skill classifies each input, cleans it individually, synthesizes by type, then assembles cross-type project context artifacts that feed all downstream design modes.
@@ -65,7 +72,7 @@ Note gaps explicitly (e.g. "no quantitative data provided") — gaps become evid
 
 ### Step 2 — Per-input cleaning (Tier 1)
 
-Clean and structure each raw input individually. Write to `design/discovery/inputs/[type]/[name].md`. These feed Tier 2 — they are not final outputs.
+Clean and structure each raw input individually. Write to `design/01-discovery/inputs/[type]/[name].md`. These feed Tier 2 — they are not final outputs.
 
 **Interview / transcript template:**
 ```markdown
@@ -129,7 +136,7 @@ Clean and structure each raw input individually. Write to `design/discovery/inpu
 
 Aggregate across all cleaned inputs of the same type. Must note contradictions, not just agreements.
 
-**Qualitative synthesis** → `design/discovery/qualitative-synthesis.md`
+**Qualitative synthesis** → `design/01-discovery/qualitative-synthesis.md`
 ```markdown
 ## Qualitative Synthesis
 
@@ -150,7 +157,7 @@ Aggregate across all cleaned inputs of the same type. Must note contradictions, 
 [Where qualitative evidence is absent or conflicting]
 ```
 
-**Quantitative synthesis** → `design/discovery/quantitative-synthesis.md`
+**Quantitative synthesis** → `design/01-discovery/quantitative-synthesis.md`
 ```markdown
 ## Quantitative Synthesis
 
@@ -171,7 +178,7 @@ Aggregate across all cleaned inputs of the same type. Must note contradictions, 
 [Where quantitative data is silent]
 ```
 
-**Document synthesis** → `design/discovery/document-synthesis.md`
+**Document synthesis** → `design/01-discovery/document-synthesis.md`
 ```markdown
 ## Document Synthesis
 
@@ -201,7 +208,7 @@ Aggregate across all cleaned inputs of the same type. Must note contradictions, 
 
 Scan ALL cleaned inputs and ALL type syntheses. Assemble project context artifacts by routing signals to the correct output. These are NOT derived from a single source.
 
-**Stakeholder map** → `design/discovery/stakeholder-map.md`
+**Stakeholder map** → `design/01-discovery/stakeholder-map.md`
 
 ```markdown
 ## Stakeholder Map
@@ -219,15 +226,15 @@ Scan ALL cleaned inputs and ALL type syntheses. Assemble project context artifac
 |------|----------|-------------------|
 ```
 
-**Domain glossary** → `design/discovery/domain-glossary.md`
+**Domain glossary** → `design/01-discovery/domain-glossary.md`
 
 For each term: full name, abbreviation, plain-language definition, UI implications (does the user see this term? abbreviated? role-dependent?).
 
-**Competitive analysis** → `design/discovery/competitive-analysis.md`
+**Competitive analysis** → `design/01-discovery/competitive-analysis.md`
 
 All analogous system references from inputs + web research on similar systems. What they do well, what they do poorly, key patterns. Focus on: information density, data hierarchy, role-based access patterns.
 
-**Design brief** → `design/discovery/design-brief.md`
+**Design brief** → `design/01-discovery/design-brief.md`
 
 ```markdown
 ## Design Brief — [Project Name]
@@ -262,20 +269,20 @@ All analogous system references from inputs + web research on similar systems. W
 ## Output checklist
 
 **Tier 1 — Per-input cleaned artifacts**
-- [ ] `design/discovery/inputs/interviews/[name].md` — one per interview/transcript
-- [ ] `design/discovery/inputs/surveys/[name].md` — one per survey/analytics report
-- [ ] `design/discovery/inputs/documents/[name].md` — one per client/project document
+- [ ] `design/01-discovery/inputs/interviews/[name].md` — one per interview/transcript
+- [ ] `design/01-discovery/inputs/surveys/[name].md` — one per survey/analytics report
+- [ ] `design/01-discovery/inputs/documents/[name].md` — one per client/project document
 
 **Tier 2 — Per-type synthesis**
-- [ ] `design/discovery/qualitative-synthesis.md` — if qualitative inputs were provided
-- [ ] `design/discovery/quantitative-synthesis.md` — if quantitative inputs were provided
-- [ ] `design/discovery/document-synthesis.md` — if 2+ project/client documents were provided
+- [ ] `design/01-discovery/qualitative-synthesis.md` — if qualitative inputs were provided
+- [ ] `design/01-discovery/quantitative-synthesis.md` — if quantitative inputs were provided
+- [ ] `design/01-discovery/document-synthesis.md` — if 2+ project/client documents were provided
 
 **Tier 3 — Cross-type project context**
-- [ ] `design/discovery/stakeholder-map.md` — all actors assembled cross-type
-- [ ] `design/discovery/domain-glossary.md` — all domain terms assembled cross-type
-- [ ] `design/discovery/competitive-analysis.md` — analogous systems analyzed
-- [ ] `design/discovery/design-brief.md` — problem statement, principles, constraints, metrics, scope
+- [ ] `design/01-discovery/stakeholder-map.md` — all actors assembled cross-type
+- [ ] `design/01-discovery/domain-glossary.md` — all domain terms assembled cross-type
+- [ ] `design/01-discovery/competitive-analysis.md` — analogous systems analyzed
+- [ ] `design/01-discovery/design-brief.md` — problem statement, principles, constraints, metrics, scope
 
 ---
 

@@ -128,5 +128,5 @@ When running an audit before a library migration, apply zero-tolerance:
 When running an audit, also check for drift between Figma screens and their canvas briefs / prototype:
 
 1. **Brief → Figma alignment** — for each screen with a canvas brief, verify components, states, and content strings match. Flag mismatches.
-2. **Figma → Prototype alignment** — if a prototype exists (`design/prototype/manifest.md`), check that Figma screens and prototype screens are in sync per the manifest's sync hashes.
-3. **Log drifts** — any detected drifts should be added to `design/prototype/drift-log.md` for resolution.
+2. **Figma → Prototype alignment** — if a prototype exists (`design/13-prototype/manifest.md`), check that Figma screens and prototype screens are in sync per the manifest's sync hashes.
+3. **Log drifts** — any detected drifts should be added to `design/13-prototype/drift-log.md` for resolution.

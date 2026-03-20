@@ -21,8 +21,8 @@ Map the complete human experience of each user through their workflows. Journeys
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/user-models/personas/*` — journeys are persona-specific
-- `design/discovery/design-brief.md` — provides scope boundaries
+- `design/02-user-models/personas/*` — journeys are persona-specific
+- `design/01-discovery/design-brief.md` — provides scope boundaries
 - Spec workflow descriptions (e.g., state machines, process flows)
 
 ---
@@ -86,7 +86,7 @@ For each journey, create a structured map:
 | Cross-system handoffs | [list] |
 ```
 
-Write each to `design/journeys/[journey-name]-journey.md`.
+Write each to `design/03-journeys/[journey-name]-journey.md`.
 
 ### Step 3 — Service blueprint
 
@@ -117,7 +117,7 @@ Create a service blueprint that shows the full system behind the user experience
 |------|-------------|------------|-----------|---------|----------|
 ```
 
-Write to `design/journeys/service-blueprint.md`.
+Write to `design/03-journeys/service-blueprint.md`.
 
 ### Step 4 — Task flows
 
@@ -144,15 +144,15 @@ Decompose journeys into granular task flows. Each task flow covers one discrete 
 - [What can go wrong and how the user recovers]
 ```
 
-Write each to `design/journeys/task-flows/[task-name].md`.
+Write each to `design/03-journeys/task-flows/[task-name].md`.
 
 ---
 
 ## Output checklist
 
-- [ ] `design/journeys/[journey-name]-journey.md` — one per primary user journey (minimum 2)
-- [ ] `design/journeys/service-blueprint.md` — at least one service blueprint
-- [ ] `design/journeys/task-flows/[task-name].md` — one per discrete user task (minimum 4)
+- [ ] `design/03-journeys/[journey-name]-journey.md` — one per primary user journey (minimum 2)
+- [ ] `design/03-journeys/service-blueprint.md` — at least one service blueprint
+- [ ] `design/03-journeys/task-flows/[task-name].md` — one per discrete user task (minimum 4)
 - [ ] All artifacts are tech/UI agnostic — no screen names, no button labels, no UI patterns
 
 ---

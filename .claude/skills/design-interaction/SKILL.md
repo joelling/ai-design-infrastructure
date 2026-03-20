@@ -21,8 +21,8 @@ Define **how** the product behaves in response to user actions. For each screen,
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/information-architecture/*` — defines what screens exist and their content
-- `design/stories/story-map.md` — stories define what interactions each screen must support
+- `design/05-ia/*` — defines what screens exist and their content
+- `design/04-stories/story-map.md` — stories define what interactions each screen must support
 - Spec state machines or workflow rules (if applicable)
 
 ---
@@ -46,7 +46,7 @@ Categorize each screen by its interaction pattern:
 | [Name] | **Review & decide** | Review information, make a decision, provide rationale |
 ```
 
-Write to `design/interaction/interaction-model.md`.
+Write to `design/06-interaction/interaction-model.md`.
 
 ### Step 2 — State inventory
 
@@ -70,7 +70,7 @@ For every screen and major component, enumerate all possible states:
 | Stale | Data may be outdated | [description] | [refresh] |
 ```
 
-Write to `design/interaction/state-inventory.md`.
+Write to `design/06-interaction/state-inventory.md`.
 
 ### Step 3 — Behavioral specifications
 
@@ -93,7 +93,7 @@ For each key interaction, write a behavioral spec in given/when/then format:
 - **Given** [precondition] **When** [trigger] **And** [error condition] **Then** [error handling]
 ```
 
-Write to `design/interaction/behavioral-spec.md`.
+Write to `design/06-interaction/behavioral-spec.md`.
 
 ### Step 4 — Error strategy
 
@@ -122,7 +122,7 @@ Define a unified error handling approach:
 - [Which actions require confirmation? How is confirmation presented?]
 ```
 
-Write to `design/interaction/error-strategy.md`.
+Write to `design/06-interaction/error-strategy.md`.
 
 ### Step 5 — Feedback & micro-interactions
 
@@ -146,7 +146,7 @@ Define feedback patterns and transitions:
 - [When should motion be reduced (prefers-reduced-motion)?]
 ```
 
-Add to `design/interaction/interaction-model.md` or write separately.
+Add to `design/06-interaction/interaction-model.md` or write separately.
 
 ---
 
@@ -163,10 +163,10 @@ Add to `design/interaction/interaction-model.md` or write separately.
 
 ## Output checklist
 
-- [ ] `design/interaction/interaction-model.md` — per-screen interaction patterns + feedback/transitions
-- [ ] `design/interaction/state-inventory.md` — all states for every screen and major component
-- [ ] `design/interaction/behavioral-spec.md` — given/when/then specs for key interactions
-- [ ] `design/interaction/error-strategy.md` — unified error handling approach
+- [ ] `design/06-interaction/interaction-model.md` — per-screen interaction patterns + feedback/transitions
+- [ ] `design/06-interaction/state-inventory.md` — all states for every screen and major component
+- [ ] `design/06-interaction/behavioral-spec.md` — given/when/then specs for key interactions
+- [ ] `design/06-interaction/error-strategy.md` — unified error handling approach
 
 ---
 

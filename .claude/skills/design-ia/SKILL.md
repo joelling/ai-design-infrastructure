@@ -21,9 +21,9 @@ Define the structural organization of the product — what screens exist, how th
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/journeys/task-flows/*` — task flows reveal what screens are needed
-- `design/stories/story-map.md` — stories define what each screen must support
-- `design/user-models/personas/*` — different roles may need different navigation
+- `design/03-journeys/task-flows/*` — task flows reveal what screens are needed
+- `design/04-stories/story-map.md` — stories define what each screen must support
+- `design/02-user-models/personas/*` — different roles may need different navigation
 - Spec data model — defines what information exists to display
 
 ---
@@ -48,7 +48,7 @@ Distinguish between:
 - **Views within screens** (tabs, panels, expanded sections — same page, different state)
 - **Overlays** (modals, drawers, popovers — temporary, on top of a screen)
 
-Write to `design/information-architecture/sitemap.md`.
+Write to `design/05-ia/sitemap.md`.
 
 ### Step 2 — Navigation model
 
@@ -79,7 +79,7 @@ Define how users move between screens. Consider:
 |-------------|-----------------|----------------|----------------------|
 ```
 
-Write to `design/information-architecture/navigation-model.md`.
+Write to `design/05-ia/navigation-model.md`.
 
 ### Step 3 — Content hierarchy
 
@@ -104,7 +104,7 @@ For each screen in the inventory, define what information appears and in what or
 - [Action 2] — ...
 ```
 
-Write to `design/information-architecture/content-inventory.md`.
+Write to `design/05-ia/content-inventory.md`.
 
 ### Step 4 — Taxonomy
 
@@ -125,7 +125,7 @@ Define how content is categorized and labeled across the product:
 |---------|-----------|-----------|
 ```
 
-Write to `design/information-architecture/taxonomy.md`.
+Write to `design/05-ia/taxonomy.md`.
 
 ---
 
@@ -145,10 +145,10 @@ The IA directly informs Figma skills:
 
 ## Output checklist
 
-- [ ] `design/information-architecture/sitemap.md` — complete screen inventory with purpose, personas, and stories served
-- [ ] `design/information-architecture/navigation-model.md` — global nav, role-based variations, entry points
-- [ ] `design/information-architecture/content-inventory.md` — per-screen content hierarchy
-- [ ] `design/information-architecture/taxonomy.md` — content categorization and label conventions
+- [ ] `design/05-ia/sitemap.md` — complete screen inventory with purpose, personas, and stories served
+- [ ] `design/05-ia/navigation-model.md` — global nav, role-based variations, entry points
+- [ ] `design/05-ia/content-inventory.md` — per-screen content hierarchy
+- [ ] `design/05-ia/taxonomy.md` — content categorization and label conventions
 
 ---
 

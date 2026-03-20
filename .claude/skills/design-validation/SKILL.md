@@ -12,6 +12,13 @@ description: >
 
 # Design Validation — Evaluation & Testing
 
+> **Quick reference**
+> - **Purpose:** Validate design decisions through structured evaluation (pre-build and post-build)
+> - **Inputs:** Whatever design artifacts exist — more artifacts = more thorough evaluation
+> - **Outputs:** Heuristic evaluation, test plan, scenario scripts, review checklist → `design/10-validation/`
+> - **Hard rules:** Be honest — flag real issues. Test scenarios must use persona context and mock data. Never skip error/edge-case scenarios.
+> - **Common mistake:** Running only post-build validation — pre-build evaluation catches structural issues before they're expensive to fix
+
 ## Purpose
 
 Validate design decisions through structured evaluation methods. This mode runs at two points: (1) **pre-build** — evaluating the design plan before Figma work begins, and (2) **post-build** — reviewing completed Figma screens against design requirements. It produces test plans, evaluation results, and review checklists.
@@ -23,12 +30,12 @@ Validate design decisions through structured evaluation methods. This mode runs 
 This mode is **flexible** — it uses whatever design artifacts exist. More artifacts = more thorough evaluation.
 
 **Uses if available:**
-- `design/discovery/design-brief.md` — success metrics to evaluate against
-- `design/user-models/personas/*` — scenarios grounded in persona context
-- `design/journeys/*` — task flows for cognitive walkthroughs
-- `design/interaction/*` — behavioral specs to verify
-- `design/content/*` — content patterns to check
-- `design/accessibility/*` — accessibility requirements to verify
+- `design/01-discovery/design-brief.md` — success metrics to evaluate against
+- `design/02-user-models/personas/*` — scenarios grounded in persona context
+- `design/03-journeys/*` — task flows for cognitive walkthroughs
+- `design/06-interaction/*` — behavioral specs to verify
+- `design/08-content/*` — content patterns to check
+- `design/09-accessibility/*` — accessibility requirements to verify
 - Designer-provided or project-generated test data for scenarios
 
 ---
@@ -95,7 +102,7 @@ Evaluate the design against Nielsen's 10 usability heuristics (or equivalent):
 - **Top 3 issues to address:** [list]
 ```
 
-Write to `design/validation/heuristic-evaluation.md`.
+Write to `design/10-validation/heuristic-evaluation.md`.
 
 ### Step 2 — Usability test plan
 
@@ -132,7 +139,7 @@ Write to `design/validation/heuristic-evaluation.md`.
 - [Decision criteria: what score triggers redesign?]
 ```
 
-Write to `design/validation/test-plan.md`.
+Write to `design/10-validation/test-plan.md`.
 
 ### Step 3 — Scenario scripts
 
@@ -158,7 +165,7 @@ Write task-based scenarios using personas and mock data:
 **Scenario E3:** [Empty state scenario]
 ```
 
-Write to `design/validation/scenario-scripts.md`.
+Write to `design/10-validation/scenario-scripts.md`.
 
 ### Step 4 — Design review checklist (post-build)
 
@@ -206,16 +213,41 @@ Create a per-screen checklist for reviewing completed Figma screens:
 - [ ] Edge cases and error paths are designed, not just happy path
 ```
 
-Write to `design/validation/review-checklist.md`.
+Write to `design/10-validation/review-checklist.md`.
 
 ---
 
 ## Output checklist
 
-- [ ] `design/validation/heuristic-evaluation.md` — 10-heuristic evaluation with ratings
-- [ ] `design/validation/test-plan.md` — usability test structure, metrics, analysis plan
-- [ ] `design/validation/scenario-scripts.md` — task-based scenarios using personas and mock data
-- [ ] `design/validation/review-checklist.md` — per-screen post-build review checklist
+- [ ] `design/10-validation/heuristic-evaluation.md` — 10-heuristic evaluation with ratings
+- [ ] `design/10-validation/test-plan.md` — usability test structure, metrics, analysis plan
+- [ ] `design/10-validation/scenario-scripts.md` — task-based scenarios using personas and mock data
+- [ ] `design/10-validation/review-checklist.md` — per-screen post-build review checklist
+
+---
+
+## Handoff triggers
+
+When validation reveals issues, route them to the right upstream skill for resolution:
+
+| Finding | Route to | Example |
+|---------|----------|---------|
+| Missing or inconsistent states | `design-interaction` | "Error state not defined for this screen" |
+| Confusing labels or unclear messages | `design-content` | "Button label 'Process' is ambiguous" |
+| Contrast failure or color-only meaning | `design-accessibility` | "Status uses color alone — needs icon" |
+| Missing screen or navigation gap | `design-ia` | "No path from list to detail view" |
+| User goal not served | `design-stories` | "No story covers bulk operations" |
+| Persona mismatch | `design-user-models` | "Power user needs not represented" |
+| Visual hierarchy unclear | `design-visual` | "Primary action doesn't stand out" |
+| Token or component issue in Figma | `figma-audit` | "Hardcoded spacing found" |
+
+Always update the upstream artifact first, then let the fix propagate downstream through the normal pipeline.
+
+---
+
+## Split-review note
+
+> Per `design/process/00-skill-architecture.md` principle P2 (Independent Re-invocation) and P7 (Distinct Timing): if pre-build and post-build validation diverge enough to need independent invocation — e.g., post-build grows Figma-specific audit logic — evaluate splitting into `design-validation-plan` and `design-validation-review`.
 
 ---
 
@@ -224,5 +256,5 @@ Write to `design/validation/review-checklist.md`.
 - Heuristic evaluation should be honest — flag real issues, not just confirm the design is good.
 - Test scenarios must use persona context and mock data — not abstract instructions.
 - The review checklist extends `figma-audit` (which checks tokens/auto-layout) with UX-specific checks (hierarchy, content, a11y). Both should be run.
-- Post-build validation feeds back into upstream modes. If issues are found, update the relevant design artifact (interaction model, content patterns, etc.) before fixing Figma.
+- Post-build validation feeds back into upstream modes — use the handoff triggers table above to route issues to the correct skill.
 - Never skip error/edge-case scenarios — these are where most usability issues hide.

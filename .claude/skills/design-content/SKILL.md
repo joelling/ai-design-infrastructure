@@ -20,10 +20,10 @@ Define the content strategy so that every text element in the product — labels
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/user-models/personas/*` — content adapts to audience expertise
-- `design/interaction/error-strategy.md` — error messages need content
-- `design/interaction/state-inventory.md` — empty/loading/error states need content
-- `design/discovery/domain-glossary.md` — terminology source of truth
+- `design/02-user-models/personas/*` — content adapts to audience expertise
+- `design/06-interaction/error-strategy.md` — error messages need content
+- `design/06-interaction/state-inventory.md` — empty/loading/error states need content
+- `design/01-discovery/domain-glossary.md` — terminology source of truth
 
 ---
 
@@ -54,7 +54,7 @@ Our voice is NOT:
 | Neutral/informational | [baseline tone] | "[example message]" |
 ```
 
-Write to `design/content/voice-tone.md`.
+Write to `design/08-content/voice-tone.md`.
 
 ### Step 2 — Terminology guide
 
@@ -80,7 +80,7 @@ Write to `design/content/voice-tone.md`.
 - [Standard abbreviations used across the product]
 ```
 
-Write to `design/content/terminology.md`.
+Write to `design/08-content/terminology.md`.
 
 ### Step 3 — Microcopy patterns
 
@@ -127,7 +127,7 @@ Write to `design/content/terminology.md`.
 | Error | "[What happened]. [What to do]." | Persistent | "Save failed. Check your connection and try again." |
 ```
 
-Write to `design/content/microcopy-patterns.md`.
+Write to `design/08-content/microcopy-patterns.md`.
 
 ### Step 4 — Content templates
 
@@ -155,7 +155,7 @@ Write to `design/content/microcopy-patterns.md`.
 - Beyond 7 days: "[Date]"
 ```
 
-Write to `design/content/content-templates.md`.
+Write to `design/08-content/content-templates.md`.
 
 ---
 
@@ -172,10 +172,10 @@ Write to `design/content/content-templates.md`.
 
 ## Output checklist
 
-- [ ] `design/content/voice-tone.md` — voice principles, tone shifts by context
-- [ ] `design/content/terminology.md` — canonical terms, formatting conventions, abbreviation rules
-- [ ] `design/content/microcopy-patterns.md` — patterns for buttons, forms, validation, empty states, status messages
-- [ ] `design/content/content-templates.md` — templates for notifications, dialogs, help text, timestamps
+- [ ] `design/08-content/voice-tone.md` — voice principles, tone shifts by context
+- [ ] `design/08-content/terminology.md` — canonical terms, formatting conventions, abbreviation rules
+- [ ] `design/08-content/microcopy-patterns.md` — patterns for buttons, forms, validation, empty states, status messages
+- [ ] `design/08-content/content-templates.md` — templates for notifications, dialogs, help text, timestamps
 
 ---
 

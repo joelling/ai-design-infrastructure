@@ -15,6 +15,13 @@ description: >
 
 # Design-to-Canvas Synthesis — The Bridge to Develop
 
+> **Quick reference**
+> - **Purpose:** Aggregate all upstream artifacts into per-screen canvas briefs
+> - **Inputs:** IA sitemap, interaction model, visual spec, content terminology (hard deps) + personas, stories, states, a11y, validation (soft deps)
+> - **Outputs:** `design/12-canvas/[screen-name]-brief.md` — one self-contained brief per screen
+> - **Hard rules:** HARD BLOCK if IA, interaction, visual, or content artifacts are missing. Briefs must be self-contained. One brief per screen.
+> - **Common mistake:** Linking to upstream artifacts instead of pulling the relevant information into the brief — briefs must stand alone
+
 ## Purpose
 
 Aggregate ALL upstream design artifacts into **per-screen canvas briefs** — structured documents that serve as the single source of truth for intent in the Develop loop. Each canvas brief tells Figma skills exactly what to build and the prototype exactly what to implement.
@@ -39,22 +46,22 @@ Unlike other design modes, `design-canvas` has **hard dependencies**. It will **
 
 | Required artifact | What it provides | Checked path |
 |------------------|-----------------|-------------|
-| IA sitemap | Screen inventory and purpose | `design/information-architecture/sitemap.md` |
-| Interaction model | States, behaviors, patterns | `design/interaction/interaction-model.md` |
-| Visual spec | Tokens, hierarchy, density | `design/visual/visual-language.md` |
-| Content terminology | Labels, microcopy | `design/content/terminology.md` |
+| IA sitemap | Screen inventory and purpose | `design/05-ia/sitemap.md` |
+| Interaction model | States, behaviors, patterns | `design/06-interaction/interaction-model.md` |
+| Visual spec | Tokens, hierarchy, density | `design/07-visual/visual-language.md` |
+| Content terminology | Labels, microcopy | `design/08-content/terminology.md` |
 
 **Soft dependencies** (used if available, warned if missing):
-- `design/user-models/personas/*` — persona context for each screen
-- `design/stories/story-map.md` — stories served by each screen
-- `design/interaction/state-inventory.md` — per-screen states
-- `design/interaction/behavioral-spec.md` — given/when/then specs
-- `design/interaction/error-strategy.md` — error handling approach
-- `design/content/microcopy-patterns.md` — button labels, validation messages
-- `design/accessibility/aria-patterns.md` — ARIA roles per component
-- `design/accessibility/keyboard-nav-plan.md` — tab order per screen
-- `design/accessibility/color-contrast-audit.md` — contrast-safe combinations
-- `design/validation/review-checklist.md` — post-build verification criteria
+- `design/02-user-models/personas/*` — persona context for each screen
+- `design/04-stories/story-map.md` — stories served by each screen
+- `design/06-interaction/state-inventory.md` — per-screen states
+- `design/06-interaction/behavioral-spec.md` — given/when/then specs
+- `design/06-interaction/error-strategy.md` — error handling approach
+- `design/08-content/microcopy-patterns.md` — button labels, validation messages
+- `design/09-accessibility/aria-patterns.md` — ARIA roles per component
+- `design/09-accessibility/keyboard-nav-plan.md` — tab order per screen
+- `design/09-accessibility/color-contrast-audit.md` — contrast-safe combinations
+- `design/10-validation/review-checklist.md` — post-build verification criteria
 
 ---
 
@@ -163,15 +170,15 @@ For each screen, pull from all upstream artifacts and compose:
 | Wide (1920px) | [what changes] |
 ```
 
-Write to `design/canvas/[screen-name]-brief.md`.
+Write to `design/12-canvas/[screen-name]-brief.md`.
 
 ### Step 3 — Cross-reference check
 
 After writing the brief, verify:
-- Every story ID references a real story in `design/stories/story-map.md`
+- Every story ID references a real story in `design/04-stories/story-map.md`
 - Every component listed is either in the existing Figma inventory or flagged as "needs creation"
-- Every content string comes from `design/content/` artifacts
-- Every state listed matches `design/interaction/state-inventory.md`
+- Every content string comes from `design/08-content/` artifacts
+- Every state listed matches `design/06-interaction/state-inventory.md`
 
 ---
 
@@ -195,7 +202,7 @@ The canvas brief feeds both Figma execution and the coded prototype:
 
 ## Output checklist
 
-- [ ] `design/canvas/[screen-name]-brief.md` — one complete brief per screen
+- [ ] `design/12-canvas/[screen-name]-brief.md` — one complete brief per screen
 - [ ] All cross-references verified (stories, components, content, states)
 - [ ] Brief is self-contained — a reader can build the Figma screen from this document alone
 
@@ -220,7 +227,7 @@ Canvas briefs participate in the Develop sync loop. When re-entering a brief aft
 ### Detecting incoming changes
 
 1. **From Figma:** Check if Figma screens have diverged from the brief (new components, layout changes, visual tweaks). Use Figma MCP to inspect current screen state.
-2. **From Prototype:** Check `design/prototype/drift-log.md` for pending drifts flagged by the prototype mode.
+2. **From Prototype:** Check `design/13-prototype/drift-log.md` for pending drifts flagged by the prototype mode.
 
 ### Applying changes
 

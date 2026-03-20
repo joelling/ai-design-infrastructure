@@ -20,6 +20,7 @@ This directory describes the complete design process — from understanding the 
 
 | # | File | Mode | Tier |
 |---|------|------|------|
+| 00 | [Skill Architecture](00-skill-architecture.md) | Meta | — |
 | 01 | [Discovery](01-discovery.md) | `design-discovery` | 1 — Discovery |
 | 02 | [User Models](02-user-models.md) | `design-user-models` | 1 — Discovery |
 | 03 | [Journey Mapping](03-journeys.md) | `design-journeys` | 2 — Definition |
@@ -91,22 +92,22 @@ All design outputs go into the `design/` directory at the project root:
 ```
 design/
   process/                             ← this directory (process specification)
-  discovery/                           ← Tier 1
-  user-models/                         ← Tier 1
+  01-discovery/                           ← Tier 1
+  02-user-models/                         ← Tier 1
     personas/
     empathy-maps/
-  journeys/                            ← Tier 2
+  03-journeys/                            ← Tier 2
     task-flows/
-  stories/                             ← Tier 2
-  information-architecture/            ← Tier 2
-  interaction/                         ← Tier 3
-  visual/                              ← Tier 3
-  content/                             ← Tier 3
-  accessibility/                       ← Tier 3
-  validation/                          ← Tier 3
-  governance/                          ← Tier 3
-  canvas/                              ← Tier 4
-  prototype/                           ← Tier 4 (code + manifest + drift log)
+  04-stories/                             ← Tier 2
+  05-ia/            ← Tier 2
+  06-interaction/                         ← Tier 3
+  07-visual/                              ← Tier 3
+  08-content/                             ← Tier 3
+  09-accessibility/                       ← Tier 3
+  10-validation/                          ← Tier 3
+  11-governance/                          ← Tier 3
+  12-canvas/                              ← Tier 4
+  13-prototype/                           ← Tier 4 (code + manifest + drift log)
 ```
 
 Each chapter specifies exactly which files it produces and where.

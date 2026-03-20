@@ -14,6 +14,9 @@
 - Claude summarizes what was propagated so the designer can review via `git diff`
 - Git provides full version history of all process changes
 
+### Skill architecture principles
+When deciding whether a process chapter should map to one skill or multiple skills, follow the seven principles documented in `design/process/00-skill-architecture.md`. The decision flowchart evaluates: external tool boundaries (P1), independent re-invocation (P2), hard data dependency gates (P3), context window budget (P4), artifact coherence (P5), failure blast radius (P6), and distinct timing/triggers (P7). Currently all design-* chapters are correctly single-skill; the Figma chapter is correctly split into 8 skills (triggers P1, P2, P3, P6, P7). Two skills are on the watch list for potential future splits: `design-validation` and `design-prototype`.
+
 ### What triggers propagation
 Any change to a process chapter must cascade to infrastructure. This includes:
 - Adding, removing, or reordering modes
@@ -103,7 +106,7 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 - `figma_execute` is a last resort — only for operations no other tool covers
 
 ### Artifact storage:
-All design artifacts → `design/` directory at project root (including `design/prototype/`)
+All design artifacts → `design/` directory at project root (including `design/13-prototype/`)
 
 ### Non-negotiable rules:
 - Journeys and stories are TECH AND UI AGNOSTIC — no screen references, no button names, no UI patterns

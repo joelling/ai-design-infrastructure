@@ -20,8 +20,8 @@ Build detailed representations of each user type so that every downstream design
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/discovery/stakeholder-map.md` — identifies who the users are
-- `design/discovery/design-brief.md` — provides problem context
+- `design/01-discovery/stakeholder-map.md` — identifies who the users are
+- `design/01-discovery/design-brief.md` — provides problem context
 
 ---
 
@@ -73,7 +73,7 @@ For each primary user role, create a persona document:
 > "[A sentence that captures their mindset]"
 ```
 
-Write each to `design/user-models/personas/[role-name].md`.
+Write each to `design/02-user-models/personas/[role-name].md`.
 
 ### Step 3 — Create empathy maps
 
@@ -101,7 +101,7 @@ For each primary persona, create an empathy map:
 - [What would delight them or make their job easier]
 ```
 
-Write each to `design/user-models/empathy-maps/[role-name]-empathy.md`.
+Write each to `design/02-user-models/empathy-maps/[role-name]-empathy.md`.
 
 ### Step 4 — Jobs-to-be-done matrix
 
@@ -123,7 +123,7 @@ Create a JTBD matrix covering all personas:
 |--------------|------------|-------------------|-------------------|
 ```
 
-Write to `design/user-models/jtbd.md`.
+Write to `design/02-user-models/jtbd.md`.
 
 ### Step 5 — Edge cases & composite users
 
@@ -139,9 +139,9 @@ Add these as a section at the bottom of `jtbd.md` or as separate lightweight per
 
 ## Output checklist
 
-- [ ] `design/user-models/personas/[role].md` — one per primary user role (minimum 2)
-- [ ] `design/user-models/empathy-maps/[role]-empathy.md` — one per primary persona
-- [ ] `design/user-models/jtbd.md` — complete JTBD matrix + edge cases
+- [ ] `design/02-user-models/personas/[role].md` — one per primary user role (minimum 2)
+- [ ] `design/02-user-models/empathy-maps/[role]-empathy.md` — one per primary persona
+- [ ] `design/02-user-models/jtbd.md` — complete JTBD matrix + edge cases
 
 ---
 

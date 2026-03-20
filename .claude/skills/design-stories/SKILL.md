@@ -12,6 +12,13 @@ description: >
 
 # User Story Mapping — Jeff Patton Methodology (Tech/UI Agnostic)
 
+> **Quick reference**
+> - **Purpose:** Structure what to build — backbone, walking skeleton, release slices, MVP scope
+> - **Inputs:** Journeys, personas, spec user stories (soft deps)
+> - **Outputs:** Backbone, story map, walking skeleton, release slices, MVP scope → `design/04-stories/`
+> - **Hard rules:** TECH AND UI AGNOSTIC. Walking skeleton must touch EVERY backbone activity. Story format: "As a [persona], I want to [goal] so that [outcome]."
+> - **Common mistake:** Making the walking skeleton too thick — it should be the thinnest possible end-to-end slice, not an MVP
+
 ## Purpose
 
 Organize user needs into a structured story map that reveals the backbone of the product, defines the thinnest viable end-to-end slice (walking skeleton), and cuts release slices that deliver incremental value. All stories describe **user goals and outcomes, never implementation details**.
@@ -21,8 +28,8 @@ Organize user needs into a structured story map that reveals the backbone of the
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/journeys/*` — journeys provide the raw material for stories
-- `design/user-models/personas/*` — stories reference personas
+- `design/03-journeys/*` — journeys provide the raw material for stories
+- `design/02-user-models/personas/*` — stories reference personas
 - Spec user stories (if they exist, decompose them further)
 
 ---
@@ -56,7 +63,7 @@ The backbone is the horizontal top row of the story map — it represents the ma
 ...
 ```
 
-Write the backbone to `design/stories/backbone.md`.
+Write the backbone to `design/04-stories/backbone.md`.
 
 ### Step 2 — Decompose into user tasks
 
@@ -77,7 +84,7 @@ Tasks:
 ...
 ```
 
-Add to `design/stories/backbone.md`.
+Add to `design/04-stories/backbone.md`.
 
 ### Step 3 — Write user stories
 
@@ -97,7 +104,7 @@ Under each task, write user stories in standard format. Stories go below their p
 - **US-xx**: ...
 ```
 
-Write the full story map to `design/stories/story-map.md`.
+Write the full story map to `design/04-stories/story-map.md`.
 
 ### Step 4 — Define the walking skeleton
 
@@ -121,7 +128,7 @@ a complete (if minimal) end-to-end experience.
 [What important functionality is intentionally left out of the skeleton?]
 ```
 
-Write to `design/stories/walking-skeleton.md`.
+Write to `design/04-stories/walking-skeleton.md`.
 
 ### Step 5 — Cut release slices
 
@@ -149,7 +156,7 @@ Draw horizontal lines across the story map to define release slices. Each slice 
 [Which slices constitute MVP? Draw the line here.]
 ```
 
-Write to `design/stories/release-slices.md`.
+Write to `design/04-stories/release-slices.md`.
 
 ### Step 6 — MVP scope document
 
@@ -175,17 +182,17 @@ Consolidate the MVP definition:
 - [ ] [End-to-end criteria 2]
 ```
 
-Write to `design/stories/mvp-scope.md`.
+Write to `design/04-stories/mvp-scope.md`.
 
 ---
 
 ## Output checklist
 
-- [ ] `design/stories/backbone.md` — backbone activities + task decomposition
-- [ ] `design/stories/story-map.md` — full story map with all stories, prioritized vertically
-- [ ] `design/stories/walking-skeleton.md` — thinnest end-to-end slice identified
-- [ ] `design/stories/release-slices.md` — incremental release slices with MVP boundary
-- [ ] `design/stories/mvp-scope.md` — consolidated MVP definition
+- [ ] `design/04-stories/backbone.md` — backbone activities + task decomposition
+- [ ] `design/04-stories/story-map.md` — full story map with all stories, prioritized vertically
+- [ ] `design/04-stories/walking-skeleton.md` — thinnest end-to-end slice identified
+- [ ] `design/04-stories/release-slices.md` — incremental release slices with MVP boundary
+- [ ] `design/04-stories/mvp-scope.md` — consolidated MVP definition
 - [ ] All stories are tech/UI agnostic — no implementation language
 
 ---

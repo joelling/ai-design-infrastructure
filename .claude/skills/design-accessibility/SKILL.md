@@ -21,9 +21,9 @@ Define accessibility requirements and patterns before UI construction so they ar
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/visual/color-rationale.md` — colors to audit for contrast
-- `design/interaction/interaction-model.md` — interactions need keyboard equivalents
-- `design/information-architecture/navigation-model.md` — navigation needs keyboard nav plan
+- `design/07-visual/color-rationale.md` — colors to audit for contrast
+- `design/06-interaction/interaction-model.md` — interactions need keyboard equivalents
+- `design/05-ia/navigation-model.md` — navigation needs keyboard nav plan
 
 ---
 
@@ -53,7 +53,7 @@ Define accessibility requirements and patterns before UI construction so they ar
 - [Organizational accessibility standards beyond WCAG]
 ```
 
-Write to `design/accessibility/accessibility-requirements.md`.
+Write to `design/09-accessibility/accessibility-requirements.md`.
 
 ### Step 2 — Color contrast audit
 
@@ -81,7 +81,7 @@ Audit every color combination from the visual spec:
 | [e.g., status levels] | [icon, label, pattern] | [never color-only] |
 ```
 
-Write to `design/accessibility/color-contrast-audit.md`.
+Write to `design/09-accessibility/color-contrast-audit.md`.
 
 ### Step 3 — ARIA patterns
 
@@ -113,7 +113,7 @@ For each component type, define the ARIA semantics:
 | Navigation | navigation | Tab between items | "[label], navigation" |
 ```
 
-Write to `design/accessibility/aria-patterns.md`.
+Write to `design/09-accessibility/aria-patterns.md`.
 
 ### Step 4 — Keyboard navigation plan
 
@@ -147,7 +147,7 @@ Write to `design/accessibility/aria-patterns.md`.
 | Toast appears | Announced via aria-live, no focus change |
 ```
 
-Write to `design/accessibility/keyboard-nav-plan.md`.
+Write to `design/09-accessibility/keyboard-nav-plan.md`.
 
 ---
 
@@ -164,10 +164,10 @@ Write to `design/accessibility/keyboard-nav-plan.md`.
 
 ## Output checklist
 
-- [ ] `design/accessibility/accessibility-requirements.md` — WCAG target, AT support matrix
-- [ ] `design/accessibility/color-contrast-audit.md` — all color combos tested, failures flagged
-- [ ] `design/accessibility/aria-patterns.md` — per-component ARIA semantics
-- [ ] `design/accessibility/keyboard-nav-plan.md` — tab order, focus management, shortcuts
+- [ ] `design/09-accessibility/accessibility-requirements.md` — WCAG target, AT support matrix
+- [ ] `design/09-accessibility/color-contrast-audit.md` — all color combos tested, failures flagged
+- [ ] `design/09-accessibility/aria-patterns.md` — per-component ARIA semantics
+- [ ] `design/09-accessibility/keyboard-nav-plan.md` — tab order, focus management, shortcuts
 
 ---
 

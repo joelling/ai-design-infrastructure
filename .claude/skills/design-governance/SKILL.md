@@ -21,7 +21,7 @@ Define the rules for how the design system evolves — how components are versio
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/visual/visual-language.md` — establishes the visual rules governance enforces
+- `design/07-visual/visual-language.md` — establishes the visual rules governance enforces
 - Existing component inventory (from Figma or design artifacts)
 
 ---
@@ -41,7 +41,7 @@ Define the rules for how the design system evolves — how components are versio
 
 ### Library versioning
 - **[Project] - Core Library:** follows same semver scheme
-- **Version tracking:** changelog maintained in `design/governance/changelog.md`
+- **Version tracking:** changelog maintained in `design/11-governance/changelog.md`
 
 ### When to bump
 | Change type | Version bump | Example |
@@ -54,7 +54,7 @@ Define the rules for how the design system evolves — how components are versio
 | Spacing token scale extended | Minor | spacing/3xl added |
 ```
 
-Write to `design/governance/versioning.md`.
+Write to `design/11-governance/versioning.md`.
 
 ### Step 2 — Contribution guidelines
 
@@ -100,7 +100,7 @@ Before a component enters the library, it must pass:
 - [ ] Description filled in Properties panel
 ```
 
-Write to `design/governance/contribution-guide.md`.
+Write to `design/11-governance/contribution-guide.md`.
 
 ### Step 3 — Deprecation policy
 
@@ -128,7 +128,7 @@ Migration: [link or instructions]
 - Notification to all consumers
 ```
 
-Write to `design/governance/deprecation-policy.md`.
+Write to `design/11-governance/deprecation-policy.md`.
 
 ### Step 4 — Changelog
 
@@ -150,16 +150,16 @@ Each entry:
 ### [Current entries below]
 ```
 
-Write to `design/governance/changelog.md`.
+Write to `design/11-governance/changelog.md`.
 
 ---
 
 ## Output checklist
 
-- [ ] `design/governance/versioning.md` — semver scheme, bump rules
-- [ ] `design/governance/contribution-guide.md` — proposal process, modification rules, quality gate, naming authority
-- [ ] `design/governance/deprecation-policy.md` — deprecation process, sunset timelines, migration requirements
-- [ ] `design/governance/changelog.md` — initialized changelog
+- [ ] `design/11-governance/versioning.md` — semver scheme, bump rules
+- [ ] `design/11-governance/contribution-guide.md` — proposal process, modification rules, quality gate, naming authority
+- [ ] `design/11-governance/deprecation-policy.md` — deprecation process, sunset timelines, migration requirements
+- [ ] `design/11-governance/changelog.md` — initialized changelog
 
 ---
 

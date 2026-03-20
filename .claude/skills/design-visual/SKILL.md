@@ -13,6 +13,13 @@ description: >
 
 # Visual Design — Brand & Visual Language
 
+> **Quick reference**
+> - **Purpose:** Establish visual language and brand expression — the WHY behind token values
+> - **Inputs:** Design brief, personas, IA (soft deps)
+> - **Outputs:** Brand attributes, color rationale, typography rationale, visual language → `design/07-visual/`
+> - **Hard rules:** Every color choice needs a rationale. All text colors need WCAG contrast ratios. Spacing scale must be mathematical.
+> - **Common mistake:** Choosing colors without documenting WCAG contrast ratios — contrast failures discovered later force rework
+
 ## Purpose
 
 Establish the visual language and brand expression for the product. This mode produces the **rationale and specifications** that drive token creation in Figma. It answers "why these colors? why this typography? why this spacing?" so that `figma-tokens` can create the right primitive and semantic values.
@@ -22,9 +29,9 @@ Establish the visual language and brand expression for the product. This mode pr
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/discovery/design-brief.md` — design principles guide visual direction
-- `design/user-models/personas/*` — user context affects visual density and complexity
-- `design/information-architecture/*` — content density affects spacing and hierarchy decisions
+- `design/01-discovery/design-brief.md` — design principles guide visual direction
+- `design/02-user-models/personas/*` — user context affects visual density and complexity
+- `design/05-ia/*` — content density affects spacing and hierarchy decisions
 
 ---
 
@@ -54,7 +61,7 @@ Define the personality of the product through brand attributes:
 3. [Principle 3] — [what it means]
 ```
 
-Write to `design/visual/brand-attributes.md`.
+Write to `design/07-visual/brand-attributes.md`.
 
 ### Step 2 — Color rationale
 
@@ -94,7 +101,7 @@ For each primary hue, specify the step scale (maps to primitive tokens):
 - Key differences from light mode: [what changes besides bg/fg swap]
 ```
 
-Write to `design/visual/color-rationale.md`.
+Write to `design/07-visual/color-rationale.md`.
 
 ### Step 3 — Typography rationale
 
@@ -126,7 +133,7 @@ Select fonts and define the type scale:
 - [When to use weight vs. size for emphasis?]
 ```
 
-Write to `design/visual/typography-rationale.md`.
+Write to `design/07-visual/typography-rationale.md`.
 
 ### Step 4 — Visual language
 
@@ -169,7 +176,7 @@ Define the remaining visual properties:
 - Breakpoints: [list with rationale]
 ```
 
-Write to `design/visual/visual-language.md`.
+Write to `design/07-visual/visual-language.md`.
 
 ---
 
@@ -188,10 +195,10 @@ Write to `design/visual/visual-language.md`.
 
 ## Output checklist
 
-- [ ] `design/visual/brand-attributes.md` — personality spectrum, visual principles
-- [ ] `design/visual/color-rationale.md` — full color palette with rationale, WCAG contrast noted, dark mode strategy
-- [ ] `design/visual/typography-rationale.md` — font selection, type scale, hierarchy rules
-- [ ] `design/visual/visual-language.md` — spacing, elevation, radius, iconography, grid
+- [ ] `design/07-visual/brand-attributes.md` — personality spectrum, visual principles
+- [ ] `design/07-visual/color-rationale.md` — full color palette with rationale, WCAG contrast noted, dark mode strategy
+- [ ] `design/07-visual/typography-rationale.md` — font selection, type scale, hierarchy rules
+- [ ] `design/07-visual/visual-language.md` — spacing, elevation, radius, iconography, grid
 
 ---
 
