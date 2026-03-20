@@ -1,42 +1,39 @@
 import { marked } from 'marked';
 
-// Configure marked for beautiful rendering
-marked.setOptions({
+marked.use({
   gfm: true,
   breaks: false,
+  renderer: {
+    heading(token) {
+      const text = this.parser.parseInline(token.tokens);
+      const id = token.text.toLowerCase().replace(/[^\w]+/g, '-');
+      return `<h${token.depth} id="${id}" class="heading-${token.depth}">
+        <a href="#${id}" class="heading-anchor" aria-hidden="true">#</a>
+        ${text}
+      </h${token.depth}>`;
+    },
+    table(token) {
+      const header = token.header.map(cell =>
+        `<th${cell.align ? ` align="${cell.align}"` : ''}>${this.parser.parseInline(cell.tokens)}</th>`
+      ).join('');
+      const body = token.rows.map(row =>
+        '<tr>' + row.map(cell =>
+          `<td${cell.align ? ` align="${cell.align}"` : ''}>${this.parser.parseInline(cell.tokens)}</td>`
+        ).join('') + '</tr>'
+      ).join('');
+      return `<div class="table-wrap"><table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table></div>`;
+    },
+    blockquote(token) {
+      const body = this.parser.parse(token.tokens);
+      const isCallout = body.includes('<strong>') && body.includes('Tier');
+      const className = isCallout ? 'callout callout-tier' : 'callout';
+      return `<blockquote class="${className}">${body}</blockquote>`;
+    },
+    code(token) {
+      return `<div class="code-block"><pre><code class="language-${token.lang || 'text'}">${token.text}</code></pre></div>`;
+    },
+  },
 });
-
-// Custom renderer for enhanced typography
-const renderer = new marked.Renderer();
-
-// Add anchor links to headings
-renderer.heading = function ({ text, depth }) {
-  const id = text.toLowerCase().replace(/[^\w]+/g, '-');
-  const levelClass = `heading-${depth}`;
-  return `<h${depth} id="${id}" class="${levelClass}">
-    <a href="#${id}" class="heading-anchor" aria-hidden="true">#</a>
-    ${text}
-  </h${depth}>`;
-};
-
-// Style tables
-renderer.table = function ({ header, body }) {
-  return `<div class="table-wrap"><table><thead>${header}</thead><tbody>${body}</tbody></table></div>`;
-};
-
-// Style blockquotes as callouts
-renderer.blockquote = function ({ text }) {
-  const isCallout = text.includes('<strong>') && text.includes('Tier');
-  const className = isCallout ? 'callout callout-tier' : 'callout';
-  return `<blockquote class="${className}">${text}</blockquote>`;
-};
-
-// Style code blocks
-renderer.code = function ({ text, lang }) {
-  return `<div class="code-block"><pre><code class="language-${lang || 'text'}">${text}</code></pre></div>`;
-};
-
-marked.use({ renderer });
 
 // ─── State ────────────────────────────────────────────────────
 
@@ -49,8 +46,7 @@ const TIER_META = {
   1: { label: 'Tier 1 — Discovery', color: '#D97706' },
   2: { label: 'Tier 2 — Definition', color: '#2563EB' },
   3: { label: 'Tier 3 — Design', color: '#7C3AED' },
-  4: { label: 'Tier 4 — Synthesis', color: '#059669' },
-  5: { label: 'Figma Execution', color: '#DC2626' },
+  4: { label: 'Tier 4 — Develop', color: '#059669' },
 };
 
 // ─── Chapter loading ──────────────────────────────────────────

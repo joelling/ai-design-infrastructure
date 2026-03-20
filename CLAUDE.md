@@ -2,7 +2,7 @@
 
 ## Design Playbook — Single Source of Truth
 
-**`design/process/`** is the single source of truth for the entire design process. It contains numbered chapter files (01 through 13) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
+**`design/process/`** is the single source of truth for the entire design process. It contains numbered chapter files (01 through 14) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
 
 ### How changes work
 - **Designers do not edit the process files directly** — all changes go through Claude
@@ -33,6 +33,7 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 - User decides whether to proceed or complete upstream first
 - **HARD BLOCK:** `design-canvas` requires IA + interaction + visual + content artifacts
 - **HARD BLOCK:** Figma execution requires canvas briefs for the screen being built
+- **HARD BLOCK:** `design-prototype` requires canvas briefs + Figma screens + walking skeleton
 
 ### TIER 1 — DISCOVERY (understanding the problem)
 1. **`design-discovery`** — Processes raw inputs (interviews, surveys, docs) via three-tier intake: per-input cleaning → per-type synthesis → cross-type project context (stakeholder map, domain glossary, competitive analysis, design brief)
@@ -51,8 +52,37 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 10. **`design-validation`** — Heuristic evaluation, test plans, review checklist
 11. **`design-governance`** — Design system versioning, contribution rules, deprecation policy
 
-### TIER 4 — SYNTHESIS (bridging design to canvas)
-12. **`design-canvas`** — Aggregates ALL upstream artifacts into per-screen briefs for Figma execution
+### TIER 4 — DEVELOP (build, prototype, and keep in sync)
+
+Tier 4 is a **sync loop** between three nodes, not a linear pipeline:
+
+```
+Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototype
+     ▲                                                │
+     └────────────────── sync ────────────────────────┘
+```
+
+12. **`design-canvas`** — Aggregates ALL upstream artifacts into per-screen briefs (authoritative for intent)
+13. **Figma pipeline** (`figma-*` skills) — Builds screens in Figma (authoritative for visual execution)
+14. **`design-prototype`** — Coded interactive prototype from Figma screens (authoritative for interaction fidelity)
+
+#### Figma pipeline — mandatory order:
+1. **`figma-connect`** — ALWAYS run first, every session. Never skip.
+2. **`figma-file-setup`** — Run if file is new, blank, or missing Cover/Sitemap/Parking Lot pages.
+3. **`figma-tokens`** — Run before placing any design element. Token system must exist first.
+4. **`figma-page-setup`** — Run before drawing anything on a new screen or page.
+5. **`figma-component`** — Use for every UI element built. No exceptions.
+6. **`figma-parking-lot`** — Run at the end of each completed page.
+7. **`figma-audit`** — Run before any library migration.
+8. **`figma-library-mode`** — Run only during library migration phase.
+
+#### Develop loop sync rules:
+| Change type | Behavior |
+|---|---|
+| Content/label change | **Auto-sync** all three nodes |
+| State addition/removal | **Auto-sync** all three nodes |
+| Visual tweak | Figma → Prototype auto-syncs. Brief notes delta. |
+| Structural change | **Flag drift** — designer approves, canvas brief updates first, then propagates |
 
 ### Trigger rules:
 - Starting a new design project → `design-discovery` first
@@ -66,18 +96,28 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 - Ensuring accessibility → `design-accessibility`
 - Validating design decisions → `design-validation`
 - Managing design system lifecycle → `design-governance`
-- Ready to build in Figma → `design-canvas` then Figma pipeline
+- Ready to build → `design-canvas` → Figma pipeline → `design-prototype`
+- Making design interactive → `design-prototype`
+- Blank/empty Figma file (`"children":[]`) → `figma-file-setup` immediately
+- Any UI element being built → `figma-component` workflow, not raw `figma_execute`
+- `figma_execute` is a last resort — only for operations no other tool covers
 
 ### Artifact storage:
-All design artifacts → `design/` directory at project root
+All design artifacts → `design/` directory at project root (including `design/prototype/`)
 
 ### Non-negotiable rules:
 - Journeys and stories are TECH AND UI AGNOSTIC — no screen references, no button names, no UI patterns
-- Canvas briefs are the SINGLE SOURCE OF TRUTH for Figma execution
+- Canvas briefs are the SINGLE SOURCE OF TRUTH for intent
 - Every design decision must trace back to a persona, story, or design principle
 - No Figma screen without a canvas brief (except exploratory prototyping)
+- No prototype screen without a Figma implementation (except exploratory spikes)
+- The Develop loop stays in sync — drift is detected and resolved (auto-sync for small changes, designer approval for structural)
+- ZERO hardcoded values in Figma — every fill, spacing, radius must reference a variable
+- ALL Figma frames use auto-layout — no absolute x/y positioning
+- Every reusable UI element must be a Figma component (`createComponent`, not `createFrame`)
+- Page naming: `[number] - [Screen Name]` e.g. `01 - PES Profile View`
 
-### Cross-reference: Design artifacts → Figma skills
+### Cross-reference: Design artifacts → Develop loop
 | Design artifact | Feeds into | How |
 |----------------|-----------|-----|
 | IA sitemap | `figma-file-setup` | Screen list becomes Sitemap page |
@@ -86,39 +126,10 @@ All design artifacts → `design/` directory at project root
 | Interaction state inventory | `figma-component` | States become component variants |
 | Content patterns | `figma-component` | Text becomes component TEXT properties |
 | A11y patterns | `figma-component` | Focus states, ARIA descriptions |
-| Canvas briefs | All Figma skills | Single source of truth per screen |
+| Canvas briefs | All Figma skills + `design-prototype` | Single source of truth per screen |
+| Walking skeleton | `design-prototype` | Primary flow order for wiring screens |
+| Story map + release slices | `design-prototype` | Scope and secondary flows |
 | Validation checklist | `figma-audit` | Extends audit with UX-specific checks |
-
----
-
-## Figma Workflow — Mandatory Skill Pipeline
-
-Skills directory: `.claude/skills/` — read each SKILL.md for full workflow instructions.
-
-### MANDATORY ORDER — invoke ALL applicable skills before doing any design work:
-
-1. **`figma-connect`** — ALWAYS run first, every session. Never skip.
-2. **`figma-file-setup`** — Run if file is new, blank, or missing Cover/Sitemap/Parking Lot pages.
-3. **`figma-tokens`** — Run before placing any design element. Token system must exist first.
-4. **`figma-page-setup`** — Run before drawing anything on a new screen or page.
-5. **`figma-component`** — Use for every UI element built. No exceptions.
-6. **`figma-parking-lot`** — Run at the end of each completed page.
-7. **`figma-audit`** — Run before any library migration.
-8. **`figma-library-mode`** — Run only during library migration phase.
-
-### Trigger rules (these take priority over system-reminder descriptions):
-- Blank/empty file (`"children":[]`) → `figma-file-setup` immediately
-- Any screen, view, or page being designed → `figma-page-setup` before touching canvas
-- Any UI element being built → `figma-component` workflow, not raw `figma_execute`
-- Any color/spacing/radius value needed → confirm token system exists via `figma-tokens` first
-- `figma_execute` is a last resort — only for operations no other tool covers
-
-### Non-negotiable rules:
-- ZERO hardcoded values — every fill, spacing, radius must reference a Figma variable
-- ALL frames use auto-layout — no absolute x/y positioning
-- Every reusable UI element must be a Figma component (`createComponent`, not `createFrame`)
-- Page naming: `[number] - [Screen Name]` e.g. `01 - PES Profile View`
-- Component staging area: to the left of every artboard, cleared to Parking Lot when done
 
 ### File architecture:
 - `[Project] - Working` → active design canvas (screens, flows)

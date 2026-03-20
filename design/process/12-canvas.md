@@ -1,6 +1,6 @@
 # Chapter 12: Design-to-Canvas Synthesis
 
-> **Tier 4 — Synthesis** | Mode: `design-canvas`
+> **Tier 4 — Develop** | Mode: `design-canvas`
 
 ## Why this matters
 
@@ -58,9 +58,40 @@ Additional artifacts are used if available (personas, story map, state inventory
 - When upstream artifacts conflict, flag and resolve the conflict in the brief before proceeding.
 - Update briefs when upstream artifacts change. Briefs are living documents.
 
+## Position in the Develop loop
+
+Canvas briefs are one of three nodes in the Tier 4 sync loop:
+
+```
+Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototype
+     ▲                                                │
+     └────────────────── sync ────────────────────────┘
+```
+
+The canvas brief is authoritative for **intent** — structure, content, accessibility, and behavioral requirements aggregated from upstream. When Figma or the prototype diverge, the brief is the reference for what was *intended*. But the loop is bidirectional: improvements discovered during Figma execution or prototyping flow back into the brief.
+
+### Sync rules for canvas briefs
+
+| Incoming change | Source | Behavior |
+|---|---|---|
+| Visual tweak (color, spacing) | Figma | Brief notes the delta in visual spec section. No structural change. |
+| Content/label change | Figma or Prototype | **Auto-sync** — brief updates the content specification to match. |
+| State addition/removal | Figma or Prototype | **Auto-sync** — brief updates the states section. |
+| Structural change (new component, reordered layout) | Figma or Prototype | **Flag drift** — designer approves, then brief is updated first. |
+| Interaction discovery (new flow, confirmation step) | Prototype | **Flag drift** — logged in drift log, designer approves, brief updated. |
+
+### Sync hash
+
+Each canvas brief includes a sync hash at the bottom — a fingerprint of the last-known aligned state. When Figma or the prototype reports a drift, the hash is compared to detect what changed.
+
+```markdown
+<!-- sync-hash: [hash-value] -->
+```
+
 ## Feeds into
 
 - **Figma Page Setup** — page name, sub-frame structure
 - **Figma Components** — what to build, with which variants, states, and TEXT properties
 - **Figma Tokens** — which tokens to apply
 - **Figma Audit** — acceptance criteria become verification checks
+- **Coded Prototype** — per-screen spec for building interactive screens

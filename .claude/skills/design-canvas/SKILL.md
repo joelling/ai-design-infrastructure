@@ -4,18 +4,32 @@ description: >
   The critical synthesis mode that bridges upstream design artifacts to Figma execution.
   Aggregates all upstream design decisions — IA, personas, stories, interaction models,
   visual specs, content, accessibility — into a single per-screen canvas brief that tells
-  the Figma pipeline exactly what to build. Triggers on: "canvas brief", "screen brief",
-  "design to canvas", "translate to UI", "build screen", "compose screen", "prepare for
-  figma", "screen spec", "canvas spec", "aggregate design", "synthesis", or when ready
-  to translate design decisions into Figma-executable instructions. This mode has hard
-  dependencies — it requires IA, interaction, visual, and content artifacts to exist.
+  the Develop loop exactly what to build. Part of the Tier 4 Develop sync loop —
+  canvas briefs define intent, Figma executes visually, the prototype makes it interactive.
+  Triggers on: "canvas brief", "screen brief", "design to canvas", "translate to UI",
+  "build screen", "compose screen", "prepare for figma", "screen spec", "canvas spec",
+  "aggregate design", "synthesis", or when ready to translate design decisions into
+  executable instructions. This mode has hard dependencies — it requires IA, interaction,
+  visual, and content artifacts to exist.
 ---
 
-# Design-to-Canvas Synthesis — The Bridge to Figma
+# Design-to-Canvas Synthesis — The Bridge to Develop
 
 ## Purpose
 
-Aggregate ALL upstream design artifacts into **per-screen canvas briefs** — structured documents that serve as the single source of truth for Figma execution. Each canvas brief tells `figma-page-setup` and `figma-component` exactly what to build, what content to use, what states to create, and what accessibility patterns to follow.
+Aggregate ALL upstream design artifacts into **per-screen canvas briefs** — structured documents that serve as the single source of truth for intent in the Develop loop. Each canvas brief tells Figma skills exactly what to build and the prototype exactly what to implement.
+
+---
+
+## Position in the Develop loop
+
+```
+Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototype
+     ▲                                                │
+     └────────────────── sync ────────────────────────┘
+```
+
+The canvas brief is authoritative for **intent**. Figma and the prototype must align to it. But the loop is bidirectional — improvements discovered during execution or prototyping flow back into the brief via the drift log.
 
 ---
 
@@ -161,20 +175,21 @@ After writing the brief, verify:
 
 ---
 
-## Bridge to Figma
+## Bridge to the Develop loop
 
-The canvas brief IS the bridge. Here's how each section maps:
+The canvas brief feeds both Figma execution and the coded prototype:
 
-| Brief section | Figma skill | How it's consumed |
-|--------------|------------|-------------------|
-| Purpose & context | `figma-page-setup` | Page name, annotation frame content |
-| Layout & hierarchy | `figma-page-setup` | Sub-frame structure within breakpoint frames |
-| Components needed | `figma-component` | What to build, with which variants |
-| States | `figma-component` | State variants to create |
-| Content specification | `figma-component` | TEXT property default values |
-| Visual specification | `figma-tokens` | Which tokens to apply |
-| Accessibility | `figma-component` | Focus states, ARIA descriptions |
-| Acceptance criteria | `figma-audit` + `design-validation` | Post-build verification |
+| Brief section | Figma skill | Prototype | How it's consumed |
+|--------------|------------|-----------|-------------------|
+| Purpose & context | `figma-page-setup` | Screen scaffold | Page name, annotation, screen purpose |
+| Layout & hierarchy | `figma-page-setup` | Screen structure | Sub-frame structure, content order |
+| Components needed | `figma-component` | UI implementation | What to build, with which variants |
+| States | `figma-component` | State handling | State variants / conditional rendering |
+| Content specification | `figma-component` | Text content | TEXT property defaults / string values |
+| Visual specification | `figma-tokens` | Style application | Which tokens to apply |
+| Accessibility | `figma-component` | A11y implementation | Focus states, ARIA, keyboard nav |
+| Behavioral specs | — | Interaction logic | Given/when/then as interactive behavior |
+| Acceptance criteria | `figma-audit` + `design-validation` | Validation | Post-build verification |
 
 ---
 
@@ -195,3 +210,33 @@ The canvas brief IS the bridge. Here's how each section maps:
 - When upstream artifacts conflict (e.g., IA says one thing, interaction model says another), flag the conflict in the brief and resolve it before proceeding to Figma.
 - Update briefs when upstream artifacts change. Briefs are living documents, not snapshots.
 - Components flagged as "needs creation" in the brief must be built via `figma-component` before the screen is assembled.
+
+---
+
+## Sync workflow
+
+Canvas briefs participate in the Develop sync loop. When re-entering a brief after Figma or prototype work:
+
+### Detecting incoming changes
+
+1. **From Figma:** Check if Figma screens have diverged from the brief (new components, layout changes, visual tweaks). Use Figma MCP to inspect current screen state.
+2. **From Prototype:** Check `design/prototype/drift-log.md` for pending drifts flagged by the prototype mode.
+
+### Applying changes
+
+| Change type | Action |
+|---|---|
+| Content/label (auto-sync) | Update content specification section to match |
+| State change (auto-sync) | Update states section to match |
+| Visual tweak | Note delta in visual specification section |
+| Structural (flagged) | Present to designer for approval. If approved, update brief sections, then propagate to the other node. |
+
+### Sync hash
+
+Append a sync hash comment at the bottom of each brief:
+
+```markdown
+<!-- sync-hash: [hash-value] -->
+```
+
+Update the hash after every sync resolution.

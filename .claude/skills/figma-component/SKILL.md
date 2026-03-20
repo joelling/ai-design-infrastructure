@@ -148,3 +148,14 @@ Most designers only componentize buttons and inputs. Aim for near-total componen
 **Hidden** (`.` prefix) if: it only exists to make a published component work, has no standalone utility, and is always nested inside another component.
 
 When in doubt, publish it — hidden components have update limitations.
+
+---
+
+## Develop loop sync
+
+This skill participates in the Tier 4 Develop sync loop. After creating or modifying components:
+
+1. **Check canvas brief alignment** — verify the component matches what the canvas brief specifies (variants, states, TEXT properties).
+2. **Note any deviations** — if you added variants or properties not in the brief (e.g., discovered during implementation), log them so the canvas brief and prototype can be updated.
+3. **Content/label changes auto-sync** — if you change a TEXT property default, the canvas brief and prototype should update to match.
+4. **Structural changes flag drift** — if you add/remove components not in the brief, this is flagged for designer approval before propagating.

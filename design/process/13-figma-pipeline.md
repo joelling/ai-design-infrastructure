@@ -1,8 +1,8 @@
 # Chapter 13: Figma Execution Pipeline
 
-> **Tier 5 — Execution** | Modes: `figma-*`
+> **Tier 4 — Develop** | Modes: `figma-*`
 >
-> This chapter summarizes the existing Figma skill pipeline. For detailed instructions, see each skill's SKILL.md file. The design process feeds INTO this pipeline via canvas briefs — it does not replace it.
+> This chapter summarizes the existing Figma skill pipeline. For detailed instructions, see each skill's SKILL.md file. Canvas briefs feed INTO this pipeline, and Figma screens feed OUT to the coded prototype. All three form the Develop sync loop.
 
 ## Mandatory order
 
@@ -35,6 +35,34 @@
 - Every reusable element is a component (`createComponent`, not `createFrame`)
 - Page naming: `[number] - [Screen Name]`
 - Component staging area to the left of each artboard, cleared to Parking Lot when done
+
+## Position in the Develop loop
+
+Figma is one of three nodes in the Tier 4 sync loop:
+
+```
+Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototype
+     ▲                                                │
+     └────────────────── sync ────────────────────────┘
+```
+
+Figma is authoritative for **visual execution** — layout, component implementation, and token application. The canvas brief provides intent; the prototype consumes Figma's visual output.
+
+### Sync rules for Figma
+
+| Change type | Behavior |
+|---|---|
+| Content/label change in brief | Auto-update Figma TEXT properties to match |
+| State added/removed in brief | Auto-add/remove component variants |
+| Visual tweak made in Figma | Auto-sync to prototype. Brief notes delta. |
+| Structural change made in Figma | Flag drift — designer approves direction, brief updates first |
+| Prototype improvement approved | Update Figma screens to match |
+
+### Sync awareness in Figma skills
+
+- **figma-page-setup** — before setting up a page, check the canvas brief's sync hash. If stale, run drift detection first.
+- **figma-component** — after creating or modifying components, generate a sync hash for the manifest.
+- **figma-audit** — include drift detection as an audit check (Figma vs. brief, Figma vs. prototype).
 
 ## File architecture
 
