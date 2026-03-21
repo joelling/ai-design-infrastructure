@@ -28,7 +28,23 @@ Same as journey mapping — stories describe goals and outcomes, not implementat
 - `design/user-models/personas/*` — stories reference personas
 - Spec user stories (if they exist, decompose them further)
 
+## Upstream sync
+
+**On entry:** Before starting this mode's process, check `design/stories/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files. If upstream has changed since last run:
+
+1. Report what changed and classify severity (additive / corrective / structural)
+2. Ask the designer: re-process with new data, or proceed with current outputs?
+3. If re-processing, update incrementally — revise affected stories and slices, don't rebuild from scratch
+
+**On completion:** After producing or updating artifacts:
+
+1. Add or increment version headers on all changed output files
+2. Update `design/stories/_upstream.md` with consumed artifact versions
+3. Report which downstream modes are now potentially stale (ia, interaction, canvas)
+
 ## Process
+
+**0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
 **1. Identify the backbone.** The backbone represents major user activities in chronological or logical order. These come from journey stages. The backbone answers: "What are the big things users do?"
 
@@ -51,6 +67,7 @@ Same as journey mapping — stories describe goals and outcomes, not implementat
 | `design/stories/walking-skeleton.md` | Thinnest end-to-end slice identified |
 | `design/stories/release-slices.md` | Incremental release slices with MVP boundary |
 | `design/stories/mvp-scope.md` | Consolidated MVP definition |
+| `design/stories/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

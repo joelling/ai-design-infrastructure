@@ -57,6 +57,25 @@ Applied to EVERY input before cleaning. Regardless of input type, always look fo
 
 ---
 
+## Downstream notification
+
+After producing or updating artifacts:
+
+1. Add `<!-- artifact: [path] | version: [N] | mode: design-discovery | updated: [date] -->` headers to all output files
+2. Update `design/discovery/_upstream.md` manifest with produced artifact versions
+3. Report which downstream modes are now potentially stale
+
+### Script commands
+```bash
+# After producing/updating outputs:
+node design/scripts/sync-version.js init <file> design-discovery   # first time
+node design/scripts/sync-version.js bump <file>                    # subsequent updates
+node design/scripts/sync-manifest.js discovery                     # update manifest
+node design/scripts/sync-status.js                                 # check pipeline
+```
+
+---
+
 ## Workflow
 
 ### Step 1 — Document inventory

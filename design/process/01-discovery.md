@@ -123,6 +123,31 @@ Regardless of input type, the mode is always looking for these signal types and 
 - **Competitive analysis** — all analogous system references from inputs + web research on similar systems. What they do well, what they do poorly, key patterns.
 - **Design brief** — synthesize all constraint, success, and scope signals into: problem statement (1-2 paragraphs), design principles (3-5, project-specific and testable), constraints (regulatory/technical/org/accessibility), users summary, success metrics, scope boundaries.
 
+## Downstream sync
+
+Discovery has no upstream modes, but it is the origin of the artifact sync chain. After producing or updating artifacts:
+
+1. Add version headers to all output files (see format below)
+2. Write or update `design/discovery/_upstream.md` manifest listing all produced artifacts and their versions
+3. Report which downstream modes are now potentially stale — check if `design/user-models/_upstream.md`, `design/visual/_upstream.md`, `design/content/_upstream.md`, or any other downstream manifest references prior versions of discovery artifacts
+4. Display: "Discovery artifacts updated. Downstream modes now potentially stale: [list]."
+
+When new inputs are added to an existing discovery (e.g., a new interview transcript arrives after initial processing), follow an incremental approach:
+
+1. Process the new input through Tier 1 (per-input cleaning)
+2. Update the relevant Tier 2 synthesis (add new signals, don't rebuild from scratch)
+3. Update affected Tier 3 artifacts (stakeholder map, glossary, brief) with new signals
+4. Increment version headers on all changed files
+5. Update the manifest
+
+### Artifact version header
+
+Every output file carries a version comment as its first line:
+
+```markdown
+<!-- artifact: design/discovery/stakeholder-map.md | version: 2 | mode: design-discovery | updated: 2026-03-21 -->
+```
+
 ## Outputs
 
 | File | What it contains | Tier |
@@ -137,6 +162,7 @@ Regardless of input type, the mode is always looking for these signal types and 
 | `design/discovery/domain-glossary.md` | All domain terms assembled cross-type — definitions and UI implications | 3 |
 | `design/discovery/competitive-analysis.md` | Analogous systems — patterns and pitfalls | 3 |
 | `design/discovery/design-brief.md` | Problem statement, design principles, constraints, success metrics, scope | 3 |
+| `design/discovery/_upstream.md` | Produced artifact manifest — versions and downstream consumers | — |
 
 ## Rules
 

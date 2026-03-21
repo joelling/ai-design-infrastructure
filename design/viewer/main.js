@@ -96,7 +96,7 @@ function renderNav() {
     if (chapter.tier !== currentTier) {
       if (currentTier !== -1) html += '</div>';
       currentTier = chapter.tier;
-      const meta = TIER_META[currentTier] || TIER_META[5];
+      const meta = TIER_META[currentTier] || { label: 'Other', color: '#6B7280' };
       html += `<div class="nav-group">
         <div class="nav-group-label" style="--tier-color: ${meta.color}">
           <span class="tier-dot" style="background: ${meta.color}"></span>

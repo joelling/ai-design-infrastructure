@@ -25,6 +25,61 @@ Build detailed representations of each user type so that every downstream design
 
 ---
 
+## Upstream sync (step 0)
+
+Before starting this mode's workflow:
+
+1. Check `design/user-models/_upstream.md` for the dependency manifest
+2. Compare recorded upstream versions against current artifact files
+3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
+4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
+
+After completing this mode's workflow:
+
+1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
+2. Update `design/user-models/_upstream.md` with consumed and produced artifact versions
+3. Report which downstream modes are now potentially stale
+
+### Script commands
+```bash
+# On entry — check staleness:
+node design/scripts/sync-status.js
+
+# After completing — version and manifest:
+node design/scripts/sync-version.js init <file> design-user-models   # first time
+node design/scripts/sync-version.js bump <file>                      # subsequent updates
+node design/scripts/sync-manifest.js user-models                     # update manifest
+```
+
+---
+
+## Progressive confidence
+
+User models carry a confidence tier reflecting evidence strength:
+
+| Tier | Evidence base |
+|---|---|
+| **Hypothetical** | No discovery — project brief or domain knowledge only |
+| **Evidence-thin** | Partial discovery (1 interview, no quant) |
+| **Evidence-grounded** | Full discovery synthesis (qual + quant + docs) |
+| **Validated** | Post-validation feedback incorporated |
+
+Each persona carries: confidence tier, evidence base, evidence gaps, evolution log.
+
+---
+
+## Incremental updates
+
+When re-invoked with new upstream data, do NOT rebuild from scratch:
+1. Detect delta — what's new/changed in upstream
+2. Process delta — extract signals from changed artifacts only
+3. Revise affected models — update impacted personas/empathy maps/JTBDs
+4. Promote confidence — if new evidence strengthens a model, promote its tier
+5. Log evolution — add revision entry to each updated model's evolution log
+6. Update manifest — record new upstream versions
+
+---
+
 ## Workflow
 
 ### Step 1 — Identify distinct user roles

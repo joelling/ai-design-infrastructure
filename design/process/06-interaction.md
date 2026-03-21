@@ -18,7 +18,23 @@ The critical discipline: **given/when/then**. Every interaction is specified as:
 - `design/stories/story-map.md` — stories define what interactions each screen supports
 - Spec state machines or workflow rules (if applicable)
 
+## Upstream sync
+
+**On entry:** Check `design/interaction/_upstream.md` (if it exists). If upstream has changed since last run:
+
+1. Report what changed and classify severity (additive / corrective / structural)
+2. Ask the designer: re-process with new data, or proceed with current outputs?
+3. If re-processing, update incrementally — revise affected interaction patterns and states, don't rebuild from scratch
+
+**On completion:** After producing or updating artifacts:
+
+1. Add or increment version headers on all changed output files
+2. Update `design/interaction/_upstream.md` with consumed artifact versions
+3. Report which downstream modes are now potentially stale (content, accessibility, canvas)
+
 ## Process
+
+**0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
 **1. Categorize each screen by interaction pattern.** Common patterns: browse & filter, form & submit, dashboard, wizard/stepper, detail view, review & decide. Each pattern implies a default set of states and transitions.
 
@@ -38,6 +54,7 @@ The critical discipline: **given/when/then**. Every interaction is specified as:
 | `design/interaction/state-inventory.md` | All states for every screen and major component |
 | `design/interaction/behavioral-spec.md` | Given/when/then specs for key interactions |
 | `design/interaction/error-strategy.md` | Unified error handling approach |
+| `design/interaction/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

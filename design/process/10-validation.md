@@ -14,7 +14,23 @@ You are a design critic and usability evaluator. Your job is to stress-test the 
 
 This mode is flexible — it uses whatever design artifacts exist. More artifacts = more thorough evaluation. Also uses completed Figma screens for post-build review.
 
+## Upstream sync
+
+**On entry:** Check `design/validation/_upstream.md` (if it exists). If upstream has changed since last run:
+
+1. Report what changed and classify severity (additive / corrective / structural)
+2. Ask the designer: re-process with new data, or proceed with current outputs?
+3. If re-processing, update incrementally — revise evaluation and checklist items affected by upstream changes
+
+**On completion:** After producing or updating artifacts:
+
+1. Add or increment version headers on all changed output files
+2. Update `design/validation/_upstream.md` with consumed artifact versions
+3. Report which downstream modes are now potentially stale (canvas, figma-audit)
+
 ## Process
+
+**0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
 **1. Heuristic evaluation.** Evaluate against Nielsen's 10 usability heuristics: visibility of system status, match with real world, user control, consistency, error prevention, recognition over recall, flexibility, minimalist design, error recovery, help. Rate each and provide evidence.
 
@@ -32,6 +48,7 @@ This mode is flexible — it uses whatever design artifacts exist. More artifact
 | `design/validation/test-plan.md` | Usability test structure, metrics, analysis plan |
 | `design/validation/scenario-scripts.md` | Task-based scenarios using personas and mock data |
 | `design/validation/review-checklist.md` | Per-screen post-build review checklist |
+| `design/validation/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

@@ -15,6 +15,14 @@
 7. **figma-audit** — before library migration
 8. **figma-library-mode** — library migration phase only
 
+## Upstream sync
+
+Figma skills consume upstream design artifacts (canvas briefs, visual specs, interaction models, etc.). The Tier 4 sync loop (canvas ↔ Figma ↔ prototype) already handles drift within the Develop phase. The upstream sync protocol extends this awareness to Tier 1-3 artifacts:
+
+**On session start (via figma-connect):** Check whether upstream design artifacts have changed since the last Figma session. Compare canvas brief sync hashes and upstream artifact versions. If upstream modes have updated (e.g., visual spec revised, new interaction states added), report what's stale and ask the designer whether to update affected Figma screens.
+
+**On completion of any Figma skill:** If Figma screens were modified, report which downstream modes are now potentially stale (prototype).
+
 ## How design artifacts feed Figma
 
 | Design artifact | Figma skill | How |

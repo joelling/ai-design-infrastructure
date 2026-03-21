@@ -47,6 +47,34 @@ Same as `design-journeys` — stories describe what users want to accomplish, no
 
 ---
 
+## Upstream sync (step 0)
+
+Before starting this mode's workflow:
+
+1. Check `design/stories/_upstream.md` for the dependency manifest
+2. Compare recorded upstream versions against current artifact files
+3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
+4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
+
+After completing this mode's workflow:
+
+1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
+2. Update `design/stories/_upstream.md` with consumed and produced artifact versions
+3. Report which downstream modes are now potentially stale
+
+### Script commands
+```bash
+# On entry — check staleness:
+node design/scripts/sync-status.js
+
+# After completing — version and manifest:
+node design/scripts/sync-version.js init <file> design-stories   # first time
+node design/scripts/sync-version.js bump <file>                    # subsequent updates
+node design/scripts/sync-manifest.js stories                       # update manifest
+```
+
+---
+
 ## Workflow
 
 ### Step 1 — Identify the backbone

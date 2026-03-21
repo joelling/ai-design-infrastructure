@@ -32,15 +32,16 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 
 ### Ordering: Flexible with Guardrails
 - Modes CAN be invoked in any order
+- Each mode checks upstream staleness on entry (step 0) and **reports** if upstream artifacts have changed since last run
 - Each mode **warns** if upstream dependencies haven't produced artifacts yet
-- User decides whether to proceed or complete upstream first
+- User decides whether to re-process with new data or proceed with current outputs
 - **HARD BLOCK:** `design-canvas` requires IA + interaction + visual + content artifacts
 - **HARD BLOCK:** Figma execution requires canvas briefs for the screen being built
 - **HARD BLOCK:** `design-prototype` requires canvas briefs + Figma screens + walking skeleton
 
 ### TIER 1 — DISCOVERY (understanding the problem)
 1. **`design-discovery`** — Processes raw inputs (interviews, surveys, docs) via three-tier intake: per-input cleaning → per-type synthesis → cross-type project context (stakeholder map, domain glossary, competitive analysis, design brief)
-2. **`design-user-models`** — Personas, empathy maps, jobs-to-be-done
+2. **`design-user-models`** — Personas, empathy maps, jobs-to-be-done (progressive confidence: hypothetical → evidence-thin → evidence-grounded → validated)
 
 ### TIER 2 — DEFINITION (tech & UI agnostic)
 3. **`design-journeys`** — User journeys, service blueprints (user story mapping methodology)
@@ -89,6 +90,7 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 
 ### Trigger rules:
 - Starting a new design project → `design-discovery` first
+- New discovery input processed → downstream manifests referencing changed artifacts → notify stale modes
 - Need to understand users → `design-user-models`
 - Mapping how users experience a process → `design-journeys` (tech/UI agnostic)
 - Structuring what to build → `design-stories` (tech/UI agnostic)
@@ -115,6 +117,9 @@ All design artifacts → `design/` directory at project root (including `design/
 - No Figma screen without a canvas brief (except exploratory prototyping)
 - No prototype screen without a Figma implementation (except exploratory spikes)
 - The Develop loop stays in sync — drift is detected and resolved (auto-sync for small changes, designer approval for structural)
+- **Staleness is visible** — every mode checks upstream on entry (step 0), artifact versions are incremented on every update, and post-change notifications list affected downstream modes
+- **Artifact versions are mandatory** — every output file carries a version header; every mode directory contains `_upstream.md`
+- **Incremental updates over full rebuilds** — when re-processing with new upstream data, process the delta, don't discard prior work
 - ZERO hardcoded values in Figma — every fill, spacing, radius must reference a variable
 - ALL Figma frames use auto-layout — no absolute x/y positioning
 - Every reusable UI element must be a Figma component (`createComponent`, not `createFrame`)

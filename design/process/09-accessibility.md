@@ -16,7 +16,23 @@ For every design decision, ask: "Can someone use this if they can't see it? Can'
 - `design/interaction/interaction-model.md` — interactions need keyboard equivalents
 - `design/information-architecture/navigation-model.md` — navigation needs a keyboard plan
 
+## Upstream sync
+
+**On entry:** Check `design/accessibility/_upstream.md` (if it exists). If upstream has changed since last run:
+
+1. Report what changed and classify severity (additive / corrective / structural)
+2. Ask the designer: re-process with new data, or proceed with current outputs?
+3. If re-processing, update incrementally — revise affected patterns and audits, don't rebuild from scratch
+
+**On completion:** After producing or updating artifacts:
+
+1. Add or increment version headers on all changed output files
+2. Update `design/accessibility/_upstream.md` with consumed artifact versions
+3. Report which downstream modes are now potentially stale (canvas, figma-tokens, figma-component)
+
 ## Process
+
+**0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
 **1. Define requirements.** Set the WCAG target (typically 2.1 AA minimum). Define assistive technology support levels. Document domain-specific accessibility requirements.
 
@@ -34,6 +50,7 @@ For every design decision, ask: "Can someone use this if they can't see it? Can'
 | `design/accessibility/color-contrast-audit.md` | All color combos tested, failures flagged |
 | `design/accessibility/aria-patterns.md` | Per-component ARIA semantics |
 | `design/accessibility/keyboard-nav-plan.md` | Tab order, focus management, shortcuts |
+| `design/accessibility/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

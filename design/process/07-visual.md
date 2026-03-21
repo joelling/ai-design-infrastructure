@@ -19,7 +19,23 @@ You are defining the product's visual personality. Every choice — color, typog
 - `design/user-models/personas/*` — user context affects density and complexity
 - `design/information-architecture/*` — content density affects spacing decisions
 
+## Upstream sync
+
+**On entry:** Check `design/visual/_upstream.md` (if it exists). If upstream has changed since last run:
+
+1. Report what changed and classify severity (additive / corrective / structural)
+2. Ask the designer: re-process with new data, or proceed with current outputs?
+3. If re-processing, update incrementally — revise affected visual rationale and values, don't rebuild from scratch
+
+**On completion:** After producing or updating artifacts:
+
+1. Add or increment version headers on all changed output files
+2. Update `design/visual/_upstream.md` with consumed artifact versions
+3. Report which downstream modes are now potentially stale (accessibility, canvas, figma-tokens)
+
 ## Process
+
+**0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
 **1. Define brand attributes.** Position the product on personality spectrums: playful ↔ serious, casual ↔ formal, simple ↔ complex, bold ↔ restrained, warm ↔ cool. Each position needs a rationale tied to the domain and users. Derive 3-5 visual principles from these positions.
 
@@ -37,6 +53,7 @@ You are defining the product's visual personality. Every choice — color, typog
 | `design/visual/color-rationale.md` | Full palette with rationale, WCAG contrast, dark mode strategy |
 | `design/visual/typography-rationale.md` | Font selection, type scale, hierarchy rules |
 | `design/visual/visual-language.md` | Spacing, elevation, radius, iconography, grid |
+| `design/visual/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

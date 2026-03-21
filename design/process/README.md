@@ -135,3 +135,71 @@ These rules span the entire process. They are not suggestions.
 8. **The domain glossary and terminology guide are canonical.** One term, one label, everywhere.
 
 9. **The Develop loop stays in sync.** Drift between canvas briefs, Figma screens, and prototype is detected and resolved — auto-sync for small changes, designer approval for structural changes.
+
+10. **Staleness is visible.** Every mode knows when its upstream has changed. Artifact versions are tracked, and no mode silently operates on outdated inputs.
+
+---
+
+## Artifact Sync Protocol
+
+Changes to upstream artifacts ripple downstream. The sync protocol ensures every mode is aware of upstream changes, without requiring the designer to remember the dependency graph.
+
+### Three mechanisms
+
+1. **On-entry staleness check (automatic).** When any mode is invoked, it checks its `_upstream.md` manifest against current upstream artifact versions. If upstream has changed, it reports what's stale, classifies severity, and asks the designer whether to re-process.
+
+2. **Post-change notification (automatic).** After any mode produces or updates artifacts, it reports which downstream modes are now potentially stale by scanning their manifests.
+
+3. **Pipeline sweep (on-demand).** The designer asks "what's stale?" and the system scans all `_upstream.md` manifests to produce a full pipeline status report.
+
+### Artifact versioning
+
+Every output file from every mode carries a version comment as its first line:
+
+```markdown
+<!-- artifact: [path] | version: [N] | mode: [mode-name] | updated: [date] | evidence: [upstream-file@vN, ...] -->
+```
+
+### Dependency manifests
+
+Each mode's output directory contains `_upstream.md` — a manifest tracking:
+- Which upstream artifacts were consumed and at which versions
+- Which artifacts were produced and at which versions
+- Which downstream modes consume those artifacts
+
+### Change classification
+
+| Severity | Meaning | Example |
+|---|---|---|
+| **Additive** | New artifacts exist upstream that weren't consumed | New interview cleaned, new persona added |
+| **Corrective** | Existing upstream artifacts were revised | Pain signal updated, metric corrected |
+| **Structural** | Upstream fundamentals shifted | New user role, problem reframed, scope changed |
+
+### Progressive confidence (User Models)
+
+User models carry an explicit confidence tier (hypothetical → evidence-thin → evidence-grounded → validated) that reflects how much evidence supports them. As discovery inputs accumulate, confidence is promoted and the evidence trace updated. See Chapter 2 for details.
+
+### Incremental updates
+
+When re-processing with new upstream data, modes update incrementally — processing the delta, revising affected outputs, and leaving unaffected artifacts unchanged. Full rebuilds are reserved for structural changes.
+
+### Automation scripts
+
+Three CLI scripts in `design/scripts/` automate the error-prone parts of the sync protocol. Claude invokes them explicitly — no hooks, no watchers.
+
+| Script | Usage | What it does |
+|--------|-------|-------------|
+| `sync-version.js` | `node design/scripts/sync-version.js <read\|init\|bump> <file> [mode]` | Read, initialize, or increment artifact version headers |
+| `sync-manifest.js` | `node design/scripts/sync-manifest.js <mode-name>` | Scan a mode's inputs and outputs, write `_upstream.md` manifest |
+| `sync-status.js` | `node design/scripts/sync-status.js` | Pipeline sweep — scan all manifests, detect staleness, report |
+
+**Typical workflow:**
+1. After completing a mode, run `sync-version.js init` or `bump` on each output file
+2. Run `sync-manifest.js <mode>` to write the manifest
+3. At any time, run `sync-status.js` to see the full pipeline status
+
+Mode config (output dirs, inputs, downstream consumers) is defined in `design/scripts/modes.js`.
+
+### Relationship to the Develop sync loop
+
+The Tier 4 sync loop (canvas ↔ Figma ↔ prototype) operates within the Develop phase with sync hashes and drift detection. The Artifact Sync Protocol extends this awareness upward into Tiers 1-3, using the same principles (detect change, classify severity, report and ask) but adapted for the sequential nature of upstream modes.

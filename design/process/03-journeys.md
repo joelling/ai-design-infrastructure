@@ -32,7 +32,23 @@ The critical lens: **technology and UI agnostic**. Describe "provides the requir
 - `design/discovery/design-brief.md` — provides scope boundaries
 - Spec workflow descriptions (state machines, process flows)
 
+## Upstream sync
+
+**On entry:** Before starting this mode's process, check `design/journeys/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files. If upstream has changed since last run:
+
+1. Report what changed and classify severity (additive / corrective / structural)
+2. Ask the designer: re-process with new data, or proceed with current outputs?
+3. If re-processing, update incrementally — revise affected journeys and task flows, don't rebuild from scratch
+
+**On completion:** After producing or updating artifacts:
+
+1. Add or increment version headers on all changed output files
+2. Update `design/journeys/_upstream.md` with consumed artifact versions
+3. Report which downstream modes are now potentially stale (stories, ia, interaction)
+
 ## Process
+
+**0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
 **1. Identify journeys.** From personas and spec workflows, identify distinct end-to-end journeys. A journey has a clear trigger (what starts it), a clear outcome (what success looks like), follows one persona, and may cross system boundaries.
 
@@ -49,6 +65,7 @@ The critical lens: **technology and UI agnostic**. Describe "provides the requir
 | `design/journeys/[journey-name]-journey.md` | One per primary journey (minimum 2) |
 | `design/journeys/service-blueprint.md` | Full service blueprint |
 | `design/journeys/task-flows/[task-name].md` | One per discrete user task (minimum 4) |
+| `design/journeys/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

@@ -21,7 +21,23 @@ And one source of truth: the **terminology guide**. Every concept in the product
 - `design/interaction/state-inventory.md` — empty/loading/error states need content
 - `design/discovery/domain-glossary.md` — terminology source of truth
 
+## Upstream sync
+
+**On entry:** Check `design/content/_upstream.md` (if it exists). If upstream has changed since last run:
+
+1. Report what changed and classify severity (additive / corrective / structural)
+2. Ask the designer: re-process with new data, or proceed with current outputs?
+3. If re-processing, update incrementally — revise affected terminology, microcopy, and templates, don't rebuild from scratch
+
+**On completion:** After producing or updating artifacts:
+
+1. Add or increment version headers on all changed output files
+2. Update `design/content/_upstream.md` with consumed artifact versions
+3. Report which downstream modes are now potentially stale (accessibility, canvas, figma-component)
+
 ## Process
+
+**0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
 **1. Define voice and tone.** Describe the product's voice with 3-4 adjectives, each with practical examples. Define how tone shifts by context: success, error, warning, onboarding, critical/destructive, and neutral.
 
@@ -39,6 +55,7 @@ And one source of truth: the **terminology guide**. Every concept in the product
 | `design/content/terminology.md` | Canonical terms, formatting conventions, abbreviation rules |
 | `design/content/microcopy-patterns.md` | Patterns for buttons, forms, validation, empty states, status |
 | `design/content/content-templates.md` | Templates for notifications, dialogs, help text, timestamps |
+| `design/content/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

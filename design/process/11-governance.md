@@ -15,7 +15,23 @@ You are establishing the constitution for the design system. Who can change what
 - `design/visual/visual-language.md` — the visual rules governance enforces
 - Existing component inventory (from Figma or design artifacts)
 
+## Upstream sync
+
+**On entry:** Check `design/governance/_upstream.md` (if it exists). If upstream has changed since last run:
+
+1. Report what changed and classify severity (additive / corrective / structural)
+2. Ask the designer: re-process with new data, or proceed with current outputs?
+3. If re-processing, update incrementally — revise affected governance rules
+
+**On completion:** After producing or updating artifacts:
+
+1. Add or increment version headers on all changed output files
+2. Update `design/governance/_upstream.md` with consumed artifact versions
+3. Report which downstream modes are now potentially stale (figma-library-mode, figma-audit)
+
 ## Process
+
+**0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
 **1. Define the versioning scheme.** Semantic versioning for components: major (breaking changes), minor (additive), patch (fixes). Define what constitutes each type of change with examples.
 
@@ -33,6 +49,7 @@ You are establishing the constitution for the design system. Who can change what
 | `design/governance/contribution-guide.md` | Proposal process, modification rules, quality gate, naming authority |
 | `design/governance/deprecation-policy.md` | Deprecation process, sunset timelines, migration requirements |
 | `design/governance/changelog.md` | Initialized changelog |
+| `design/governance/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

@@ -23,7 +23,34 @@ This mode **blocks** if these artifacts are missing:
 
 Additional artifacts are used if available (personas, story map, state inventory, behavioral specs, error strategy, microcopy patterns, ARIA patterns, keyboard nav plan, contrast audit, review checklist). Each enriches the brief. Missing ones are noted.
 
+## Upstream sync
+
+Canvas briefs aggregate ALL upstream artifacts. The sync protocol here is especially important — a change in any Tier 1-3 mode can affect briefs.
+
+**On entry:** Check `design/canvas/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files across all upstream modes (IA, interaction, visual, content, accessibility, validation, user-models, stories). If upstream has changed since last run:
+
+1. Report what changed, which briefs are affected, and classify severity (additive / corrective / structural)
+2. Ask the designer: update affected briefs, or proceed with current outputs?
+3. If updating, revise only the affected sections of affected briefs — don't rebuild all briefs from scratch
+
+**On completion:** After producing or updating briefs:
+
+1. Add or increment version headers and sync hashes on all changed briefs
+2. Update `design/canvas/_upstream.md` with consumed artifact versions
+3. Report which downstream modes are now potentially stale (figma skills, prototype)
+
+### Artifact version header for briefs
+
+Every canvas brief carries a version comment and sync hash:
+
+```markdown
+<!-- artifact: design/canvas/profile-view-brief.md | version: 2 | mode: design-canvas | updated: 2026-03-21 | evidence: sitemap.md@v3, interaction-model.md@v2, visual-language.md@v1, terminology.md@v2 -->
+<!-- sync-hash: [hash-value] -->
+```
+
 ## Process
+
+**0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and identify any gaps.
 
 **1. Select screens to brief.** From the IA sitemap, identify which screens need canvas briefs. Brief one or batch multiple.
 
@@ -48,6 +75,7 @@ Additional artifacts are used if available (personas, story map, state inventory
 | File | What it contains |
 |------|-----------------|
 | `design/canvas/[screen-name]-brief.md` | One complete brief per screen |
+| `design/canvas/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

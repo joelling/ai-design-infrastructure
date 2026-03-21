@@ -38,7 +38,25 @@ Changes propagate between all three. See **Sync rules** below.
 | Interaction model | Behavioral specs (given/when/then) for wiring interactions | `design/interaction/interaction-model.md` |
 | Behavioral specs | Detailed interaction patterns | `design/interaction/behavioral-spec.md` |
 
+## Upstream sync
+
+The prototype consumes canvas briefs, Figma screens, and story/interaction artifacts. The Tier 4 sync loop handles drift between the three Develop nodes. The upstream sync protocol extends awareness to changes in the briefs' upstream sources.
+
+**On entry:** Check `design/prototype/_upstream.md` (if it exists, separate from the manifest). Compare recorded canvas brief versions and upstream artifact versions. If briefs or their upstream sources have changed since last run:
+
+1. Report what changed, which prototype screens are affected, and classify severity
+2. Ask the designer: update affected screens, or proceed with current prototype?
+3. If updating, revise only affected screens — don't rebuild the entire prototype
+
+**On completion:** After producing or updating prototype screens:
+
+1. Update the prototype manifest with current sync hashes
+2. Update `design/prototype/_upstream.md` with consumed artifact versions
+3. Report any drift discovered during prototyping back to canvas briefs (via drift log)
+
 ## Process
+
+**0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which canvas briefs and Figma screens are available.
 
 **1. Choose technology and scaffold.** Select a stack appropriate for the project (vanilla HTML/CSS/JS, React, Next.js, Svelte, etc.). The process is technology agnostic — what matters is that the prototype can render screens, handle navigation, and respond to interactions. Scaffold the project in `design/prototype/`.
 
