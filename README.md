@@ -1,12 +1,12 @@
 # AI Design Infrastructure
 
-A structured, AI-assisted design process built on Claude Code. Not a prompt library — a full design operating system with 22 executable skills, a four-tier pipeline, and a sync loop that keeps canvas briefs, Figma screens, and coded prototypes in alignment.
+A structured, AI-assisted design process built on Claude Code. 22 executable skills, a four-tier pipeline, and a sync loop that keeps canvas briefs, Figma screens, and coded prototypes in alignment.
 
 ---
 
 ## The big idea
 
-Most AI-assisted design work is ad hoc — you ask, Claude answers, you figure out what to do with it. This repo inverts that. Claude is the executor. You are the design director. The process is the contract between you.
+Most AI-assisted design work is ad hoc. You ask, Claude answers, you figure out what to do with it. This repo inverts that. Claude is the executor. You are the design director. The process is the contract between you.
 
 The pipeline flows through four tiers:
 
@@ -17,7 +17,7 @@ TIER 3: DESIGN       → Decide how it looks, feels, behaves, and reads
 TIER 4: DEVELOP      → Build screens, prototype, and keep everything in sync
 ```
 
-Tier 4 is not a linear handoff — it's a sync loop:
+Tier 4 is a sync loop between three nodes:
 
 ```
 Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototype
@@ -31,11 +31,11 @@ Each node owns different concerns. Changes propagate bidirectionally. Small chan
 
 ## How it works
 
-**Process chapters** (`design/process/`) are the single source of truth. 14 numbered markdown files define each design mode — its mental model, process steps, outputs, rules, and downstream connections. You never edit these directly; you tell Claude what to change and it propagates updates to all affected skill files and `CLAUDE.md`.
+**Process chapters** (`design/process/`) are the single source of truth. 14 numbered markdown files define each design mode: its mental model, process steps, outputs, rules, and downstream connections. You never edit these directly; you tell Claude what to change and it propagates updates to all affected skill files and `CLAUDE.md`.
 
-**Skills** (`.claude/skills/`) are the executable layer. Each skill corresponds to a design mode and contains a `SKILL.md` that Claude reads as a workflow specification when invoked. There are 22 skills total — one per design mode, plus 8 specialized Figma pipeline skills.
+**Skills** (`.claude/skills/`) are the executable layer. Each skill corresponds to a design mode and contains a `SKILL.md` that Claude reads as a workflow specification when invoked. There are 22 skills total: one per design mode, plus 8 specialized Figma pipeline skills.
 
-**Artifact versioning** keeps the pipeline honest. Every output file carries a version header. Every mode directory contains `_upstream.md` — a manifest tracking which upstream artifacts were consumed and at which versions. When upstream changes, the affected mode reports staleness on next invocation and asks whether to re-process.
+**Artifact versioning** keeps the pipeline honest. Every output file carries a version header. Every mode directory contains `_upstream.md`, a manifest tracking which upstream artifacts were consumed and at which versions. When upstream changes, the affected mode reports staleness on next invocation and asks whether to re-process.
 
 ---
 
@@ -80,11 +80,11 @@ Open the project in Claude Code:
 claude
 ```
 
-Claude will load `CLAUDE.md` automatically. From there, invoke any skill by describing what you want to do — Claude matches the intent to the right skill and executes the workflow.
+Claude will load `CLAUDE.md` automatically. From there, invoke any skill by describing what you want to do. Claude matches the intent to the right skill and executes the workflow.
 
 ### Run the process viewer
 
-A local reading interface for the design process documentation — renders all 14 chapters with navigation, keyboard shortcuts, and live reload:
+A local reading interface for the design process documentation. Renders all 14 chapters with navigation, keyboard shortcuts, and live reload:
 
 ```bash
 cd design/viewer
@@ -96,9 +96,9 @@ Opens at `http://localhost:5200`. Use `←` / `→` arrow keys to move between c
 
 ---
 
-## Non-negotiable principles
+## Principles
 
-**Journeys and stories are tech and UI agnostic.** Tiers 1 and 2 describe what users do and experience — no screen names, no button labels, no UI patterns. This keeps upstream thinking portable.
+**Journeys and stories are tech and UI agnostic.** Tiers 1 and 2 describe what users do and experience: no screen names, no button labels, no UI patterns. This keeps upstream thinking portable.
 
 **Canvas briefs are the single source of truth for intent.** No Figma screen gets built without a canvas brief. No prototype screen without a Figma implementation. The brief says it, Figma builds it, the prototype implements it.
 
