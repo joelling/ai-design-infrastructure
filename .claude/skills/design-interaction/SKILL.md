@@ -23,6 +23,7 @@ Define **how** the product behaves in response to user actions. For each screen,
 **Soft dependencies** (warn if missing, don't block):
 - `design/05-ia/*` — defines what screens exist and their content
 - `design/04-stories/story-map.md` — stories define what interactions each screen must support
+- `design/02-user-models/behavioral-archetypes.md` — archetype tensions inform state priorities and error strategy
 - Spec state machines or workflow rules (if applicable)
 
 ---

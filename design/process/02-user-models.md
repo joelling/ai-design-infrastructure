@@ -12,13 +12,14 @@ User models are **living artifacts** — they start as hypotheses and evolve as 
 
 You are building empathy artifacts. The goal is to internalize who each user is deeply enough that when you're designing an interaction three chapters from now, you instinctively know: "Dr. Martinez would find this confusing because she's under time pressure and multitasking."
 
-Think in three layers:
+Think in four layers:
 - **Persona** = who they are (demographics, goals, frustrations, context of use)
 - **Empathy map** = what they think, feel, say, and do (internal experience)
 - **JTBD** = what they're trying to accomplish (functional, emotional, social jobs)
+- **Behavioral archetype** = how they behave under constraint (cross-role clusters derived from tension dimensions)
 
 And one meta-layer:
-- **Confidence** = how much evidence supports each model (see confidence tiers below)
+- **Confidence** = how much evidence supports each model (see confidence tiers below) — applies to behavioral archetypes too
 
 ## Inputs
 
@@ -80,9 +81,13 @@ Each persona, empathy map, and JTBD statement carries its confidence tier and ev
 
 **4. Build the jobs-to-be-done matrix.** Map functional jobs (tasks they need to accomplish), emotional jobs (how they want to feel), and social jobs (how they want to be perceived). Use the format: "When [situation], I want to [motivation], so I can [outcome]."
 
-**5. Document edge cases.** Users who hold multiple roles simultaneously, new users vs. power users, users with accessibility needs, users in unusual contexts (field use, emergency situations). These edge cases often reveal the most important design constraints.
+**5. Map behavioral dimensions.** From discovery synthesis (qualitative pain signals, behavioral patterns, contextual observations), identify 2–5 sets of opposing tensions that produce different design implications at each pole. Each dimension is an axis — e.g., "Physical environment ↔ Platform/system" or "Information gap ↔ Process friction." For each dimension, document: the two poles, evidence from discovery, and why this tension matters for design decisions. Discard any dimension where both poles lead to the same design response. More than 5 dimensions dilutes focus — prioritize by design impact.
 
-**6. Update manifest.** Write or update `design/user-models/_upstream.md` with all consumed artifact paths and versions. Add version headers to all produced/updated output files.
+**6. Derive behavioral archetypes.** Plot research participants or evidence clusters onto the dimension space. Name the clusters that emerge at intersections — e.g., "The Wayfinder" (navigates physical environments by situational awareness), "The Synthesiser" (draws meaning from fragmented organisational signals). Each archetype gets: a name, a one-line behavioral description, the dimension coordinates it occupies, which personas map to it (many-to-many — a persona may appear in multiple archetypes across contexts), and design implications (what this archetype needs that others don't). Not every intersection will have occupants — only name clusters backed by evidence. With 2 dimensions you get up to 4 archetypes; with 3 you get up to 8. Only codify those with real participants.
+
+**7. Document edge cases.** Users who hold multiple roles simultaneously, new users vs. power users, users with accessibility needs, users in unusual contexts (field use, emergency situations). Include archetype edge cases: participants who sit between clusters, or whose archetype shifts by context. These edge cases often reveal the most important design constraints.
+
+**8. Update manifest.** Write or update `design/user-models/_upstream.md` with all consumed artifact paths and versions. Add version headers to all produced/updated output files.
 
 ## Incremental update process
 
@@ -92,10 +97,11 @@ When re-invoked after upstream changes, do NOT rebuild from scratch:
 2. **Process the delta** — Extract new signals from changed artifacts only. Note which personas/models are affected.
 3. **Revise affected models** — Update personas, empathy maps, and JTBDs that are impacted by new signals. Leave unaffected models unchanged.
 4. **Promote confidence** — If new evidence strengthens a hypothetical model, promote it (e.g., hypothetical → evidence-thin, evidence-thin → evidence-grounded).
-5. **Log the evolution** — Add a revision entry to each updated model's evolution log (see below).
-6. **Update manifest** — Record new upstream versions consumed. Increment version headers on changed outputs.
+5. **Re-evaluate dimensions** — Check whether existing behavioral dimensions still hold. New data may shift poles, add dimensions, or redistribute participants across archetypes. Update archetype mappings accordingly.
+6. **Log the evolution** — Add a revision entry to each updated model's evolution log (see below).
+7. **Update manifest** — Record new upstream versions consumed. Increment version headers on changed outputs.
 
-## Archetype evolution
+## Model evolution tracking
 
 User models track how they evolve over time. Each persona file includes an evolution log:
 
@@ -117,6 +123,8 @@ The evolution log serves two purposes:
 | `design/user-models/personas/[role-name].md` | One per primary user role (minimum 2), with confidence tier, evidence trace, and evolution log |
 | `design/user-models/empathy-maps/[role-name]-empathy.md` | One per primary persona |
 | `design/user-models/jtbd.md` | Complete JTBD matrix + edge cases |
+| `design/user-models/behavioral-dimensions.md` | 2–5 tension axes with poles, evidence, and design relevance per dimension |
+| `design/user-models/behavioral-archetypes.md` | Named archetypes with dimension coordinates, participant mapping, persona cross-reference, and design implications |
 | `design/user-models/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ### Artifact version header
@@ -136,11 +144,17 @@ Every output file carries a version comment as its first line:
 - Every persona carries a confidence tier. Do not present hypothetical models as grounded.
 - When re-processing with new data, update incrementally — don't discard prior work unless structurally invalidated.
 - The evolution log is mandatory. Every version change is recorded with date, evidence source, and what changed.
+- Behavioral archetypes are evidence-derived, not invented. Each dimension must produce different design implications at each pole.
+- Archetypes complement personas, not replace them. Personas represent roles; archetypes represent cross-role behavioral patterns.
+- Cap behavioral dimensions at 5. If more emerge, prioritize by design impact.
+- Do not force 1:1 mapping between archetypes and personas. The relationship is many-to-many.
 
 ## Feeds into
 
 - **[Journey Mapping](03-journeys.md)** — journeys are persona-specific
 - **[Story Mapping](04-stories.md)** — stories reference personas
 - **[Content Strategy](08-content.md)** — content adapts to audience expertise
-- **[Visual Design](07-visual.md)** — user context affects density and complexity decisions
-- **[Canvas Briefs](12-canvas.md)** — each screen identifies its primary persona
+- **[Interaction Design](06-interaction.md)** — archetype tensions inform state priorities and error strategy
+- **[Visual Design](07-visual.md)** — user context and archetype patterns affect density and complexity decisions
+- **[Validation](10-validation.md)** — scenario scripts cover archetype-specific paths
+- **[Canvas Briefs](12-canvas.md)** — each screen identifies its primary persona and serving archetype(s)

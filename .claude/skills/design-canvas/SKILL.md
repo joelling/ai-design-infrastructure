@@ -53,6 +53,7 @@ Unlike other design modes, `design-canvas` has **hard dependencies**. It will **
 
 **Soft dependencies** (used if available, warned if missing):
 - `design/02-user-models/personas/*` — persona context for each screen
+- `design/02-user-models/behavioral-archetypes.md` — serving archetype(s) per screen
 - `design/04-stories/story-map.md` — stories served by each screen
 - `design/06-interaction/state-inventory.md` — per-screen states
 - `design/06-interaction/behavioral-spec.md` — given/when/then specs

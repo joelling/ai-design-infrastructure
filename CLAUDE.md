@@ -41,7 +41,7 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 
 ### TIER 1 — DISCOVERY (understanding the problem)
 1. **`design-discovery`** — Processes raw inputs (interviews, surveys, docs) via three-tier intake: per-input cleaning → per-type synthesis → cross-type project context (stakeholder map, domain glossary, competitive analysis, design brief)
-2. **`design-user-models`** — Personas, empathy maps, jobs-to-be-done (progressive confidence: hypothetical → evidence-thin → evidence-grounded → validated)
+2. **`design-user-models`** — Personas, empathy maps, jobs-to-be-done, behavioral archetypes (progressive confidence: hypothetical → evidence-thin → evidence-grounded → validated)
 
 ### TIER 2 — DEFINITION (tech & UI agnostic)
 3. **`design-journeys`** — User journeys, service blueprints (user story mapping methodology)
@@ -138,6 +138,7 @@ All design artifacts → `design/` directory at project root (including `design/
 | Walking skeleton | `design-prototype` | Primary flow order for wiring screens |
 | Story map + release slices | `design-prototype` | Scope and secondary flows |
 | Validation checklist | `figma-audit` | Extends audit with UX-specific checks |
+| Behavioral archetypes | `design-journeys`, `design-interaction`, `design-visual`, `design-content`, `design-validation`, `design-canvas` | Archetype tensions inform state priorities, information density, terminology, and scenario coverage |
 
 ### File architecture:
 - `[Project] - Working` → active design canvas (screens, flows)

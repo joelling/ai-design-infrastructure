@@ -29,6 +29,7 @@ The critical lens: **technology and UI agnostic**. Describe "provides the requir
 ## Inputs
 
 - `design/user-models/personas/*` — journeys are persona-specific
+- `design/user-models/behavioral-archetypes.md` — annotate where archetype-specific experience diverges along the journey
 - `design/discovery/design-brief.md` — provides scope boundaries
 - Spec workflow descriptions (state machines, process flows)
 

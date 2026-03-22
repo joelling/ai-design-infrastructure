@@ -16,6 +16,7 @@ The critical discipline: **given/when/then**. Every interaction is specified as:
 
 - `design/information-architecture/*` — defines what screens exist and their content
 - `design/stories/story-map.md` — stories define what interactions each screen supports
+- `design/user-models/behavioral-archetypes.md` — archetype tensions inform state priorities and error strategy (e.g., offline-first for field archetypes, batch operations for process-heavy archetypes)
 - Spec state machines or workflow rules (if applicable)
 
 ## Upstream sync

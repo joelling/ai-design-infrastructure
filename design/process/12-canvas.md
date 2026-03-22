@@ -21,7 +21,7 @@ This mode **blocks** if these artifacts are missing:
 | Visual spec | Tokens, hierarchy, density | `design/visual/visual-language.md` |
 | Content terminology | Labels, microcopy | `design/content/terminology.md` |
 
-Additional artifacts are used if available (personas, story map, state inventory, behavioral specs, error strategy, microcopy patterns, ARIA patterns, keyboard nav plan, contrast audit, review checklist). Each enriches the brief. Missing ones are noted.
+Additional artifacts are used if available (personas, behavioral archetypes, story map, state inventory, behavioral specs, error strategy, microcopy patterns, ARIA patterns, keyboard nav plan, contrast audit, review checklist). Each enriches the brief. Missing ones are noted.
 
 ## Upstream sync
 
@@ -56,7 +56,7 @@ Every canvas brief carries a version comment and sync hash:
 
 **2. Compose the canvas brief.** For each screen, pull from all upstream artifacts and assemble:
 
-- **Purpose and context** — what this screen does, primary persona, entry/exit points (from IA)
+- **Purpose and context** — what this screen does, primary persona, serving archetype(s), entry/exit points (from IA)
 - **Stories served** — which user stories this screen fulfills, with acceptance criteria (from story map)
 - **Layout and content hierarchy** — what information appears and in what order, with actions (from IA content inventory)
 - **Components needed** — what components this screen requires, with variants, categorized by atom/molecule/organism (from interaction model + IA)

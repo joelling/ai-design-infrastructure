@@ -32,6 +32,7 @@ This mode is **flexible** — it uses whatever design artifacts exist. More arti
 **Uses if available:**
 - `design/01-discovery/design-brief.md` — success metrics to evaluate against
 - `design/02-user-models/personas/*` — scenarios grounded in persona context
+- `design/02-user-models/behavioral-archetypes.md` — archetype-specific scenario paths
 - `design/03-journeys/*` — task flows for cognitive walkthroughs
 - `design/06-interaction/*` — behavioral specs to verify
 - `design/08-content/*` — content patterns to check

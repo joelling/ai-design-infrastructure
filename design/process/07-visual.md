@@ -17,6 +17,7 @@ You are defining the product's visual personality. Every choice — color, typog
 
 - `design/discovery/design-brief.md` — design principles guide visual direction
 - `design/user-models/personas/*` — user context affects density and complexity
+- `design/user-models/behavioral-archetypes.md` — archetype patterns inform information density and visual complexity decisions
 - `design/information-architecture/*` — content density affects spacing decisions
 
 ## Upstream sync

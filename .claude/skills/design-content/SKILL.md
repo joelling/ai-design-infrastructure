@@ -21,6 +21,7 @@ Define the content strategy so that every text element in the product — labels
 
 **Soft dependencies** (warn if missing, don't block):
 - `design/02-user-models/personas/*` — content adapts to audience expertise
+- `design/02-user-models/behavioral-archetypes.md` — archetype tensions inform terminology complexity and tone adaptation
 - `design/06-interaction/error-strategy.md` — error messages need content
 - `design/06-interaction/state-inventory.md` — empty/loading/error states need content
 - `design/01-discovery/domain-glossary.md` — terminology source of truth

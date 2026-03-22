@@ -17,6 +17,7 @@ And one source of truth: the **terminology guide**. Every concept in the product
 ## Inputs
 
 - `design/user-models/personas/*` — content adapts to audience expertise
+- `design/user-models/behavioral-archetypes.md` — archetype tensions inform terminology complexity and tone adaptation
 - `design/interaction/error-strategy.md` — error messages need content
 - `design/interaction/state-inventory.md` — empty/loading/error states need content
 - `design/discovery/domain-glossary.md` — terminology source of truth

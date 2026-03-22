@@ -22,6 +22,7 @@ Map the complete human experience of each user through their workflows. Journeys
 
 **Soft dependencies** (warn if missing, don't block):
 - `design/02-user-models/personas/*` — journeys are persona-specific
+- `design/02-user-models/behavioral-archetypes.md` — annotate where archetype-specific experience diverges along the journey
 - `design/01-discovery/design-brief.md` — provides scope boundaries
 - Spec workflow descriptions (e.g., state machines, process flows)
 

@@ -31,6 +31,7 @@ Establish the visual language and brand expression for the product. This mode pr
 **Soft dependencies** (warn if missing, don't block):
 - `design/01-discovery/design-brief.md` — design principles guide visual direction
 - `design/02-user-models/personas/*` — user context affects visual density and complexity
+- `design/02-user-models/behavioral-archetypes.md` — archetype patterns inform information density and visual complexity decisions
 - `design/05-ia/*` — content density affects spacing and hierarchy decisions
 
 ---

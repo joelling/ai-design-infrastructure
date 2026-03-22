@@ -36,7 +36,7 @@ This mode is flexible — it uses whatever design artifacts exist. More artifact
 
 **2. Usability test plan.** Define objectives, participant criteria, method (moderated/unmoderated), metrics (task completion rate, time on task, error rate, satisfaction), and analysis plan.
 
-**3. Write scenario scripts.** Task-based scenarios using personas and mock data. Include edge-case scenarios (error recovery, permission boundaries, empty states).
+**3. Write scenario scripts.** Task-based scenarios using personas, behavioral archetypes, and mock data. Include archetype-specific paths (e.g., how a "Wayfinder" archetype experiences the flow vs. a "Processor" archetype) and edge-case scenarios (error recovery, permission boundaries, empty states).
 
 **4. Create the design review checklist.** A per-screen post-build checklist covering: information hierarchy, interaction completeness, visual consistency, content accuracy, accessibility compliance, and story coverage.
 
