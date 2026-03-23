@@ -17,7 +17,7 @@ description: >
 > **Quick reference**
 > - **Purpose:** Transform raw inputs into structured design knowledge
 > - **Inputs:** Interviews, surveys, analytics, briefs, specs, regulatory docs
-> - **Outputs:** Stakeholder map, domain glossary, competitive analysis, design brief → `design/01-discovery/`
+> - **Outputs:** Stakeholder map, domain glossary, competitive analysis, design brief → `design/01_DISCOVERY/`
 > - **Hard rules:** Clean each input individually (Tier 1) before synthesizing (Tier 2). Note contradictions, don't reconcile silently. No UI solutions here.
 > - **Common mistake:** Skipping Tier 1 (per-input cleaning) and jumping straight to synthesis, losing source provenance
 
@@ -54,6 +54,30 @@ Applied to EVERY input before cleaning. Regardless of input type, always look fo
 | **Success criteria** | "success means", KPIs, acceptance thresholds | Design brief — success metrics |
 | **Scope signals** | what's in/out, what exists today, what's being replaced | Design brief — scope |
 | **Analogous system references** | "similar to X", competitor mentions | Competitive analysis |
+| **Strategic value / commercial drivers** | quantified KPIs, value commitments, ROI claims, commercial outcomes | Value framework |
+
+---
+
+## Project relevance filter
+
+Applied to EVERY input after the extraction radar. Before routing signals to synthesis artifacts, evaluate each finding:
+
+| # | Question | If YES | If NO |
+|---|----------|--------|-------|
+| 1 | Does this finding advance a stated capability in the project design brief or value framework? | Route to the relevant capability's design artifacts | Go to question 2 |
+| 2 | Does this finding describe a **documented user's** workflow, pain point, or need? | Capture in the relevant persona, journey, or JTBD | Go to question 3 |
+| 3 | Does this finding connect to a **value lever** defined in the project value framework? | Capture with explicit value linkage | Go to question 4 |
+| 4 | Could this finding be framed as a **scope expansion signal** for a future capability? | Flag as scope expansion signal in design-brief.md; do not design for it now | Go to question 5 |
+| 5 | Is this finding about **the vendor's or implementor's delivery process** (sprint planning, environment setup, team coordination, development methodology)? | **Not a design input.** Discard from design artifacts. Note as project context only. | Go to question 6 |
+| 6 | Is this finding about **technical implementation** (model architecture, database choice, API design)? | Capture ONLY if it creates a **design constraint** for end users (e.g., "max 300 documents" constrains ingestion UI). Otherwise discard. | Discard — not relevant to product design. |
+
+### Framing guidance
+
+When a finding is borderline, ask: **"Does this help documented users do their jobs better through this product?"**
+
+- Vendor or implementor delivery details (who is building what, sprint velocity, environment bugs) are project management signals, not design signals
+- Technical architecture details are design-relevant ONLY when they create end-user constraints
+- User workflows, pain points, and value outcomes are ALWAYS design-relevant
 
 ---
 
@@ -62,7 +86,7 @@ Applied to EVERY input before cleaning. Regardless of input type, always look fo
 After producing or updating artifacts:
 
 1. Add `<!-- artifact: [path] | version: [N] | mode: design-discovery | updated: [date] -->` headers to all output files
-2. Update `design/discovery/_upstream.md` manifest with produced artifact versions
+2. Update `design/01_DISCOVERY/_upstream.md` manifest with produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -91,7 +115,7 @@ Note gaps explicitly (e.g. "no quantitative data provided") — gaps become evid
 
 ### Step 2 — Per-input cleaning (Tier 1)
 
-Clean and structure each raw input individually. Write to `design/01-discovery/inputs/[type]/[name].md`. These feed Tier 2 — they are not final outputs.
+Clean and structure each raw input individually. Write to `design/01_DISCOVERY/inputs/[type]/[name].md`. These feed Tier 2 — they are not final outputs.
 
 **Interview / transcript template:**
 ```markdown
@@ -155,7 +179,7 @@ Clean and structure each raw input individually. Write to `design/01-discovery/i
 
 Aggregate across all cleaned inputs of the same type. Must note contradictions, not just agreements.
 
-**Qualitative synthesis** → `design/01-discovery/qualitative-synthesis.md`
+**Qualitative synthesis** → `design/01_DISCOVERY/qualitative-synthesis.md`
 ```markdown
 ## Qualitative Synthesis
 
@@ -176,7 +200,7 @@ Aggregate across all cleaned inputs of the same type. Must note contradictions, 
 [Where qualitative evidence is absent or conflicting]
 ```
 
-**Quantitative synthesis** → `design/01-discovery/quantitative-synthesis.md`
+**Quantitative synthesis** → `design/01_DISCOVERY/quantitative-synthesis.md`
 ```markdown
 ## Quantitative Synthesis
 
@@ -197,7 +221,7 @@ Aggregate across all cleaned inputs of the same type. Must note contradictions, 
 [Where quantitative data is silent]
 ```
 
-**Document synthesis** → `design/01-discovery/document-synthesis.md`
+**Document synthesis** → `design/01_DISCOVERY/document-synthesis.md`
 ```markdown
 ## Document Synthesis
 
@@ -227,7 +251,7 @@ Aggregate across all cleaned inputs of the same type. Must note contradictions, 
 
 Scan ALL cleaned inputs and ALL type syntheses. Assemble project context artifacts by routing signals to the correct output. These are NOT derived from a single source.
 
-**Stakeholder map** → `design/01-discovery/stakeholder-map.md`
+**Stakeholder map** → `design/01_DISCOVERY/stakeholder-map.md`
 
 ```markdown
 ## Stakeholder Map
@@ -245,15 +269,53 @@ Scan ALL cleaned inputs and ALL type syntheses. Assemble project context artifac
 |------|----------|-------------------|
 ```
 
-**Domain glossary** → `design/01-discovery/domain-glossary.md`
+**Domain glossary** → `design/01_DISCOVERY/domain-glossary.md`
 
 For each term: full name, abbreviation, plain-language definition, UI implications (does the user see this term? abbreviated? role-dependent?).
 
-**Competitive analysis** → `design/01-discovery/competitive-analysis.md`
+**Competitive analysis** → `design/01_DISCOVERY/competitive-analysis.md`
 
 All analogous system references from inputs + web research on similar systems. What they do well, what they do poorly, key patterns. Focus on: information density, data hierarchy, role-based access patterns.
 
-**Design brief** → `design/01-discovery/design-brief.md`
+**Value framework** → `design/01_DISCOVERY/value-framework.md`
+
+Synthesize all strategic value signals from across all inputs into the vision → driver → lever → metric hierarchy:
+
+```markdown
+## Value Framework — [Project Name]
+
+### Vision
+[1-2 sentences: what transformation does this product enable for users? Aspirational, qualitative.]
+
+### Strategic drivers
+[Why value is expected to accrue — structural factors that make value creation possible. No metrics yet.]
+| Driver | Description | User impact |
+|--------|-------------|-------------|
+
+### Value levers
+[Specific mechanisms through which the product creates measurable value.]
+| Lever | Description | Evidence | Target metric | Evidence tier |
+|-------|-------------|----------|---------------|---------------|
+
+### Priority ranking
+[Which levers are highest priority and why — informed by commercial context, user needs, feasibility.]
+
+### User outcomes by lever
+[Which user roles realize which levers. Maps levers to the personas/roles who experience them.]
+| Lever | User role | How they experience it |
+|-------|-----------|----------------------|
+
+### Commercial hypothesis
+[The core bet: if this product solves X, then Y value accrues because Z.]
+
+### Evidence record
+[Sources supporting each lever — interviews, documents, quantitative data. Note evidence tier: committed KPI / validated / evidence-grounded / hypothetical.]
+
+### Design decision filter
+[Practical question: can this design decision be traced to at least one lever above? If not — is it justified by a driver or vision element? If neither, flag for review.]
+```
+
+**Design brief** → `design/01_DISCOVERY/design-brief.md`
 
 ```markdown
 ## Design Brief — [Project Name]
@@ -274,7 +336,7 @@ All analogous system references from inputs + web research on similar systems. W
 [Brief summary of who uses this, pointing to full stakeholder map]
 
 ### Success metrics
-[How will we know the design is working? Measurable outcomes.]
+[How will we know the design is working? Measurable outcomes. Reference value-framework.md for quantified levers.]
 
 ### Scope boundaries
 [What are we designing? What are we NOT designing?]
@@ -288,20 +350,21 @@ All analogous system references from inputs + web research on similar systems. W
 ## Output checklist
 
 **Tier 1 — Per-input cleaned artifacts**
-- [ ] `design/01-discovery/inputs/interviews/[name].md` — one per interview/transcript
-- [ ] `design/01-discovery/inputs/surveys/[name].md` — one per survey/analytics report
-- [ ] `design/01-discovery/inputs/documents/[name].md` — one per client/project document
+- [ ] `design/01_DISCOVERY/inputs/interviews/[name].md` — one per interview/transcript
+- [ ] `design/01_DISCOVERY/inputs/surveys/[name].md` — one per survey/analytics report
+- [ ] `design/01_DISCOVERY/inputs/documents/[name].md` — one per client/project document
 
 **Tier 2 — Per-type synthesis**
-- [ ] `design/01-discovery/qualitative-synthesis.md` — if qualitative inputs were provided
-- [ ] `design/01-discovery/quantitative-synthesis.md` — if quantitative inputs were provided
-- [ ] `design/01-discovery/document-synthesis.md` — if 2+ project/client documents were provided
+- [ ] `design/01_DISCOVERY/qualitative-synthesis.md` — if qualitative inputs were provided
+- [ ] `design/01_DISCOVERY/quantitative-synthesis.md` — if quantitative inputs were provided
+- [ ] `design/01_DISCOVERY/document-synthesis.md` — if 2+ project/client documents were provided
 
 **Tier 3 — Cross-type project context**
-- [ ] `design/01-discovery/stakeholder-map.md` — all actors assembled cross-type
-- [ ] `design/01-discovery/domain-glossary.md` — all domain terms assembled cross-type
-- [ ] `design/01-discovery/competitive-analysis.md` — analogous systems analyzed
-- [ ] `design/01-discovery/design-brief.md` — problem statement, principles, constraints, metrics, scope
+- [ ] `design/01_DISCOVERY/value-framework.md` — vision, drivers, levers, metrics — strategic foundation for all design decisions
+- [ ] `design/01_DISCOVERY/stakeholder-map.md` — all actors assembled cross-type
+- [ ] `design/01_DISCOVERY/domain-glossary.md` — all domain terms assembled cross-type
+- [ ] `design/01_DISCOVERY/competitive-analysis.md` — analogous systems analyzed
+- [ ] `design/01_DISCOVERY/design-brief.md` — problem statement, principles, constraints, metrics, scope
 
 ---
 

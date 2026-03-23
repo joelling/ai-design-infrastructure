@@ -7,7 +7,8 @@ description: >
   they feel pain, and where opportunities exist. Triggers on: "user journey", "journey map",
   "service blueprint", "task flow", "user flow", "map the experience", "end to end flow",
   "process map", "touchpoints", or when you need to understand the full experience before
-  designing any screens. Upstream dependency: design-user-models.
+  designing any screens. Upstream dependency: design-user-models. Downstream: feeds
+  design-process-flows (logic layer), design-stories, design-ia.
 ---
 
 # Journey Mapping — User Story Mapping Methodology (Tech/UI Agnostic)
@@ -21,9 +22,9 @@ Map the complete human experience of each user through their workflows. Journeys
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/02-user-models/personas/*` — journeys are persona-specific
-- `design/02-user-models/behavioral-archetypes.md` — annotate where archetype-specific experience diverges along the journey
-- `design/01-discovery/design-brief.md` — provides scope boundaries
+- `design/02_USER_MODELS/personas/*` — journeys are persona-specific
+- `design/02_USER_MODELS/behavioral-archetypes.md` — annotate where archetype-specific experience diverges along the journey
+- `design/01_DISCOVERY/design-brief.md` — provides scope boundaries
 - Spec workflow descriptions (e.g., state machines, process flows)
 
 ---
@@ -48,7 +49,8 @@ These rules are **non-negotiable** for all journey artifacts:
 
 Before starting this mode's workflow:
 
-1. Check `design/journeys/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/03_JOURNEYS/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -56,7 +58,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/journeys/_upstream.md` with consumed and produced artifact versions
+2. Update `design/03_JOURNEYS/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -115,7 +117,7 @@ For each journey, create a structured map:
 | Cross-system handoffs | [list] |
 ```
 
-Write each to `design/03-journeys/[journey-name]-journey.md`.
+Write each to `design/03_JOURNEYS/[journey-name]-journey.md`.
 
 ### Step 3 — Service blueprint
 
@@ -146,7 +148,7 @@ Create a service blueprint that shows the full system behind the user experience
 |------|-------------|------------|-----------|---------|----------|
 ```
 
-Write to `design/03-journeys/service-blueprint.md`.
+Write to `design/03_JOURNEYS/service-blueprint.md`.
 
 ### Step 4 — Task flows
 
@@ -173,15 +175,15 @@ Decompose journeys into granular task flows. Each task flow covers one discrete 
 - [What can go wrong and how the user recovers]
 ```
 
-Write each to `design/03-journeys/task-flows/[task-name].md`.
+Write each to `design/03_JOURNEYS/task-flows/[task-name].md`.
 
 ---
 
 ## Output checklist
 
-- [ ] `design/03-journeys/[journey-name]-journey.md` — one per primary user journey (minimum 2)
-- [ ] `design/03-journeys/service-blueprint.md` — at least one service blueprint
-- [ ] `design/03-journeys/task-flows/[task-name].md` — one per discrete user task (minimum 4)
+- [ ] `design/03_JOURNEYS/[journey-name]-journey.md` — one per primary user journey (minimum 2)
+- [ ] `design/03_JOURNEYS/service-blueprint.md` — at least one service blueprint
+- [ ] `design/03_JOURNEYS/task-flows/[task-name].md` — one per discrete user task (minimum 4)
 - [ ] All artifacts are tech/UI agnostic — no screen names, no button labels, no UI patterns
 
 ---

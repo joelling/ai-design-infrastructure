@@ -1,4 +1,4 @@
-# Chapter 13: Figma Execution Pipeline
+# Figma Execution Pipeline
 
 > **Tier 4 — Develop** | Modes: `figma-*`
 >

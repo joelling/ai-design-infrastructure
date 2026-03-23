@@ -17,7 +17,7 @@ description: >
 > **Quick reference**
 > - **Purpose:** Translate Figma screens into running, interactive prototypes with drift detection
 > - **Inputs:** Canvas briefs, Figma screens (MCP), walking skeleton, interaction model (hard deps)
-> - **Outputs:** Prototype code, manifest, drift log → `design/13-prototype/`
+> - **Outputs:** Prototype code, manifest, drift log → `design/15_PROTOTYPE/`
 > - **Hard rules:** Canvas briefs authoritative for intent. Figma authoritative for visuals. Walking skeleton first, then secondary flows.
 > - **Common mistake:** Building screens without checking the canvas brief first — the brief is the spec, not Figma alone
 
@@ -49,18 +49,18 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 
 | Required | What it provides | How to check |
 |----------|-----------------|-------------|
-| Canvas briefs | Per-screen spec | `design/12-canvas/[screen]-brief.md` exists |
+| Canvas briefs | Per-screen spec | `design/13_CANVAS/[screen]-brief.md` exists |
 | Figma screens | Visual reference | Figma MCP connection live, screens built |
-| Walking skeleton | Flow order | `design/04-stories/walking-skeleton.md` exists |
-| Interaction model | Behavioral specs | `design/06-interaction/interaction-model.md` exists |
+| Walking skeleton | Flow order | `design/05_STORIES/walking-skeleton.md` exists |
+| Interaction model | Behavioral specs | `design/07_INTERACTION/interaction-model.md` exists |
 
 ### Soft dependencies (used if available)
 
-- `design/04-stories/release-slices.md` — scope boundaries
-- `design/06-interaction/behavioral-spec.md` — detailed given/when/then
-- `design/06-interaction/error-strategy.md` — error handling patterns
-- `design/09-accessibility/keyboard-nav-plan.md` — keyboard navigation
-- `design/08-content/microcopy-patterns.md` — dynamic content patterns
+- `design/05_STORIES/release-slices.md` — scope boundaries
+- `design/07_INTERACTION/behavioral-spec.md` — detailed given/when/then
+- `design/07_INTERACTION/error-strategy.md` — error handling patterns
+- `design/10_ACCESSIBILITY/keyboard-nav-plan.md` — keyboard navigation
+- `design/09_CONTENT/microcopy-patterns.md` — dynamic content patterns
 
 ---
 
@@ -68,7 +68,8 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 
 Before starting this mode's workflow:
 
-1. Check `design/prototype/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/15_PROTOTYPE/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -76,7 +77,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/prototype/_upstream.md` with consumed and produced artifact versions
+2. Update `design/15_PROTOTYPE/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -102,7 +103,7 @@ Choose a stack appropriate for the project. Common options:
 - Svelte/Vue — lightweight component model
 - Any framework — the process doesn't prescribe
 
-Scaffold in `design/13-prototype/`. Create the manifest file.
+Scaffold in `design/15_PROTOTYPE/`. Create the manifest file.
 
 ### Step 2 — Build screen by screen
 
@@ -161,7 +162,7 @@ When this mode runs, perform drift detection:
 
 ### Drift log
 
-Log all drifts to `design/13-prototype/drift-log.md`:
+Log all drifts to `design/15_PROTOTYPE/drift-log.md`:
 
 ```markdown
 ## Drift Log
@@ -181,9 +182,9 @@ Each screen in the manifest carries a sync hash. When any node changes, hashes a
 
 | File | What it contains |
 |------|-----------------|
-| `design/13-prototype/manifest.md` | Screen-to-file mapping, tech stack, sync hashes, build/run instructions |
-| `design/13-prototype/drift-log.md` | Record of detected drifts and resolutions |
-| `design/13-prototype/[project files]` | The prototype source code |
+| `design/15_PROTOTYPE/manifest.md` | Screen-to-file mapping, tech stack, sync hashes, build/run instructions |
+| `design/15_PROTOTYPE/drift-log.md` | Record of detected drifts and resolutions |
+| `design/15_PROTOTYPE/[project files]` | The prototype source code |
 
 ### Manifest format
 
@@ -226,14 +227,14 @@ Each screen in the manifest carries a sync hash. When any node changes, hashes a
 
 ## Split-review note
 
-> Per `design/process/00-skill-architecture.md` principle P2 (Independent Re-invocation) and P6 (Failure Blast Radius): if drift-sync logic becomes complex enough for independent re-invocation — e.g., designers routinely run sync checks without building new screens — evaluate extracting `design-prototype-sync` as a separate skill.
+> Per `design/process/README.md` (Skill architecture — P2: Independent Re-invocation, P6: Failure Blast Radius): if drift-sync logic becomes complex enough for independent re-invocation — e.g., designers routinely run sync checks without building new screens — evaluate extracting `design-prototype-sync` as a separate skill.
 
 ---
 
 ## Output checklist
 
-- [ ] `design/13-prototype/manifest.md` — complete with all screen mappings and sync hashes
-- [ ] `design/13-prototype/drift-log.md` — all drifts logged and resolved
+- [ ] `design/15_PROTOTYPE/manifest.md` — complete with all screen mappings and sync hashes
+- [ ] `design/15_PROTOTYPE/drift-log.md` — all drifts logged and resolved
 - [ ] Walking skeleton flow works end-to-end
 - [ ] All screens match their canvas briefs (content, states, components)
 - [ ] All screens visually match their Figma implementations

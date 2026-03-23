@@ -7,7 +7,8 @@ description: >
   MVP scope, and prioritize features. Triggers on: "story map", "user stories", "MVP scope",
   "feature priority", "backlog", "walking skeleton", "backbone", "release slices", "what to
   build first", "prioritize features", "scope", or when translating journeys into a buildable
-  backlog. Upstream dependency: design-journeys.
+  backlog. Upstream dependencies: design-journeys, design-process-flows (business rules
+  and exception paths reveal hidden backbone activities and scope constraints).
 ---
 
 # User Story Mapping — Jeff Patton Methodology (Tech/UI Agnostic)
@@ -15,7 +16,7 @@ description: >
 > **Quick reference**
 > - **Purpose:** Structure what to build — backbone, walking skeleton, release slices, MVP scope
 > - **Inputs:** Journeys, personas, spec user stories (soft deps)
-> - **Outputs:** Backbone, story map, walking skeleton, release slices, MVP scope → `design/04-stories/`
+> - **Outputs:** Backbone, story map, walking skeleton, release slices, MVP scope → `design/05_STORIES/`
 > - **Hard rules:** TECH AND UI AGNOSTIC. Walking skeleton must touch EVERY backbone activity. Story format: "As a [persona], I want to [goal] so that [outcome]."
 > - **Common mistake:** Making the walking skeleton too thick — it should be the thinnest possible end-to-end slice, not an MVP
 
@@ -28,8 +29,8 @@ Organize user needs into a structured story map that reveals the backbone of the
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/03-journeys/*` — journeys provide the raw material for stories
-- `design/02-user-models/personas/*` — stories reference personas
+- `design/03_JOURNEYS/*` — journeys provide the raw material for stories
+- `design/02_USER_MODELS/personas/*` — stories reference personas
 - Spec user stories (if they exist, decompose them further)
 
 ---
@@ -51,7 +52,8 @@ Same as `design-journeys` — stories describe what users want to accomplish, no
 
 Before starting this mode's workflow:
 
-1. Check `design/stories/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/05_STORIES/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -59,7 +61,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/stories/_upstream.md` with consumed and produced artifact versions
+2. Update `design/05_STORIES/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -91,7 +93,7 @@ The backbone is the horizontal top row of the story map — it represents the ma
 ...
 ```
 
-Write the backbone to `design/04-stories/backbone.md`.
+Write the backbone to `design/05_STORIES/backbone.md`.
 
 ### Step 2 — Decompose into user tasks
 
@@ -112,7 +114,7 @@ Tasks:
 ...
 ```
 
-Add to `design/04-stories/backbone.md`.
+Add to `design/05_STORIES/backbone.md`.
 
 ### Step 3 — Write user stories
 
@@ -132,7 +134,7 @@ Under each task, write user stories in standard format. Stories go below their p
 - **US-xx**: ...
 ```
 
-Write the full story map to `design/04-stories/story-map.md`.
+Write the full story map to `design/05_STORIES/story-map.md`.
 
 ### Step 4 — Define the walking skeleton
 
@@ -156,7 +158,7 @@ a complete (if minimal) end-to-end experience.
 [What important functionality is intentionally left out of the skeleton?]
 ```
 
-Write to `design/04-stories/walking-skeleton.md`.
+Write to `design/05_STORIES/walking-skeleton.md`.
 
 ### Step 5 — Cut release slices
 
@@ -184,7 +186,7 @@ Draw horizontal lines across the story map to define release slices. Each slice 
 [Which slices constitute MVP? Draw the line here.]
 ```
 
-Write to `design/04-stories/release-slices.md`.
+Write to `design/05_STORIES/release-slices.md`.
 
 ### Step 6 — MVP scope document
 
@@ -210,17 +212,17 @@ Consolidate the MVP definition:
 - [ ] [End-to-end criteria 2]
 ```
 
-Write to `design/04-stories/mvp-scope.md`.
+Write to `design/05_STORIES/mvp-scope.md`.
 
 ---
 
 ## Output checklist
 
-- [ ] `design/04-stories/backbone.md` — backbone activities + task decomposition
-- [ ] `design/04-stories/story-map.md` — full story map with all stories, prioritized vertically
-- [ ] `design/04-stories/walking-skeleton.md` — thinnest end-to-end slice identified
-- [ ] `design/04-stories/release-slices.md` — incremental release slices with MVP boundary
-- [ ] `design/04-stories/mvp-scope.md` — consolidated MVP definition
+- [ ] `design/05_STORIES/backbone.md` — backbone activities + task decomposition
+- [ ] `design/05_STORIES/story-map.md` — full story map with all stories, prioritized vertically
+- [ ] `design/05_STORIES/walking-skeleton.md` — thinnest end-to-end slice identified
+- [ ] `design/05_STORIES/release-slices.md` — incremental release slices with MVP boundary
+- [ ] `design/05_STORIES/mvp-scope.md` — consolidated MVP definition
 - [ ] All stories are tech/UI agnostic — no implementation language
 
 ---

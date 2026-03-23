@@ -2,7 +2,7 @@
 
 ## Design Playbook — Single Source of Truth
 
-**`design/process/`** is the single source of truth for the entire design process. It contains numbered chapter files (01 through 14) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
+**`design/process/`** is the single source of truth for the entire design process. It contains numbered mode files (01 through 14) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
 
 ### How changes work
 - **Designers do not edit the process files directly** — all changes go through Claude
@@ -15,7 +15,7 @@
 - Git provides full version history of all process changes
 
 ### Skill architecture principles
-When deciding whether a process chapter should map to one skill or multiple skills, follow the seven principles documented in `design/process/00-skill-architecture.md`. The decision flowchart evaluates: external tool boundaries (P1), independent re-invocation (P2), hard data dependency gates (P3), context window budget (P4), artifact coherence (P5), failure blast radius (P6), and distinct timing/triggers (P7). Currently all design-* chapters are correctly single-skill; the Figma chapter is correctly split into 8 skills (triggers P1, P2, P3, P6, P7). Two skills are on the watch list for potential future splits: `design-validation` and `design-prototype`.
+When deciding whether a process mode should map to one skill or multiple skills, follow the seven principles documented in the **Skill architecture** section of `design/process/README.md`. The decision flowchart evaluates: external tool boundaries (P1), independent re-invocation (P2), hard data dependency gates (P3), context window budget (P4), artifact coherence (P5), failure blast radius (P6), and distinct timing/triggers (P7). Currently all design-* chapters are correctly single-skill; the Figma chapter is correctly split into 8 skills (triggers P1, P2, P3, P6, P7). Two skills are on the watch list for potential future splits: `design-validation` and `design-prototype`.
 
 ### What triggers propagation
 Any change to a process chapter must cascade to infrastructure. This includes:
@@ -45,16 +45,17 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 
 ### TIER 2 — DEFINITION (tech & UI agnostic)
 3. **`design-journeys`** — User journeys, service blueprints (user story mapping methodology)
-4. **`design-stories`** — User story mapping: backbone, walking skeleton, release slices
-5. **`design-ia`** — Sitemap, navigation model, content hierarchy, taxonomy
+4. **`design-process-flows`** — Process flow diagrams (swimlane, Mermaid) + business rules register; captures decision branches, exception paths, system boundaries, and business logic between journeys and IA
+5. **`design-stories`** — User story mapping: backbone, walking skeleton, release slices
+6. **`design-ia`** — Sitemap, navigation model, content hierarchy, taxonomy
 
 ### TIER 3 — DESIGN (deciding how it looks, feels, and works)
-6. **`design-interaction`** — Interaction models, behavioral specs, state inventory, error strategy
-7. **`design-visual`** — Brand attributes, color/typography rationale, visual language
-8. **`design-content`** — Voice & tone, microcopy patterns, terminology guide
-9. **`design-accessibility`** — WCAG, ARIA patterns, keyboard nav, contrast audit
-10. **`design-validation`** — Heuristic evaluation, test plans, review checklist
-11. **`design-governance`** — Design system versioning, contribution rules, deprecation policy
+7. **`design-interaction`** — Interaction models, behavioral specs, state inventory, error strategy
+8. **`design-visual`** — Brand attributes, color/typography rationale, visual language
+9. **`design-content`** — Voice & tone, microcopy patterns, terminology guide
+10. **`design-accessibility`** — WCAG, ARIA patterns, keyboard nav, contrast audit
+11. **`design-validation`** — Heuristic evaluation, test plans, review checklist
+12. **`design-governance`** — Design system versioning, contribution rules, deprecation policy
 
 ### TIER 4 — DEVELOP (build, prototype, and keep in sync)
 
@@ -66,9 +67,9 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
      └────────────────── sync ────────────────────────┘
 ```
 
-12. **`design-canvas`** — Aggregates ALL upstream artifacts into per-screen briefs (authoritative for intent)
-13. **Figma pipeline** (`figma-*` skills) — Builds screens in Figma (authoritative for visual execution)
-14. **`design-prototype`** — Coded interactive prototype from Figma screens (authoritative for interaction fidelity)
+13. **`design-canvas`** — Aggregates ALL upstream artifacts into per-screen briefs (authoritative for intent)
+14. **Figma pipeline** (`figma-*` skills) — Builds screens in Figma (authoritative for visual execution)
+15. **`design-prototype`** — Coded interactive prototype from Figma screens (authoritative for interaction fidelity)
 
 #### Figma pipeline — mandatory order:
 1. **`figma-connect`** — ALWAYS run first, every session. Never skip.
@@ -93,6 +94,7 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 - New discovery input processed → downstream manifests referencing changed artifacts → notify stale modes
 - Need to understand users → `design-user-models`
 - Mapping how users experience a process → `design-journeys` (tech/UI agnostic)
+- Capturing decision logic, business rules, exception paths → `design-process-flows` (tech/UI agnostic)
 - Structuring what to build → `design-stories` (tech/UI agnostic)
 - Determining screen structure → `design-ia`
 - Defining how screens behave → `design-interaction`
@@ -108,7 +110,7 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 - `figma_execute` is a last resort — only for operations no other tool covers
 
 ### Artifact storage:
-All design artifacts → `design/` directory at project root (including `design/13-prototype/`)
+All design artifacts → `design/` directory at project root (including `design/15_PROTOTYPE/`)
 
 ### Non-negotiable rules:
 - Journeys and stories are TECH AND UI AGNOSTIC — no screen references, no button names, no UI patterns

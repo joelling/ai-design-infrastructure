@@ -22,8 +22,8 @@ Build detailed representations of each user type so that every downstream design
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/01-discovery/stakeholder-map.md` — identifies who the users are
-- `design/01-discovery/design-brief.md` — provides problem context
+- `design/01_DISCOVERY/stakeholder-map.md` — identifies who the users are
+- `design/01_DISCOVERY/design-brief.md` — provides problem context
 
 ---
 
@@ -31,7 +31,8 @@ Build detailed representations of each user type so that every downstream design
 
 Before starting this mode's workflow:
 
-1. Check `design/user-models/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/02_USER_MODELS/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -39,7 +40,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/user-models/_upstream.md` with consumed and produced artifact versions
+2. Update `design/02_USER_MODELS/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -131,7 +132,7 @@ For each primary user role, create a persona document:
 > "[A sentence that captures their mindset]"
 ```
 
-Write each to `design/02-user-models/personas/[role-name].md`.
+Write each to `design/02_USER_MODELS/personas/[role-name].md`.
 
 ### Step 3 — Create empathy maps
 
@@ -159,7 +160,7 @@ For each primary persona, create an empathy map:
 - [What would delight them or make their job easier]
 ```
 
-Write each to `design/02-user-models/empathy-maps/[role-name]-empathy.md`.
+Write each to `design/02_USER_MODELS/empathy-maps/[role-name]-empathy.md`.
 
 ### Step 4 — Jobs-to-be-done matrix
 
@@ -181,7 +182,7 @@ Create a JTBD matrix covering all personas:
 |--------------|------------|-------------------|-------------------|
 ```
 
-Write to `design/02-user-models/jtbd.md`.
+Write to `design/02_USER_MODELS/jtbd.md`.
 
 ### Step 5 — Map behavioral dimensions
 
@@ -194,7 +195,7 @@ For each dimension, document:
 
 Discard any dimension where both poles lead to the same design response. More than 5 dimensions dilutes focus — prioritize by design impact.
 
-Write to `design/02-user-models/behavioral-dimensions.md`:
+Write to `design/02_USER_MODELS/behavioral-dimensions.md`:
 
 ```markdown
 ## Behavioral Dimensions
@@ -223,7 +224,7 @@ Each archetype gets:
 **Confidence:** [tier, same as personas]
 ```
 
-Write to `design/02-user-models/behavioral-archetypes.md`.
+Write to `design/02_USER_MODELS/behavioral-archetypes.md`.
 
 With 2 dimensions you get up to 4 archetypes; with 3 you get up to 8. Only codify those with real participants.
 
@@ -242,11 +243,11 @@ Add these as a section at the bottom of `jtbd.md` or as separate lightweight per
 
 ## Output checklist
 
-- [ ] `design/02-user-models/personas/[role].md` — one per primary user role (minimum 2)
-- [ ] `design/02-user-models/empathy-maps/[role]-empathy.md` — one per primary persona
-- [ ] `design/02-user-models/jtbd.md` — complete JTBD matrix + edge cases
-- [ ] `design/02-user-models/behavioral-dimensions.md` — 2–5 tension axes with poles, evidence, and design relevance
-- [ ] `design/02-user-models/behavioral-archetypes.md` — named archetypes with dimension coordinates, participant mapping, persona cross-reference, and design implications
+- [ ] `design/02_USER_MODELS/personas/[role].md` — one per primary user role (minimum 2)
+- [ ] `design/02_USER_MODELS/empathy-maps/[role]-empathy.md` — one per primary persona
+- [ ] `design/02_USER_MODELS/jtbd.md` — complete JTBD matrix + edge cases
+- [ ] `design/02_USER_MODELS/behavioral-dimensions.md` — 2–5 tension axes with poles, evidence, and design relevance
+- [ ] `design/02_USER_MODELS/behavioral-archetypes.md` — named archetypes with dimension coordinates, participant mapping, persona cross-reference, and design implications
 
 ---
 

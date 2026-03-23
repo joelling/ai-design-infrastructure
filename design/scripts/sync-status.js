@@ -26,7 +26,7 @@ function getFileVersion(filePath) {
 
 /**
  * Scan a directory for the highest version among its .md files.
- * Used for directory-level inputs (e.g., 'design/user-models/personas/').
+ * Used for directory-level inputs (e.g., 'design/02_USER_MODELS/personas/').
  */
 function getDirectoryMaxVersion(dirPath) {
   const resolved = path.resolve(projectRoot, dirPath);

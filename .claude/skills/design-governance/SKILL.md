@@ -21,7 +21,7 @@ Define the rules for how the design system evolves — how components are versio
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/07-visual/visual-language.md` — establishes the visual rules governance enforces
+- `design/08_VISUAL/visual-language.md` — establishes the visual rules governance enforces
 - Existing component inventory (from Figma or design artifacts)
 
 ---
@@ -30,7 +30,8 @@ Define the rules for how the design system evolves — how components are versio
 
 Before starting this mode's workflow:
 
-1. Check `design/governance/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/12_GOVERNANCE/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -38,7 +39,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/governance/_upstream.md` with consumed and produced artifact versions
+2. Update `design/12_GOVERNANCE/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -69,7 +70,7 @@ node design/scripts/sync-manifest.js governance                      # update ma
 
 ### Library versioning
 - **[Project] - Core Library:** follows same semver scheme
-- **Version tracking:** changelog maintained in `design/11-governance/changelog.md`
+- **Version tracking:** changelog maintained in `design/12_GOVERNANCE/changelog.md`
 
 ### When to bump
 | Change type | Version bump | Example |
@@ -82,7 +83,7 @@ node design/scripts/sync-manifest.js governance                      # update ma
 | Spacing token scale extended | Minor | spacing/3xl added |
 ```
 
-Write to `design/11-governance/versioning.md`.
+Write to `design/12_GOVERNANCE/versioning.md`.
 
 ### Step 2 — Contribution guidelines
 
@@ -128,7 +129,7 @@ Before a component enters the library, it must pass:
 - [ ] Description filled in Properties panel
 ```
 
-Write to `design/11-governance/contribution-guide.md`.
+Write to `design/12_GOVERNANCE/contribution-guide.md`.
 
 ### Step 3 — Deprecation policy
 
@@ -156,7 +157,7 @@ Migration: [link or instructions]
 - Notification to all consumers
 ```
 
-Write to `design/11-governance/deprecation-policy.md`.
+Write to `design/12_GOVERNANCE/deprecation-policy.md`.
 
 ### Step 4 — Changelog
 
@@ -178,16 +179,16 @@ Each entry:
 ### [Current entries below]
 ```
 
-Write to `design/11-governance/changelog.md`.
+Write to `design/12_GOVERNANCE/changelog.md`.
 
 ---
 
 ## Output checklist
 
-- [ ] `design/11-governance/versioning.md` — semver scheme, bump rules
-- [ ] `design/11-governance/contribution-guide.md` — proposal process, modification rules, quality gate, naming authority
-- [ ] `design/11-governance/deprecation-policy.md` — deprecation process, sunset timelines, migration requirements
-- [ ] `design/11-governance/changelog.md` — initialized changelog
+- [ ] `design/12_GOVERNANCE/versioning.md` — semver scheme, bump rules
+- [ ] `design/12_GOVERNANCE/contribution-guide.md` — proposal process, modification rules, quality gate, naming authority
+- [ ] `design/12_GOVERNANCE/deprecation-policy.md` — deprecation process, sunset timelines, migration requirements
+- [ ] `design/12_GOVERNANCE/changelog.md` — initialized changelog
 
 ---
 

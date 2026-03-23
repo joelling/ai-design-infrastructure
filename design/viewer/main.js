@@ -108,7 +108,6 @@ function renderNav() {
     const label = isReadme
       ? 'Overview'
       : chapter.title
-          .replace(/^Chapter \d+:\s*/, '')
           .replace(/^Design-to-Canvas\s*/, 'Canvas ')
           .replace(/^Design System\s*/, '')
           .replace(/^Design\s*/, '');
@@ -167,7 +166,7 @@ function buildTOC(article) {
 
   const toc = document.createElement('nav');
   toc.className = 'toc';
-  toc.innerHTML = '<div class="toc-title">In this chapter</div>';
+  toc.innerHTML = '<div class="toc-title">In this mode</div>';
 
   const list = document.createElement('ul');
   headings.forEach(h => {

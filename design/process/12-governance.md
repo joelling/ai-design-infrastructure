@@ -1,4 +1,4 @@
-# Chapter 11: Design System Governance
+# Design System Governance
 
 > **Tier 3 — Design** | Mode: `design-governance`
 
@@ -12,12 +12,12 @@ You are establishing the constitution for the design system. Who can change what
 
 ## Inputs
 
-- `design/visual/visual-language.md` — the visual rules governance enforces
+- `design/08_VISUAL/visual-language.md` — the visual rules governance enforces
 - Existing component inventory (from Figma or design artifacts)
 
 ## Upstream sync
 
-**On entry:** Check `design/governance/_upstream.md` (if it exists). If upstream has changed since last run:
+**On entry:** Check `design/12_GOVERNANCE/_upstream.md` (if it exists). If upstream has changed since last run:
 
 1. Report what changed and classify severity (additive / corrective / structural)
 2. Ask the designer: re-process with new data, or proceed with current outputs?
@@ -26,7 +26,7 @@ You are establishing the constitution for the design system. Who can change what
 **On completion:** After producing or updating artifacts:
 
 1. Add or increment version headers on all changed output files
-2. Update `design/governance/_upstream.md` with consumed artifact versions
+2. Update `design/12_GOVERNANCE/_upstream.md` with consumed artifact versions
 3. Report which downstream modes are now potentially stale (figma-library-mode, figma-audit)
 
 ## Process
@@ -45,11 +45,11 @@ You are establishing the constitution for the design system. Who can change what
 
 | File | What it contains |
 |------|-----------------|
-| `design/governance/versioning.md` | Semver scheme, bump rules |
-| `design/governance/contribution-guide.md` | Proposal process, modification rules, quality gate, naming authority |
-| `design/governance/deprecation-policy.md` | Deprecation process, sunset timelines, migration requirements |
-| `design/governance/changelog.md` | Initialized changelog |
-| `design/governance/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| `design/12_GOVERNANCE/versioning.md` | Semver scheme, bump rules |
+| `design/12_GOVERNANCE/contribution-guide.md` | Proposal process, modification rules, quality gate, naming authority |
+| `design/12_GOVERNANCE/deprecation-policy.md` | Deprecation process, sunset timelines, migration requirements |
+| `design/12_GOVERNANCE/changelog.md` | Initialized changelog |
+| `design/12_GOVERNANCE/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

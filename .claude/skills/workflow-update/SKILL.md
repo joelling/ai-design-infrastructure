@@ -25,20 +25,22 @@ The design process is defined in `design/process/`:
 
 | File | Mode |
 |------|------|
-| `README.md` | Overview, chapter index, principles |
+| `README.md` | Overview, mode index, principles, skill architecture |
 | `01-discovery.md` | `design-discovery` |
 | `02-user-models.md` | `design-user-models` |
 | `03-journeys.md` | `design-journeys` |
-| `04-stories.md` | `design-stories` |
-| `05-ia.md` | `design-ia` |
-| `06-interaction.md` | `design-interaction` |
-| `07-visual.md` | `design-visual` |
-| `08-content.md` | `design-content` |
-| `09-accessibility.md` | `design-accessibility` |
-| `10-validation.md` | `design-validation` |
-| `11-governance.md` | `design-governance` |
-| `12-canvas.md` | `design-canvas` |
-| `13-figma-pipeline.md` | `figma-*` |
+| `04-process-flows.md` | `design-process-flows` |
+| `05-stories.md` | `design-stories` |
+| `06-ia.md` | `design-ia` |
+| `07-interaction.md` | `design-interaction` |
+| `08-visual.md` | `design-visual` |
+| `09-content.md` | `design-content` |
+| `10-accessibility.md` | `design-accessibility` |
+| `11-validation.md` | `design-validation` |
+| `12-governance.md` | `design-governance` |
+| `13-canvas.md` | `design-canvas` |
+| `14-figma-pipeline.md` | `figma-*` |
+| `15-prototype.md` | `design-prototype` |
 
 ---
 

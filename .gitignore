@@ -12,3 +12,22 @@ node_modules/
 # Vite build output
 design/viewer/dist/
 design/viewer/.vite/
+
+# Project inputs and outputs — client data, discovery artifacts, design artifacts
+# These are project-specific and must not be committed to the public framework repo
+ref/
+design/01_DISCOVERY/
+design/02_USER_MODELS/
+design/03_JOURNEYS/
+design/04_PROCESS_FLOWS/
+design/05_STORIES/
+design/06_INFORMATION_ARCHITECTURE/
+design/07_INTERACTION/
+design/08_VISUAL/
+design/09_CONTENT/
+design/10_ACCESSIBILITY/
+design/11_VALIDATION/
+design/12_GOVERNANCE/
+design/13_CANVAS/
+design/15_PROTOTYPE/
+design/articulation/

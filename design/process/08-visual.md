@@ -1,4 +1,4 @@
-# Chapter 7: Visual Design
+# Visual Design
 
 > **Tier 3 — Design** | Mode: `design-visual`
 
@@ -15,14 +15,14 @@ You are defining the product's visual personality. Every choice — color, typog
 
 ## Inputs
 
-- `design/discovery/design-brief.md` — design principles guide visual direction
-- `design/user-models/personas/*` — user context affects density and complexity
-- `design/user-models/behavioral-archetypes.md` — archetype patterns inform information density and visual complexity decisions
-- `design/information-architecture/*` — content density affects spacing decisions
+- `design/01_DISCOVERY/design-brief.md` — design principles guide visual direction
+- `design/02_USER_MODELS/personas/*` — user context affects density and complexity
+- `design/02_USER_MODELS/behavioral-archetypes.md` — archetype patterns inform information density and visual complexity decisions
+- `design/06_INFORMATION_ARCHITECTURE/*` — content density affects spacing decisions
 
 ## Upstream sync
 
-**On entry:** Check `design/visual/_upstream.md` (if it exists). If upstream has changed since last run:
+**On entry:** Check `design/08_VISUAL/_upstream.md` (if it exists). If upstream has changed since last run:
 
 1. Report what changed and classify severity (additive / corrective / structural)
 2. Ask the designer: re-process with new data, or proceed with current outputs?
@@ -31,7 +31,7 @@ You are defining the product's visual personality. Every choice — color, typog
 **On completion:** After producing or updating artifacts:
 
 1. Add or increment version headers on all changed output files
-2. Update `design/visual/_upstream.md` with consumed artifact versions
+2. Update `design/08_VISUAL/_upstream.md` with consumed artifact versions
 3. Report which downstream modes are now potentially stale (accessibility, canvas, figma-tokens)
 
 ## Process
@@ -50,11 +50,11 @@ You are defining the product's visual personality. Every choice — color, typog
 
 | File | What it contains |
 |------|-----------------|
-| `design/visual/brand-attributes.md` | Personality spectrum, visual principles |
-| `design/visual/color-rationale.md` | Full palette with rationale, WCAG contrast, dark mode strategy |
-| `design/visual/typography-rationale.md` | Font selection, type scale, hierarchy rules |
-| `design/visual/visual-language.md` | Spacing, elevation, radius, iconography, grid |
-| `design/visual/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| `design/08_VISUAL/brand-attributes.md` | Personality spectrum, visual principles |
+| `design/08_VISUAL/color-rationale.md` | Full palette with rationale, WCAG contrast, dark mode strategy |
+| `design/08_VISUAL/typography-rationale.md` | Font selection, type scale, hierarchy rules |
+| `design/08_VISUAL/visual-language.md` | Spacing, elevation, radius, iconography, grid |
+| `design/08_VISUAL/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

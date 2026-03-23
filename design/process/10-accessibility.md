@@ -1,4 +1,4 @@
-# Chapter 9: Accessibility
+# Accessibility
 
 > **Tier 3 — Design** | Mode: `design-accessibility`
 
@@ -12,13 +12,13 @@ For every design decision, ask: "Can someone use this if they can't see it? Can'
 
 ## Inputs
 
-- `design/visual/color-rationale.md` — colors to audit for contrast
-- `design/interaction/interaction-model.md` — interactions need keyboard equivalents
-- `design/information-architecture/navigation-model.md` — navigation needs a keyboard plan
+- `design/08_VISUAL/color-rationale.md` — colors to audit for contrast
+- `design/07_INTERACTION/interaction-model.md` — interactions need keyboard equivalents
+- `design/06_INFORMATION_ARCHITECTURE/navigation-model.md` — navigation needs a keyboard plan
 
 ## Upstream sync
 
-**On entry:** Check `design/accessibility/_upstream.md` (if it exists). If upstream has changed since last run:
+**On entry:** Check `design/10_ACCESSIBILITY/_upstream.md` (if it exists). If upstream has changed since last run:
 
 1. Report what changed and classify severity (additive / corrective / structural)
 2. Ask the designer: re-process with new data, or proceed with current outputs?
@@ -27,7 +27,7 @@ For every design decision, ask: "Can someone use this if they can't see it? Can'
 **On completion:** After producing or updating artifacts:
 
 1. Add or increment version headers on all changed output files
-2. Update `design/accessibility/_upstream.md` with consumed artifact versions
+2. Update `design/10_ACCESSIBILITY/_upstream.md` with consumed artifact versions
 3. Report which downstream modes are now potentially stale (canvas, figma-tokens, figma-component)
 
 ## Process
@@ -46,11 +46,11 @@ For every design decision, ask: "Can someone use this if they can't see it? Can'
 
 | File | What it contains |
 |------|-----------------|
-| `design/accessibility/accessibility-requirements.md` | WCAG target, AT support matrix |
-| `design/accessibility/color-contrast-audit.md` | All color combos tested, failures flagged |
-| `design/accessibility/aria-patterns.md` | Per-component ARIA semantics |
-| `design/accessibility/keyboard-nav-plan.md` | Tab order, focus management, shortcuts |
-| `design/accessibility/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| `design/10_ACCESSIBILITY/accessibility-requirements.md` | WCAG target, AT support matrix |
+| `design/10_ACCESSIBILITY/color-contrast-audit.md` | All color combos tested, failures flagged |
+| `design/10_ACCESSIBILITY/aria-patterns.md` | Per-component ARIA semantics |
+| `design/10_ACCESSIBILITY/keyboard-nav-plan.md` | Tab order, focus management, shortcuts |
+| `design/10_ACCESSIBILITY/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

@@ -1,4 +1,4 @@
-# Chapter 14: Coded Prototype
+# Coded Prototype
 
 > **Tier 4 — Develop** | Mode: `design-prototype`
 
@@ -31,18 +31,18 @@ Changes propagate between all three. See **Sync rules** below.
 
 | Artifact | What it provides | Path |
 |----------|-----------------|------|
-| Canvas briefs | Per-screen spec (structure, content, states, a11y, behavior) | `design/canvas/[screen]-brief.md` |
+| Canvas briefs | Per-screen spec (structure, content, states, a11y, behavior) | `design/13_CANVAS/[screen]-brief.md` |
 | Figma screens | Visual reference via MCP (screenshot, inspect, component details) | Figma MCP tools |
-| Walking skeleton | Flow order — which screens to wire first | `design/stories/walking-skeleton.md` |
-| Story map + release slices | Scope — which stories are in this prototype round | `design/stories/story-map.md`, `release-slices.md` |
-| Interaction model | Behavioral specs (given/when/then) for wiring interactions | `design/interaction/interaction-model.md` |
-| Behavioral specs | Detailed interaction patterns | `design/interaction/behavioral-spec.md` |
+| Walking skeleton | Flow order — which screens to wire first | `design/05_STORIES/walking-skeleton.md` |
+| Story map + release slices | Scope — which stories are in this prototype round | `design/05_STORIES/story-map.md`, `release-slices.md` |
+| Interaction model | Behavioral specs (given/when/then) for wiring interactions | `design/07_INTERACTION/interaction-model.md` |
+| Behavioral specs | Detailed interaction patterns | `design/07_INTERACTION/behavioral-spec.md` |
 
 ## Upstream sync
 
 The prototype consumes canvas briefs, Figma screens, and story/interaction artifacts. The Tier 4 sync loop handles drift between the three Develop nodes. The upstream sync protocol extends awareness to changes in the briefs' upstream sources.
 
-**On entry:** Check `design/prototype/_upstream.md` (if it exists, separate from the manifest). Compare recorded canvas brief versions and upstream artifact versions. If briefs or their upstream sources have changed since last run:
+**On entry:** Check `design/15_PROTOTYPE/_upstream.md` (if it exists, separate from the manifest). Compare recorded canvas brief versions and upstream artifact versions. If briefs or their upstream sources have changed since last run:
 
 1. Report what changed, which prototype screens are affected, and classify severity
 2. Ask the designer: update affected screens, or proceed with current prototype?
@@ -51,14 +51,14 @@ The prototype consumes canvas briefs, Figma screens, and story/interaction artif
 **On completion:** After producing or updating prototype screens:
 
 1. Update the prototype manifest with current sync hashes
-2. Update `design/prototype/_upstream.md` with consumed artifact versions
+2. Update `design/15_PROTOTYPE/_upstream.md` with consumed artifact versions
 3. Report any drift discovered during prototyping back to canvas briefs (via drift log)
 
 ## Process
 
 **0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which canvas briefs and Figma screens are available.
 
-**1. Choose technology and scaffold.** Select a stack appropriate for the project (vanilla HTML/CSS/JS, React, Next.js, Svelte, etc.). The process is technology agnostic — what matters is that the prototype can render screens, handle navigation, and respond to interactions. Scaffold the project in `design/prototype/`.
+**1. Choose technology and scaffold.** Select a stack appropriate for the project (vanilla HTML/CSS/JS, React, Next.js, Svelte, etc.). The process is technology agnostic — what matters is that the prototype can render screens, handle navigation, and respond to interactions. Scaffold the project in `design/15_PROTOTYPE/`.
 
 **2. Build screen by screen.** For each screen in scope:
    - Read the canvas brief for structure, content, and states
@@ -84,9 +84,9 @@ The prototype consumes canvas briefs, Figma screens, and story/interaction artif
 
 | File | What it contains |
 |------|-----------------|
-| `design/prototype/manifest.md` | Screen-to-file mapping, tech stack, sync hashes, build/run instructions |
-| `design/prototype/drift-log.md` | Record of detected drifts and resolutions |
-| `design/prototype/[project files]` | The prototype source code |
+| `design/15_PROTOTYPE/manifest.md` | Screen-to-file mapping, tech stack, sync hashes, build/run instructions |
+| `design/15_PROTOTYPE/drift-log.md` | Record of detected drifts and resolutions |
+| `design/15_PROTOTYPE/[project files]` | The prototype source code |
 
 ### Manifest format
 
@@ -132,7 +132,7 @@ When this mode runs, it performs drift detection:
 2. **Compare Brief → Prototype:** Check that all components, states, and content strings in the brief exist in the prototype. Flag missing or extra elements.
 3. **Compare Prototype → Brief:** If prototype has evolved (e.g., interaction improvements discovered during prototyping), flag additions that need to flow back to the brief.
 
-Drifts are logged to `design/prototype/drift-log.md` with:
+Drifts are logged to `design/15_PROTOTYPE/drift-log.md` with:
 - Timestamp
 - Source node (which changed)
 - Change type (auto-sync or structural)

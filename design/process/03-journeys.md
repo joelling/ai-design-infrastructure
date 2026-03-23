@@ -1,4 +1,4 @@
-# Chapter 3: Journey Mapping
+# Journey Mapping
 
 > **Tier 2 — Definition** | Mode: `design-journeys`
 >
@@ -28,14 +28,14 @@ The critical lens: **technology and UI agnostic**. Describe "provides the requir
 
 ## Inputs
 
-- `design/user-models/personas/*` — journeys are persona-specific
-- `design/user-models/behavioral-archetypes.md` — annotate where archetype-specific experience diverges along the journey
-- `design/discovery/design-brief.md` — provides scope boundaries
+- `design/02_USER_MODELS/personas/*` — journeys are persona-specific
+- `design/02_USER_MODELS/behavioral-archetypes.md` — annotate where archetype-specific experience diverges along the journey
+- `design/01_DISCOVERY/design-brief.md` — provides scope boundaries
 - Spec workflow descriptions (state machines, process flows)
 
 ## Upstream sync
 
-**On entry:** Before starting this mode's process, check `design/journeys/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files. If upstream has changed since last run:
+**On entry:** Before starting this mode's process, check `design/03_JOURNEYS/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files. If upstream has changed since last run:
 
 1. Report what changed and classify severity (additive / corrective / structural)
 2. Ask the designer: re-process with new data, or proceed with current outputs?
@@ -44,7 +44,7 @@ The critical lens: **technology and UI agnostic**. Describe "provides the requir
 **On completion:** After producing or updating artifacts:
 
 1. Add or increment version headers on all changed output files
-2. Update `design/journeys/_upstream.md` with consumed artifact versions
+2. Update `design/03_JOURNEYS/_upstream.md` with consumed artifact versions
 3. Report which downstream modes are now potentially stale (stories, ia, interaction)
 
 ## Process
@@ -63,10 +63,10 @@ The critical lens: **technology and UI agnostic**. Describe "provides the requir
 
 | File | What it contains |
 |------|-----------------|
-| `design/journeys/[journey-name]-journey.md` | One per primary journey (minimum 2) |
-| `design/journeys/service-blueprint.md` | Full service blueprint |
-| `design/journeys/task-flows/[task-name].md` | One per discrete user task (minimum 4) |
-| `design/journeys/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| `design/03_JOURNEYS/[journey-name]-journey.md` | One per primary journey (minimum 2) |
+| `design/03_JOURNEYS/service-blueprint.md` | Full service blueprint |
+| `design/03_JOURNEYS/task-flows/[task-name].md` | One per discrete user task (minimum 4) |
+| `design/03_JOURNEYS/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

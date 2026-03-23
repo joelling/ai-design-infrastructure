@@ -20,11 +20,11 @@ Define the content strategy so that every text element in the product — labels
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/02-user-models/personas/*` — content adapts to audience expertise
-- `design/02-user-models/behavioral-archetypes.md` — archetype tensions inform terminology complexity and tone adaptation
-- `design/06-interaction/error-strategy.md` — error messages need content
-- `design/06-interaction/state-inventory.md` — empty/loading/error states need content
-- `design/01-discovery/domain-glossary.md` — terminology source of truth
+- `design/02_USER_MODELS/personas/*` — content adapts to audience expertise
+- `design/02_USER_MODELS/behavioral-archetypes.md` — archetype tensions inform terminology complexity and tone adaptation
+- `design/07_INTERACTION/error-strategy.md` — error messages need content
+- `design/07_INTERACTION/state-inventory.md` — empty/loading/error states need content
+- `design/01_DISCOVERY/domain-glossary.md` — terminology source of truth
 
 ---
 
@@ -32,7 +32,8 @@ Define the content strategy so that every text element in the product — labels
 
 Before starting this mode's workflow:
 
-1. Check `design/content/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/09_CONTENT/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -40,7 +41,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/content/_upstream.md` with consumed and produced artifact versions
+2. Update `design/09_CONTENT/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -83,7 +84,7 @@ Our voice is NOT:
 | Neutral/informational | [baseline tone] | "[example message]" |
 ```
 
-Write to `design/08-content/voice-tone.md`.
+Write to `design/09_CONTENT/voice-tone.md`.
 
 ### Step 2 — Terminology guide
 
@@ -109,7 +110,7 @@ Write to `design/08-content/voice-tone.md`.
 - [Standard abbreviations used across the product]
 ```
 
-Write to `design/08-content/terminology.md`.
+Write to `design/09_CONTENT/terminology.md`.
 
 ### Step 3 — Microcopy patterns
 
@@ -156,7 +157,7 @@ Write to `design/08-content/terminology.md`.
 | Error | "[What happened]. [What to do]." | Persistent | "Save failed. Check your connection and try again." |
 ```
 
-Write to `design/08-content/microcopy-patterns.md`.
+Write to `design/09_CONTENT/microcopy-patterns.md`.
 
 ### Step 4 — Content templates
 
@@ -184,7 +185,7 @@ Write to `design/08-content/microcopy-patterns.md`.
 - Beyond 7 days: "[Date]"
 ```
 
-Write to `design/08-content/content-templates.md`.
+Write to `design/09_CONTENT/content-templates.md`.
 
 ---
 
@@ -201,10 +202,10 @@ Write to `design/08-content/content-templates.md`.
 
 ## Output checklist
 
-- [ ] `design/08-content/voice-tone.md` — voice principles, tone shifts by context
-- [ ] `design/08-content/terminology.md` — canonical terms, formatting conventions, abbreviation rules
-- [ ] `design/08-content/microcopy-patterns.md` — patterns for buttons, forms, validation, empty states, status messages
-- [ ] `design/08-content/content-templates.md` — templates for notifications, dialogs, help text, timestamps
+- [ ] `design/09_CONTENT/voice-tone.md` — voice principles, tone shifts by context
+- [ ] `design/09_CONTENT/terminology.md` — canonical terms, formatting conventions, abbreviation rules
+- [ ] `design/09_CONTENT/microcopy-patterns.md` — patterns for buttons, forms, validation, empty states, status messages
+- [ ] `design/09_CONTENT/content-templates.md` — templates for notifications, dialogs, help text, timestamps
 
 ---
 

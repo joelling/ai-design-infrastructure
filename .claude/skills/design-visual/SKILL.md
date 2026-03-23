@@ -16,7 +16,7 @@ description: >
 > **Quick reference**
 > - **Purpose:** Establish visual language and brand expression — the WHY behind token values
 > - **Inputs:** Design brief, personas, IA (soft deps)
-> - **Outputs:** Brand attributes, color rationale, typography rationale, visual language → `design/07-visual/`
+> - **Outputs:** Brand attributes, color rationale, typography rationale, visual language → `design/08_VISUAL/`
 > - **Hard rules:** Every color choice needs a rationale. All text colors need WCAG contrast ratios. Spacing scale must be mathematical.
 > - **Common mistake:** Choosing colors without documenting WCAG contrast ratios — contrast failures discovered later force rework
 
@@ -29,10 +29,10 @@ Establish the visual language and brand expression for the product. This mode pr
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/01-discovery/design-brief.md` — design principles guide visual direction
-- `design/02-user-models/personas/*` — user context affects visual density and complexity
-- `design/02-user-models/behavioral-archetypes.md` — archetype patterns inform information density and visual complexity decisions
-- `design/05-ia/*` — content density affects spacing and hierarchy decisions
+- `design/01_DISCOVERY/design-brief.md` — design principles guide visual direction
+- `design/02_USER_MODELS/personas/*` — user context affects visual density and complexity
+- `design/02_USER_MODELS/behavioral-archetypes.md` — archetype patterns inform information density and visual complexity decisions
+- `design/06_INFORMATION_ARCHITECTURE/*` — content density affects spacing and hierarchy decisions
 
 ---
 
@@ -40,7 +40,8 @@ Establish the visual language and brand expression for the product. This mode pr
 
 Before starting this mode's workflow:
 
-1. Check `design/visual/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/08_VISUAL/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -48,7 +49,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/visual/_upstream.md` with consumed and produced artifact versions
+2. Update `design/08_VISUAL/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -90,7 +91,7 @@ Define the personality of the product through brand attributes:
 3. [Principle 3] — [what it means]
 ```
 
-Write to `design/07-visual/brand-attributes.md`.
+Write to `design/08_VISUAL/brand-attributes.md`.
 
 ### Step 2 — Color rationale
 
@@ -130,7 +131,7 @@ For each primary hue, specify the step scale (maps to primitive tokens):
 - Key differences from light mode: [what changes besides bg/fg swap]
 ```
 
-Write to `design/07-visual/color-rationale.md`.
+Write to `design/08_VISUAL/color-rationale.md`.
 
 ### Step 3 — Typography rationale
 
@@ -162,7 +163,7 @@ Select fonts and define the type scale:
 - [When to use weight vs. size for emphasis?]
 ```
 
-Write to `design/07-visual/typography-rationale.md`.
+Write to `design/08_VISUAL/typography-rationale.md`.
 
 ### Step 4 — Visual language
 
@@ -205,7 +206,7 @@ Define the remaining visual properties:
 - Breakpoints: [list with rationale]
 ```
 
-Write to `design/07-visual/visual-language.md`.
+Write to `design/08_VISUAL/visual-language.md`.
 
 ---
 
@@ -224,10 +225,10 @@ Write to `design/07-visual/visual-language.md`.
 
 ## Output checklist
 
-- [ ] `design/07-visual/brand-attributes.md` — personality spectrum, visual principles
-- [ ] `design/07-visual/color-rationale.md` — full color palette with rationale, WCAG contrast noted, dark mode strategy
-- [ ] `design/07-visual/typography-rationale.md` — font selection, type scale, hierarchy rules
-- [ ] `design/07-visual/visual-language.md` — spacing, elevation, radius, iconography, grid
+- [ ] `design/08_VISUAL/brand-attributes.md` — personality spectrum, visual principles
+- [ ] `design/08_VISUAL/color-rationale.md` — full color palette with rationale, WCAG contrast noted, dark mode strategy
+- [ ] `design/08_VISUAL/typography-rationale.md` — font selection, type scale, hierarchy rules
+- [ ] `design/08_VISUAL/visual-language.md` — spacing, elevation, radius, iconography, grid
 
 ---
 

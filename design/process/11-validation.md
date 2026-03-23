@@ -1,4 +1,4 @@
-# Chapter 10: Design Validation
+# Design Validation
 
 > **Tier 3 — Design** | Mode: `design-validation`
 
@@ -16,7 +16,7 @@ This mode is flexible — it uses whatever design artifacts exist. More artifact
 
 ## Upstream sync
 
-**On entry:** Check `design/validation/_upstream.md` (if it exists). If upstream has changed since last run:
+**On entry:** Check `design/11_VALIDATION/_upstream.md` (if it exists). If upstream has changed since last run:
 
 1. Report what changed and classify severity (additive / corrective / structural)
 2. Ask the designer: re-process with new data, or proceed with current outputs?
@@ -25,7 +25,7 @@ This mode is flexible — it uses whatever design artifacts exist. More artifact
 **On completion:** After producing or updating artifacts:
 
 1. Add or increment version headers on all changed output files
-2. Update `design/validation/_upstream.md` with consumed artifact versions
+2. Update `design/11_VALIDATION/_upstream.md` with consumed artifact versions
 3. Report which downstream modes are now potentially stale (canvas, figma-audit)
 
 ## Process
@@ -44,11 +44,11 @@ This mode is flexible — it uses whatever design artifacts exist. More artifact
 
 | File | What it contains |
 |------|-----------------|
-| `design/validation/heuristic-evaluation.md` | 10-heuristic evaluation with ratings |
-| `design/validation/test-plan.md` | Usability test structure, metrics, analysis plan |
-| `design/validation/scenario-scripts.md` | Task-based scenarios using personas and mock data |
-| `design/validation/review-checklist.md` | Per-screen post-build review checklist |
-| `design/validation/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| `design/11_VALIDATION/heuristic-evaluation.md` | 10-heuristic evaluation with ratings |
+| `design/11_VALIDATION/test-plan.md` | Usability test structure, metrics, analysis plan |
+| `design/11_VALIDATION/scenario-scripts.md` | Task-based scenarios using personas and mock data |
+| `design/11_VALIDATION/review-checklist.md` | Per-screen post-build review checklist |
+| `design/11_VALIDATION/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

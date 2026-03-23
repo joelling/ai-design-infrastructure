@@ -1,4 +1,4 @@
-# Chapter 1: Design Discovery
+# Design Discovery
 
 > **Tier 1 — Discovery** | Mode: `design-discovery`
 
@@ -45,12 +45,13 @@ Regardless of input type, the mode is always looking for these signal types and 
 | **Success criteria** | "success means", KPIs, acceptance thresholds | Design brief — success metrics |
 | **Scope signals** | what's in/out, what exists today, what's being replaced | Design brief — scope |
 | **Analogous system references** | "similar to X", competitor mentions | Competitive analysis |
+| **Strategic value / commercial drivers** | quantified KPIs, value commitments, ROI claims, commercial outcomes | Value framework |
 
 ## Process
 
 **Step 1 — Document inventory.** Catalog everything provided. Classify each input into one of the three categories. Note gaps explicitly — gaps go into the design brief as evidence limitations, not assumptions.
 
-**Step 2 — Per-input cleaning (Tier 1).** Clean and structure each raw input individually into its own artifact under `design/discovery/inputs/[type]/[name].md`. These are intermediate artifacts that feed Tier 2, not final outputs.
+**Step 2 — Per-input cleaning (Tier 1).** Clean and structure each raw input individually into its own artifact under `design/01_DISCOVERY/inputs/[type]/[name].md`. These are intermediate artifacts that feed Tier 2, not final outputs.
 
 *Interview / transcript template:*
 ```markdown
@@ -110,26 +111,27 @@ Regardless of input type, the mode is always looking for these signal types and 
 
 **Step 3 — Per-type synthesis (Tier 2).** Aggregate across all cleaned inputs of the same type. Tier 2 produces three synthesis files.
 
-*Qualitative synthesis* (`design/discovery/qualitative-synthesis.md`): themes (patterns appearing in 2+ sources, with evidence counts), key quotes (most representative verbatim evidence per theme), consolidated pain signals (de-duplicated), mental models observed (how users conceptualize the domain), open questions (where evidence is absent or conflicting).
+*Qualitative synthesis* (`design/01_DISCOVERY/qualitative-synthesis.md`): themes (patterns appearing in 2+ sources, with evidence counts), key quotes (most representative verbatim evidence per theme), consolidated pain signals (de-duplicated), mental models observed (how users conceptualize the domain), open questions (where evidence is absent or conflicting).
 
-*Quantitative synthesis* (`design/discovery/quantitative-synthesis.md`): behavioral patterns (what data shows users actually do), key metrics (headline numbers worth carrying into design), statistical signals (correlations, drop-off points, completion rates), contradictions with qualitative findings (where numbers and words disagree), open questions.
+*Quantitative synthesis* (`design/01_DISCOVERY/quantitative-synthesis.md`): behavioral patterns (what data shows users actually do), key metrics (headline numbers worth carrying into design), statistical signals (correlations, drop-off points, completion rates), contradictions with qualitative findings (where numbers and words disagree), open questions.
 
-*Document synthesis* (`design/discovery/document-synthesis.md`): unified problem statement (reconciled across documents), consolidated constraints (regulatory / technical / org), agreed success criteria, scope boundaries (in / out / unresolved), contradictions between documents (flagged explicitly). Most useful when 3+ client documents are provided with potentially conflicting framing.
+*Document synthesis* (`design/01_DISCOVERY/document-synthesis.md`): unified problem statement (reconciled across documents), consolidated constraints (regulatory / technical / org), agreed success criteria, scope boundaries (in / out / unresolved), contradictions between documents (flagged explicitly). Most useful when 3+ client documents are provided with potentially conflicting framing.
 
 **Step 4 — Cross-type assembly (Tier 3).** Scan ALL cleaned inputs and ALL type syntheses for the relevant signal types and assemble the project context artifacts. These are NOT derived from a single input or type.
 
 - **Stakeholder map** — every person/role signal found anywhere across all tiers. Classify as primary user (daily), secondary user (occasional), or stakeholder (shapes but doesn't use). Document goal, pain point, and influence.
 - **Domain glossary** — every terminology signal found across all tiers. For each term: full name, abbreviation, plain-language definition, UI implications (does the user see this? abbreviated? role-dependent?).
+- **Value framework** — synthesize all strategic value signals into the vision → driver → lever → metric hierarchy. Produces `design/01_DISCOVERY/value-framework.md`: vision statement, value drivers (structural factors enabling value), value levers (measurable mechanisms), priority ranking, user outcomes by lever, commercial hypothesis, evidence record. This becomes the decision filter for all downstream modes — every design decision should trace to at least one lever.
 - **Competitive analysis** — all analogous system references from inputs + web research on similar systems. What they do well, what they do poorly, key patterns.
-- **Design brief** — synthesize all constraint, success, and scope signals into: problem statement (1-2 paragraphs), design principles (3-5, project-specific and testable), constraints (regulatory/technical/org/accessibility), users summary, success metrics, scope boundaries.
+- **Design brief** — synthesize all constraint, success, and scope signals into: problem statement (1-2 paragraphs), design principles (3-5, project-specific and testable), constraints (regulatory/technical/org/accessibility), users summary, success metrics, scope boundaries. Cross-references `value-framework.md` for quantified value context.
 
 ## Downstream sync
 
 Discovery has no upstream modes, but it is the origin of the artifact sync chain. After producing or updating artifacts:
 
 1. Add version headers to all output files (see format below)
-2. Write or update `design/discovery/_upstream.md` manifest listing all produced artifacts and their versions
-3. Report which downstream modes are now potentially stale — check if `design/user-models/_upstream.md`, `design/visual/_upstream.md`, `design/content/_upstream.md`, or any other downstream manifest references prior versions of discovery artifacts
+2. Write or update `design/01_DISCOVERY/_upstream.md` manifest listing all produced artifacts and their versions
+3. Report which downstream modes are now potentially stale — check if `design/02_USER_MODELS/_upstream.md`, `design/08_VISUAL/_upstream.md`, `design/09_CONTENT/_upstream.md`, or any other downstream manifest references prior versions of discovery artifacts
 4. Display: "Discovery artifacts updated. Downstream modes now potentially stale: [list]."
 
 When new inputs are added to an existing discovery (e.g., a new interview transcript arrives after initial processing), follow an incremental approach:
@@ -145,24 +147,25 @@ When new inputs are added to an existing discovery (e.g., a new interview transc
 Every output file carries a version comment as its first line:
 
 ```markdown
-<!-- artifact: design/discovery/stakeholder-map.md | version: 2 | mode: design-discovery | updated: 2026-03-21 -->
+<!-- artifact: design/01_DISCOVERY/stakeholder-map.md | version: 2 | mode: design-discovery | updated: 2026-03-21 -->
 ```
 
 ## Outputs
 
 | File | What it contains | Tier |
 |------|-----------------|------|
-| `design/discovery/inputs/interviews/[name].md` | One per interview/transcript, cleaned and structured | 1 |
-| `design/discovery/inputs/surveys/[name].md` | One per survey/analytics report, cleaned and structured | 1 |
-| `design/discovery/inputs/documents/[name].md` | One per project/client document, cleaned | 1 |
-| `design/discovery/qualitative-synthesis.md` | Themes, quotes, pain signals, mental models across all qualitative inputs | 2 |
-| `design/discovery/quantitative-synthesis.md` | Behavioral patterns, metrics, statistical signals across all quantitative inputs | 2 |
-| `design/discovery/document-synthesis.md` | Reconciled problem framing, constraints, success criteria across all client documents | 2 |
-| `design/discovery/stakeholder-map.md` | All actors assembled cross-type — goals, pain points, decision authority | 3 |
-| `design/discovery/domain-glossary.md` | All domain terms assembled cross-type — definitions and UI implications | 3 |
-| `design/discovery/competitive-analysis.md` | Analogous systems — patterns and pitfalls | 3 |
-| `design/discovery/design-brief.md` | Problem statement, design principles, constraints, success metrics, scope | 3 |
-| `design/discovery/_upstream.md` | Produced artifact manifest — versions and downstream consumers | — |
+| `design/01_DISCOVERY/inputs/interviews/[name].md` | One per interview/transcript, cleaned and structured | 1 |
+| `design/01_DISCOVERY/inputs/surveys/[name].md` | One per survey/analytics report, cleaned and structured | 1 |
+| `design/01_DISCOVERY/inputs/documents/[name].md` | One per project/client document, cleaned | 1 |
+| `design/01_DISCOVERY/qualitative-synthesis.md` | Themes, quotes, pain signals, mental models across all qualitative inputs | 2 |
+| `design/01_DISCOVERY/quantitative-synthesis.md` | Behavioral patterns, metrics, statistical signals across all quantitative inputs | 2 |
+| `design/01_DISCOVERY/document-synthesis.md` | Reconciled problem framing, constraints, success criteria across all client documents | 2 |
+| `design/01_DISCOVERY/value-framework.md` | Vision, value drivers, levers, metrics — strategic foundation for all design decisions | 3 |
+| `design/01_DISCOVERY/stakeholder-map.md` | All actors assembled cross-type — goals, pain points, decision authority | 3 |
+| `design/01_DISCOVERY/domain-glossary.md` | All domain terms assembled cross-type — definitions and UI implications | 3 |
+| `design/01_DISCOVERY/competitive-analysis.md` | Analogous systems — patterns and pitfalls | 3 |
+| `design/01_DISCOVERY/design-brief.md` | Problem statement, design principles, constraints, success metrics, scope | 3 |
+| `design/01_DISCOVERY/_upstream.md` | Produced artifact manifest — versions and downstream consumers | — |
 
 ## Rules
 

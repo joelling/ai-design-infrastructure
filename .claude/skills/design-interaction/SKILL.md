@@ -21,9 +21,9 @@ Define **how** the product behaves in response to user actions. For each screen,
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/05-ia/*` — defines what screens exist and their content
-- `design/04-stories/story-map.md` — stories define what interactions each screen must support
-- `design/02-user-models/behavioral-archetypes.md` — archetype tensions inform state priorities and error strategy
+- `design/06_INFORMATION_ARCHITECTURE/*` — defines what screens exist and their content
+- `design/05_STORIES/story-map.md` — stories define what interactions each screen must support
+- `design/02_USER_MODELS/behavioral-archetypes.md` — archetype tensions inform state priorities and error strategy
 - Spec state machines or workflow rules (if applicable)
 
 ---
@@ -32,7 +32,8 @@ Define **how** the product behaves in response to user actions. For each screen,
 
 Before starting this mode's workflow:
 
-1. Check `design/interaction/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/07_INTERACTION/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -40,7 +41,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/interaction/_upstream.md` with consumed and produced artifact versions
+2. Update `design/07_INTERACTION/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -75,7 +76,7 @@ Categorize each screen by its interaction pattern:
 | [Name] | **Review & decide** | Review information, make a decision, provide rationale |
 ```
 
-Write to `design/06-interaction/interaction-model.md`.
+Write to `design/07_INTERACTION/interaction-model.md`.
 
 ### Step 2 — State inventory
 
@@ -99,7 +100,7 @@ For every screen and major component, enumerate all possible states:
 | Stale | Data may be outdated | [description] | [refresh] |
 ```
 
-Write to `design/06-interaction/state-inventory.md`.
+Write to `design/07_INTERACTION/state-inventory.md`.
 
 ### Step 3 — Behavioral specifications
 
@@ -122,7 +123,7 @@ For each key interaction, write a behavioral spec in given/when/then format:
 - **Given** [precondition] **When** [trigger] **And** [error condition] **Then** [error handling]
 ```
 
-Write to `design/06-interaction/behavioral-spec.md`.
+Write to `design/07_INTERACTION/behavioral-spec.md`.
 
 ### Step 4 — Error strategy
 
@@ -151,7 +152,7 @@ Define a unified error handling approach:
 - [Which actions require confirmation? How is confirmation presented?]
 ```
 
-Write to `design/06-interaction/error-strategy.md`.
+Write to `design/07_INTERACTION/error-strategy.md`.
 
 ### Step 5 — Feedback & micro-interactions
 
@@ -175,7 +176,7 @@ Define feedback patterns and transitions:
 - [When should motion be reduced (prefers-reduced-motion)?]
 ```
 
-Add to `design/06-interaction/interaction-model.md` or write separately.
+Add to `design/07_INTERACTION/interaction-model.md` or write separately.
 
 ---
 
@@ -192,10 +193,10 @@ Add to `design/06-interaction/interaction-model.md` or write separately.
 
 ## Output checklist
 
-- [ ] `design/06-interaction/interaction-model.md` — per-screen interaction patterns + feedback/transitions
-- [ ] `design/06-interaction/state-inventory.md` — all states for every screen and major component
-- [ ] `design/06-interaction/behavioral-spec.md` — given/when/then specs for key interactions
-- [ ] `design/06-interaction/error-strategy.md` — unified error handling approach
+- [ ] `design/07_INTERACTION/interaction-model.md` — per-screen interaction patterns + feedback/transitions
+- [ ] `design/07_INTERACTION/state-inventory.md` — all states for every screen and major component
+- [ ] `design/07_INTERACTION/behavioral-spec.md` — given/when/then specs for key interactions
+- [ ] `design/07_INTERACTION/error-strategy.md` — unified error handling approach
 
 ---
 

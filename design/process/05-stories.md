@@ -1,4 +1,4 @@
-# Chapter 4: User Story Mapping
+# User Story Mapping
 
 > **Tier 2 — Definition** | Mode: `design-stories`
 >
@@ -24,13 +24,13 @@ Same as journey mapping — stories describe goals and outcomes, not implementat
 
 ## Inputs
 
-- `design/journeys/*` — journeys provide the raw material for stories
-- `design/user-models/personas/*` — stories reference personas
+- `design/03_JOURNEYS/*` — journeys provide the raw material for stories
+- `design/02_USER_MODELS/personas/*` — stories reference personas
 - Spec user stories (if they exist, decompose them further)
 
 ## Upstream sync
 
-**On entry:** Before starting this mode's process, check `design/stories/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files. If upstream has changed since last run:
+**On entry:** Before starting this mode's process, check `design/05_STORIES/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files. If upstream has changed since last run:
 
 1. Report what changed and classify severity (additive / corrective / structural)
 2. Ask the designer: re-process with new data, or proceed with current outputs?
@@ -39,7 +39,7 @@ Same as journey mapping — stories describe goals and outcomes, not implementat
 **On completion:** After producing or updating artifacts:
 
 1. Add or increment version headers on all changed output files
-2. Update `design/stories/_upstream.md` with consumed artifact versions
+2. Update `design/05_STORIES/_upstream.md` with consumed artifact versions
 3. Report which downstream modes are now potentially stale (ia, interaction, canvas)
 
 ## Process
@@ -62,12 +62,12 @@ Same as journey mapping — stories describe goals and outcomes, not implementat
 
 | File | What it contains |
 |------|-----------------|
-| `design/stories/backbone.md` | Backbone activities + task decomposition |
-| `design/stories/story-map.md` | Full story map with all stories, prioritized vertically |
-| `design/stories/walking-skeleton.md` | Thinnest end-to-end slice identified |
-| `design/stories/release-slices.md` | Incremental release slices with MVP boundary |
-| `design/stories/mvp-scope.md` | Consolidated MVP definition |
-| `design/stories/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| `design/05_STORIES/backbone.md` | Backbone activities + task decomposition |
+| `design/05_STORIES/story-map.md` | Full story map with all stories, prioritized vertically |
+| `design/05_STORIES/walking-skeleton.md` | Thinnest end-to-end slice identified |
+| `design/05_STORIES/release-slices.md` | Incremental release slices with MVP boundary |
+| `design/05_STORIES/mvp-scope.md` | Consolidated MVP definition |
+| `design/05_STORIES/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

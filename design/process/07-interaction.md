@@ -1,4 +1,4 @@
-# Chapter 6: Interaction Design
+# Interaction Design
 
 > **Tier 3 — Design** | Mode: `design-interaction`
 
@@ -14,14 +14,14 @@ The critical discipline: **given/when/then**. Every interaction is specified as:
 
 ## Inputs
 
-- `design/information-architecture/*` — defines what screens exist and their content
-- `design/stories/story-map.md` — stories define what interactions each screen supports
-- `design/user-models/behavioral-archetypes.md` — archetype tensions inform state priorities and error strategy (e.g., offline-first for field archetypes, batch operations for process-heavy archetypes)
+- `design/06_INFORMATION_ARCHITECTURE/*` — defines what screens exist and their content
+- `design/05_STORIES/story-map.md` — stories define what interactions each screen supports
+- `design/02_USER_MODELS/behavioral-archetypes.md` — archetype tensions inform state priorities and error strategy (e.g., offline-first for field archetypes, batch operations for process-heavy archetypes)
 - Spec state machines or workflow rules (if applicable)
 
 ## Upstream sync
 
-**On entry:** Check `design/interaction/_upstream.md` (if it exists). If upstream has changed since last run:
+**On entry:** Check `design/07_INTERACTION/_upstream.md` (if it exists). If upstream has changed since last run:
 
 1. Report what changed and classify severity (additive / corrective / structural)
 2. Ask the designer: re-process with new data, or proceed with current outputs?
@@ -30,7 +30,7 @@ The critical discipline: **given/when/then**. Every interaction is specified as:
 **On completion:** After producing or updating artifacts:
 
 1. Add or increment version headers on all changed output files
-2. Update `design/interaction/_upstream.md` with consumed artifact versions
+2. Update `design/07_INTERACTION/_upstream.md` with consumed artifact versions
 3. Report which downstream modes are now potentially stale (content, accessibility, canvas)
 
 ## Process
@@ -51,11 +51,11 @@ The critical discipline: **given/when/then**. Every interaction is specified as:
 
 | File | What it contains |
 |------|-----------------|
-| `design/interaction/interaction-model.md` | Per-screen interaction patterns + feedback/transitions |
-| `design/interaction/state-inventory.md` | All states for every screen and major component |
-| `design/interaction/behavioral-spec.md` | Given/when/then specs for key interactions |
-| `design/interaction/error-strategy.md` | Unified error handling approach |
-| `design/interaction/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| `design/07_INTERACTION/interaction-model.md` | Per-screen interaction patterns + feedback/transitions |
+| `design/07_INTERACTION/state-inventory.md` | All states for every screen and major component |
+| `design/07_INTERACTION/behavioral-spec.md` | Given/when/then specs for key interactions |
+| `design/07_INTERACTION/error-strategy.md` | Unified error handling approach |
+| `design/07_INTERACTION/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

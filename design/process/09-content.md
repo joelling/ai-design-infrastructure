@@ -1,4 +1,4 @@
-# Chapter 8: Content Strategy
+# Content Strategy
 
 > **Tier 3 — Design** | Mode: `design-content`
 
@@ -16,15 +16,15 @@ And one source of truth: the **terminology guide**. Every concept in the product
 
 ## Inputs
 
-- `design/user-models/personas/*` — content adapts to audience expertise
-- `design/user-models/behavioral-archetypes.md` — archetype tensions inform terminology complexity and tone adaptation
-- `design/interaction/error-strategy.md` — error messages need content
-- `design/interaction/state-inventory.md` — empty/loading/error states need content
-- `design/discovery/domain-glossary.md` — terminology source of truth
+- `design/02_USER_MODELS/personas/*` — content adapts to audience expertise
+- `design/02_USER_MODELS/behavioral-archetypes.md` — archetype tensions inform terminology complexity and tone adaptation
+- `design/07_INTERACTION/error-strategy.md` — error messages need content
+- `design/07_INTERACTION/state-inventory.md` — empty/loading/error states need content
+- `design/01_DISCOVERY/domain-glossary.md` — terminology source of truth
 
 ## Upstream sync
 
-**On entry:** Check `design/content/_upstream.md` (if it exists). If upstream has changed since last run:
+**On entry:** Check `design/09_CONTENT/_upstream.md` (if it exists). If upstream has changed since last run:
 
 1. Report what changed and classify severity (additive / corrective / structural)
 2. Ask the designer: re-process with new data, or proceed with current outputs?
@@ -33,7 +33,7 @@ And one source of truth: the **terminology guide**. Every concept in the product
 **On completion:** After producing or updating artifacts:
 
 1. Add or increment version headers on all changed output files
-2. Update `design/content/_upstream.md` with consumed artifact versions
+2. Update `design/09_CONTENT/_upstream.md` with consumed artifact versions
 3. Report which downstream modes are now potentially stale (accessibility, canvas, figma-component)
 
 ## Process
@@ -52,11 +52,11 @@ And one source of truth: the **terminology guide**. Every concept in the product
 
 | File | What it contains |
 |------|-----------------|
-| `design/content/voice-tone.md` | Voice principles, tone shifts by context |
-| `design/content/terminology.md` | Canonical terms, formatting conventions, abbreviation rules |
-| `design/content/microcopy-patterns.md` | Patterns for buttons, forms, validation, empty states, status |
-| `design/content/content-templates.md` | Templates for notifications, dialogs, help text, timestamps |
-| `design/content/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| `design/09_CONTENT/voice-tone.md` | Voice principles, tone shifts by context |
+| `design/09_CONTENT/terminology.md` | Canonical terms, formatting conventions, abbreviation rules |
+| `design/09_CONTENT/microcopy-patterns.md` | Patterns for buttons, forms, validation, empty states, status |
+| `design/09_CONTENT/content-templates.md` | Templates for notifications, dialogs, help text, timestamps |
+| `design/09_CONTENT/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ## Rules
 

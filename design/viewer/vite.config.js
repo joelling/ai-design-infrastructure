@@ -17,13 +17,17 @@ function markdownHotReload() {
         if (req.url === '/' || req.url === '') {
           const files = fs.readdirSync(processDir)
             .filter(f => f.endsWith('.md'))
-            .sort();
+            .sort((a, b) => {
+              if (a === 'README.md') return -1;
+              if (b === 'README.md') return 1;
+              return a.localeCompare(b);
+            });
 
           const chapters = files.map(filename => {
             const content = fs.readFileSync(path.join(processDir, filename), 'utf-8');
             const title = content.match(/^#\s+(.+)/m)?.[1] || filename;
             const tierMatch = content.match(/>\s+\*\*Tier\s+(\d+)/);
-            const tier = tierMatch ? parseInt(tierMatch[1]) : (filename === 'README.md' || filename.startsWith('00-')) ? 0 : 5;
+            const tier = tierMatch ? parseInt(tierMatch[1]) : filename === 'README.md' ? 0 : 5;
 
             return { filename, title, tier };
           });

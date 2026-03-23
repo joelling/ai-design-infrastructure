@@ -15,7 +15,7 @@ description: >
 > **Quick reference**
 > - **Purpose:** Validate design decisions through structured evaluation (pre-build and post-build)
 > - **Inputs:** Whatever design artifacts exist — more artifacts = more thorough evaluation
-> - **Outputs:** Heuristic evaluation, test plan, scenario scripts, review checklist → `design/10-validation/`
+> - **Outputs:** Heuristic evaluation, test plan, scenario scripts, review checklist → `design/11_VALIDATION/`
 > - **Hard rules:** Be honest — flag real issues. Test scenarios must use persona context and mock data. Never skip error/edge-case scenarios.
 > - **Common mistake:** Running only post-build validation — pre-build evaluation catches structural issues before they're expensive to fix
 
@@ -30,13 +30,13 @@ Validate design decisions through structured evaluation methods. This mode runs 
 This mode is **flexible** — it uses whatever design artifacts exist. More artifacts = more thorough evaluation.
 
 **Uses if available:**
-- `design/01-discovery/design-brief.md` — success metrics to evaluate against
-- `design/02-user-models/personas/*` — scenarios grounded in persona context
-- `design/02-user-models/behavioral-archetypes.md` — archetype-specific scenario paths
-- `design/03-journeys/*` — task flows for cognitive walkthroughs
-- `design/06-interaction/*` — behavioral specs to verify
-- `design/08-content/*` — content patterns to check
-- `design/09-accessibility/*` — accessibility requirements to verify
+- `design/01_DISCOVERY/design-brief.md` — success metrics to evaluate against
+- `design/02_USER_MODELS/personas/*` — scenarios grounded in persona context
+- `design/02_USER_MODELS/behavioral-archetypes.md` — archetype-specific scenario paths
+- `design/03_JOURNEYS/*` — task flows for cognitive walkthroughs
+- `design/07_INTERACTION/*` — behavioral specs to verify
+- `design/09_CONTENT/*` — content patterns to check
+- `design/10_ACCESSIBILITY/*` — accessibility requirements to verify
 - Designer-provided or project-generated test data for scenarios
 
 ---
@@ -45,7 +45,8 @@ This mode is **flexible** — it uses whatever design artifacts exist. More arti
 
 Before starting this mode's workflow:
 
-1. Check `design/validation/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/11_VALIDATION/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -53,7 +54,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/validation/_upstream.md` with consumed and produced artifact versions
+2. Update `design/11_VALIDATION/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -131,7 +132,7 @@ Evaluate the design against Nielsen's 10 usability heuristics (or equivalent):
 - **Top 3 issues to address:** [list]
 ```
 
-Write to `design/10-validation/heuristic-evaluation.md`.
+Write to `design/11_VALIDATION/heuristic-evaluation.md`.
 
 ### Step 2 — Usability test plan
 
@@ -168,7 +169,7 @@ Write to `design/10-validation/heuristic-evaluation.md`.
 - [Decision criteria: what score triggers redesign?]
 ```
 
-Write to `design/10-validation/test-plan.md`.
+Write to `design/11_VALIDATION/test-plan.md`.
 
 ### Step 3 — Scenario scripts
 
@@ -194,7 +195,7 @@ Write task-based scenarios using personas and mock data:
 **Scenario E3:** [Empty state scenario]
 ```
 
-Write to `design/10-validation/scenario-scripts.md`.
+Write to `design/11_VALIDATION/scenario-scripts.md`.
 
 ### Step 4 — Design review checklist (post-build)
 
@@ -242,16 +243,16 @@ Create a per-screen checklist for reviewing completed Figma screens:
 - [ ] Edge cases and error paths are designed, not just happy path
 ```
 
-Write to `design/10-validation/review-checklist.md`.
+Write to `design/11_VALIDATION/review-checklist.md`.
 
 ---
 
 ## Output checklist
 
-- [ ] `design/10-validation/heuristic-evaluation.md` — 10-heuristic evaluation with ratings
-- [ ] `design/10-validation/test-plan.md` — usability test structure, metrics, analysis plan
-- [ ] `design/10-validation/scenario-scripts.md` — task-based scenarios using personas and mock data
-- [ ] `design/10-validation/review-checklist.md` — per-screen post-build review checklist
+- [ ] `design/11_VALIDATION/heuristic-evaluation.md` — 10-heuristic evaluation with ratings
+- [ ] `design/11_VALIDATION/test-plan.md` — usability test structure, metrics, analysis plan
+- [ ] `design/11_VALIDATION/scenario-scripts.md` — task-based scenarios using personas and mock data
+- [ ] `design/11_VALIDATION/review-checklist.md` — per-screen post-build review checklist
 
 ---
 
@@ -276,7 +277,7 @@ Always update the upstream artifact first, then let the fix propagate downstream
 
 ## Split-review note
 
-> Per `design/process/00-skill-architecture.md` principle P2 (Independent Re-invocation) and P7 (Distinct Timing): if pre-build and post-build validation diverge enough to need independent invocation — e.g., post-build grows Figma-specific audit logic — evaluate splitting into `design-validation-plan` and `design-validation-review`.
+> Per `design/process/README.md` (Skill architecture — P2: Independent Re-invocation, P7: Distinct Timing): if pre-build and post-build validation diverge enough to need independent invocation — e.g., post-build grows Figma-specific audit logic — evaluate splitting into `design-validation-plan` and `design-validation-review`.
 
 ---
 

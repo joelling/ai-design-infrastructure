@@ -7,7 +7,8 @@ description: >
   "information architecture", "sitemap", "navigation", "IA", "screen inventory", "content
   hierarchy", "page structure", "taxonomy", "route structure", "nav model", or when
   determining what screens the product needs and how they connect. Upstream dependencies:
-  design-journeys, design-stories.
+  design-journeys, design-process-flows (exception paths requiring user action become
+  screens), design-stories.
 ---
 
 # Information Architecture — Structure & Navigation
@@ -21,9 +22,9 @@ Define the structural organization of the product — what screens exist, how th
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/03-journeys/task-flows/*` — task flows reveal what screens are needed
-- `design/04-stories/story-map.md` — stories define what each screen must support
-- `design/02-user-models/personas/*` — different roles may need different navigation
+- `design/03_JOURNEYS/task-flows/*` — task flows reveal what screens are needed
+- `design/05_STORIES/story-map.md` — stories define what each screen must support
+- `design/02_USER_MODELS/personas/*` — different roles may need different navigation
 - Spec data model — defines what information exists to display
 
 ---
@@ -32,7 +33,8 @@ Define the structural organization of the product — what screens exist, how th
 
 Before starting this mode's workflow:
 
-1. Check `design/information-architecture/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/06_INFORMATION_ARCHITECTURE/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -40,7 +42,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/information-architecture/_upstream.md` with consumed and produced artifact versions
+2. Update `design/06_INFORMATION_ARCHITECTURE/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -76,7 +78,7 @@ Distinguish between:
 - **Views within screens** (tabs, panels, expanded sections — same page, different state)
 - **Overlays** (modals, drawers, popovers — temporary, on top of a screen)
 
-Write to `design/05-ia/sitemap.md`.
+Write to `design/06_INFORMATION_ARCHITECTURE/sitemap.md`.
 
 ### Step 2 — Navigation model
 
@@ -107,7 +109,7 @@ Define how users move between screens. Consider:
 |-------------|-----------------|----------------|----------------------|
 ```
 
-Write to `design/05-ia/navigation-model.md`.
+Write to `design/06_INFORMATION_ARCHITECTURE/navigation-model.md`.
 
 ### Step 3 — Content hierarchy
 
@@ -132,7 +134,7 @@ For each screen in the inventory, define what information appears and in what or
 - [Action 2] — ...
 ```
 
-Write to `design/05-ia/content-inventory.md`.
+Write to `design/06_INFORMATION_ARCHITECTURE/content-inventory.md`.
 
 ### Step 4 — Taxonomy
 
@@ -153,7 +155,7 @@ Define how content is categorized and labeled across the product:
 |---------|-----------|-----------|
 ```
 
-Write to `design/05-ia/taxonomy.md`.
+Write to `design/06_INFORMATION_ARCHITECTURE/taxonomy.md`.
 
 ---
 
@@ -173,10 +175,10 @@ The IA directly informs Figma skills:
 
 ## Output checklist
 
-- [ ] `design/05-ia/sitemap.md` — complete screen inventory with purpose, personas, and stories served
-- [ ] `design/05-ia/navigation-model.md` — global nav, role-based variations, entry points
-- [ ] `design/05-ia/content-inventory.md` — per-screen content hierarchy
-- [ ] `design/05-ia/taxonomy.md` — content categorization and label conventions
+- [ ] `design/06_INFORMATION_ARCHITECTURE/sitemap.md` — complete screen inventory with purpose, personas, and stories served
+- [ ] `design/06_INFORMATION_ARCHITECTURE/navigation-model.md` — global nav, role-based variations, entry points
+- [ ] `design/06_INFORMATION_ARCHITECTURE/content-inventory.md` — per-screen content hierarchy
+- [ ] `design/06_INFORMATION_ARCHITECTURE/taxonomy.md` — content categorization and label conventions
 
 ---
 

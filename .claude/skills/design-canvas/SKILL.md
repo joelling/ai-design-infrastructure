@@ -18,7 +18,7 @@ description: >
 > **Quick reference**
 > - **Purpose:** Aggregate all upstream artifacts into per-screen canvas briefs
 > - **Inputs:** IA sitemap, interaction model, visual spec, content terminology (hard deps) + personas, stories, states, a11y, validation (soft deps)
-> - **Outputs:** `design/12-canvas/[screen-name]-brief.md` — one self-contained brief per screen
+> - **Outputs:** `design/13_CANVAS/[screen-name]-brief.md` — one self-contained brief per screen
 > - **Hard rules:** HARD BLOCK if IA, interaction, visual, or content artifacts are missing. Briefs must be self-contained. One brief per screen.
 > - **Common mistake:** Linking to upstream artifacts instead of pulling the relevant information into the brief — briefs must stand alone
 
@@ -46,23 +46,23 @@ Unlike other design modes, `design-canvas` has **hard dependencies**. It will **
 
 | Required artifact | What it provides | Checked path |
 |------------------|-----------------|-------------|
-| IA sitemap | Screen inventory and purpose | `design/05-ia/sitemap.md` |
-| Interaction model | States, behaviors, patterns | `design/06-interaction/interaction-model.md` |
-| Visual spec | Tokens, hierarchy, density | `design/07-visual/visual-language.md` |
-| Content terminology | Labels, microcopy | `design/08-content/terminology.md` |
+| IA sitemap | Screen inventory and purpose | `design/06_INFORMATION_ARCHITECTURE/sitemap.md` |
+| Interaction model | States, behaviors, patterns | `design/07_INTERACTION/interaction-model.md` |
+| Visual spec | Tokens, hierarchy, density | `design/08_VISUAL/visual-language.md` |
+| Content terminology | Labels, microcopy | `design/09_CONTENT/terminology.md` |
 
 **Soft dependencies** (used if available, warned if missing):
-- `design/02-user-models/personas/*` — persona context for each screen
-- `design/02-user-models/behavioral-archetypes.md` — serving archetype(s) per screen
-- `design/04-stories/story-map.md` — stories served by each screen
-- `design/06-interaction/state-inventory.md` — per-screen states
-- `design/06-interaction/behavioral-spec.md` — given/when/then specs
-- `design/06-interaction/error-strategy.md` — error handling approach
-- `design/08-content/microcopy-patterns.md` — button labels, validation messages
-- `design/09-accessibility/aria-patterns.md` — ARIA roles per component
-- `design/09-accessibility/keyboard-nav-plan.md` — tab order per screen
-- `design/09-accessibility/color-contrast-audit.md` — contrast-safe combinations
-- `design/10-validation/review-checklist.md` — post-build verification criteria
+- `design/02_USER_MODELS/personas/*` — persona context for each screen
+- `design/02_USER_MODELS/behavioral-archetypes.md` — serving archetype(s) per screen
+- `design/05_STORIES/story-map.md` — stories served by each screen
+- `design/07_INTERACTION/state-inventory.md` — per-screen states
+- `design/07_INTERACTION/behavioral-spec.md` — given/when/then specs
+- `design/07_INTERACTION/error-strategy.md` — error handling approach
+- `design/09_CONTENT/microcopy-patterns.md` — button labels, validation messages
+- `design/10_ACCESSIBILITY/aria-patterns.md` — ARIA roles per component
+- `design/10_ACCESSIBILITY/keyboard-nav-plan.md` — tab order per screen
+- `design/10_ACCESSIBILITY/color-contrast-audit.md` — contrast-safe combinations
+- `design/11_VALIDATION/review-checklist.md` — post-build verification criteria
 
 ---
 
@@ -70,7 +70,8 @@ Unlike other design modes, `design-canvas` has **hard dependencies**. It will **
 
 Before starting this mode's workflow:
 
-1. Check `design/canvas/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/13_CANVAS/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -78,7 +79,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/canvas/_upstream.md` with consumed and produced artifact versions
+2. Update `design/13_CANVAS/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -199,15 +200,15 @@ For each screen, pull from all upstream artifacts and compose:
 | Wide (1920px) | [what changes] |
 ```
 
-Write to `design/12-canvas/[screen-name]-brief.md`.
+Write to `design/13_CANVAS/[screen-name]-brief.md`.
 
 ### Step 3 — Cross-reference check
 
 After writing the brief, verify:
-- Every story ID references a real story in `design/04-stories/story-map.md`
+- Every story ID references a real story in `design/05_STORIES/story-map.md`
 - Every component listed is either in the existing Figma inventory or flagged as "needs creation"
-- Every content string comes from `design/08-content/` artifacts
-- Every state listed matches `design/06-interaction/state-inventory.md`
+- Every content string comes from `design/09_CONTENT/` artifacts
+- Every state listed matches `design/07_INTERACTION/state-inventory.md`
 
 ---
 
@@ -231,7 +232,7 @@ The canvas brief feeds both Figma execution and the coded prototype:
 
 ## Output checklist
 
-- [ ] `design/12-canvas/[screen-name]-brief.md` — one complete brief per screen
+- [ ] `design/13_CANVAS/[screen-name]-brief.md` — one complete brief per screen
 - [ ] All cross-references verified (stories, components, content, states)
 - [ ] Brief is self-contained — a reader can build the Figma screen from this document alone
 
@@ -256,7 +257,7 @@ Canvas briefs participate in the Develop sync loop. When re-entering a brief aft
 ### Detecting incoming changes
 
 1. **From Figma:** Check if Figma screens have diverged from the brief (new components, layout changes, visual tweaks). Use Figma MCP to inspect current screen state.
-2. **From Prototype:** Check `design/13-prototype/drift-log.md` for pending drifts flagged by the prototype mode.
+2. **From Prototype:** Check `design/15_PROTOTYPE/drift-log.md` for pending drifts flagged by the prototype mode.
 
 ### Applying changes
 

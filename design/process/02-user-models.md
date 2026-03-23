@@ -1,4 +1,4 @@
-# Chapter 2: User Models
+# User Models
 
 > **Tier 1 — Discovery** | Mode: `design-user-models`
 
@@ -23,17 +23,17 @@ And one meta-layer:
 
 ## Inputs
 
-- `design/discovery/stakeholder-map.md` — identifies who needs personas
-- `design/discovery/qualitative-synthesis.md` — evidence base for grounding personas in real user data (pain signals, goals, mental models)
-- `design/discovery/quantitative-synthesis.md` — behavioral patterns and metrics that inform usage frequency and context of use
-- `design/discovery/design-brief.md` — provides problem context
+- `design/01_DISCOVERY/stakeholder-map.md` — identifies who needs personas
+- `design/01_DISCOVERY/qualitative-synthesis.md` — evidence base for grounding personas in real user data (pain signals, goals, mental models)
+- `design/01_DISCOVERY/quantitative-synthesis.md` — behavioral patterns and metrics that inform usage frequency and context of use
+- `design/01_DISCOVERY/design-brief.md` — provides problem context
 - Spec user stories — ground personas in documented needs, not imagination
 
 Not all inputs may be available. See **Progressive confidence model** for how to proceed at different evidence levels.
 
 ## Upstream sync
 
-**On entry:** Before starting this mode's process, check `design/user-models/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files. If upstream has changed since last run:
+**On entry:** Before starting this mode's process, check `design/02_USER_MODELS/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files. If upstream has changed since last run:
 
 1. Report what changed and classify severity:
    - **Additive** — new artifacts exist upstream that weren't consumed (e.g., new interview cleaned)
@@ -45,7 +45,7 @@ Not all inputs may be available. See **Progressive confidence model** for how to
 **On completion:** After producing or updating artifacts:
 
 1. Increment artifact version headers on all changed files
-2. Update `design/user-models/_upstream.md` with consumed artifact versions
+2. Update `design/02_USER_MODELS/_upstream.md` with consumed artifact versions
 3. Report which downstream modes are now potentially stale (journeys, stories, content, visual, canvas)
 
 ## Progressive confidence model
@@ -87,7 +87,7 @@ Each persona, empathy map, and JTBD statement carries its confidence tier and ev
 
 **7. Document edge cases.** Users who hold multiple roles simultaneously, new users vs. power users, users with accessibility needs, users in unusual contexts (field use, emergency situations). Include archetype edge cases: participants who sit between clusters, or whose archetype shifts by context. These edge cases often reveal the most important design constraints.
 
-**8. Update manifest.** Write or update `design/user-models/_upstream.md` with all consumed artifact paths and versions. Add version headers to all produced/updated output files.
+**8. Update manifest.** Write or update `design/02_USER_MODELS/_upstream.md` with all consumed artifact paths and versions. Add version headers to all produced/updated output files.
 
 ## Incremental update process
 
@@ -120,19 +120,19 @@ The evolution log serves two purposes:
 
 | File | What it contains |
 |------|-----------------|
-| `design/user-models/personas/[role-name].md` | One per primary user role (minimum 2), with confidence tier, evidence trace, and evolution log |
-| `design/user-models/empathy-maps/[role-name]-empathy.md` | One per primary persona |
-| `design/user-models/jtbd.md` | Complete JTBD matrix + edge cases |
-| `design/user-models/behavioral-dimensions.md` | 2–5 tension axes with poles, evidence, and design relevance per dimension |
-| `design/user-models/behavioral-archetypes.md` | Named archetypes with dimension coordinates, participant mapping, persona cross-reference, and design implications |
-| `design/user-models/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| `design/02_USER_MODELS/personas/[role-name].md` | One per primary user role (minimum 2), with confidence tier, evidence trace, and evolution log |
+| `design/02_USER_MODELS/empathy-maps/[role-name]-empathy.md` | One per primary persona |
+| `design/02_USER_MODELS/jtbd.md` | Complete JTBD matrix + edge cases |
+| `design/02_USER_MODELS/behavioral-dimensions.md` | 2–5 tension axes with poles, evidence, and design relevance per dimension |
+| `design/02_USER_MODELS/behavioral-archetypes.md` | Named archetypes with dimension coordinates, participant mapping, persona cross-reference, and design implications |
+| `design/02_USER_MODELS/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
 
 ### Artifact version header
 
 Every output file carries a version comment as its first line:
 
 ```markdown
-<!-- artifact: design/user-models/personas/reviewer.md | version: 3 | mode: design-user-models | updated: 2026-03-21 | evidence: stakeholder-map.md@v2, qualitative-synthesis.md@v3 -->
+<!-- artifact: design/02_USER_MODELS/personas/reviewer.md | version: 3 | mode: design-user-models | updated: 2026-03-21 | evidence: stakeholder-map.md@v2, qualitative-synthesis.md@v3 -->
 ```
 
 ## Rules

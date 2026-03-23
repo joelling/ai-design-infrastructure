@@ -16,25 +16,25 @@ This directory describes the complete design process — from understanding the 
 
 ---
 
-## Chapters
+## Process modes
 
 | # | File | Mode | Tier |
 |---|------|------|------|
-| 00 | [Skill Architecture](00-skill-architecture.md) | Meta | — |
 | 01 | [Discovery](01-discovery.md) | `design-discovery` | 1 — Discovery |
 | 02 | [User Models](02-user-models.md) | `design-user-models` | 1 — Discovery |
 | 03 | [Journey Mapping](03-journeys.md) | `design-journeys` | 2 — Definition |
-| 04 | [User Story Mapping](04-stories.md) | `design-stories` | 2 — Definition |
-| 05 | [Information Architecture](05-ia.md) | `design-ia` | 2 — Definition |
-| 06 | [Interaction Design](06-interaction.md) | `design-interaction` | 3 — Design |
-| 07 | [Visual Design](07-visual.md) | `design-visual` | 3 — Design |
-| 08 | [Content Strategy](08-content.md) | `design-content` | 3 — Design |
-| 09 | [Accessibility](09-accessibility.md) | `design-accessibility` | 3 — Design |
-| 10 | [Design Validation](10-validation.md) | `design-validation` | 3 — Design |
-| 11 | [Design System Governance](11-governance.md) | `design-governance` | 3 — Design |
-| 12 | [Design-to-Canvas Synthesis](12-canvas.md) | `design-canvas` | 4 — Develop |
-| 13 | [Figma Execution Pipeline](13-figma-pipeline.md) | `figma-*` | 4 — Develop |
-| 14 | [Coded Prototype](14-prototype.md) | `design-prototype` | 4 — Develop |
+| 04 | [Process Flows](04-process-flows.md) | `design-process-flows` | 2 — Definition |
+| 05 | [User Story Mapping](05-stories.md) | `design-stories` | 2 — Definition |
+| 06 | [Information Architecture](06-ia.md) | `design-ia` | 2 — Definition |
+| 07 | [Interaction Design](07-interaction.md) | `design-interaction` | 3 — Design |
+| 08 | [Visual Design](08-visual.md) | `design-visual` | 3 — Design |
+| 09 | [Content Strategy](09-content.md) | `design-content` | 3 — Design |
+| 10 | [Accessibility](10-accessibility.md) | `design-accessibility` | 3 — Design |
+| 11 | [Design Validation](11-validation.md) | `design-validation` | 3 — Design |
+| 12 | [Design System Governance](12-governance.md) | `design-governance` | 3 — Design |
+| 13 | [Design-to-Canvas Synthesis](13-canvas.md) | `design-canvas` | 4 — Develop |
+| 14 | [Figma Execution Pipeline](14-figma-pipeline.md) | `figma-*` | 4 — Develop |
+| 15 | [Coded Prototype](15-prototype.md) | `design-prototype` | 4 — Develop |
 
 ---
 
@@ -92,22 +92,23 @@ All design outputs go into the `design/` directory at the project root:
 ```
 design/
   process/                             ← this directory (process specification)
-  01-discovery/                           ← Tier 1
-  02-user-models/                         ← Tier 1
+  01_DISCOVERY/                        ← Tier 1
+  02_USER_MODELS/                      ← Tier 1
     personas/
     empathy-maps/
-  03-journeys/                            ← Tier 2
+  03_JOURNEYS/                         ← Tier 2
     task-flows/
-  04-stories/                             ← Tier 2
-  05-ia/            ← Tier 2
-  06-interaction/                         ← Tier 3
-  07-visual/                              ← Tier 3
-  08-content/                             ← Tier 3
-  09-accessibility/                       ← Tier 3
-  10-validation/                          ← Tier 3
-  11-governance/                          ← Tier 3
-  12-canvas/                              ← Tier 4
-  13-prototype/                           ← Tier 4 (code + manifest + drift log)
+  04_PROCESS_FLOWS/                    ← Tier 2 (flow diagrams + business rules register)
+  05_STORIES/                          ← Tier 2
+  06_INFORMATION_ARCHITECTURE/         ← Tier 2
+  07_INTERACTION/                      ← Tier 3
+  08_VISUAL/                           ← Tier 3
+  09_CONTENT/                          ← Tier 3
+  10_ACCESSIBILITY/                    ← Tier 3
+  11_VALIDATION/                       ← Tier 3
+  12_GOVERNANCE/                       ← Tier 3
+  13_CANVAS/                           ← Tier 4
+  15_PROTOTYPE/                        ← Tier 4 (code + manifest + drift log)
 ```
 
 Each chapter specifies exactly which files it produces and where.
@@ -203,3 +204,111 @@ Mode config (output dirs, inputs, downstream consumers) is defined in `design/sc
 ### Relationship to the Develop sync loop
 
 The Tier 4 sync loop (canvas ↔ Figma ↔ prototype) operates within the Develop phase with sync hashes and drift detection. The Artifact Sync Protocol extends this awareness upward into Tiers 1-3, using the same principles (detect change, classify severity, report and ask) but adapted for the sequential nature of upstream modes.
+
+---
+
+## Skill architecture
+
+> This section is a governance reference — used when evaluating whether to split or merge skills as the process changes or grows in depth. Consult it any time a mode's scope expands, a new mode is proposed, or a skill starts to feel overloaded.
+
+When a process mode maps to a skill (or multiple skills), seven principles govern the granularity decision:
+
+### P1 — External Tool Boundary
+
+**Split when sub-steps talk to different external systems.**
+
+Each external system (Figma plugin SDK, browser preview, REST API) has distinct failure modes, authentication, and retry logic. Isolating them into separate skills prevents one system's instability from blocking another.
+
+*Example:* `figma-connect` (connection management) is separate from `figma-tokens` (variable CRUD) because they use different API surfaces and fail independently.
+
+### P2 — Independent Re-invocation
+
+**Split when a designer routinely re-runs step N without re-running steps 1 through N-1.**
+
+If a step is frequently called on its own — as a spot check, a cleanup pass, or a late-stage addition — it should be independently invocable without loading the full pipeline context.
+
+*Example:* `figma-audit` runs on demand before library migration. It doesn't require re-running file setup, tokens, or component creation.
+
+### P3 — Hard Data Dependency Gate
+
+**Split when step B literally cannot execute until step A's output exists as a stored artifact.**
+
+If intermediate outputs must be persisted (as files on disk or nodes in Figma) before the next step can reference them, the boundary between those steps is a natural skill boundary. Conversely, if intermediate products are in-memory within a single session, keep them together.
+
+*Example:* Tokens must exist as Figma variables before components can bind to them — hence `figma-tokens` before `figma-component`. But within `design-discovery`, the intake tiers (clean → synthesize → assemble) flow within one session.
+
+### P4 — Context Window Budget
+
+**Split when a skill would exceed ~400 lines of meaningful, non-repetitive instruction.**
+
+Each skill's SKILL.md loads into the AI context when invoked. Oversized skills dilute focus and risk the AI losing track of critical rules buried in the middle. If a skill approaches 400 lines, evaluate whether it contains genuinely distinct responsibilities that could be separated.
+
+*Current state:* The largest skill is `design-discovery` at ~290 lines. All skills are within budget.
+
+### P5 — Artifact Coherence
+
+**Keep together when outputs form a single logical deliverable.**
+
+If a skill produces one document (even multi-section), or a set of tightly coupled artifacts that are always consumed together by downstream skills, it should remain one skill. Split only when outputs are independent deliverables consumed by different skills at different times.
+
+*Example:* `design-visual` produces one `visual-language.md` covering color, typography, spacing, and iconography rationale. These sections are consumed together by `figma-tokens`. Splitting them would fragment a cohesive artifact.
+
+### P6 — Failure Blast Radius
+
+**Split when early steps produce durable artifacts that survive later-step failures.**
+
+If steps 1-2 produce persisted artifacts and step 3 failing does not invalidate them, splitting at the boundary protects completed work. If the entire sequence is atomic (failure anywhere invalidates everything), keep it together.
+
+*Example:* A failed `figma-component` call doesn't invalidate the token system created by `figma-tokens`. The tokens are durable. But within `design-stories`, a failed release-slicing step means the backbone and walking skeleton may need revision — the sequence is more atomic.
+
+### P7 — Distinct Timing or Trigger
+
+**Split when sub-steps happen at different project phases or are triggered by different events.**
+
+If one sub-step runs "at the start of every session" and another runs "once during library migration," they belong in separate skills even if they operate on the same system.
+
+*Example:* `figma-connect` runs every session. `figma-library-mode` runs once during migration. Same Figma system, different lifecycle moments.
+
+---
+
+### Decision flowchart
+
+```
+Does the step use a different external system? ──YES──► Split (P1)
+                     │ NO
+Is it routinely re-invoked independently? ──YES──► Split (P2)
+                     │ NO
+Does it require a persisted artifact gate? ──YES──► Split (P3)
+                     │ NO
+Would the combined skill exceed ~400 lines? ──YES──► Split (P4)
+                     │ NO
+Are outputs consumed independently by different skills? ──YES──► Split (P5)
+                     │ NO
+Do early steps produce durable artifacts? ──YES──► Split (P6)
+                     │ NO
+Do sub-steps happen at different project phases? ──YES──► Split (P7)
+                     │ NO
+Keep as one skill.
+```
+
+---
+
+### Current assessment
+
+| Mode | Skills | Principles triggered | Verdict |
+|------|--------|---------------------|---------|
+| 01-11, 14 (design-*) | 1 each | None triggered | Correctly single-skill |
+| 13 (Figma pipeline) | 8 skills | P1, P2, P3, P6, P7 | Correctly multi-skill |
+
+### Watch list
+
+| Skill | Condition for split | Principle |
+|-------|-------------------|-----------|
+| `design-validation` | If pre-build and post-build phases diverge enough to need independent invocation | P2, P7 |
+| `design-prototype` | If drift-sync logic becomes complex enough for independent re-invocation | P2, P6 |
+
+### Anti-patterns
+
+- **Don't split for size alone.** A 350-line skill with cohesive content is better than two 175-line skills that fragment a workflow.
+- **Don't merge for proximity.** Two skills that operate on the same system but at different lifecycle phases (P7) should stay separate.
+- **Don't create one-shot utility skills.** If a step only runs once and is always part of a larger sequence, it doesn't need its own skill.

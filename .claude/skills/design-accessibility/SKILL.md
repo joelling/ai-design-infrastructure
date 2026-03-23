@@ -21,9 +21,9 @@ Define accessibility requirements and patterns before UI construction so they ar
 ## Dependency check
 
 **Soft dependencies** (warn if missing, don't block):
-- `design/07-visual/color-rationale.md` — colors to audit for contrast
-- `design/06-interaction/interaction-model.md` — interactions need keyboard equivalents
-- `design/05-ia/navigation-model.md` — navigation needs keyboard nav plan
+- `design/08_VISUAL/color-rationale.md` — colors to audit for contrast
+- `design/07_INTERACTION/interaction-model.md` — interactions need keyboard equivalents
+- `design/06_INFORMATION_ARCHITECTURE/navigation-model.md` — navigation needs keyboard nav plan
 
 ---
 
@@ -31,7 +31,8 @@ Define accessibility requirements and patterns before UI construction so they ar
 
 Before starting this mode's workflow:
 
-1. Check `design/accessibility/_upstream.md` for the dependency manifest
+0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
+1. Check `design/10_ACCESSIBILITY/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -39,7 +40,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/accessibility/_upstream.md` with consumed and produced artifact versions
+2. Update `design/10_ACCESSIBILITY/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -81,7 +82,7 @@ node design/scripts/sync-manifest.js accessibility                     # update 
 - [Organizational accessibility standards beyond WCAG]
 ```
 
-Write to `design/09-accessibility/accessibility-requirements.md`.
+Write to `design/10_ACCESSIBILITY/accessibility-requirements.md`.
 
 ### Step 2 — Color contrast audit
 
@@ -109,7 +110,7 @@ Audit every color combination from the visual spec:
 | [e.g., status levels] | [icon, label, pattern] | [never color-only] |
 ```
 
-Write to `design/09-accessibility/color-contrast-audit.md`.
+Write to `design/10_ACCESSIBILITY/color-contrast-audit.md`.
 
 ### Step 3 — ARIA patterns
 
@@ -141,7 +142,7 @@ For each component type, define the ARIA semantics:
 | Navigation | navigation | Tab between items | "[label], navigation" |
 ```
 
-Write to `design/09-accessibility/aria-patterns.md`.
+Write to `design/10_ACCESSIBILITY/aria-patterns.md`.
 
 ### Step 4 — Keyboard navigation plan
 
@@ -175,7 +176,7 @@ Write to `design/09-accessibility/aria-patterns.md`.
 | Toast appears | Announced via aria-live, no focus change |
 ```
 
-Write to `design/09-accessibility/keyboard-nav-plan.md`.
+Write to `design/10_ACCESSIBILITY/keyboard-nav-plan.md`.
 
 ---
 
@@ -192,10 +193,10 @@ Write to `design/09-accessibility/keyboard-nav-plan.md`.
 
 ## Output checklist
 
-- [ ] `design/09-accessibility/accessibility-requirements.md` — WCAG target, AT support matrix
-- [ ] `design/09-accessibility/color-contrast-audit.md` — all color combos tested, failures flagged
-- [ ] `design/09-accessibility/aria-patterns.md` — per-component ARIA semantics
-- [ ] `design/09-accessibility/keyboard-nav-plan.md` — tab order, focus management, shortcuts
+- [ ] `design/10_ACCESSIBILITY/accessibility-requirements.md` — WCAG target, AT support matrix
+- [ ] `design/10_ACCESSIBILITY/color-contrast-audit.md` — all color combos tested, failures flagged
+- [ ] `design/10_ACCESSIBILITY/aria-patterns.md` — per-component ARIA semantics
+- [ ] `design/10_ACCESSIBILITY/keyboard-nav-plan.md` — tab order, focus management, shortcuts
 
 ---
 
