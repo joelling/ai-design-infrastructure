@@ -182,9 +182,21 @@ The IA directly informs Figma skills:
 
 ---
 
+### BRD enrichment
+
+After completing the screen inventory:
+1. **Feature / Touchpoint column** (col C) — for each story in the BRD, populate with the screen name from `screen-inventory.md` where that story is served
+2. **RBAC sheet** — populate the role-feature matrix from the navigation model's role-based variations
+3. **Data Fields sheet** — populate from the content inventory's field-level details (if available)
+
+Update `design/BRD_manifest.md` after enrichment.
+
+---
+
 ## Rules
 
 - Every screen in the inventory must trace back to at least one user story or task flow. No orphan screens.
+- **Stories served is mandatory.** Every screen entry in `screen-inventory.md` MUST include a `Stories served:` field listing DS-NNN IDs. This is the authoritative junction table for story-to-screen mapping — canvas briefs and the traceability script consume it.
 - Navigation must account for all roles — if roles see different things, document the variations explicitly.
 - Content hierarchy uses three levels: primary (immediately visible), secondary (visible on scroll/interaction), tertiary (on-demand). Don't flatten everything to primary.
 - Screen names established here become the canonical names used everywhere downstream — in Figma pages, in canvas briefs, in component names. Choose them carefully.

@@ -46,7 +46,7 @@ export const MODES = {
       'design/01_DISCOVERY/design-brief.md',
       'design/01_DISCOVERY/value-framework.md',
     ],
-    downstream: ['stories', 'ia', 'interaction', 'content', 'canvas'],
+    downstream: ['stories', 'ia', 'interaction', 'content', 'canvas', 'design/BRD.xlsx'],
   },
   stories: {
     label: 'Story Mapping',
@@ -57,7 +57,7 @@ export const MODES = {
       'design/04_PROCESS_FLOWS/',
       'design/02_USER_MODELS/personas/',
     ],
-    downstream: ['ia', 'interaction', 'canvas'],
+    downstream: ['ia', 'interaction', 'canvas', 'design/BRD.xlsx'],
   },
   ia: {
     label: 'Information Architecture',
@@ -69,7 +69,7 @@ export const MODES = {
       'design/05_STORIES/story-map.md',
       'design/02_USER_MODELS/personas/',
     ],
-    downstream: ['interaction', 'content', 'canvas'],
+    downstream: ['interaction', 'content', 'canvas', 'design/BRD.xlsx'],
   },
   interaction: {
     label: 'Interaction Design',
@@ -80,7 +80,7 @@ export const MODES = {
       'design/04_PROCESS_FLOWS/',
       'design/05_STORIES/story-map.md',
     ],
-    downstream: ['content', 'accessibility', 'canvas'],
+    downstream: ['content', 'accessibility', 'canvas', 'design/BRD.xlsx'],
   },
   visual: {
     label: 'Visual Design',
@@ -104,7 +104,7 @@ export const MODES = {
       'design/07_INTERACTION/state-inventory.md',
       'design/01_DISCOVERY/domain-glossary.md',
     ],
-    downstream: ['accessibility', 'canvas'],
+    downstream: ['accessibility', 'canvas', 'design/BRD.xlsx'],
   },
   accessibility: {
     label: 'Accessibility',
@@ -138,9 +138,11 @@ export const MODES = {
     tier: 4,
     outputDir: 'design/13_CANVAS',
     inputs: [
-      'design/06_INFORMATION_ARCHITECTURE/sitemap.md',
+      'design/06_INFORMATION_ARCHITECTURE/screen-inventory.md',
       'design/04_PROCESS_FLOWS/index.md',
+      'design/04_PROCESS_FLOWS/business-rules-register.md',
       'design/07_INTERACTION/interaction-model.md',
+      'design/07_INTERACTION/index.md',
       'design/08_VISUAL/visual-language.md',
       'design/09_CONTENT/terminology.md',
       'design/02_USER_MODELS/personas/',
@@ -154,7 +156,7 @@ export const MODES = {
       'design/10_ACCESSIBILITY/color-contrast-audit.md',
       'design/11_VALIDATION/review-checklist.md',
     ],
-    downstream: ['prototype'],
+    downstream: ['prototype', 'design/BRD.xlsx'],
   },
   prototype: {
     label: 'Coded Prototype',

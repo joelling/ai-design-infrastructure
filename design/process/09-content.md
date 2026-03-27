@@ -67,8 +67,17 @@ And one source of truth: the **terminology guide**. Every concept in the product
 - Content must be role-appropriate. Document per-role variations explicitly.
 - Sentence case everywhere unless documented otherwise.
 
+## BRD enrichment
+
+After completing content artifacts:
+1. **LOV sheet** — populate from the terminology guide: canonical list names, display values, system codes
+2. **Acceptance criteria language** — review existing AC entries in the BRD User Stories sheet and align with canonical terminology. Replace ad-hoc terms with terminology guide entries.
+
+Update `design/BRD_manifest.md` after enrichment.
+
 ## Feeds into
 
 - **Figma Components** — TEXT properties use these patterns
 - **[Canvas Briefs](12-canvas.md)** — exact labels and messages for each screen
 - **[Accessibility](09-accessibility.md)** — content affects screen reader announcements
+- **BRD** (`design/BRD.xlsx`) — LOV sheet populated from terminology guide; acceptance criteria language aligned with canonical terms

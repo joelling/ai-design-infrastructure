@@ -108,13 +108,29 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 - Blank/empty Figma file (`"children":[]`) → `figma-file-setup` immediately
 - Any UI element being built → `figma-component` workflow, not raw `figma_execute`
 - `figma_execute` is a last resort — only for operations no other tool covers
+- Story map updated → update BRD User Stories sheet (new/changed/retired stories)
+- Business rules register updated → enrich BRD acceptance criteria with [BR-NN] tags
+- Screen inventory updated → update BRD Feature/Touchpoint column + RBAC sheet
+- Interaction specs updated → enrich BRD acceptance criteria with [STATE]/[BEHAVIOR] tags + Notification Mapping
+- Terminology guide updated → update BRD LOV sheet + align AC language
+- Canvas synthesis reveals AC gap → add [CANVAS] tagged AC to BRD
+- Screen idea or canvas brief arrives without upstream stories → apply canvas-first backward propagation rule (see `design/process/13-canvas.md` — depth-of-reach matrix: AC gap only → BRD auto; missing story → designer decision; missing journey stage → designer decision; new persona behavior → designer decision; new persona → HARD BLOCK until discovery runs)
 
 ### Artifact storage:
 All design artifacts → `design/` directory at project root (including `design/15_PROTOTYPE/`)
 
+### BRD — Master Business Requirement Document
+- Path: `design/BRD.xlsx`
+- Manifest: `design/BRD_manifest.md`
+- Blank template: `BRD_Template_v1.0.xlsx` (project root — copy to `design/BRD.xlsx` on project init)
+- Validation: `python design/scripts/sync-brd.py`
+
 ### Non-negotiable rules:
 - Journeys and stories are TECH AND UI AGNOSTIC — no screen references, no button names, no UI patterns
-- Canvas briefs are the SINGLE SOURCE OF TRUTH for intent
+- Canvas briefs are the SINGLE SOURCE OF TRUTH for intent — named `{ScreenID}_{screen-name}.md`, one file per screen with states as sections
+- **Canvas brief structure:** Section 1 = Frame inventory (all frames to visualize), Section 2 = Traceability (stories, business rules, process flow steps, interaction specs), Sections 3–12 = brief body
+- **Traceability is enforced:** `node design/scripts/sync-traceability.js` validates bidirectional consistency between canvas briefs ↔ story map ↔ screen inventory ↔ interaction specs ↔ business rules
+- **Story IDs (DS-NNN) and Business Rule IDs (BR-NN) are stable** — never reused, splits retire the original with a pointer
 - Every design decision must trace back to a persona, story, or design principle
 - No Figma screen without a canvas brief (except exploratory prototyping)
 - No prototype screen without a Figma implementation (except exploratory spikes)
@@ -126,6 +142,9 @@ All design artifacts → `design/` directory at project root (including `design/
 - ALL Figma frames use auto-layout — no absolute x/y positioning
 - Every reusable UI element must be a Figma component (`createComponent`, not `createFrame`)
 - Page naming: `[number] - [Screen Name]` e.g. `01 - PES Profile View`
+- **BRD acceptance criteria are UI agnostic** — "allow user to select from a list" not "show dropdown of values"
+- **BRD AC uses bullet points, one requirement per bullet** — story-origin bullets are untagged (implied); downstream modes append tagged bullets inline: [BR-NN], [FLOW], [STATE], [BEHAVIOR], [A11Y], [CANVAS]
+- **BRD and story-map.md share story IDs** — bidirectional sync, validated by sync-brd.py
 
 ### Cross-reference: Design artifacts → Develop loop
 | Design artifact | Feeds into | How |
@@ -136,11 +155,18 @@ All design artifacts → `design/` directory at project root (including `design/
 | Interaction state inventory | `figma-component` | States become component variants |
 | Content patterns | `figma-component` | Text becomes component TEXT properties |
 | A11y patterns | `figma-component` | Focus states, ARIA descriptions |
-| Canvas briefs | All Figma skills + `design-prototype` | Single source of truth per screen |
+| Canvas briefs | All Figma skills + `design-prototype` | Single source of truth per screen — frame inventory + traceability block + brief body |
+| Screen inventory (IA) | `design-canvas`, `sync-traceability.js` | Authoritative story-to-screen junction table |
+| Business rules register | `design-canvas`, `design-interaction` | Constraint table in canvas briefs, behavioral spec triggers |
 | Walking skeleton | `design-prototype` | Primary flow order for wiring screens |
 | Story map + release slices | `design-prototype` | Scope and secondary flows |
 | Validation checklist | `figma-audit` | Extends audit with UX-specific checks |
 | Behavioral archetypes | `design-journeys`, `design-interaction`, `design-visual`, `design-content`, `design-validation`, `design-canvas` | Archetype tensions inform state priorities, information density, terminology, and scenario coverage |
+| BRD User Stories | All modes, `sync-brd.py` | Master cross-track collaboration document; AC enriched by every contributing mode |
+| BRD RBAC | `design-ia` | Role-feature access matrix from navigation model |
+| BRD Notification Mapping | `design-interaction` | Trigger events from error strategy and notification flows |
+| BRD Data Fields | `design-ia` | Field-level details from content inventory |
+| BRD LOV | `design-content` | Canonical terms from terminology guide |
 
 ### File architecture:
 - `[Project] - Working` → active design canvas (screens, flows)

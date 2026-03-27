@@ -65,6 +65,22 @@ The critical discipline: **given/when/then**. Every interaction is specified as:
 - Destructive actions always require confirmation.
 - State transitions must be defined — don't just define states in isolation, define how the system moves between them.
 - The state inventory maps 1:1 to Figma component variants. If a state is in the inventory, it must be built.
+- **Traceability headers are mandatory.** Every interaction spec file MUST include these header fields:
+  - `**Story references:** DS-NNN, DS-NNN` — which stories this spec covers
+  - `**Business rule:** BR-NN` — which business rules govern the interaction (or `—` if none)
+  - `**Host:** [Screen ID] [Screen Name]` — which screen(s) this spec applies to
+
+  These fields are consumed by canvas briefs and validated by the traceability script.
+
+## BRD enrichment
+
+After completing interaction artifacts:
+1. **Acceptance criteria** — for each story with behavioral specs, append new bullet points to the BRD User Stories sheet AC field. Each bullet captures one state or behavior requirement, with the source tag inline at the end:
+   - `User receives confirmation with reference number after successful submission  [STATE]`
+   - `System prevents submission when required fields are incomplete  [BEHAVIOR]`
+2. **Notification Mapping sheet** — populate from the error strategy and notification flows: trigger events, recipients, notification channels
+
+Update `design/BRD_manifest.md` after enrichment.
 
 ## Feeds into
 

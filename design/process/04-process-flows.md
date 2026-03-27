@@ -149,6 +149,7 @@ flowchart TD
 | `design-interaction` | Decision nodes become state inventory items; each branch is a behavioral spec trigger |
 | `design-content` | Business rule outcomes drive error messages, confirmation copy, and conditional label logic |
 | `design-canvas` | Business rules register becomes a constraint table in each screen brief |
+| `BRD` | Business rule IDs and exception logic enrich acceptance criteria in the BRD User Stories sheet. For each story affected by a business rule, append a new bullet to the AC field: `<condition or outcome>  [BR-NN]`. Tags appear at the end of the bullet. Update `design/BRD_manifest.md` after enrichment. |
 
 ---
 
@@ -165,3 +166,5 @@ flowchart TD
 - **Domain glossary terms only.** All entity and state names in flows and rules use the glossary's canonical terms. Introduce no new terminology without updating the glossary first.
 
 - **Exception paths are first-class.** Do not document exception paths as footnotes or afterthoughts. They belong in the main diagram and the rules register, with the same fidelity as the happy path.
+
+- **Business rule IDs are stable.** Once assigned, a BR-NN ID is permanent. If a rule is split, the original ID is retired with a note pointing to its successors. If merged, the surviving ID is kept and the retired one noted. Canvas briefs, interaction specs, and the traceability script depend on stable rule IDs.

@@ -214,6 +214,39 @@ Consolidate the MVP definition:
 
 Write to `design/05_STORIES/mvp-scope.md`.
 
+### Step 7 — Consolidate into BRD
+
+After the story map is complete, consolidate all stories into the BRD (`design/BRD.xlsx`, User Stories sheet). For each story in `story-map.md`:
+
+- **S/No.** (col A) — sequential row number
+- **Epic** (col B) — backbone activity name
+- **Feature / Touchpoint** (col C) — task name under the backbone activity (leave blank if IA hasn't assigned screens yet)
+- **User Story ID** (col D) — DS-NNN from story-map.md (must match exactly)
+- **User Story** (col E) — full "As a [persona], I want to [goal] so that [outcome]" text
+- **Acceptance Criteria** (col F) — multiple bullet points, one testable requirement per bullet. UI-agnostic language only (see rules below). No source tag on story-origin bullets — it is implied.
+- **Priority** (col G) — High / Medium / Low, from vertical position in story map + release slices
+- **Release** (col H) — release slice name from `release-slices.md`
+
+Leave estimation columns (I–P) and assumption columns (Q–V) empty — these are for track reviewers.
+
+After populating, update `design/BRD_manifest.md`:
+```markdown
+| stories | [date] | story-map.md@v[N] | DS-001–DS-NNN |
+```
+
+#### Acceptance criteria language rules (BRD)
+
+AC in the BRD must be UI agnostic — describe what the system enables, not the interface:
+
+| Instead of | Write |
+|---|---|
+| "Show dropdown of countries" | "Allow user to select from a list of countries" |
+| "Display error toast" | "Inform user of the error with corrective guidance" |
+| "Click the Save button" | "User confirms the save action" |
+| "Pagination with 10 rows" | "Information presented in manageable sets with navigation to view more" |
+
+Include specific business logic values where known. Downstream modes enrich AC by appending new bullets with inline source tags: `[BR-NN]`, `[FLOW]`, `[STATE]`, `[BEHAVIOR]`, `[A11Y]`, `[CANVAS]`. Tags appear at the end of the bullet. Story-origin bullets carry no tag.
+
 ---
 
 ## Output checklist
@@ -224,6 +257,8 @@ Write to `design/05_STORIES/mvp-scope.md`.
 - [ ] `design/05_STORIES/release-slices.md` — incremental release slices with MVP boundary
 - [ ] `design/05_STORIES/mvp-scope.md` — consolidated MVP definition
 - [ ] All stories are tech/UI agnostic — no implementation language
+- [ ] `design/BRD.xlsx` — User Stories sheet populated from story map (Step 7)
+- [ ] `design/BRD_manifest.md` — manifest updated with story-map version and story IDs written
 
 ---
 
@@ -236,3 +271,6 @@ Write to `design/05_STORIES/mvp-scope.md`.
 - Prioritization is vertical within each task column — top = most important.
 - If spec user stories exist, decompose them into finer-grained design stories rather than duplicating them.
 - Story IDs should be traceable — use a consistent numbering scheme (e.g., DS-001, DS-002).
+- **Story IDs are stable.** Once assigned, a story ID is permanent. If a story is split, the original ID is retired with a note pointing to its successors. If merged, the surviving ID is kept and the retired one noted. Canvas briefs, interaction specs, and the traceability script depend on stable IDs.
+- **BRD stays in sync with story-map.md.** Every story in story-map.md must have a row in the BRD, and vice versa. Run `python design/scripts/sync-brd.py` to validate.
+- **BRD acceptance criteria are UI agnostic.** No screen names, no button labels, no UI patterns.

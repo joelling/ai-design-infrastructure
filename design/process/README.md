@@ -91,6 +91,8 @@ All design outputs go into the `design/` directory at the project root:
 
 ```
 design/
+  BRD.xlsx                               ← Master BRD (cross-cutting, all tiers)
+  BRD_manifest.md                        ← BRD contribution tracking manifest
   process/                             ← this directory (process specification)
   01_DISCOVERY/                        ← Tier 1
   02_USER_MODELS/                      ← Tier 1
@@ -138,6 +140,8 @@ These rules span the entire process. They are not suggestions.
 9. **The Develop loop stays in sync.** Drift between canvas briefs, Figma screens, and prototype is detected and resolved — auto-sync for small changes, designer approval for structural changes.
 
 10. **Staleness is visible.** Every mode knows when its upstream has changed. Artifact versions are tracked, and no mode silently operates on outdated inputs.
+
+11. **The BRD is the master business requirement document.** `design/BRD.xlsx` consolidates all user stories with progressively enriched acceptance criteria tagged by source (`[STORY]`, `[BR-NN]`, `[FLOW]`, `[STATE]`, `[BEHAVIOR]`, `[A11Y]`, `[CANVAS]`). Every contributing mode updates it. It is always current. Run `python design/scripts/sync-brd.py` to validate BRD–artifact consistency. Acceptance criteria are UI agnostic — describe what the system enables, not how the interface works.
 
 ---
 

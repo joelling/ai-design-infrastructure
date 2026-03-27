@@ -197,6 +197,7 @@ Write to `design/09_CONTENT/content-templates.md`.
 | Empty state content | `figma-component` | State/Empty component content |
 | Error messages | `figma-component` | State/Error component content |
 | Terminology | All Figma work | Canonical labels used everywhere |
+| Terminology + microcopy | **BRD** (`design/BRD.xlsx`) | LOV sheet populated from terminology guide; acceptance criteria language aligned with canonical terms. Update `design/BRD_manifest.md` after enrichment. |
 
 ---
 

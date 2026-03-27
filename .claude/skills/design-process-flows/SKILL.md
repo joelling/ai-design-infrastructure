@@ -131,6 +131,15 @@ flowchart TD
 - **One flow per JTBD** — if a flow spans multiple jobs, split it.
 - **Domain glossary terms only** — use canonical terms for all entities and states. No new terminology without a glossary update.
 - **Exception paths are first-class** — diagram them and register their rules at the same fidelity as the happy path.
+- **Business rule IDs are stable.** Once assigned, a BR-NN ID is permanent. If a rule is split, the original ID is retired with a note pointing to its successors. If merged, the surviving ID is kept and the retired one noted. Canvas briefs, interaction specs, and the traceability script depend on stable rule IDs.
+
+---
+
+### BRD enrichment
+
+After completing the business rules register, enrich the BRD (`design/BRD.xlsx`) User Stories sheet:
+- For each story affected by a business rule, append `[BR-NN] <condition> → <outcome>` to the acceptance criteria cell (col F)
+- Update `design/BRD_manifest.md` with the business-rules-register version consumed
 
 ---
 

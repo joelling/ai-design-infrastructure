@@ -200,6 +200,16 @@ Add to `design/07_INTERACTION/interaction-model.md` or write separately.
 
 ---
 
+### BRD enrichment
+
+After completing interaction artifacts:
+1. **Acceptance criteria** — for each story with behavioral specs, append `[STATE]` and `[BEHAVIOR]` tagged entries to the BRD acceptance criteria (e.g., `[STATE] User receives confirmation with reference number`)
+2. **Notification Mapping sheet** — populate from the error strategy and notification flows
+
+Update `design/BRD_manifest.md` after enrichment.
+
+---
+
 ## Rules
 
 - Every screen must have at minimum: Empty, Loading, Populated, and Error states defined. No screen is "always populated."
@@ -208,3 +218,9 @@ Add to `design/07_INTERACTION/interaction-model.md` or write separately.
 - Destructive actions always require confirmation. Define the confirmation pattern once, reuse everywhere.
 - State transitions must be defined — don't just define states in isolation, define how the system moves between them.
 - The state inventory maps 1:1 to Figma component variants. If a state is in the inventory, it must be built as a variant.
+- **Traceability headers are mandatory.** Every interaction spec file MUST include these header fields:
+  - `**Story references:** DS-NNN, DS-NNN` — which stories this spec covers
+  - `**Business rule:** BR-NN` — which business rules govern the interaction (or `—` if none)
+  - `**Host:** [Screen ID] [Screen Name]` — which screen(s) this spec applies to
+
+  These fields are consumed by canvas briefs and validated by the traceability script.

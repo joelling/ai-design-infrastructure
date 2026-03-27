@@ -5,6 +5,9 @@ node_modules/
 .DS_Store
 **/.DS_Store
 
+# Obsidian workspace config (local, machine-specific)
+.obsidian/
+
 # Claude Code local settings (machine-specific)
 .claude/settings.local.json
 .claude/launch.json
