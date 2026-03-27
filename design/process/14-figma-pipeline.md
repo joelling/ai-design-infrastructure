@@ -77,3 +77,37 @@ Figma is authoritative for **visual execution** — layout, component implementa
 - `[Project] - Working` → active design canvas (screens, flows)
 - `[Project] - Core Library` → all tokens + atoms + molecules (published)
 - `[Project] - Patterns` → organisms + templates (created when Core Library grows)
+
+## Figma MCP options
+
+Two MCP servers can connect to Figma. They serve different purposes.
+
+**figma-console MCP (primary — used by this framework)**
+
+A plugin-based MCP server that executes JavaScript inside Figma via the Plugin API. This is the connection Claude uses for all design creation work.
+
+- 90+ tools covering component creation, token management, audit, library migration
+- Full write access — creates nodes, sets fills, builds variable systems
+- Real-time awareness — can track selection and document changes
+- No rate limits
+- Requires: Desktop Bridge plugin + local Node.js server
+
+**Official Figma MCP (secondary — design-to-code extraction)**
+
+Figma's native REST API-based MCP server (released beta early 2026). Optimized for extracting design context into code generation tools, not for programmatic design creation.
+
+- ~14 tools focused on reading design context and generating code
+- Limited write operations via REST API; no batch token management
+- Code Connect integration — generates code using your actual component library
+- No real-time awareness
+- Zero setup (hosted by Figma), but rate-limited by plan tier
+
+**When to use the official Figma MCP:**
+- Handing off to developers who need code generated from Figma screens
+- Code Connect workflows (components with real import paths and prop interfaces)
+- Integrating design tokens into external tools that consume REST APIs
+
+**When NOT to use the official Figma MCP:**
+- Building or modifying Figma screens (use figma-console)
+- Creating token systems or component libraries (use figma-console)
+- Any work in this design pipeline (use figma-console throughout)

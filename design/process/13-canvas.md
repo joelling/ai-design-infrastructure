@@ -148,9 +148,11 @@ The Screen ID prefix (P-01, OV-01, DE-01) comes from `screen-inventory.md`. If I
 - Briefs must be **self-contained** — a reader can build the screen from the brief alone.
 - When upstream artifacts conflict, flag and resolve the conflict in the brief before proceeding.
 - Update briefs when upstream artifacts change. Briefs are living documents.
-- **Traceability validation:** Run `node design/scripts/sync-traceability.js` to verify bidirectional consistency between canvas briefs, story map, screen inventory, interaction specs, and business rules.
+- **Traceability validation:** Run `node design/scripts/sync-traceability.js` after creating or updating any canvas brief to verify bidirectional consistency between canvas briefs, story map, screen inventory, interaction specs, and business rules. Also run after any story map or screen inventory change.
 
 ## Canvas-first backward propagation
+
+Canvas-first is a **first-class workflow**, not an exception. When a designer is sketching with a client in real time — exploring a concept before the full upstream chain exists — the right move is to move fast on canvas and back-propagate afterward. The canvas brief captures the decisions made during that session, and backward propagation is the mechanism for retroactively grounding those decisions in the upstream chain: inferring and documenting which stories, journey stages, and behavioral patterns the sketch implies. The goal is not to block the sketch, but to ensure the sketch doesn't become invisible to the rest of the process.
 
 When a canvas brief is initiated (or a screen idea arrives) before the full upstream chain exists, the traceability block (Section 2) cannot be filled without fabricating story IDs. This is the trigger for backward propagation.
 

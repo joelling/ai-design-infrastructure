@@ -1,10 +1,10 @@
-# Design Process
+# Process Overview
 
 > **This is a read-only reference.** Designers read these files to understand the process, diagnose issues, and decide on improvements. To make changes, tell Claude what to change — Claude will update the process files and propagate changes to all skill files and CLAUDE.md automatically.
 
 ---
 
-## How to use this process guide
+## How to use this guide
 
 This directory describes the complete design process — from understanding the problem to building interactive prototypes. It is organized into numbered chapters that represent distinct modes of design thinking.
 
@@ -16,7 +16,16 @@ This directory describes the complete design process — from understanding the 
 
 ---
 
-## Process modes
+## The four tiers
+
+The design process flows through four tiers of thinking, each building on the previous:
+
+```
+TIER 1: DISCOVERY          → Understand the problem and who has it
+TIER 2: DEFINITION         → Structure what to build (tech/UI agnostic)
+TIER 3: DESIGN             → Decide how it looks, feels, behaves, and reads
+TIER 4: DEVELOP            → Build screens, prototype, and keep everything in sync
+```
 
 | # | File | Mode | Tier |
 |---|------|------|------|
@@ -38,18 +47,7 @@ This directory describes the complete design process — from understanding the 
 
 ---
 
-## Process overview
-
-The design process flows through four tiers of thinking, each building on the previous:
-
-```
-TIER 1: DISCOVERY          → Understand the problem and who has it
-TIER 2: DEFINITION         → Structure what to build (tech/UI agnostic)
-TIER 3: DESIGN             → Decide how it looks, feels, behaves, and reads
-TIER 4: DEVELOP            → Build screens, prototype, and keep everything in sync
-```
-
-### The Develop loop (Tier 4)
+## The Develop loop (Tier 4)
 
 Tier 4 is not a linear pipeline — it is a **sync loop** between three nodes:
 
@@ -66,7 +64,9 @@ Each node owns different concerns:
 
 Changes propagate bidirectionally. Small changes (content, labels, states, visual tweaks) auto-sync. Structural changes (new components, reordered layouts) flag drift and require designer approval before propagating.
 
-### Ordering philosophy
+---
+
+## Ordering philosophy
 
 Tiers suggest a natural flow, but modes within them are **flexible with guardrails**:
 
@@ -77,43 +77,9 @@ Tiers suggest a natural flow, but modes within them are **flexible with guardrai
 - **Hard blocks exist at the Figma boundary:** no screen gets built without a canvas brief
 - **Hard blocks exist at the Prototype boundary:** no screen gets prototyped without a Figma implementation
 
-### Why this ordering matters
-
 Discovery first because you can't design for users you don't understand. Definition next because you can't design screens for stories you haven't mapped. Design third because visual, interaction, and content decisions need structural context. Develop last because it builds on everything above — and the sync loop keeps all three representations aligned as the design evolves.
 
 But real projects aren't linear. You might start visual exploration early to test a brand direction. You might revisit personas after journey mapping reveals edge cases. The tiers are a guide, not a cage.
-
----
-
-## Artifact storage
-
-All design outputs go into the `design/` directory at the project root:
-
-```
-design/
-  BRD.xlsx                               ← Master BRD (cross-cutting, all tiers)
-  BRD_manifest.md                        ← BRD contribution tracking manifest
-  process/                             ← this directory (process specification)
-  01_DISCOVERY/                        ← Tier 1
-  02_USER_MODELS/                      ← Tier 1
-    personas/
-    empathy-maps/
-  03_JOURNEYS/                         ← Tier 2
-    task-flows/
-  04_PROCESS_FLOWS/                    ← Tier 2 (flow diagrams + business rules register)
-  05_STORIES/                          ← Tier 2
-  06_INFORMATION_ARCHITECTURE/         ← Tier 2
-  07_INTERACTION/                      ← Tier 3
-  08_VISUAL/                           ← Tier 3
-  09_CONTENT/                          ← Tier 3
-  10_ACCESSIBILITY/                    ← Tier 3
-  11_VALIDATION/                       ← Tier 3
-  12_GOVERNANCE/                       ← Tier 3
-  13_CANVAS/                           ← Tier 4
-  15_PROTOTYPE/                        ← Tier 4 (code + manifest + drift log)
-```
-
-Each chapter specifies exactly which files it produces and where.
 
 ---
 
@@ -141,11 +107,9 @@ These rules span the entire process. They are not suggestions.
 
 10. **Staleness is visible.** Every mode knows when its upstream has changed. Artifact versions are tracked, and no mode silently operates on outdated inputs.
 
-11. **The BRD is the master business requirement document.** `design/BRD.xlsx` consolidates all user stories with progressively enriched acceptance criteria tagged by source (`[STORY]`, `[BR-NN]`, `[FLOW]`, `[STATE]`, `[BEHAVIOR]`, `[A11Y]`, `[CANVAS]`). Every contributing mode updates it. It is always current. Run `python design/scripts/sync-brd.py` to validate BRD–artifact consistency. Acceptance criteria are UI agnostic — describe what the system enables, not how the interface works.
-
 ---
 
-## Artifact Sync Protocol
+## Artifact sync protocol
 
 Changes to upstream artifacts ripple downstream. The sync protocol ensures every mode is aware of upstream changes, without requiring the designer to remember the dependency graph.
 
@@ -197,91 +161,110 @@ Three CLI scripts in `design/scripts/` automate the error-prone parts of the syn
 | `sync-version.js` | `node design/scripts/sync-version.js <read\|init\|bump> <file> [mode]` | Read, initialize, or increment artifact version headers |
 | `sync-manifest.js` | `node design/scripts/sync-manifest.js <mode-name>` | Scan a mode's inputs and outputs, write `_upstream.md` manifest |
 | `sync-status.js` | `node design/scripts/sync-status.js` | Pipeline sweep — scan all manifests, detect staleness, report |
-| `sync-traceability.js` | `node design/scripts/sync-traceability.js` | Validate bidirectional consistency: canvas briefs ↔ story map ↔ screen inventory ↔ interaction specs ↔ business rules |
 
 **Typical workflow:**
 1. After completing a mode, run `sync-version.js init` or `bump` on each output file
 2. Run `sync-manifest.js <mode>` to write the manifest
 3. At any time, run `sync-status.js` to see the full pipeline status
 
-**Run `sync-traceability.js` after:**
-- Any canvas brief is created or updated
-- Story map changes (new, modified, or retired stories)
-- Screen inventory changes (new screens, renamed screens, story-to-screen reassignments)
-
-**Known gap:** `sync-traceability.js` does not yet validate that `[BR-NN]` tags in BRD acceptance criteria correspond to entries in the business rules register. BR-NN tag orphans require manual cross-check until a validation script is added.
-
 Mode config (output dirs, inputs, downstream consumers) is defined in `design/scripts/modes.js`.
 
 ### Relationship to the Develop sync loop
 
-The Tier 4 sync loop (canvas ↔ Figma ↔ prototype) operates within the Develop phase with sync hashes and drift detection. The Artifact Sync Protocol extends this awareness upward into Tiers 1-3, using the same principles (detect change, classify severity, report and ask) but adapted for the sequential nature of upstream modes.
+The Tier 4 sync loop (canvas ↔ Figma ↔ prototype) operates within the Develop phase with sync hashes and drift detection. The Artifact Sync Protocol extends this awareness upward into Tiers 1–3, using the same principles (detect change, classify severity, report and ask) but adapted for the sequential nature of upstream modes.
+
+---
+
+## Artifact storage
+
+All design outputs go into the `design/` directory at the project root:
+
+```
+design/
+  process/                             ← this directory (process specification)
+  01-discovery/                           ← Tier 1
+  02-user-models/                         ← Tier 1
+    personas/
+    empathy-maps/
+  03-journeys/                            ← Tier 2
+    task-flows/
+  04-stories/                             ← Tier 2
+  05-ia/                                  ← Tier 2
+  06-interaction/                         ← Tier 3
+  07-visual/                              ← Tier 3
+  08-content/                             ← Tier 3
+  09-accessibility/                       ← Tier 3
+  10-validation/                          ← Tier 3
+  11-governance/                          ← Tier 3
+  12-canvas/                              ← Tier 4
+  13-prototype/                           ← Tier 4 (code + manifest + drift log)
+```
+
+Each chapter specifies exactly which files it produces and where.
 
 ---
 
 ## Skill architecture
 
-> This section is a governance reference — used when evaluating whether to split or merge skills as the process changes or grows in depth. Consult it any time a mode's scope expands, a new mode is proposed, or a skill starts to feel overloaded.
+> When should a process chapter map to one skill or many? These seven principles govern skill granularity decisions across the design process.
 
-When a process mode maps to a skill (or multiple skills), seven principles govern the granularity decision:
+### The seven principles
 
-### P1 — External Tool Boundary
+**P1 — External Tool Boundary**
 
-**Split when sub-steps talk to different external systems.**
+Split when sub-steps talk to different external systems.
 
 Each external system (Figma plugin SDK, browser preview, REST API) has distinct failure modes, authentication, and retry logic. Isolating them into separate skills prevents one system's instability from blocking another.
 
 *Example:* `figma-connect` (connection management) is separate from `figma-tokens` (variable CRUD) because they use different API surfaces and fail independently.
 
-### P2 — Independent Re-invocation
+**P2 — Independent Re-invocation**
 
-**Split when a designer routinely re-runs step N without re-running steps 1 through N-1.**
+Split when a designer routinely re-runs step N without re-running steps 1 through N-1.
 
 If a step is frequently called on its own — as a spot check, a cleanup pass, or a late-stage addition — it should be independently invocable without loading the full pipeline context.
 
 *Example:* `figma-audit` runs on demand before library migration. It doesn't require re-running file setup, tokens, or component creation.
 
-### P3 — Hard Data Dependency Gate
+**P3 — Hard Data Dependency Gate**
 
-**Split when step B literally cannot execute until step A's output exists as a stored artifact.**
+Split when step B literally cannot execute until step A's output exists as a stored artifact.
 
 If intermediate outputs must be persisted (as files on disk or nodes in Figma) before the next step can reference them, the boundary between those steps is a natural skill boundary. Conversely, if intermediate products are in-memory within a single session, keep them together.
 
-*Example:* Tokens must exist as Figma variables before components can bind to them — hence `figma-tokens` before `figma-component`. But within `design-discovery`, the intake tiers (clean → synthesize → assemble) flow within one session.
+*Example:* Tokens must exist as Figma variables before components can bind to them — hence `figma-tokens` before `figma-component`. But within `design-discovery`, the three intake tiers (clean → synthesize → assemble) flow within one session.
 
-### P4 — Context Window Budget
+**P4 — Context Window Budget**
 
-**Split when a skill would exceed ~400 lines of meaningful, non-repetitive instruction.**
+Split when a skill would exceed ~400 lines of meaningful, non-repetitive instruction.
 
 Each skill's SKILL.md loads into the AI context when invoked. Oversized skills dilute focus and risk the AI losing track of critical rules buried in the middle. If a skill approaches 400 lines, evaluate whether it contains genuinely distinct responsibilities that could be separated.
 
 *Current state:* The largest skill is `design-discovery` at ~290 lines. All skills are within budget.
 
-### P5 — Artifact Coherence
+**P5 — Artifact Coherence**
 
-**Keep together when outputs form a single logical deliverable.**
+Keep together when outputs form a single logical deliverable.
 
 If a skill produces one document (even multi-section), or a set of tightly coupled artifacts that are always consumed together by downstream skills, it should remain one skill. Split only when outputs are independent deliverables consumed by different skills at different times.
 
 *Example:* `design-visual` produces one `visual-language.md` covering color, typography, spacing, and iconography rationale. These sections are consumed together by `figma-tokens`. Splitting them would fragment a cohesive artifact.
 
-### P6 — Failure Blast Radius
+**P6 — Failure Blast Radius**
 
-**Split when early steps produce durable artifacts that survive later-step failures.**
+Split when early steps produce durable artifacts that survive later-step failures.
 
-If steps 1-2 produce persisted artifacts and step 3 failing does not invalidate them, splitting at the boundary protects completed work. If the entire sequence is atomic (failure anywhere invalidates everything), keep it together.
+If steps 1–2 produce persisted artifacts and step 3 failing does not invalidate them, splitting at the boundary protects completed work. If the entire sequence is atomic (failure anywhere invalidates everything), keep it together.
 
 *Example:* A failed `figma-component` call doesn't invalidate the token system created by `figma-tokens`. The tokens are durable. But within `design-stories`, a failed release-slicing step means the backbone and walking skeleton may need revision — the sequence is more atomic.
 
-### P7 — Distinct Timing or Trigger
+**P7 — Distinct Timing or Trigger**
 
-**Split when sub-steps happen at different project phases or are triggered by different events.**
+Split when sub-steps happen at different project phases or are triggered by different events.
 
 If one sub-step runs "at the start of every session" and another runs "once during library migration," they belong in separate skills even if they operate on the same system.
 
 *Example:* `figma-connect` runs every session. `figma-library-mode` runs once during migration. Same Figma system, different lifecycle moments.
-
----
 
 ### Decision flowchart
 
@@ -303,23 +286,21 @@ Do sub-steps happen at different project phases? ──YES──► Split (P7)
 Keep as one skill.
 ```
 
----
-
 ### Current assessment
 
-| Mode | Skills | Principles triggered | Verdict |
-|------|--------|---------------------|---------|
-| 01-11, 14 (design-*) | 1 each | None triggered | Correctly single-skill |
+| Chapter | Skills | Principles triggered | Verdict |
+|---------|--------|---------------------|---------|
+| 01–11, 14 (design-*) | 1 each | None triggered | Correctly single-skill |
 | 13 (Figma pipeline) | 8 skills | P1, P2, P3, P6, P7 | Correctly multi-skill |
 
-### Watch list
+**Watch list**
 
 | Skill | Condition for split | Principle |
 |-------|-------------------|-----------|
 | `design-validation` | If pre-build and post-build phases diverge enough to need independent invocation | P2, P7 |
 | `design-prototype` | If drift-sync logic becomes complex enough for independent re-invocation | P2, P6 |
 
-### Anti-patterns
+**Anti-patterns**
 
 - **Don't split for size alone.** A 350-line skill with cohesive content is better than two 175-line skills that fragment a workflow.
 - **Don't merge for proximity.** Two skills that operate on the same system but at different lifecycle phases (P7) should stay separate.
