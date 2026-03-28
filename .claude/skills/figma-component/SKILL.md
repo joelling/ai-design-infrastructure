@@ -45,7 +45,7 @@ Annotation/RedlineMarker
 ```
 
 ### Hidden/nested components (sub-components inside published ones)
-Prefix with `.` (period) — these won't appear in the Assets panel:
+Prefix with `.` (period) — these won't appear in the Assets panel. This convention applies to all DLS files (Foundation, Icons & Illustrations, Components):
 ```
 .ButtonIcon
 .ButtonLabel
@@ -70,10 +70,11 @@ Work through these in order every time:
 - [ ] No absolute-positioned elements unless they're intentional overlays (tooltips, badges)
 
 ### 2. Variables
-- [ ] Every color fill/stroke references a `semantic/` or `component/` variable
-- [ ] Every spacing value (padding, gap) references a `semantic/spacing/` or `component/` variable
-- [ ] Every border radius references a `semantic/radius/` or `component/` variable
-- [ ] Every opacity references a `semantic/opacity/` variable
+- [ ] Every color fill/stroke references a `color_{context}/{role}` token from the **02_Colour Tokens** collection
+- [ ] Every spacing value (padding, gap) references a `spacing_size_{N}` token from the **03_Spacing** collection
+- [ ] Every border radius references a `radius-tokens/radius_{component}` or `radius-semantic/{role}` token from the **09_Radius** collection
+- [ ] Every stroke references a `stroke_component_tokens/stroke_{component}` token from the **10_Stroke** collection
+- [ ] Every opacity references an `opacity/{role}` token from the **11_Elevation** collection
 - [ ] Zero hardcoded values anywhere in the component
 
 ### 3. Component properties
@@ -159,3 +160,21 @@ This skill participates in the Tier 4 Develop sync loop. After creating or modif
 2. **Note any deviations** — if you added variants or properties not in the brief (e.g., discovered during implementation), log them so the canvas brief and prototype can be updated.
 3. **Content/label changes auto-sync** — if you change a TEXT property default, the canvas brief and prototype should update to match.
 4. **Structural changes flag drift** — if you add/remove components not in the brief, this is flagged for designer approval before propagating.
+
+---
+
+## Inventory integration
+
+After creating any component, append an entry to the design system inventory (`design/12_GOVERNANCE/inventory.md` when it exists):
+
+| Field | Value |
+|-------|-------|
+| Name | Component name (Category/ComponentName) |
+| Type | Atom / Molecule / Organism / Template / State / Annotation |
+| Status | `draft` |
+| Location | Current page name |
+| Properties | List of component properties created |
+| Tokens bound | List of token references used |
+| Created | Date |
+
+Status lifecycle: `draft` → `staged` (in Parking Lot) → `audited` (passed audit) → `published` (in library) → `deprecated` → `removed`

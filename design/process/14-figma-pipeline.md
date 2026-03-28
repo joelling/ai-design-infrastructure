@@ -7,13 +7,16 @@
 ## Mandatory order
 
 1. **figma-connect** — always first, every session
-2. **figma-file-setup** — if file is new or missing standard pages
-3. **figma-tokens** — before placing any design element
-4. **figma-page-setup** — before drawing on any new screen
-5. **figma-component** — for every UI element built
-6. **figma-parking-lot** — at the end of each completed page
-7. **figma-audit** — before library migration
-8. **figma-library-mode** — library migration phase only
+2. **figma-handoff** — detect and harmonize any designer changes since last session
+3. **figma-file-setup** — if file is new or missing standard pages
+4. **figma-tokens** — before placing any design element
+5. **figma-page-setup** — before drawing on any new screen
+6. **figma-component** — for every UI element built
+7. **figma-parking-lot** — at the end of each completed page
+8. **figma-inventory** — after any component/token lifecycle change
+9. **figma-audit** — before library migration
+10. **figma-docs** — after audit passes, before or after library migration
+11. **figma-library-mode** — library migration phase only
 
 ## Upstream sync
 
@@ -35,6 +38,9 @@ Figma skills consume upstream design artifacts (canvas briefs, visual specs, int
 | A11y patterns | `figma-component` | Focus states, ARIA descriptions |
 | Canvas briefs | All Figma skills | Single source of truth per screen |
 | Validation checklist | `figma-audit` | Extends audit with UX-specific checks |
+| Designer edits (external) | `figma-handoff` | Detected changes harmonized into design system |
+| Governance rules | `figma-inventory` | Lifecycle tracking, deprecation, versioning |
+| Documentation components | `figma-docs` | Token visualization, component usage guides |
 
 ## Non-negotiable Figma rules
 
@@ -71,12 +77,16 @@ Figma is authoritative for **visual execution** — layout, component implementa
 - **figma-page-setup** — before setting up a page, check the canvas brief's sync hash. If stale, run drift detection first.
 - **figma-component** — after creating or modifying components, generate a sync hash for the manifest.
 - **figma-audit** — include drift detection as an audit check (Figma vs. brief, Figma vs. prototype).
+- **figma-handoff** — on session start, detect designer changes and flag for harmonization before proceeding.
+- **figma-inventory** — after any component or token lifecycle change, update the inventory log.
+- **figma-docs** — when documentation pages are created or updated, verify token values match current system.
 
 ## File architecture
 
 - `[Project] - Working` → active design canvas (screens, flows)
-- `[Project] - Core Library` → all tokens + atoms + molecules (published)
-- `[Project] - Patterns` → organisms + templates (created when Core Library grows)
+- `Foundation – [Project] DLS` → all variables, styles, documentation (published first)
+- `Icons & Illustrations – [Project] DLS` → icon sets, illustration assets (published)
+- `Components – [Project] DLS` → UI components, atoms → templates (published)
 
 ## Figma MCP options
 

@@ -15,7 +15,7 @@
 - Git provides full version history of all process changes
 
 ### Skill architecture principles
-When deciding whether a process mode should map to one skill or multiple skills, follow the seven principles documented in the **Skill architecture** section of `design/process/README.md`. The decision flowchart evaluates: external tool boundaries (P1), independent re-invocation (P2), hard data dependency gates (P3), context window budget (P4), artifact coherence (P5), failure blast radius (P6), and distinct timing/triggers (P7). Currently all design-* chapters are correctly single-skill; the Figma chapter is correctly split into 8 skills (triggers P1, P2, P3, P6, P7). Two skills are on the watch list for potential future splits: `design-validation` and `design-prototype`.
+When deciding whether a process mode should map to one skill or multiple skills, follow the seven principles documented in the **Skill architecture** section of `design/process/README.md`. The decision flowchart evaluates: external tool boundaries (P1), independent re-invocation (P2), hard data dependency gates (P3), context window budget (P4), artifact coherence (P5), failure blast radius (P6), and distinct timing/triggers (P7). Currently all design-* chapters are correctly single-skill; the Figma chapter is correctly split into 11 skills (triggers P1, P2, P3, P6, P7). Two skills are on the watch list for potential future splits: `design-validation` and `design-prototype`.
 
 ### What triggers propagation
 Any change to a process chapter must cascade to infrastructure. This includes:
@@ -73,13 +73,16 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 
 #### Figma pipeline — mandatory order:
 1. **`figma-connect`** — ALWAYS run first, every session. Never skip.
-2. **`figma-file-setup`** — Run if file is new, blank, or missing Cover/Sitemap/Parking Lot pages.
-3. **`figma-tokens`** — Run before placing any design element. Token system must exist first.
-4. **`figma-page-setup`** — Run before drawing anything on a new screen or page.
-5. **`figma-component`** — Use for every UI element built. No exceptions.
-6. **`figma-parking-lot`** — Run at the end of each completed page.
-7. **`figma-audit`** — Run before any library migration.
-8. **`figma-library-mode`** — Run only during library migration phase.
+2. **`figma-handoff`** — Detect and harmonize designer changes since last session.
+3. **`figma-file-setup`** — Run if file is new, blank, or missing standard pages.
+4. **`figma-tokens`** — Run before placing any design element. Token system must exist first.
+5. **`figma-page-setup`** — Run before drawing anything on a new screen or page.
+6. **`figma-component`** — Use for every UI element built. No exceptions.
+7. **`figma-parking-lot`** — Run at the end of each completed page.
+8. **`figma-inventory`** — Run after any component or token lifecycle change.
+9. **`figma-audit`** — Run before any library migration.
+10. **`figma-docs`** — Run after audit passes, for documentation pages.
+11. **`figma-library-mode`** — Run only during library migration phase.
 
 #### Develop loop sync rules:
 | Change type | Behavior |
@@ -108,6 +111,9 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 - Blank/empty Figma file (`"children":[]`) → `figma-file-setup` immediately
 - Any UI element being built → `figma-component` workflow, not raw `figma_execute`
 - `figma_execute` is a last resort — only for operations no other tool covers
+- Designer made changes in Figma → `figma-handoff` to detect and harmonize
+- Need inventory status or reconciliation → `figma-inventory`
+- Documentation pages needed for tokens or components → `figma-docs`
 - Story map updated → update BRD User Stories sheet (new/changed/retired stories)
 - Business rules register updated → enrich BRD acceptance criteria with [BR-NN] tags
 - Screen inventory updated → update BRD Feature/Touchpoint column + RBAC sheet
@@ -167,8 +173,12 @@ All design artifacts → `design/` directory at project root (including `design/
 | BRD Notification Mapping | `design-interaction` | Trigger events from error strategy and notification flows |
 | BRD Data Fields | `design-ia` | Field-level details from content inventory |
 | BRD LOV | `design-content` | Canonical terms from terminology guide |
+| Designer edits (external) | `figma-handoff` | Detected changes harmonized into design system |
+| Governance inventory | `figma-inventory` | Lifecycle tracking, status, action history |
+| Documentation components | `figma-docs` | Token visualization, component usage guides, Storybook stories |
 
-### File architecture:
-- `[Project] - Working` → active design canvas (screens, flows)
-- `[Project] - Core Library` → all tokens + atoms + molecules (published)
-- `[Project] - Patterns` → organisms + templates (created when Core Library grows)
+### File architecture (3-file DLS):
+- `Foundation – [Project] DLS` → all variables, styles, documentation (single source of truth for tokens)
+- `Icons & Illustrations – [Project] DLS` → icon sets, illustration assets (consumes Foundation)
+- `Components – [Project] DLS` → UI components, atoms → templates (consumes Foundation)
+- `[Project] - Working` → active design canvas (screens, flows; enables all three DLS libraries)

@@ -74,6 +74,9 @@ Use `figma_move_node` to move components from the working page staging area to t
 
 Order within a category row: alphabetical by component name.
 
+### Step 3.5 — Update inventory status
+For each component moved to the Parking Lot, update its status in the design system inventory (`design/12_GOVERNANCE/inventory.md`) from `draft` to `staged`. Update the Location field to "Parking Lot".
+
 ### Step 4 — Group hidden components near their parent
 If a published component `Button/Primary` has hidden sub-components `.ButtonIcon` and `.ButtonLabel`, keep those immediately after the published component in the row. Don't separate them from their parent.
 
@@ -92,3 +95,5 @@ The left staging area of the working page should be empty after this operation. 
 - Components in the Parking Lot are **not yet published** — they exist only in the Working File
 - The Parking Lot is not a permanent home — it's a transit area before the library migration
 - Sort the Parking Lot page after every 3–5 page completions to keep it navigable
+- Every component moved to the Parking Lot must have its inventory status updated to `staged`
+- The inventory is the single source of truth for component lifecycle state

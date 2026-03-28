@@ -310,7 +310,7 @@ Keep as one skill.
 | Mode | Skills | Principles triggered | Verdict |
 |------|--------|---------------------|---------|
 | 01-11, 14 (design-*) | 1 each | None triggered | Correctly single-skill |
-| 13 (Figma pipeline) | 8 skills | P1, P2, P3, P6, P7 | Correctly multi-skill |
+| 14 (Figma pipeline) | 11 skills | P1, P2, P3, P6, P7 | Correctly multi-skill |
 
 ### Watch list
 

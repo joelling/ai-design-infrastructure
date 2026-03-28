@@ -26,24 +26,24 @@ Run this audit before library migrations, periodically during active design, or 
 
 ---
 
-## Audit checklist — 7 checks
+## Audit checklist — 10 checks
 
 ### Check 1 — Hardcoded colors
-**What**: Any fill or stroke not bound to a `semantic/` or `component/` variable.
+**What**: Any fill or stroke not bound to a `color_{context}/{role}` variable (from 02_Colour Tokens) or a `Colour Styles/...` style (from 01_Colour Styles).
 **How**: Run `figma_audit_design_system`, look for color violations.
 **Fix**: For each violation, determine the correct semantic token, rebind the fill/stroke.
-**Rule**: Primitives are never applied directly — must go through Semantic.
+**Rule**: Primitives are never applied directly — must go through semantic or component-level tokens.
 
 ### Check 2 — Hardcoded spacing
-**What**: Padding or gap values not referencing a `semantic/spacing/` or `component/` variable.
+**What**: Padding or gap values not referencing a `spacing_size_{N}` variable (from 03_Spacing).
 **How**: Check auto-layout padding/gap fields for numeric values instead of variable references.
-**Fix**: Identify the closest semantic spacing token, rebind.
+**Fix**: Identify the closest spacing token, rebind.
 **Note**: `0` values are acceptable if intentionally zero (e.g., no gap).
 
 ### Check 3 — Hardcoded border radius
-**What**: Corner radius values not referencing a `semantic/radius/` or `component/` variable.
+**What**: Corner radius values not referencing a `radius-tokens/radius_{component}` or `radius-semantic/{role}` variable (from 09_Radius).
 **How**: Check radius fields on frames and components.
-**Fix**: Map to correct semantic radius token and rebind.
+**Fix**: Map to correct radius token and rebind.
 
 ### Check 4 — Non-auto-layout frames
 **What**: Frames that use absolute positioning instead of auto-layout.
@@ -67,6 +67,21 @@ Run this audit before library migrations, periodically during active design, or 
 **What**: Components with `.` or `_` prefix that are unintentionally showing up as published.
 **How**: Review the publish list in Assets panel.
 **Fix**: Ensure hidden component names start with `.` — Figma excludes `.` prefixed components from publishing automatically.
+
+### Check 8 — Orphan inventory entries
+**What**: Components listed in inventory that no longer exist in the file.
+**How**: Cross-reference `design/12_GOVERNANCE/inventory.md` entries against actual components in file.
+**Fix**: Mark orphaned entries as `removed` in inventory with date and reason.
+
+### Check 9 — Ghost components
+**What**: Components in the file that are NOT in the inventory.
+**How**: List all components in file, compare against inventory entries.
+**Fix**: Add missing entries to inventory with current status based on location (working page = `draft`, Parking Lot = `staged`, library = `published`).
+
+### Check 10 — Lifecycle consistency
+**What**: Components whose inventory status doesn't match their actual location.
+**How**: Verify: `draft` components are on working pages, `staged` are in Parking Lot, `published` are in library files.
+**Fix**: Update inventory status to match actual location, or flag for investigation if a component moved without the proper workflow.
 
 ---
 
@@ -116,7 +131,7 @@ After running all checks, report findings as:
 ## Pre-library-migration audit (stricter)
 
 When running an audit before a library migration, apply zero-tolerance:
-- All 7 checks must pass before migration starts
+- All 10 checks must pass before migration starts
 - No hardcoded values allowed — every value must have a token
 - No detached components allowed — must be relinked or recreated
 - Document any intentional exceptions with an annotation component
