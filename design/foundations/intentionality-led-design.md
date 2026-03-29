@@ -1,4 +1,4 @@
-# Design Is Not the Artifact
+# Design Is Not the Artefact
 
 *2026-03-29*
 
@@ -14,7 +14,7 @@ Kirby Ferguson, in his documentary series *Everything is a Remix*, demonstrates 
 
 It also means AI is an extraordinarily capable remixer. It copies at scale, transforms with fidelity, and combines across domains with a breadth no individual designer could match. If creativity is remixing, it is not obviously the designer's advantage.
 
-And yet. The question of *what* to remix, and *how*, and *for whom*, and *to what end* — that is not a remixing operation. It requires understanding a specific human in a specific context, caring about what that understanding reveals, and bringing judgment that no training data can generate from the outside.
+And yet. The question of *what* to remix, and *how*, and *for whom*, and *to what end* — that is not a remixing operation. It requires understanding a specific human in a specific context, caring about what that understanding reveals, and bringing judgement that no training data can generate from the outside.
 
 That is the thing this document is trying to name. Systems produce artefacts. A century of practitioners from wildly different fields converged on what design actually is — and why the two are not the same thing.
 
@@ -35,7 +35,7 @@ Charles Eames arrived from a third direction — from the making of things. "Des
 
 Three thinkers, three fields, one convergence. Design is the intentional act of changing a situation for a reason. This holds whether the designed thing is a chair, a typeface, a user interface, a service, an API contract, a conversation, or an approach to a problem. The medium changes. The act does not.
 
-Notice what none of these definitions describe: an artifact. Simon's "courses of action," Papanek's "conscious and intuitive effort," Eames' "plan" — all are acts. The artifact is what results from the act. Design is what happens before, and during, and in the judgment that shapes what gets made. The chair is not the design. The design is the thinking that determined the chair.
+Notice what none of these definitions describe: an artefact. Simon's "courses of action," Papanek's "conscious and intuitive effort," Eames' "plan" — all are acts. The artefact is what results from the act. Design is what happens before, and during, and in the judgement that shapes what gets made. The chair is not the design. The design is the thinking that determined the chair.
 
 ---
 
@@ -43,17 +43,17 @@ Notice what none of these definitions describe: an artifact. Simon's "courses of
 
 Ferguson's framework is both liberating and incomplete. It is liberating because it removes the stigma from drawing on prior work — from pattern libraries, from design history, from competitors, from adjacent disciplines. It establishes that this is not laziness or derivativeness; it is the universal structure of all creative acts. "Copy, transform and combine," Ferguson writes. "It's who we are, it's how we live, and of course, it's how we create."
 
-The incompleteness is this: the framework describes the *mechanics* of creativity but not its *discipline*. It describes how an artifact gets made — but not what made the making worth doing. Led Zeppelin and Robert Johnson both played the blues. Both were working with the same inherited tradition. The mechanics of copy-transform-combine were identical. The judgment — of what to keep, what to discard, what to transform and how — was not.
+The incompleteness is this: the framework describes the *mechanics* of creativity but not its *discipline*. It describes how an artefact gets made — but not what made the making worth doing. Led Zeppelin and Robert Johnson both played the blues. Both were working with the same inherited tradition. The mechanics of copy-transform-combine were identical. The judgement — of what to keep, what to discard, what to transform and how — was not.
 
-T.S. Eliot drew this distinction in 1920: "Immature poets imitate; mature poets steal; bad poets deface what they take, and good poets make it into something better, or at least something different." The stealing that makes a good poet is not appropriation — it is transformation in service of saying something that could not otherwise be said. The source material is the raw material. The judgment is what determines whether the result is derivative or transcendent.
+T.S. Eliot drew this distinction in 1920: "Immature poets imitate; mature poets steal; bad poets deface what they take, and good poets make it into something better, or at least something different." The stealing that makes a good poet is not appropriation — it is transformation in service of saying something that could not otherwise be said. The source material is the raw material. The judgement is what determines whether the result is derivative or transcendent.
 
 Austin Kleon brought this directly into creative practice. "You are a mashup of what you let into your life," he wrote in *Steal Like an Artist*. The curation — what you choose to copy, what you choose to absorb, what you choose to let influence your thinking — is itself the creative act. Kleon's instruction is not to generate freely but to choose carefully: study your heroes, build your influences deliberately, develop the taste that tells you when a combination is inert and when it has the potential to become something.
 
-This is where the designer's creativity lives. Not in generating novel elements — AI does that. Not in executing combinations — AI does that too. But in the judgment that governs the remix: which patterns from the existing world are worth carrying forward, how they should be transformed to serve a specific human need, which combination will mean something to the person on the other side of the experience.
+This is where the designer's creativity lives. Not in generating novel elements — AI does that. Not in executing combinations — AI does that too. But in the judgement that governs the remix: which patterns from the existing world are worth carrying forward, how they should be transformed to serve a specific human need, which combination will mean something to the person on the other side of the experience.
 
 Maeda: "Simplicity is about subtracting the obvious and adding the meaningful." This is a curatorial act applied to every design decision. Everything is available. The question is what stays and what goes — and the criterion that governs that choice is always the person who will live in the result.
 
-Verganti's concept of design-driven innovation takes the remix to its most consequential form: the designer who proposes not just a new combination of existing elements, but a new *meaning* — a new framework for what a thing can be. The iPhone did not emerge from user research about touchscreen preferences. It emerged from a designer's judgment that the existing combinations were missing something — and that a different combination could shift what people believed a phone was for. That is remix at the level of meaning, not just form. And it requires the widest possible view of available source material combined with the deepest possible understanding of the human context the design is entering.
+Verganti's concept of design-driven innovation takes the remix to its most consequential form: the designer who proposes not just a new combination of existing elements, but a new *meaning* — a new framework for what a thing can be. The iPhone did not emerge from user research about touchscreen preferences. It emerged from a designer's judgement that the existing combinations were missing something — and that a different combination could shift what people believed a phone was for. That is remix at the level of meaning, not just form. And it requires the widest possible view of available source material combined with the deepest possible understanding of the human context the design is entering.
 
 So: yes, creativity is the answer. But only when creativity is understood correctly — not as originality, not as generation, but as the discipline of knowing what to copy, how to transform it, and which combination serves the human purpose at hand.
 
@@ -61,23 +61,23 @@ So: yes, creativity is the answer. But only when creativity is understood correc
 
 ## III. The Human Thread: How Every Design Field Found Its Way Back to People
 
-Left to its own gravity, design drifts toward its artifacts. The object becomes the focus, not the person who will use it. The form becomes the expression, not the purpose it serves. The system becomes the product, not the human moving through it. This drift has happened in every design field that has ever existed — and the history of each is, in part, the history of someone stopping to name what had been forgotten.
+Left to its own gravity, design drifts toward its artefacts. The object becomes the focus, not the person who will use it. The form becomes the expression, not the purpose it serves. The system becomes the product, not the human moving through it. This drift has happened in every design field that has ever existed — and the history of each is, in part, the history of someone stopping to name what had been forgotten.
 
 The correction always points to the same place.
 
-In industrial design, the drift was toward the object as an end in itself — the precision of the thing made, the mastery of its production. Dieter Rams made the correction from the inside. Working at Braun across four decades, he distilled it to a single principle that has not been improved: "Indifference towards people and the reality in which they live is actually the one and only cardinal sin in design." Not incompetence. Not poor craft. Indifference — the condition where the designer's attention has left the person entirely. His tenth principle — "good design is as little design as possible" — is the same correction stated in production terms: remove everything that does not serve the person. What remains is the design. What was removed was the artifact asserting itself.
+In industrial design, the drift was toward the object as an end in itself — the precision of the thing made, the mastery of its production. Dieter Rams made the correction from the inside. Working at Braun across four decades, he distilled it to a single principle that has not been improved: "Indifference towards people and the reality in which they live is actually the one and only cardinal sin in design." Not incompetence. Not poor craft. Indifference — the condition where the designer's attention has left the person entirely. His tenth principle — "good design is as little design as possible" — is the same correction stated in production terms: remove everything that does not serve the person. What remains is the design. What was removed was the artefact asserting itself.
 
-Architecture's version of the drift was more philosophical. Louis Sullivan's dictum — "form ever follows function" — was intended as a corrective: the building's form must emerge from its purpose, not be imposed over it. A century of followers turned it into an aesthetic doctrine, treating "function" as a formal category rather than a human one. Frank Lloyd Wright understood what was being lost: "The human race built most nobly when limitations were greatest and therefore when most was required of imagination." The limitation that liberates design is the human — the specific person who will inhabit the space, with their specific patterns of living. Christopher Alexander showed, in *A Pattern Language*, that buildings which endure do so because they align with patterns already embedded in how people actually live: "No pattern is an isolated entity. Each pattern can exist in the world only to the extent that it is supported by other patterns." The artifact must fit into the existing webs of human life, or it will be structurally sound and humanly wrong.
+Architecture's version of the drift was more philosophical. Louis Sullivan's dictum — "form ever follows function" — was intended as a corrective: the building's form must emerge from its purpose, not be imposed over it. A century of followers turned it into an aesthetic doctrine, treating "function" as a formal category rather than a human one. Frank Lloyd Wright understood what was being lost: "The human race built most nobly when limitations were greatest and therefore when most was required of imagination." The limitation that liberates design is the human — the specific person who will inhabit the space, with their specific patterns of living. Christopher Alexander showed, in *A Pattern Language*, that buildings which endure do so because they align with patterns already embedded in how people actually live: "No pattern is an isolated entity. Each pattern can exist in the world only to the extent that it is supported by other patterns." The artefact must fit into the existing webs of human life, or it will be structurally sound and humanly wrong.
 
-In graphic and communication design, the drift was subtler — toward formal clarity as an aesthetic property, detached from the person reading it. Paul Rand's corrective was to insist that design is always communicative, and that communication is always relational: "Design is so simple. That's why it is so complicated." The simplicity is in the artifact. The complication is in the human whose understanding it must reach. Milton Glaser: "To design is to communicate clearly by whatever means you can control or master." Clarity is not a visual property. It is something that exists, or fails to exist, between the designed thing and a specific person encountering it. Massimo Vignelli fought for this distinction his entire career: his "fight against ugliness" was not an aesthetic preference — it was a refusal to accept work that looked finished but had stopped attending to the person it was for.
+In graphic and communication design, the drift was subtler — toward formal clarity as an aesthetic property, detached from the person reading it. Paul Rand's corrective was to insist that design is always communicative, and that communication is always relational: "Design is so simple. That's why it is so complicated." The simplicity is in the artefact. The complication is in the human whose understanding it must reach. Milton Glaser: "To design is to communicate clearly by whatever means you can control or master." Clarity is not a visual property. It is something that exists, or fails to exist, between the designed thing and a specific person encountering it. Massimo Vignelli fought for this distinction his entire career: his "fight against ugliness" was not an aesthetic preference — it was a refusal to accept work that looked finished but had stopped attending to the person it was for.
 
 The drift played out most acutely when digital interfaces appeared. There was no inherited craft tradition to push against, no established vocabulary for what human-centred meant in this new medium. Designers and engineers built interfaces in the image of the systems behind them — organised around machine logic, not human understanding. Don Norman named the resulting failure precisely: the gap between how a designed thing works and how a person understands it. "Two of the most important characteristics of good design are discoverability and understanding" — both defined entirely in terms of the human encountering the thing, not the thing itself. Jakob Nielsen codified this gap into testable principles. Steve Krug reduced it to its most useful formulation: the designer's job is to do the thinking so the user does not have to. Alan Cooper sharpened it further: "No matter how cool your interface is, it would be better if there were less of it" — not an aesthetic preference, but a recognition that every element not serving the person is in the person's way. Bill Moggridge, who coined the term "interaction design," understood that a genuinely new kind of designed thing had appeared — not objects but behaviours, not spaces but sequences — and that designing it required inhabiting the experience of moving through it, not just specifying its components.
 
-Service design made the drift impossible to ignore, because in services there is no artifact to retreat to. A service exists entirely in the experience of the person moving through it. Lou Downe's formulation cuts straight to the pattern: "Good services are verbs, bad services are nouns." A noun — a complaints department, a customer portal — is defined by what the organisation has built. A verb — help people resolve a dispute, access what they need — is defined by what a person can do. The distance between them is the entire distance between designing for internal structure and designing for human purpose. A noun is an artifact. A verb is a design.
+Service design made the drift impossible to ignore, because in services there is no artefact to retreat to. A service exists entirely in the experience of the person moving through it. Lou Downe's formulation cuts straight to the pattern: "Good services are verbs, bad services are nouns." A noun — a complaints department, a customer portal — is defined by what the organisation has built. A verb — help people resolve a dispute, access what they need — is defined by what a person can do. The distance between them is the entire distance between designing for internal structure and designing for human purpose. A noun is an artefact. A verb is a design.
 
-What Deyan Sudjic showed, in *The Language of Things*, is that this pattern runs deeper than any particular field or medium. Objects are never neutral — every designed thing communicates about the values of the organisation that made it, about the identity of the person who uses it, about the world that produced it. Design is always, underneath, a language directed at a person. The artifact is the carrier. The meaning is what gets received — or doesn't. Roberto Verganti took this to its most consequential conclusion: the most powerful design does not serve existing human meanings, it proposes new ones. "Design-driven innovation is not about understanding what users want today; it is about proposing new meanings that people will love tomorrow." The artifact carries the proposal. Only the human can accept or refuse it.
+What Deyan Sudjic showed, in *The Language of Things*, is that this pattern runs deeper than any particular field or medium. Objects are never neutral — every designed thing communicates about the values of the organisation that made it, about the identity of the person who uses it, about the world that produced it. Design is always, underneath, a language directed at a person. The artefact is the carrier. The meaning is what gets received — or doesn't. Roberto Verganti took this to its most consequential conclusion: the most powerful design does not serve existing human meanings, it proposes new ones. "Design-driven innovation is not about understanding what users want today; it is about proposing new meanings that people will love tomorrow." The artefact carries the proposal. Only the human can accept or refuse it.
 
-The pattern across a century and across every field is not a lesson learned once and applied everywhere. It is a tendency that must be actively resisted — because design always drifts toward its artifacts, and the artifact is never the point.
+The pattern across a century and across every field is not a lesson learned once and applied everywhere. It is a tendency that must be actively resisted — because design always drifts toward its artefacts, and the artefact is never the point.
 
 ---
 
@@ -103,7 +103,7 @@ Fuller was not making an aesthetic claim. He was making an epistemological one. 
 
 Frank Lloyd Wright's version was structural: "The human race built most nobly when limitations were greatest and therefore when most was required of imagination." Constraint is not the enemy of design — it is its teacher. Constraint forces the designer to understand the problem more precisely, and that precision is where good design begins.
 
-Saul Bass, whose work spans film title sequences, corporate identity, and poster design across five decades, captured this: "Design is thinking made visual." The design is not the output of thinking — it *is* the thinking, made accessible to others. The artifact is visible. The design is the thinking that produced it. If the thinking was absent or undisciplined, the artifact will carry that absence — often invisibly, always consequentially.
+Saul Bass, whose work spans film title sequences, corporate identity, and poster design across five decades, captured this: "Design is thinking made visual." The design is not the output of thinking — it *is* the thinking, made accessible to others. The artefact is visible. The design is the thinking that produced it. If the thinking was absent or undisciplined, the artefact will carry that absence — often invisibly, always consequentially.
 
 Steve Jobs understood this at the product level: "Design is not just what it looks like and feels like. Design is how it works." Form and function are not separate dimensions that must be balanced. Form *is* a kind of function — it communicates, it instructs, it sets expectations, it builds or erodes trust. A product that looks right but works wrong has not been designed; it has been styled.
 
@@ -123,17 +123,17 @@ Every design act can be positioned on two axes.
 
 | Source | Description |
 |--------|-------------|
-| Human values and context | No rule can substitute. The criterion lives in a specific person's judgment about what matters for this problem, this user, and this moment. |
+| Human values and context | No rule can substitute. The criterion lives in a specific person's judgement about what matters for this problem, this user, and this moment. |
 | Established principles | A principle exists and guides the decision, but applying it requires interpretation in context. |
 | Codified rules | The rules are clear and execution is essentially deterministic. |
 
-Rams' principle that indifference is the cardinal sin maps directly to this axis. A designer who operates only at the level of codified rules has removed the human judgment that makes design meaningful. Rules exist to make high-stakes judgments portable and consistent — not to replace them.
+Rams' principle that indifference is the cardinal sin maps directly to this axis. A designer who operates only at the level of codified rules has removed the human judgement that makes design meaningful. Rules exist to make high-stakes judgements portable and consistent — not to replace them.
 
 **Axis 2: How reversible is the decision?**
 
 | Reversibility | Description |
 |---------------|-------------|
-| Structural | Cascades widely, hard to undo. Changes the shape of upstream artifacts. |
+| Structural | Cascades widely, hard to undo. Changes the shape of upstream artefacts. |
 | Corrective | Moderate effort to reverse, limited cascade. |
 | Additive | Easy to undo, narrow impact. |
 
@@ -159,11 +159,11 @@ Papanek wrote that design is "basic to all human activity" — the act of consci
 
 Norman's framing of design as communication is precise here. Genuine communication requires genuine understanding of the person you are communicating with. A system that executes design processes can produce well-structured outputs. It cannot understand the people the design is for — not in the way that genuine communication requires. That understanding, and the intent that flows from it, is what only the designer can originate.
 
-If a designer enters a process without genuine intent to contribute, the toolchain will produce a well-structured, internally consistent artifact that represents nobody's considered judgment. This is the most dangerous failure mode: outputs that look complete but are hollow.
+If a designer enters a process without genuine intent to contribute, the toolchain will produce a well-structured, internally consistent artefact that represents nobody's considered judgement. This is the most dangerous failure mode: outputs that look complete but are hollow.
 
 ### 2. Direction setter — gate-keeper
 
-Tim Brown described design thinking as "a human-centred approach to innovation that draws from the designer's toolkit to integrate the needs of people, the possibilities of technology, and the requirements for business success." The key word is *integrate*. Design thinking is not optimisation along a single axis. It is the holding of multiple valid, sometimes conflicting constraints, and the finding of solutions that honour them together rather than trading one against another. This is fundamentally a human act — not because it requires emotion, but because it requires the judgment to know which constraints are non-negotiable and which can yield.
+Tim Brown described design thinking as "a human-centred approach to innovation that draws from the designer's toolkit to integrate the needs of people, the possibilities of technology, and the requirements for business success." The key word is *integrate*. Design thinking is not optimisation along a single axis. It is the holding of multiple valid, sometimes conflicting constraints, and the finding of solutions that honour them together rather than trading one against another. This is fundamentally a human act — not because it requires emotion, but because it requires the judgement to know which constraints are non-negotiable and which can yield.
 
 Jesse James Garrett's five-planes model — strategy, scope, structure, skeleton, surface — makes this sequencing explicit. Strategy decisions cascade into every subsequent plane. A designer who receives the strategy plane and proceeds mechanically downward is not directing — they are executing. Direction-setting is the act of making strategy decisions with the weight they deserve, and ensuring that each plane transition carries the intent of the planes above it.
 
@@ -171,9 +171,9 @@ Direction-setting is distinct from approving. Approving means checking whether s
 
 ### 3. Drift detector — integrity checker
 
-"Eventually everything connects — people, ideas, objects," Eames said. The designer who reads an artifact must read not just the artifact itself but how it connects to the intent behind it, to the other artifacts it relates to, and to the person who will encounter it. This is the drift detector's job: to notice when the connections have weakened, when execution has introduced inconsistency between the artifact and its intent.
+"Eventually everything connects — people, ideas, objects," Eames said. The designer who reads an artefact must read not just the artefact itself but how it connects to the intent behind it, to the other artefacts it relates to, and to the person who will encounter it. This is the drift detector's job: to notice when the connections have weakened, when execution has introduced inconsistency between the artefact and its intent.
 
-Vignelli's lifelong fight was precisely this: the designer must attend to the whole, not just the parts, and must be willing to reject work that is technically correct but directionally wrong. Drift is the condition where the artifact is present but the design has gone. A component can be perfectly spec-compliant and still fail to express the intent behind it. The artifact passes every check. The design is nowhere in it. The designer must read outputs against the original purpose — not just against the rules — because the rules can only ever evaluate the artifact, never the design.
+Vignelli's lifelong fight was precisely this: the designer must attend to the whole, not just the parts, and must be willing to reject work that is technically correct but directionally wrong. Drift is the condition where the artefact is present but the design has gone. A component can be perfectly spec-compliant and still fail to express the intent behind it. The artefact passes every check. The design is nowhere in it. The designer must read outputs against the original purpose — not just against the rules — because the rules can only ever evaluate the artefact, never the design.
 
 ---
 
@@ -241,9 +241,9 @@ A designer who moves between tiers on momentum is skipping the most important ac
 
 ### 5. Execution without intent is aesthetic production
 
-Paul Rand: "Design is so simple. That's why it is so complicated." The visible simplicity of good design conceals the complexity of the thinking that produced it. When that thinking is absent, the artifact still exists — it has a surface, pixels, a structure, a spec — but there is no design behind it. It is aesthetic production: an artifact without a design. Work that resembles design without being it.
+Paul Rand: "Design is so simple. That's why it is so complicated." The visible simplicity of good design conceals the complexity of the thinking that produced it. When that thinking is absent, the artefact still exists — it has a surface, pixels, a structure, a spec — but there is no design behind it. It is aesthetic production: an artefact without a design. Work that resembles design without being it.
 
-The test: can the designer articulate *why* the output is right in terms of user need and design intent, not in terms of process compliance? If the answer is only "it follows the spec," you have an artifact. You do not yet have a design.
+The test: can the designer articulate *why* the output is right in terms of user need and design intent, not in terms of process compliance? If the answer is only "it follows the spec," you have an artefact. You do not yet have a design.
 
 ### 6. Touch level tracks reversibility, not effort
 
@@ -253,7 +253,7 @@ Calibrate presence by consequence, not by complexity.
 
 ### 7. The process choice is itself a design act
 
-Papanek insisted that design must be "an innovative, highly creative, cross-disciplinary tool responsive to the true needs of men." The process is a tool. It must be chosen to serve the problem, not followed because it exists. A designer who follows this toolchain without asking whether it is the right tool for this problem has outsourced their judgment to a framework.
+Papanek insisted that design must be "an innovative, highly creative, cross-disciplinary tool responsive to the true needs of men." The process is a tool. It must be chosen to serve the problem, not followed because it exists. A designer who follows this toolchain without asking whether it is the right tool for this problem has outsourced their judgement to a framework.
 
 The right process for a two-week MVP is not the right process for a five-year platform. The right depth of discovery for a well-understood domain is not the right depth for a novel one. Use the framework deliberately, not automatically.
 
@@ -263,9 +263,9 @@ The right process for a two-week MVP is not the right process for a five-year pl
 
 The practitioners gathered in this document worked across widely different media: physical products, visual communications, services, buildings, digital interfaces, systems of thought. What they share is not a medium. It is a commitment to the idea that design is always, ultimately, in service of human experience — and that the quality of that experience is determined by the depth and honesty of the designer's engagement with the people who will have it.
 
-Experience strategy is the practice of holding this commitment at the level of an organisation's intent, not just at the level of individual artifacts. It is the discipline of asking — before any process begins — what kind of experience we are designing for, in what human context, toward what human outcome. It is the refusal to let the question narrow prematurely to "what does this look like?" or "what does this do?" without first settling "why does this exist, and for whom?"
+Experience strategy is the practice of holding this commitment at the level of an organisation's intent, not just at the level of individual artefacts. It is the discipline of asking — before any process begins — what kind of experience we are designing for, in what human context, toward what human outcome. It is the refusal to let the question narrow prematurely to "what does this look like?" or "what does this do?" without first settling "why does this exist, and for whom?"
 
-In an AI-augmented process, experience strategy is the practice that distinguishes designers from design operators. Design operators manage the artifact — invoking processes, reviewing outputs, checking conformance. Designers do the design — bringing intent, setting direction, maintaining the human signal through a production system that can generate almost anything except a reason for it to exist.
+In an AI-augmented process, experience strategy is the practice that distinguishes designers from design operators. Design operators manage the artefact — invoking processes, reviewing outputs, checking conformance. Designers do the design — bringing intent, setting direction, maintaining the human signal through a production system that can generate almost anything except a reason for it to exist.
 
 Verganti's insight applies directly here: the system can produce design that satisfies existing expectations. Only a designer can propose the new meaning that changes what people expect — that shifts the belief system around what a thing can be. That proposal is the highest-order act of experience strategy, and it cannot be generated by a toolchain that, by definition, operates within the space of what has already been articulated.
 
@@ -273,15 +273,15 @@ Verganti's insight applies directly here: the system can produce design that sat
 
 ## XI. The Risk: Execution Creep and the Loss of Human Signal
 
-The most dangerous failure mode for AI-assisted design is not bad outputs. It is the slow disappearance of designer judgment from a process that continues to produce outputs.
+The most dangerous failure mode for AI-assisted design is not bad outputs. It is the slow disappearance of designer judgement from a process that continues to produce outputs.
 
-Sudjic observed that objects carry values whether or not their makers intend it. The same is true of processes. An AI-assisted design process carries the values of speed, consistency, and completeness. These are not wrong values. But they are not the same as the values of human-centredness, which sometimes require slowness, contradiction, and the willingness to say that the complete, well-structured artifact we just produced is pointing in the wrong direction.
+Sudjic observed that objects carry values whether or not their makers intend it. The same is true of processes. An AI-assisted design process carries the values of speed, consistency, and completeness. These are not wrong values. But they are not the same as the values of human-centredness, which sometimes require slowness, contradiction, and the willingness to say that the complete, well-structured artefact we just produced is pointing in the wrong direction.
 
 Execution creep happens when:
 - Designers invoke modes because the process says to, not because they have intent to contribute
 - Reviews become format checks rather than intent checks
 - The designer defers to the system's synthesis rather than testing it against their own understanding
-- Productivity metrics — modes completed, artifacts produced, pipeline moving — substitute for design quality metrics: does this serve the user? Does this reflect our values? Does this solve the right problem?
+- Productivity metrics — modes completed, artefacts produced, pipeline moving — substitute for design quality metrics: does this serve the user? Does this reflect our values? Does this solve the right problem?
 
 The framework protects against execution creep through three mechanisms.
 
@@ -293,19 +293,19 @@ The framework protects against execution creep through three mechanisms.
 
 The answer to the question this document opened with is now visible — and the remix framework makes it more precise, not less.
 
-The designer is for creativity. But not creativity as novelty, not creativity as generation. Creativity as the judgment that governs the remix.
+The designer is for creativity. But not creativity as novelty, not creativity as generation. Creativity as the judgement that governs the remix.
 
 Ferguson showed that all creative work is copy, transform, combine. Eliot showed that what separates a mature poet from an imitator is transformation that makes something *better or different* — the stealing must serve a purpose beyond itself. Kleon showed that the quality of what you can make is bounded by what you let in — that curation of influences is itself a creative discipline. Verganti showed that the most consequential creative act is proposing new meaning: not recombining elements to meet existing expectations, but recombining them to shift what people believe is possible.
 
-What threads through all of these is the same thing: judgment in service of a human. Which patterns are worth carrying forward. How transformation should serve this specific context. Which combination will mean something to the person who encounters it. This is the thing AI cannot do — not because it lacks the mechanics, but because it has no one to care about. It has no human stakes behind the judgment.
+What threads through all of these is the same thing: judgement in service of a human. Which patterns are worth carrying forward. How transformation should serve this specific context. Which combination will mean something to the person who encounters it. This is the thing AI cannot do — not because it lacks the mechanics, but because it has no one to care about. It has no human stakes behind the judgement.
 
 The designer is the person who brings those stakes. Who cares about the human on the other side of the experience and converts that caring into decisions. Structural decisions about what to build and what to leave out. Direction decisions about which of the many valid remixes is the right one for this person, at this moment. Integrity decisions about whether the execution stayed faithful to the intent that justified it.
 
-An AI system produces artifacts. It can propagate intent, detect drift from a specification, execute decisions at scale and speed. What it cannot do is design — because design requires knowing what the artifact is *for*, caring whether it serves the person who will encounter it, and bringing the judgment that determines whether the remix was worth making in the first place.
+An AI system produces artefacts. It can propagate intent, detect drift from a specification, execute decisions at scale and speed. What it cannot do is design — because design requires knowing what the artefact is *for*, caring whether it serves the person who will encounter it, and bringing the judgement that determines whether the remix was worth making in the first place.
 
-Norman: "We are designing for people. People are complex, contradictory, and changeable." The tools we build to support design must serve that complexity — not flatten it into a process that produces artifacts without wisdom.
+Norman: "We are designing for people. People are complex, contradictory, and changeable." The tools we build to support design must serve that complexity — not flatten it into a process that produces artefacts without wisdom.
 
-The system produces the artifact. The designer produces the design. That is not a limitation to engineer away. It is the distinction that makes the designer's role irreducible — in the age of AI, exactly as before — and the reason the person in the room who holds onto it matters.
+The system produces the artefact. The designer produces the design. That is not a limitation to engineer away. It is the distinction that makes the designer's role irreducible — in the age of AI, exactly as before — and the reason the person in the room who holds onto it matters.
 
 ---
 
