@@ -121,3 +121,9 @@ Figma's native REST API-based MCP server (released beta early 2026). Optimized f
 - Building or modifying Figma screens (use figma-console)
 - Creating token systems or component libraries (use figma-console)
 - Any work in this design pipeline (use figma-console throughout)
+
+## Shared Figma API constraints
+
+All `figma-*` skills reference `.claude/skills/_figma-api-rules.md` — a shared document of Figma Plugin API limitations, safe patterns, and known workarounds. It covers things like node type constraints, async loading requirements, variable scope rules, and operations that must be serialized vs. batched.
+
+Designers do not need to read this file — it informs AI behavior when executing Figma code. If a Figma operation produces an unexpected result or error, `_figma-api-rules.md` is the first place to check for known limitations.

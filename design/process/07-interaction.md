@@ -37,7 +37,18 @@ The critical discipline: **given/when/then**. Every interaction is specified as:
 
 **0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
-**1. Categorize each screen by interaction pattern.** Common patterns: browse & filter, form & submit, dashboard, wizard/stepper, detail view, review & decide. Each pattern implies a default set of states and transitions.
+**1. Categorize each screen by interaction pattern.** Each pattern implies a default set of required states — these are the *minimum* state inventory for that screen type. Custom states extend this baseline.
+
+| Pattern | Description | Required states (minimum) |
+|---------|------------|--------------------------|
+| Browse & filter | A list or grid of items users can search, filter, and sort | Loading, Populated, Filtered (has results), Filtered (no results), Error |
+| Form & submit | One or more fields leading to a submission action | Empty, Partially filled, Validation error, Submitting, Success, System error |
+| Dashboard | Overview of aggregated data from multiple sources | Loading, Populated, Stale data warning, Empty (no data yet), Widget-level error |
+| Wizard / stepper | A multi-step flow with a defined sequence | Per step: Empty, Filled, Step error — Global: In progress, Review, Submitted, Abandoned |
+| Detail view | Focused view of a single record or item | Loading, Populated, Not found, Unauthorized, Read-only |
+| Review & decide | Presenting a record or request for a human decision | Loading, Populated (pending), Decided (approved / rejected / deferred), Expired |
+
+A screen may combine patterns (e.g., a dashboard with a filterable list widget). In that case, apply both pattern baselines and merge the state inventories.
 
 **2. Build the state inventory.** For every screen and major component, enumerate all possible states: empty, loading, populated, error, partial, filtered (no results), unauthorized, read-only, stale. For each state, document: when it occurs, what the user sees, and what actions are available.
 
@@ -45,7 +56,25 @@ The critical discipline: **given/when/then**. Every interaction is specified as:
 
 **4. Define the error strategy.** Create a unified approach: error categories (validation, network, permission, system, data conflict), when validation happens (on blur, on submit, real-time), error message format ([what happened] + [why] + [what to do]), and destructive action protection.
 
-**5. Define feedback and micro-interactions.** What feedback does the user receive for: success, in-progress actions, destructive actions, state changes, background processes? What are the transition principles (fade, slide, instant)? How is reduced motion handled?
+**5. Define feedback and micro-interactions.** Transition and feedback specs belong in this artifact, not in Figma. Figma implements what the interaction spec defines.
+
+**Feedback types and their implications:**
+| Feedback trigger | Expected feedback | Figma implication |
+|-----------------|------------------|------------------|
+| Action success | Confirmation message or state change | Component variant: Success |
+| Submission in progress | Progress indicator (spinner, skeleton, progress bar) | Component variant: Loading |
+| Destructive action | Confirmation dialog before execution | Modal overlay component |
+| State change (data updates) | Subtle visual change + optional toast | Component variant change |
+| Background process | Persistent status indicator (not blocking) | Non-modal status component |
+
+**Transition principles** — document these decisions explicitly:
+- **Standard duration:** Choose a default (e.g., 150ms). Applied to small state changes (button state, tooltip appear).
+- **Expansive duration:** Choose a default (e.g., 300ms). Applied to panel opens, modal appear, page transitions.
+- **Instant:** Applied to tab switches, dropdown open, focus ring — anything where animation would feel like lag.
+- **Easing:** Enter animations use ease-out (fast start, soft stop). Exit animations use ease-in (gradual start, fast stop).
+- **Reduced motion:** Classify every animation as either *decorative* (can be removed without loss of meaning) or *essential* (conveys state information). Decorative animations are suppressed when `prefers-reduced-motion: reduce` is set. Essential animations are replaced with instant transitions that still convey the state change (e.g., a loading spinner replaced by a static indicator).
+
+**Prototype note:** Transition specs in this artifact inform prototype connector settings in `design-prototype`. The prototype author consumes this file to configure timing and easing in the coded prototype.
 
 ## Outputs
 

@@ -65,8 +65,33 @@ You are defining the product's visual personality. Every choice — color, typog
 - Dark mode is not "invert colors" — define the actual strategy.
 - Visual choices must trace back to brand attributes. Contradictions must be resolved.
 
+## Token handoff
+
+The visual rationale documents produced here feed directly into `figma-tokens`, which translates them into a 3-level token system:
+
+```
+Primitives  →  Semantic  →  Component
+(raw values)   (purpose)    (targeted overrides)
+```
+
+To ensure the handoff is unambiguous, the rationale documents must include the following:
+
+**Color rationale → Primitive tokens**
+- Define the full step scale for each hue (steps 10, 20, 30 … 100, or 50–900 depending on the scale chosen). Each step becomes one primitive variable.
+- **Dark mode inversion rule:** Light and dark mode use the same hue palette but with steps mirrored. A color at step 100 in light mode maps to step 10 in dark mode (and vice versa). Mid-range steps (40–60) may be shared or adjusted for legibility — document any exceptions explicitly. Anchors like pure white and pure black do not invert.
+- `color-rationale.md` must include a table showing each semantic role (background, surface, border, text, interactive, success, warning, error, info) with its light-mode step and dark-mode step.
+
+**Typography rationale → Primitive + semantic tokens**
+- The token system builds each named type style from **6 independent tokens**: font family, font weight, font size, line height (density), paragraph spacing, and letter spacing.
+- `typography-rationale.md` must therefore document all 6 properties for every named style (e.g., Body/Default, Heading/H1, Label/Small) — not just size and weight. Missing properties will default to Figma's base values, which may not be intentional.
+- Type scale naming should match the semantic token names that will appear in Figma (e.g., `text/body/default`, `text/heading/h1`).
+
+**Spacing and visual language → Primitive tokens**
+- The spacing scale must be expressed as a named sequence (e.g., space-1 = 4px, space-2 = 8px …). Each step becomes one primitive variable.
+- Border radius, elevation, and grid values follow the same pattern — name every discrete value, even if there are only 2 or 3.
+
 ## Feeds into
 
-- **Figma Tokens** — color, typography, and spacing values become primitive and semantic tokens
-- **[Accessibility](09-accessibility.md)** — color palette needs contrast auditing
-- **[Canvas Briefs](12-canvas.md)** — visual specs inform density and token usage per screen
+- **Figma Tokens** — color, typography, and spacing values become primitive and semantic tokens (see Token handoff above)
+- **[Accessibility](10-accessibility.md)** — color palette needs contrast auditing
+- **[Canvas Briefs](13-canvas.md)** — visual specs inform density and token usage per screen
