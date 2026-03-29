@@ -1,4 +1,4 @@
-# Intentionality-Led Design: Experience Strategy and Human-Centred Practice in the Age of AI
+# Design Is Not the Artifact
 
 *2026-03-29*
 
@@ -16,7 +16,7 @@ It also means AI is an extraordinarily capable remixer. It copies at scale, tran
 
 And yet. The question of *what* to remix, and *how*, and *for whom*, and *to what end* — that is not a remixing operation. It requires understanding a specific human in a specific context, caring about what that understanding reveals, and bringing judgment that no training data can generate from the outside.
 
-That is the thing this document is trying to name. A century of practitioners from wildly different fields arrived at the same answer. The convergence is the argument.
+That is the thing this document is trying to name. Systems produce artifacts. A century of practitioners from wildly different fields converged on what design actually is — and why the two are not the same thing.
 
 ---
 
@@ -35,13 +35,15 @@ Charles Eames arrived from a third direction — from the making of things. "Des
 
 Three thinkers, three fields, one convergence. Design is the intentional act of changing a situation for a reason. This holds whether the designed thing is a chair, a typeface, a user interface, a service, an API contract, a conversation, or an approach to a problem. The medium changes. The act does not.
 
+Notice what none of these definitions describe: an artifact. Simon's "courses of action," Papanek's "conscious and intuitive effort," Eames' "plan" — all are acts. The artifact is what results from the act. Design is what happens before, and during, and in the judgment that shapes what gets made. The chair is not the design. The design is the thinking that determined the chair.
+
 ---
 
 ## II. Creativity Is Remix — and the Judgment Is the Designer's
 
 Ferguson's framework is both liberating and incomplete. It is liberating because it removes the stigma from drawing on prior work — from pattern libraries, from design history, from competitors, from adjacent disciplines. It establishes that this is not laziness or derivativeness; it is the universal structure of all creative acts. "Copy, transform and combine," Ferguson writes. "It's who we are, it's how we live, and of course, it's how we create."
 
-The incompleteness is this: the framework describes the *mechanics* of creativity but not its *discipline*. It explains how a remix is made but not what makes it good. Led Zeppelin and Robert Johnson both played the blues. Both were working with the same inherited tradition. The mechanics of copy-transform-combine were identical. The judgment — of what to keep, what to discard, what to transform and how — was not.
+The incompleteness is this: the framework describes the *mechanics* of creativity but not its *discipline*. It describes how an artifact gets made — but not what made the making worth doing. Led Zeppelin and Robert Johnson both played the blues. Both were working with the same inherited tradition. The mechanics of copy-transform-combine were identical. The judgment — of what to keep, what to discard, what to transform and how — was not.
 
 T.S. Eliot drew this distinction in 1920: "Immature poets imitate; mature poets steal; bad poets deface what they take, and good poets make it into something better, or at least something different." The stealing that makes a good poet is not appropriation — it is transformation in service of saying something that could not otherwise be said. The source material is the raw material. The judgment is what determines whether the result is derivative or transcendent.
 
@@ -79,7 +81,7 @@ Bill Moggridge, who coined the term "interaction design" in the 1980s, recognise
 
 ### Service design
 
-Lou Downe brought human-centredness to the design of services — systems that exist entirely in the experience of people moving through them. Her formulation is precise: "Good services are verbs, bad services are nouns." A noun — a complaints department, a benefits portal — is defined by what the organisation calls itself. A verb — help people resolve disputes, access what they need — is defined by what the person is trying to do. The distinction is the difference between designing for organisational structure and designing for human purpose.
+Lou Downe brought human-centredness to the design of services — systems that exist entirely in the experience of people moving through them. Her formulation is precise: "Good services are verbs, bad services are nouns." A noun — a complaints department, a benefits portal — is defined by what the organisation calls itself. A verb — help people resolve disputes, access what they need — is defined by what the person is trying to do. The distinction is the difference between designing for organisational structure and designing for human purpose. A noun is an artifact. A verb is a design.
 
 ### Graphic and communication design
 
@@ -125,7 +127,7 @@ Fuller was not making an aesthetic claim. He was making an epistemological one. 
 
 Frank Lloyd Wright's version was structural: "The human race built most nobly when limitations were greatest and therefore when most was required of imagination." Constraint is not the enemy of design — it is its teacher. Constraint forces the designer to understand the problem more precisely, and that precision is where good design begins.
 
-Saul Bass, whose work spans film title sequences, corporate identity, and poster design across five decades, captured this: "Design is thinking made visual." The design is not the output of thinking — it *is* the thinking, made accessible to others. The visible form is the record of the decisions. If the decisions were not made with discipline, the form will show it.
+Saul Bass, whose work spans film title sequences, corporate identity, and poster design across five decades, captured this: "Design is thinking made visual." The design is not the output of thinking — it *is* the thinking, made accessible to others. The artifact is visible. The design is the thinking that produced it. If the thinking was absent or undisciplined, the artifact will carry that absence — often invisibly, always consequentially.
 
 Steve Jobs understood this at the product level: "Design is not just what it looks like and feels like. Design is how it works." Form and function are not separate dimensions that must be balanced. Form *is* a kind of function — it communicates, it instructs, it sets expectations, it builds or erodes trust. A product that looks right but works wrong has not been designed; it has been styled.
 
@@ -195,7 +197,7 @@ Direction-setting is distinct from approving. Approving means checking whether s
 
 "Eventually everything connects — people, ideas, objects," Eames said. The designer who reads an artifact must read not just the artifact itself but how it connects to the intent behind it, to the other artifacts it relates to, and to the person who will encounter it. This is the drift detector's job: to notice when the connections have weakened, when execution has introduced inconsistency between the artifact and its intent.
 
-Vignelli's lifelong fight was precisely this: the designer must attend to the whole, not just the parts, and must be willing to reject work that is technically correct but directionally wrong. Drift is not always visible in the artifact itself. A component can be perfectly spec-compliant and still fail to express the design intent behind it. The designer must read outputs against the original purpose, not just against the rules.
+Vignelli's lifelong fight was precisely this: the designer must attend to the whole, not just the parts, and must be willing to reject work that is technically correct but directionally wrong. Drift is the condition where the artifact is present but the design has gone. A component can be perfectly spec-compliant and still fail to express the intent behind it. The artifact passes every check. The design is nowhere in it. The designer must read outputs against the original purpose — not just against the rules — because the rules can only ever evaluate the artifact, never the design.
 
 ---
 
@@ -263,9 +265,9 @@ A designer who moves between tiers on momentum is skipping the most important ac
 
 ### 5. Execution without intent is aesthetic production
 
-Paul Rand: "Design is so simple. That's why it is so complicated." The visible simplicity of good design conceals the complexity of the thinking that produced it. When that thinking is absent, the design still has a surface, but the surface has no depth behind it. It is aesthetic production — work that resembles design without being it.
+Paul Rand: "Design is so simple. That's why it is so complicated." The visible simplicity of good design conceals the complexity of the thinking that produced it. When that thinking is absent, the artifact still exists — it has a surface, pixels, a structure, a spec — but there is no design behind it. It is aesthetic production: an artifact without a design. Work that resembles design without being it.
 
-The test: can the designer articulate *why* the output is right in terms of user need and design intent, not in terms of process compliance? If the answer is only "it follows the spec," the design may be correct. It has not yet been designed.
+The test: can the designer articulate *why* the output is right in terms of user need and design intent, not in terms of process compliance? If the answer is only "it follows the spec," you have an artifact. You do not yet have a design.
 
 ### 6. Touch level tracks reversibility, not effort
 
@@ -287,7 +289,7 @@ The practitioners gathered in this document worked across widely different media
 
 Experience strategy is the practice of holding this commitment at the level of an organisation's intent, not just at the level of individual artifacts. It is the discipline of asking — before any process begins — what kind of experience we are designing for, in what human context, toward what human outcome. It is the refusal to let the question narrow prematurely to "what does this look like?" or "what does this do?" without first settling "why does this exist, and for whom?"
 
-In an AI-augmented process, experience strategy is the practice that distinguishes designers from design operators. Design operators invoke processes and review outputs. Designers bring intent, set direction, and maintain the human signal through a production system that can do almost everything except originate meaning.
+In an AI-augmented process, experience strategy is the practice that distinguishes designers from design operators. Design operators manage the artifact — invoking processes, reviewing outputs, checking conformance. Designers do the design — bringing intent, setting direction, maintaining the human signal through a production system that can generate almost anything except a reason for it to exist.
 
 Verganti's insight applies directly here: the system can produce design that satisfies existing expectations. Only a designer can propose the new meaning that changes what people expect — that shifts the belief system around what a thing can be. That proposal is the highest-order act of experience strategy, and it cannot be generated by a toolchain that, by definition, operates within the space of what has already been articulated.
 
@@ -323,11 +325,11 @@ What threads through all of these is the same thing: judgment in service of a hu
 
 The designer is the person who brings those stakes. Who cares about the human on the other side of the experience and converts that caring into decisions. Structural decisions about what to build and what to leave out. Direction decisions about which of the many valid remixes is the right one for this person, at this moment. Integrity decisions about whether the execution stayed faithful to the intent that justified it.
 
-An AI system can propagate intent. It cannot originate it. It can detect drift from a specification. It cannot know whether the specification was right for the person it was meant to serve.
+An AI system produces artifacts. It can propagate intent, detect drift from a specification, execute decisions at scale and speed. What it cannot do is design — because design requires knowing what the artifact is *for*, caring whether it serves the person who will encounter it, and bringing the judgment that determines whether the remix was worth making in the first place.
 
 Norman: "We are designing for people. People are complex, contradictory, and changeable." The tools we build to support design must serve that complexity — not flatten it into a process that produces artifacts without wisdom.
 
-That is not a limitation to engineer away. It is the space where design lives. And the designer's irreducible job — in the age of AI, exactly as before — is to be the person in the room who stays present to that space, and refuses to let it be optimised away.
+The system produces the artifact. The designer produces the design. That is not a limitation to engineer away. It is the distinction that makes the designer's role irreducible — in the age of AI, exactly as before — and the reason the person in the room who holds onto it matters.
 
 ---
 
