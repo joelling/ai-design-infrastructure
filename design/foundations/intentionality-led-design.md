@@ -4,6 +4,16 @@
 
 ---
 
+The world now has systems capable of executing design with a fidelity and consistency no human process could match. They propagate decisions across hundreds of artifacts without error, apply visual language without drift, detect when outputs deviate from specifications, and generate structured design work from a brief in seconds.
+
+The uncomfortable question this creates — the one most AI-assisted design frameworks quietly avoid — is not "will AI replace designers?" That is the wrong question. The right question is more precise, and more interesting: if the system can produce the artifacts, what is the designer actually for?
+
+The answer is not creativity. AI generates creative variations faster than any designer. It is not consistency — AI is more consistent than any human. It is not craft, in the sense of execution skill. It is something older than any of these, and harder to name, and impossible to delegate.
+
+A century of design practice across wildly different fields — industrial, graphic, digital, architectural, service — arrived at the same answer. The convergence is not coincidental. It is the argument.
+
+---
+
 ## I. What Design Actually Is: A Century of Convergence
 
 "Everyone designs who devises courses of action aimed at changing existing situations into preferred ones."
@@ -277,9 +287,19 @@ The framework protects against execution creep through three mechanisms.
 
 **Reversibility awareness.** Before approving any output, the designer should know how hard this decision is to undo. If it is structural and hard to reverse, it deserves a full high-touch moment regardless of how obvious the answer seems. The cascade is real. A human must stand behind it.
 
+The answer to the question this document opened with — what is the designer actually for, in a world where AI can produce the artifacts — is now legible in the convergence of every practitioner gathered here.
+
+Not execution. Not craft, in the narrow sense. Not even creativity, if creativity means novelty for its own sake.
+
+The designer is for *meaning*. For the act that Simon called "changing existing situations into preferred ones," that Papanek called "imposing meaningful order," that Eames called "arranging elements to best accomplish a particular purpose." The act that Rams made a moral obligation, Norman made a cognitive discipline, Glaser made a communicative responsibility, Verganti made a generative force, and Alexander made an ecological one.
+
+The thing that was "older, and harder to name" is this: the designer is the person who cares about the human on the other side of the experience — and who converts that caring into decisions. Structural decisions about what to build and what to leave out. Direction decisions about which of the many valid paths is the right one for this person, in this context, at this moment. Integrity decisions about whether the execution stayed faithful to the intent that justified it.
+
+An AI system can do almost everything except make those decisions with genuine human stakes behind them. It can propagate intent. It cannot originate it. It can detect drift from a specification. It cannot know whether the specification was right for the person it was meant to serve.
+
 Norman: "We are designing for people. People are complex, contradictory, and changeable." The tools we build to support design must serve that complexity — not flatten it into a process that produces artifacts without wisdom.
 
-The designer's irreducible job, in the age of AI, is exactly what it has always been: to care about the person on the other side of the experience, and to be the one in the room who refuses to let that caring be optimised away.
+That is not a limitation to engineer away. It is the space where design lives. And the designer's irreducible job — in the age of AI, exactly as before — is to be the person in the room who stays present to that space, and refuses to let it be optimised away.
 
 ---
 
