@@ -22,47 +22,160 @@ Before any topic documentation page can be built, the Documentation page's share
 
 ### Step 0 — Build the Documentation page component library
 
-On the `↳ Documentation ✅` page, create these 8 shared component sets. All are reusable across every topic page via `figma_instantiate_component`:
+On the `↳ Documentation ✅` page, create these shared component sets. Build in the order listed — later components may nest earlier ones.
 
-| Component | Description | Usage |
-|-----------|-------------|-------|
-| `Artboard header` | Page title + icon + subtitle + token prefix code block | First element on every topic page |
-| `Dashboard thumbnail` | File cover thumbnails (light + dark variants) | Cover Page only |
-| `Tags` | Label components (status, category, token type) | Anywhere labels are needed |
-| `Jira ticket` | Ticket reference card | Traceability sections |
-| `Documentation table` | Table template: header row + divider → data row + divider pattern | Token tables, property tables |
-| `Checklist` | Review/completion checklist | Audit pages |
-| `Note card` | Annotation card with callout | Design rationale, exceptions |
-| `Asset metrics` | Metric cards with counts | Cover page, summary pages |
+#### 1. Artboard Header (most critical — every page depends on it)
 
-Build order for `Artboard header` (most critical — every page depends on it):
-1. Create a COMPONENT frame (not a regular frame): 4800px wide, VERTICAL auto-layout
-2. Add padding: T:320, R:480, B:320, L:320
-3. First child: HORIZONTAL frame, FILL width, SPACE_BETWEEN — contains title text (left) + themed icon square (right)
-4. Second child: subtitle text (FILL width)
-5. Third child: code block frame containing token prefix label (e.g. `color_`, `spacing_size_`, `font-header/`)
+**Component set name:** `Artboard header`
 
-Once Artboard header exists, all other topic pages can be built.
+**Variants:** `Size` (Small, Large) × `Style` (Light, Dark) = 4 variants
+
+**Component properties (all variants):**
+
+| Property | Type | Default | Purpose |
+|----------|------|---------|---------|
+| `Title text` | TEXT | "Title" | Main page title (display size) |
+| `Desc. text` | TEXT | "Description" | Subtitle / description |
+| `Project text` | TEXT | "[Project] Design System" | Project name (small, top) |
+| `Type text` | TEXT | "Type" | DLS file type label |
+| `Show token` | BOOLEAN | true | Show/hide token prefix code block |
+| `Show desc.` | BOOLEAN | true | Show/hide description |
+| `Show type` | BOOLEAN | true | Show/hide type label |
+| `Show project` | BOOLEAN | true | Show/hide project name |
+
+**Large variant structure** (VERTICAL, padding T:480 R:320 B:320 L:320):
+1. `Title + Icon` (HORIZONTAL, FILL width, SPACE_BETWEEN, gap 320):
+   - Title text — display size
+   - Themed icon square (e.g., circular outline icon, ~150×150)
+2. `Project` text — project name
+3. `token` frame (VERTICAL, padding T:64 B:64) — code block showing token prefix (e.g. `color_light__`)
+
+**Small variant structure** (VERTICAL, compact bar — ~274px height):
+- Project name + Title + Type in a single-line compact layout
+- Description below
+
+#### 2. Section Header
+
+**Component set name:** `Section header`
+
+**Variants:** `Status` (Done, WIP) × `Size` (Large, Small) = 4 variants
+
+**Component properties:**
+
+| Property | Type | Default |
+|----------|------|---------|
+| `Show Col-1 Header` | BOOLEAN | true |
+| `Show Col-2 Header` | BOOLEAN | true |
+| `Show Col-3 Header` | BOOLEAN | true |
+| `Show Col-1 Subheader` | BOOLEAN | true |
+| `Show Col-2 Subheader` | BOOLEAN | true |
+| `Show Col-3 Subheader` | BOOLEAN | true |
+
+**Large variant structure** (HORIZONTAL, gap 64):
+- `3-col sections` frame (FILL width, VERTICAL, gap 0):
+  - **Row 1 — Headers** (HORIZONTAL, FILL, gap 64): 3 × `Header` frames (FILL width each), each toggleable
+  - **Row 2 — Subheaders** (HORIZONTAL, FILL, gap 64): 3 × `Subheader` frames (FILL width each), each toggleable
+  - **Row 3 — Body text** (HORIZONTAL, FILL, gap 64): 3 × `Col text` frames (FILL width, VERTICAL, gap 8)
+- `Status` frame (HUG): ✅ emoji (Done) or 🚧 emoji (WIP), fontSize 96
+
+**Usage:** Use 1 column by hiding Col-2 and Col-3 headers/subheaders. Use 2 columns by hiding Col-3. All 3 columns for rich descriptions. The body text columns are always present — leave empty for unused columns.
+
+**Small variant:** Same 3-column structure at a smaller type scale.
+
+#### 3. _Colour Details (published — for cross-file use)
+
+**Component set name:** `_Colour Details`
+
+**Variants:** `Size` (Small, Medium, Large) × `Shade` (Dark, Light) = 6 variants
+
+The 3 sizes represent 3 levels of detail:
+
+| Size | Dimensions | Shows | Use case |
+|------|-----------|-------|----------|
+| Small | 200×120 | Name + hex only | Semantic token tables (compact swatch) |
+| Medium | 400×320 | Name + hex + contrast ratio | Secondary references |
+| Large | 992×420 | Name + hex + token ref label (NYI) + contrast ratio | Primitive palette documentation |
+
+**Large variant structure** (VERTICAL, gap 32, FILL horizontal, FIXED height 420):
+1. `Color Info` frame (VERTICAL, FILL horizontal, HUG vertical, gap 0):
+   - `Colour Title` (HORIZONTAL, FILL, gap 0):
+     - Name text (e.g. "Blue 100") — fontSize 48, FIXED width
+     - `Type` text (e.g. "NYI" or token reference) — fontSize 24, FILL width
+   - `Hex colour` text (e.g. "#001729") — fontSize 40, HUG
+2. `Contrast Ratio` frame (HORIZONTAL, HUG, gap 4):
+   - Contrast icon (half-circle outline, 52×52)
+   - Ratio text (e.g. "18.18") — fontSize 40
+
+**Background fill:** Applied to the component frame itself — bound to the colour variable. `Shade=Dark` uses light text on dark fill; `Shade=Light` uses dark text on light fill.
+
+#### 4. Dimension (published — for cross-file documentation)
+
+**Component set name:** `Dimension`
+
+**Variants:** `Variant` (Left, Right, Top, Bottom) × `Size` (Sm, Md, Lg) = 12 variants
+
+Measurement annotation component with a bracket/line indicator and a value or label.
+
+| Size | Shows | Use case |
+|------|-------|----------|
+| Sm | Raw value number (fontSize 12) + bracket | Compact inline measurements |
+| Md | Token name tag instance + bracket | Token reference annotations below swatches |
+| Lg | Large value number (fontSize 24) + bracket | Prominent measurements |
+
+**Structure (Bottom variant, all sizes):** VERTICAL, gap 0–4:
+1. `Indicator` frame (HORIZONTAL): left bracket line + horizontal line + right bracket line
+2. Value display: raw text (Sm/Lg) or `_spacing size` tag instance (Md)
+
+**Direction variants** control which way the bracket points — Bottom (bracket above, label below), Top (bracket below, label above), Left/Right (vertical bracket with horizontal label).
+
+#### 5. Note (published — for cross-file documentation)
+
+**Component set name:** `Note`
+
+**Variants:** `Property 1` (Bottom, Left, Right, Top) = 4 variants
+
+Pointer annotation component — a line with a node endpoint leading to a label + token tag.
+
+**Structure (Right variant):** HORIZONTAL, gap 8:
+1. Pointer line frame: circle endpoint (13×13) + horizontal line + end cap
+2. Note content frame (VERTICAL, gap 8):
+   - "Note" label text — fontSize 14
+   - Token tag instance (e.g. `_Font size` or `_spacing size`) showing the token name
+
+#### 6. Other shared components
+
+| Component set | Purpose | Variants |
+|--------------|---------|----------|
+| `Dashboard thumbnail` | Cover page thumbnails | 18 variants (light/dark × aspect ratios) |
+| `Label` (Tags) | Label/tag components | 60+ variants (categories, colours) |
+| `Jira ticket` | Ticket reference card | 1 variant |
+| `Documentation grid` (Table) | Table template | Single component with 23 children (header + rows) |
+| `Acceptance criteria` (Checklist) | Review checklist | Single component with 25 children |
+| `Note card` | Annotation card with callout | 2 variants (direction) |
+| `Feature` | Feature metric card | 10 variants |
+| `IA Level` | IA depth indicator | 16 variants |
 
 ---
 
 ### Topic-specific documentation components (`_` prefix)
 
-Each topic page maintains its own hidden component set for topic-specific reusable documentation elements. These live on the topic page itself (not the Documentation page) and use the `_` prefix so they don't appear in the published Assets panel.
+Each topic page creates its own hidden component set for topic-specific visualisation elements. These live on the topic page itself (NOT the Documentation page) and use the `_` prefix.
 
-| Component set | Topic page | Variants | What it documents |
-|--------------|-----------|----------|-------------------|
-| `_Colour tokens` | Colour ✅ | 42 (Color × Value) | 200×120px colour swatches with name + hex |
-| `_Font size` | Typography ✅ | — | Font size specimens per style |
-| `_spacing size` | Spacing ✅ | — | Spacing token rows with visual bar |
-| `_radius size` | Radius 🚧 | — | Radius visualisation components |
-| `_radius tokens` | Radius 🚧 | — | Radius component token visualisation |
-| `_stroke width` | Stroke 🚧 | — | Stroke width visualisation |
-| `_stroke component` | Stroke 🚧 | — | Stroke component token visualisation |
+**`_` prefix convention:** Underscore prefix = scoped to this page, not for cross-file use. These don't appear in the published Assets panel. Period (`.`) prefix is reserved for sub-components nested inside other components.
 
-**`_` prefix rule:** Use `_` (underscore) prefix for topic-specific component sets — not `.` (period). Period prefix is reserved for sub-components that should not appear in Assets at all. Underscore prefix means "scoped to this page, not for cross-file use."
+| Component set | Topic page | What it visualises |
+|--------------|-----------|-------------------|
+| `_Colour tokens` | Colour | Colour swatches (Color × Value variants) — used in semantic token tables |
+| `_Font size` | Typography | Font size specimen rows per style |
+| `_spacing size` | Spacing | Spacing token rows with visual bar + label tag |
+| `_radius size` | Radius | Radius visualisation circles/rectangles |
+| `_radius tokens` | Radius | Radius component token visualisation |
+| `_stroke width` | Stroke | Stroke width line samples |
+| `_stroke component` | Stroke | Stroke component token visualisation |
 
-Build these component sets at the top of each topic page before building the documentation content. Place them in a dedicated staging area (e.g. a Section named `_components`) at the far left of the page.
+**Build order:** Create topic-specific component sets FIRST on each topic page, in a staging area to the far left. Then build the documentation artboard using instances of both shared components (from Documentation page) and topic-specific components.
+
+**Exception:** `_Colour Details`, `Dimension`, and `Note` live on the Documentation page (not topic pages) because they are reused across multiple topic pages and across DLS files.
 
 ---
 
@@ -70,59 +183,43 @@ Build these component sets at the top of each topic page before building the doc
 
 ### Page layout template
 
-Every documentation page in a DLS file follows this structure:
-
-**Page frame** — 4800px wide, VERTICAL auto-layout, 0 gap, hug height
+Every documentation page uses a single artboard frame containing a header instance followed by "Child" section frames.
 
 ```
-Page Frame (4800px, VERTICAL, 0 gap)
-├── Artboard Header (INSTANCE from Documentation page)
-│   ├── Title + Icon (HORIZONTAL, SPACE_BETWEEN)
-│   │   ├── Title (display text)
-│   │   └── Themed icon square
-│   ├── Subtitle text
-│   └── Code block (token prefix indicator)
-├── Child Section (VERTICAL, padding 240/100, gap 80, FILL horizontal)
-│   ├── Section Header (HORIZONTAL, SPACE_BETWEEN, FILL)
-│   │   ├── _Text Description (title + body text)
-│   │   └── Status icon (✅ or 🚧)
-│   └── Content (varies by topic)
-├── [Divider line]
-├── Child Section ...
-└── ...
+Artboard Frame (VERTICAL, 0 gap, hug height)
+├── Artboard Header INSTANCE (Size=Large, Style=Light or Dark)
+│   └── Set: Title, Description, Project name, token prefix
+├── Child (VERTICAL, padding L:240 R:240 T:100 B:100, gap 80, FILL horizontal)
+│   ├── Section Header INSTANCE (Status=Done or WIP, Size=Large)
+│   │   └── Set: 1–3 column headers, subheaders, body text
+│   └── Content (varies by topic — swatch grids, tables, etc.)
+├── Child ...
+└── Child ...
 ```
 
 ### Layout specifications
 
-| Element | Layout | Padding | Gap | Sizing |
-|---------|--------|---------|-----|--------|
-| Page frame | VERTICAL | 0 | 0 | 4800px fixed width, hug height |
-| Artboard Header | VERTICAL | 320/480/320/320 (T/R/B/L) | — | FILL horizontal |
-| Child Section | VERTICAL | 240/100/240/100 | 80 | FILL horizontal, hug height |
-| Section Header | HORIZONTAL | — | — | FILL horizontal, SPACE_BETWEEN |
-| _Text Description | VERTICAL | — | 16 | — |
+| Element | Layout | Padding (T/R/B/L) | Gap | Width | Height |
+|---------|--------|--------------------|-----|-------|--------|
+| Artboard frame | VERTICAL | 0/0/0/0 | 0 | FIXED (artboard width) | HUG |
+| Artboard Header (Large) | VERTICAL | 480/320/320/320 | 0 | FILL | HUG |
+| Child section | VERTICAL | 100/240/100/240 | 80 | FILL | HUG |
+| Section Header (Large) | HORIZONTAL | 0 | 64 | FILL | HUG |
+| 3-col sections (inside Section Header) | VERTICAL | 0 | 0 | FILL | HUG |
+| Header/Subheader/Body rows | HORIZONTAL | 0 | 64 | FILL | HUG |
+| Col text (body column) | VERTICAL | 0 | 8 | FILL | HUG |
 
-### Reusable documentation components
-
-These components live on the `↳ Documentation ✅` page of each DLS file:
-
-| Component | Purpose | When to use |
-|-----------|---------|-------------|
-| Artboard Header | Page title with project branding | Every documentation page, first element |
-| Dashboard Thumbnail | Cover page thumbnails (light/dark) | Cover Page only |
-| Tags | Label components (status, category) | Anywhere labels are needed |
-| Documentation Table | Table template (header+divider → row+divider) | Token tables, property tables |
-| Checklist | Review/completion checklist | Audit pages, review pages |
-| Note Card | Annotation card with callout | Design rationale, exceptions |
-| Note | Inline note | Brief annotations |
-| Asset Metrics | Metric cards with counts | Cover page, summary pages |
+**Artboard width:** Typically 4800–5300px. The artboard header and child frames use FILL horizontal to stretch to match.
 
 ### Status convention
 
-- ✅ = Page is complete and reviewed
-- 🚧 = Page is in progress or incomplete
+- ✅ = Page/section is complete and reviewed
+- 🚧 = Page/section is in progress or incomplete
 
-Status appears in both the page name (`↳ Typography ✅`) and section headers.
+Status appears in three places:
+1. **Page name** — `↳ Typography ✅` or `↳ Radius 🚧`
+2. **Section Header component** — `Status=Done` (✅) or `Status=WIP` (🚧)
+3. **Inline within content** — per sub-section where needed
 
 ---
 
@@ -141,14 +238,53 @@ For each foundation topic (Colour, Typography, Spacing, Grid, Radius, Stroke, El
 
 ### Colour documentation specifics
 
-The colour page has two major sections:
-1. **Colour Styles** (primitives) — shows all scales with swatches:
-   - Each hue group: section header → colour swatch rows
-   - Each swatch: colour fill + name + hex + contrast ratio + token reference label
-   - Annotation layer shows WCAG ratings and "NYI" for unassigned steps
-2. **Colour Tokens** (semantic) — cards grouped by context:
-   - Background, Text, Button, Tag, Layer, Link, Icon, Support, Focus, Field, Border, etc.
-   - Each card: token name, alias reference, hex value, colour swatch circle
+The colour page has two separate artboards: one for primitives, one for semantic tokens.
+
+#### Artboard 1: Colour Styles (primitives)
+
+```
+Artboard (VERTICAL, 0 gap)
+├── Artboard Header INSTANCE (Title="Colour Styles")
+├── Child — Section: Primary Colours
+│   ├── Section Header INSTANCE (Status=Done, 1-col or 3-col body text describing the hue category)
+│   └── {Hue} colors frame (VERTICAL, gap 16)
+│       ├── Colour + Documentation (VERTICAL, gap 16)
+│       │   ├── Core (HORIZONTAL, FILL, gap 0): 4 × _Colour Details INSTANCE (Size=Large, FILL)
+│       │   └── Annotation (HORIZONTAL, FIXED): Dimension INSTANCE (Variant=Bottom, Size=Lg) per swatch
+│       ├── Colour + Documentation (next row of the scale)
+│       └── ...
+├── Child — Section: Neutral Colours
+├── Child — Section: Secondary Colours (with sub-sections per hue: Teal, Purple, etc.)
+├── Child — Section: Semantic Colours (with sub-sections: Danger, Warning, Success)
+└── ...
+```
+
+**Section descriptions:** Write project-specific rationale for each colour category — what role the hue plays in the design system, why it was chosen, and where it should be used. Do NOT copy reference file text verbatim.
+
+**Colour swatch grid pattern:**
+- Each hue scale is shown in rows of 4 `_Colour Details` (Size=Large) instances
+- Steps 100→70 in row 1, 60→30 in row 2, 20→10 in row 3
+- Below each swatch row: a `Dimension` (Variant=Bottom) annotation showing the token reference name or "NYI" for unassigned steps
+- `Shade=Dark` for steps 60+ (light text on dark fill), `Shade=Light` for steps 50 and below (dark text on light fill)
+
+#### Artboard 2: Colour Tokens (semantic)
+
+```
+Artboard (VERTICAL, 0 gap)
+├── Artboard Header INSTANCE (Title="Colour Tokens", Desc="Light" or "Dark", token="color_light__")
+└── Parent (HORIZONTAL, FILL, gap 80, padding L:240 R:240 T:100 B:100)
+    ├── col (FILL, VERTICAL, gap 128): Text tokens section, ...
+    ├── col (FILL, VERTICAL, gap 128): Link tokens section, ...
+    └── col (FILL, VERTICAL, gap 128): Button tokens sections, ...
+```
+
+**Each Section inside a column** (VERTICAL, gap 40):
+1. Section header: `_Text Description` (title + 1-line description) + ✅/🚧
+2. Table (VERTICAL, gap 0):
+   - Header row (HORIZONTAL): Col 1 "Token" | Col 2 "Role" | Col 3 "Value"
+   - Data rows (HORIZONTAL): Col 1 = code block with token name | Col 2 = role description text | Col 3 = `_Colour tokens` INSTANCE (Small, showing the resolved colour swatch)
+
+**Create both Light and Dark artboards** — one per colour mode. The token names are the same; the resolved colour values differ.
 
 ### Icon documentation page (Icon Fundamentals)
 
@@ -246,3 +382,6 @@ design/15_PROTOTYPE/stories/
 - All values shown in documentation must reference actual tokens (no hardcoded display values)
 - Keep documentation in sync — when tokens or components change, update their docs page
 - Storybook stories are optional but recommended for projects with coded prototypes
+- **Write project-specific descriptions** — section body text should describe the role, rationale, and usage guidelines for THIS project's design system. Do not copy text from reference files. The skill codifies STRUCTURE and COMPONENT PATTERNS, not content.
+- **`_Colour Details`, `Dimension`, and `Note` are published components** — they live on the Documentation page and are intended for use across DLS files (Icons & Illustrations, Components). All other `_` prefixed components are page-scoped and not published.
+- **Section Header component replaces raw `_Text Description` frames** — always instantiate the Section Header component set rather than building headers manually. Use its boolean properties to control 1-, 2-, or 3-column body text layouts.
