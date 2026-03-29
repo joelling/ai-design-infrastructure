@@ -81,17 +81,21 @@ The pattern across a century and across every field is not a lesson learned once
 
 ---
 
-## IV. Simplicity as an Act of Respect
+## IV. Every Element Must Earn Its Place
 
-Simplicity is not an aesthetic choice. It is a statement about where the work is being done.
+Intentionality is not a synonym for simplicity. A cathedral is not simple. A cockpit is not simple. A well-designed legal brief is not simple. What they share with the most pared-back design is not sparseness — it is deliberateness. Every element present is there for a reason that survives scrutiny. Nothing is there by accident or inertia.
 
-When a design is simple to use, the work of making it simple was done by the designer — not the user. When a design is complicated, that work has been transferred to the person encountering it. Simplicity, understood this way, is an act of cognitive respect: the designer takes on burden so the user does not have to.
+The designers who championed simplicity — Rams, Krug, Maeda — were not announcing a universal principle. They were issuing a corrective. They were working against a specific failure mode: the accumulation of elements that no one chose, that no one defended, that were simply there because they had always been there or because removing them required effort no one wanted to spend. Rams' "as little design as possible" is not a manifesto for minimalism. It is a standard for accountability: every element must justify its existence against the need it serves.
 
-John Maeda articulated the mechanics of this precisely: "Simplicity is about subtracting the obvious and adding the meaningful." Not just removing things — removing the *right* things: the ones whose absence will not be noticed, while preserving and adding the ones whose presence changes the experience. Rams' "as little design as possible" is the same principle stated in production terms. Every element must justify its existence against the standard of the person who will encounter it, or it must go.
+Krug's proposition — that each decision requiring a user to pause and think is a design failure — is not an argument for bare interfaces. It is an argument against transferred burden: the designer's thinking, absent or incomplete, falls on the person who can least afford it. A rich, layered tool that rewards sustained use and mastered complexity may be exactly right for its context. What Krug is targeting is not complexity — it is thoughtlessness: complexity that serves the product rather than the person.
 
-Krug's proposition — that each decision requiring a user to pause and think is a design failure — is the usability expression of the same principle. The designer's thinking is the gift to the user. When that thinking is absent or incomplete, the cognitive burden falls on the person who can least afford it: the person trying to accomplish something, not the person whose job it was to make that accomplishment easy.
+Maeda: "Simplicity is about subtracting the obvious and adding the meaningful." The operation is surgical, not sweeping. Remove what does not earn its place; add what genuinely changes the experience. The result might be spare. It might not. The outcome is a by-product of the test, not the goal of it.
 
-Jef Raskin, who conceived the original Macintosh before it became a commercial product, stated the humane standard for digital systems in terms that remain unimproved: "A computer shall not harm your work or, through inaction, allow your work to come to harm." Simplicity, for Raskin, was not visual — it was behavioural. A system that loses work, surprises users, or behaves unpredictably has failed its fundamental obligation to the human depending on it. The interface is not a product. It is a promise.
+Jef Raskin's humane standard — "a computer shall not harm your work or, through inaction, allow your work to come to harm" — sets a floor, not a ceiling. It defines what a system must never do. It does not constrain how rich, dense, or complex the system may be in service of its purpose.
+
+The discipline of intention is not about producing simple things. It is about being accountable for every decision: able to explain why this element is here, what it does for the person encountering it, and what would be lost without it. Unearned complexity is a failure of intent. But so is unearned simplicity — the stripped surface that omits what the person actually needs because it was easier to remove than to understand.
+
+The test is not: *is this simple?* It is: *does everything here earn its place?*
 
 ---
 
