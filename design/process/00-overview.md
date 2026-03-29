@@ -42,8 +42,8 @@ TIER 4: DEVELOP            → Build screens, prototype, and keep everything in 
 | 11 | [Design Validation](11-validation.md) | `design-validation` | 3 — Design |
 | 12 | [Design System Governance](12-governance.md) | `design-governance` | 3 — Design |
 | 13 | [Design-to-Canvas Synthesis](13-canvas.md) | `design-canvas` | 4 — Develop |
-| 14 | [Figma Execution Pipeline](14-figma-pipeline.md) | `figma-*` | 4 — Develop |
-| 15 | [Coded Prototype](15-prototype.md) | `design-prototype` | 4 — Develop |
+| 14 | [Figma Execution Pipeline](15-figma-pipeline.md) | `figma-*` | 4 — Develop |
+| 15 | [Coded Prototype](16-prototype.md) | `design-prototype` | 4 — Develop |
 
 ---
 

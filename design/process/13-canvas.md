@@ -219,6 +219,7 @@ Each canvas brief includes a sync hash at the bottom — a fingerprint of the la
 
 ## Feeds into
 
+- **Clickable ASCII Wireframe** — canvas briefs are the source for wireframe generation; wireframe review feedback flows back into briefs before Figma begins
 - **Figma Page Setup** — page name, sub-frame structure
 - **Figma Components** — what to build, with which variants, states, and TEXT properties
 - **Figma Tokens** — which tokens to apply

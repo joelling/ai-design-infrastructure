@@ -240,10 +240,11 @@ After writing the brief, verify:
 
 ## Bridge to the Develop loop
 
-The canvas brief feeds both Figma execution and the coded prototype:
+The canvas brief feeds wireframe validation, Figma execution, and the coded prototype:
 
 | Brief section | Figma skill | Prototype | How it's consumed |
 |--------------|------------|-----------|-------------------|
+| All sections | `design-wireframe` | — | Clickable ASCII wireframes for structural/flow validation before Figma |
 | Frame inventory | `figma-page-setup` | Screen scaffold | Number of artboards to create per screen |
 | Traceability | — | — | Validation reference; not consumed directly by Figma |
 | Purpose & context | `figma-page-setup` | Screen scaffold | Page name, annotation, screen purpose |
@@ -290,7 +291,7 @@ Canvas briefs participate in the Develop sync loop. When re-entering a brief aft
 ### Detecting incoming changes
 
 1. **From Figma:** Check if Figma screens have diverged from the brief (new components, layout changes, visual tweaks). Use Figma MCP to inspect current screen state.
-2. **From Prototype:** Check `design/15_PROTOTYPE/drift-log.md` for pending drifts flagged by the prototype mode.
+2. **From Prototype:** Check `design/16_PROTOTYPE/drift-log.md` for pending drifts flagged by the prototype mode.
 
 ### Applying changes
 

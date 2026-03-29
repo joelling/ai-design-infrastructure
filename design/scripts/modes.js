@@ -156,12 +156,23 @@ export const MODES = {
       'design/10_ACCESSIBILITY/color-contrast-audit.md',
       'design/11_VALIDATION/review-checklist.md',
     ],
-    downstream: ['prototype', 'design/BRD.xlsx'],
+    downstream: ['wireframe', 'prototype', 'design/BRD.xlsx'],
+  },
+  wireframe: {
+    label: 'Clickable ASCII Wireframe',
+    tier: 4,
+    outputDir: 'design/14_WIREFRAME',
+    inputs: [
+      'design/13_CANVAS/',
+      'design/05_STORIES/walking-skeleton.md',
+      'design/06_INFORMATION_ARCHITECTURE/screen-inventory.md',
+    ],
+    downstream: [],
   },
   prototype: {
     label: 'Coded Prototype',
     tier: 4,
-    outputDir: 'design/15_PROTOTYPE',
+    outputDir: 'design/16_PROTOTYPE',
     inputs: [
       'design/13_CANVAS/',
       'design/05_STORIES/walking-skeleton.md',

@@ -336,7 +336,7 @@ When the project uses a coded prototype with a component library, generate Story
 
 ### Story file structure
 ```
-design/15_PROTOTYPE/stories/
+design/16_PROTOTYPE/stories/
 ├── foundations/
 │   ├── Colors.stories.{js|tsx}
 │   ├── Typography.stories.{js|tsx}

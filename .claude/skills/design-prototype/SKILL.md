@@ -17,7 +17,7 @@ description: >
 > **Quick reference**
 > - **Purpose:** Translate Figma screens into running, interactive prototypes with drift detection
 > - **Inputs:** Canvas briefs, Figma screens (MCP), walking skeleton, interaction model (hard deps)
-> - **Outputs:** Prototype code, manifest, drift log → `design/15_PROTOTYPE/`
+> - **Outputs:** Prototype code, manifest, drift log → `design/16_PROTOTYPE/`
 > - **Hard rules:** Canvas briefs authoritative for intent. Figma authoritative for visuals. Walking skeleton first, then secondary flows.
 > - **Common mistake:** Building screens without checking the canvas brief first — the brief is the spec, not Figma alone
 
@@ -69,7 +69,7 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 Before starting this mode's workflow:
 
 0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
-1. Check `design/15_PROTOTYPE/_upstream.md` for the dependency manifest
+1. Check `design/16_PROTOTYPE/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -77,7 +77,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/15_PROTOTYPE/_upstream.md` with consumed and produced artifact versions
+2. Update `design/16_PROTOTYPE/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -103,7 +103,7 @@ Choose a stack appropriate for the project. Common options:
 - Svelte/Vue — lightweight component model
 - Any framework — the process doesn't prescribe
 
-Scaffold in `design/15_PROTOTYPE/`. Create the manifest file.
+Scaffold in `design/16_PROTOTYPE/`. Create the manifest file.
 
 ### Step 2 — Build screen by screen
 
@@ -159,10 +159,16 @@ When this mode runs, perform drift detection:
 1. **Figma → Prototype:** Capture Figma screenshot via MCP. Compare against prototype render. Flag visual discrepancies.
 2. **Brief → Prototype:** Check that all components, states, and content strings in the brief exist in the prototype. Flag missing or extra elements.
 3. **Prototype → Brief:** If prototype has evolved (e.g., interaction improvements discovered during prototyping), flag additions that need to flow back to the brief.
+4. **Token value drift (Code ↔ Figma):** Compare CSS custom property values in the prototype against Figma variable values. For each token category:
+   - Extract CSS variables from prototype stylesheets (e.g., `--color-bg-primary: #001729`)
+   - Query corresponding Figma variables via MCP (`figma.variables.getLocalVariablesAsync()`)
+   - Flag any value mismatches in the drift log with `[TOKEN-DRIFT]` tag
+   - Common drift causes: designer updated Figma token without updating code, or developer changed CSS without updating Figma
+   - Resolution: determine which source is authoritative for the change, then sync the other
 
 ### Drift log
 
-Log all drifts to `design/15_PROTOTYPE/drift-log.md`:
+Log all drifts to `design/16_PROTOTYPE/drift-log.md`:
 
 ```markdown
 ## Drift Log
@@ -182,9 +188,9 @@ Each screen in the manifest carries a sync hash. When any node changes, hashes a
 
 | File | What it contains |
 |------|-----------------|
-| `design/15_PROTOTYPE/manifest.md` | Screen-to-file mapping, tech stack, sync hashes, build/run instructions |
-| `design/15_PROTOTYPE/drift-log.md` | Record of detected drifts and resolutions |
-| `design/15_PROTOTYPE/[project files]` | The prototype source code |
+| `design/16_PROTOTYPE/manifest.md` | Screen-to-file mapping, tech stack, sync hashes, build/run instructions |
+| `design/16_PROTOTYPE/drift-log.md` | Record of detected drifts and resolutions |
+| `design/16_PROTOTYPE/[project files]` | The prototype source code |
 
 ### Manifest format
 
@@ -233,8 +239,8 @@ Each screen in the manifest carries a sync hash. When any node changes, hashes a
 
 ## Output checklist
 
-- [ ] `design/15_PROTOTYPE/manifest.md` — complete with all screen mappings and sync hashes
-- [ ] `design/15_PROTOTYPE/drift-log.md` — all drifts logged and resolved
+- [ ] `design/16_PROTOTYPE/manifest.md` — complete with all screen mappings and sync hashes
+- [ ] `design/16_PROTOTYPE/drift-log.md` — all drifts logged and resolved
 - [ ] Walking skeleton flow works end-to-end
 - [ ] All screens match their canvas briefs (content, states, components)
 - [ ] All screens visually match their Figma implementations

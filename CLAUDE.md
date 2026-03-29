@@ -2,7 +2,7 @@
 
 ## Design Playbook — Single Source of Truth
 
-**`design/process/`** is the single source of truth for the entire design process. It contains numbered mode files (01 through 14) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
+**`design/process/`** is the single source of truth for the entire design process. It contains numbered mode files (01 through 16) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
 
 ### How changes work
 - **Designers do not edit the process files directly** — all changes go through Claude
@@ -36,6 +36,7 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 - Each mode **warns** if upstream dependencies haven't produced artifacts yet
 - User decides whether to re-process with new data or proceed with current outputs
 - **HARD BLOCK:** `design-canvas` requires IA + interaction + visual + content artifacts
+- **SOFT GATE:** Wireframe review should complete before Figma execution (warning, not hard block)
 - **HARD BLOCK:** Figma execution requires canvas briefs for the screen being built
 - **HARD BLOCK:** `design-prototype` requires canvas briefs + Figma screens + walking skeleton
 
@@ -59,17 +60,20 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 
 ### TIER 4 — DEVELOP (build, prototype, and keep in sync)
 
-Tier 4 is a **sync loop** between three nodes, not a linear pipeline:
+Tier 4 has a **validation gate** followed by a **sync loop**:
 
 ```
-Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototype
-     ▲                                                │
-     └────────────────── sync ────────────────────────┘
+Canvas Brief ──► ASCII Wireframe ──► Figma Screens ◄──sync──► Prototype
+  (intent)      (flow + layout       (visual            (interaction
+                 validation)          execution)          fidelity)
 ```
+
+The wireframe is a validation gate (disposable, archived when Figma starts). The sync loop remains three nodes (Canvas ↔ Figma ↔ Prototype).
 
 13. **`design-canvas`** — Aggregates ALL upstream artifacts into per-screen briefs (authoritative for intent)
-14. **Figma pipeline** (`figma-*` skills) — Builds screens in Figma (authoritative for visual execution)
-15. **`design-prototype`** — Coded interactive prototype from Figma screens (authoritative for interaction fidelity)
+14. **`design-wireframe`** — Clickable ASCII wireframes for structural/flow validation with stakeholders (validation gate, disposable)
+15. **Figma pipeline** (`figma-*` skills) — Builds screens in Figma (authoritative for visual execution)
+16. **`design-prototype`** — Coded interactive prototype from Figma screens (authoritative for interaction fidelity)
 
 #### Figma pipeline — mandatory order:
 1. **`figma-connect`** — ALWAYS run first, every session. Never skip.
@@ -106,7 +110,11 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 - Ensuring accessibility → `design-accessibility`
 - Validating design decisions → `design-validation`
 - Managing design system lifecycle → `design-governance`
-- Ready to build → `design-canvas` → Figma pipeline → `design-prototype`
+- Ready to build → `design-canvas` → `design-wireframe` → Figma pipeline → `design-prototype`
+- Canvas briefs ready for structural validation → `design-wireframe`
+- Canvas brief updated after wireframe exists → re-run `design-wireframe` for affected screens
+- Wireframe review approved → Figma pipeline may begin
+- Figma execution starting → archive wireframes
 - Making design interactive → `design-prototype`
 - Blank/empty Figma file (`"children":[]`) → `figma-file-setup` immediately
 - Any UI element being built → `figma-component` workflow, not raw `figma_execute`
@@ -123,7 +131,7 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 - Screen idea or canvas brief arrives without upstream stories → apply canvas-first backward propagation rule (see `design/process/13-canvas.md` — depth-of-reach matrix: AC gap only → BRD auto; missing story → designer decision; missing journey stage → designer decision; new persona behavior → designer decision; new persona → HARD BLOCK until discovery runs)
 
 ### Artifact storage:
-All design artifacts → `design/` directory at project root (including `design/15_PROTOTYPE/`)
+All design artifacts → `design/` directory at project root (including `design/14_WIREFRAME/` and `design/16_PROTOTYPE/`)
 
 ### BRD — Master Business Requirement Document
 - Path: `design/BRD.xlsx`
@@ -138,6 +146,7 @@ All design artifacts → `design/` directory at project root (including `design/
 - **Traceability is enforced:** `node design/scripts/sync-traceability.js` validates bidirectional consistency between canvas briefs ↔ story map ↔ screen inventory ↔ interaction specs ↔ business rules
 - **Story IDs (DS-NNN) and Business Rule IDs (BR-NN) are stable** — never reused, splits retire the original with a pointer
 - Every design decision must trace back to a persona, story, or design principle
+- No Figma screen without wireframe review (except exploratory prototyping) — soft gate, warning not hard block
 - No Figma screen without a canvas brief (except exploratory prototyping)
 - No prototype screen without a Figma implementation (except exploratory spikes)
 - The Develop loop stays in sync — drift is detected and resolved (auto-sync for small changes, designer approval for structural)
@@ -161,7 +170,8 @@ All design artifacts → `design/` directory at project root (including `design/
 | Interaction state inventory | `figma-component` | States become component variants |
 | Content patterns | `figma-component` | Text becomes component TEXT properties |
 | A11y patterns | `figma-component` | Focus states, ARIA descriptions |
-| Canvas briefs | All Figma skills + `design-prototype` | Single source of truth per screen — frame inventory + traceability block + brief body |
+| Canvas briefs | `design-wireframe`, all Figma skills, `design-prototype` | Single source of truth per screen — frame inventory + traceability block + brief body |
+| ASCII wireframes | `figma-page-setup`, `figma-component` | Spatial layout reference for Figma build (disposable — archived when Figma starts) |
 | Screen inventory (IA) | `design-canvas`, `sync-traceability.js` | Authoritative story-to-screen junction table |
 | Business rules register | `design-canvas`, `design-interaction` | Constraint table in canvas briefs, behavioral spec triggers |
 | Walking skeleton | `design-prototype` | Primary flow order for wiring screens |

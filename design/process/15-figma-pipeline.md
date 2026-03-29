@@ -18,6 +18,10 @@
 10. **figma-docs** — after audit passes, before or after library migration
 11. **figma-library-mode** — library migration phase only
 
+## Wireframe review gate
+
+Before starting Figma execution for a screen, check whether a wireframe review has been completed for that screen. If `design/14_WIREFRAME/manifest.md` exists and shows the screen's review status as "pending" or no wireframe exists, **warn** the designer that structural validation hasn't happened yet. This is a soft gate — the designer can proceed, but the warning ensures they're making a conscious decision to skip wireframe review.
+
 ## Upstream sync
 
 Figma skills consume upstream design artifacts (canvas briefs, visual specs, interaction models, etc.). The Tier 4 sync loop (canvas ↔ Figma ↔ prototype) already handles drift within the Develop phase. The upstream sync protocol extends this awareness to Tier 1-3 artifacts:

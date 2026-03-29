@@ -33,8 +33,9 @@ This directory describes the complete design process — from understanding the 
 | 11 | [Design Validation](11-validation.md) | `design-validation` | 3 — Design |
 | 12 | [Design System Governance](12-governance.md) | `design-governance` | 3 — Design |
 | 13 | [Design-to-Canvas Synthesis](13-canvas.md) | `design-canvas` | 4 — Develop |
-| 14 | [Figma Execution Pipeline](14-figma-pipeline.md) | `figma-*` | 4 — Develop |
-| 15 | [Coded Prototype](15-prototype.md) | `design-prototype` | 4 — Develop |
+| 14 | [Clickable ASCII Wireframe](14-wireframe.md) | `design-wireframe` | 4 — Develop |
+| 15 | [Figma Execution Pipeline](15-figma-pipeline.md) | `figma-*` | 4 — Develop |
+| 16 | [Coded Prototype](16-prototype.md) | `design-prototype` | 4 — Develop |
 
 ---
 
@@ -54,17 +55,19 @@ TIER 4: DEVELOP            → Build screens, prototype, and keep everything in 
 Tier 4 is not a linear pipeline — it is a **sync loop** between three nodes:
 
 ```
-Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototype
-     ▲                                                │
-     └────────────────── sync ────────────────────────┘
+Canvas Brief ──► ASCII Wireframe ──► Figma Screens ◄──sync──► Prototype
+                 (validation gate)       ▲                         │
+                                         └──────── sync ──────────┘
 ```
 
-Each node owns different concerns:
+The **ASCII Wireframe** is a validation gate between canvas briefs and Figma — not a sync node. It validates flow and layout with stakeholders, then is archived when Figma begins.
+
+The **sync loop** remains three nodes (Canvas ↔ Figma ↔ Prototype). Each owns different concerns:
 - **Canvas Brief** — intent, structure, content, accessibility (aggregated from upstream)
 - **Figma Screens** — visual execution, layout, component implementation
 - **Prototype** — interaction fidelity, flow validation, responsive behavior
 
-Changes propagate bidirectionally. Small changes (content, labels, states, visual tweaks) auto-sync. Structural changes (new components, reordered layouts) flag drift and require designer approval before propagating.
+Changes propagate bidirectionally within the sync loop. Small changes (content, labels, states, visual tweaks) auto-sync. Structural changes (new components, reordered layouts) flag drift and require designer approval before propagating.
 
 ### Ordering philosophy
 
@@ -74,6 +77,7 @@ Tiers suggest a natural flow, but modes within them are **flexible with guardrai
 - Each mode warns if its upstream dependencies don't have artifacts yet
 - The designer decides whether to proceed or complete upstream work first
 - **Hard blocks exist at the Develop boundary:** `design-canvas` requires IA, interaction, visual, and content artifacts before it can produce screen briefs
+- **Soft gate at the wireframe boundary:** wireframe review should complete before Figma execution begins (warning, not hard block)
 - **Hard blocks exist at the Figma boundary:** no screen gets built without a canvas brief
 - **Hard blocks exist at the Prototype boundary:** no screen gets prototyped without a Figma implementation
 
@@ -110,7 +114,8 @@ design/
   11_VALIDATION/                       ← Tier 3
   12_GOVERNANCE/                       ← Tier 3
   13_CANVAS/                           ← Tier 4
-  15_PROTOTYPE/                        ← Tier 4 (code + manifest + drift log)
+  14_WIREFRAME/                        ← Tier 4 (clickable ASCII wireframes, archived when Figma starts)
+  16_PROTOTYPE/                        ← Tier 4 (code + manifest + drift log)
 ```
 
 Each chapter specifies exactly which files it produces and where.
@@ -309,8 +314,8 @@ Keep as one skill.
 
 | Mode | Skills | Principles triggered | Verdict |
 |------|--------|---------------------|---------|
-| 01-11, 14 (design-*) | 1 each | None triggered | Correctly single-skill |
-| 14 (Figma pipeline) | 11 skills | P1, P2, P3, P6, P7 | Correctly multi-skill |
+| 01-12, 14, 16 (design-*) | 1 each | None triggered (14 triggers P2, P6, P7) | Correctly single-skill |
+| 15 (Figma pipeline) | 11 skills | P1, P2, P3, P6, P7 | Correctly multi-skill |
 
 ### Watch list
 

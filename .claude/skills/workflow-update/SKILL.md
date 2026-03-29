@@ -39,8 +39,8 @@ The design process is defined in `design/process/`:
 | `11-validation.md` | `design-validation` |
 | `12-governance.md` | `design-governance` |
 | `13-canvas.md` | `design-canvas` |
-| `14-figma-pipeline.md` | `figma-*` |
-| `15-prototype.md` | `design-prototype` |
+| `15-figma-pipeline.md` | `figma-*` |
+| `16-prototype.md` | `design-prototype` |
 
 ---
 
