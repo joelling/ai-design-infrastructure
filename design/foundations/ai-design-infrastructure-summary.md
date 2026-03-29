@@ -1,5 +1,7 @@
 # AI in the Design Process: How Structured Infrastructure Produces Specifications That Development Can Build From
 
+*2026-03-29*
+
 ---
 
 ## The Problem
