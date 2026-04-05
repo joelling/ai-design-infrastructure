@@ -180,6 +180,52 @@ Write to `design/10_ACCESSIBILITY/keyboard-nav-plan.md`.
 
 ---
 
+### Step 5 — Screen reader specifications
+
+For each screen, generate a screen reader spec documenting exactly what assistive technology users will hear and experience:
+
+```markdown
+## Screen Reader Spec — [Screen Name]
+
+### Navigation order (VoiceOver / TalkBack)
+| # | Element | Role | Announcement | Notes |
+|---|---------|------|-------------|-------|
+| 1 | Skip link | link | "Skip to main content, link" | Hidden until focused |
+| 2 | Logo | link | "[Brand name], home, link" | |
+| 3 | Nav item | link | "[Label], current page" or "[Label], link" | aria-current on active |
+| ... | | | | |
+
+### Landmarks
+| Landmark | Role | Label | Contains |
+|----------|------|-------|----------|
+| Header | banner | — | Logo, primary nav |
+| Main | main | "[Page title]" | Primary content |
+| Nav | navigation | "Primary navigation" | Nav items |
+| Footer | contentinfo | — | Links, copyright |
+
+### Dynamic announcements
+| Trigger | What is announced | aria-live | Timing |
+|---------|------------------|-----------|--------|
+| Form validation error | "[Field label]: [error message]" | assertive | On submit |
+| Toast notification | "[message]" | polite | On appear |
+| Loading state | "Loading [content type]" | polite | On trigger |
+| Content loaded | "[count] results loaded" | polite | On complete |
+
+### Touch target sizes (mobile)
+| Element | Minimum size | Current size | Pass? |
+|---------|-------------|--------------|-------|
+| [interactive element] | 44×44px | [size] | [Y/N] |
+```
+
+Write to `design/10_ACCESSIBILITY/screen-reader-specs/[screen-name]-sr-spec.md`.
+
+Generate one spec per screen. These specs are consumed by:
+- `figma-component` — to set component descriptions with ARIA roles
+- `design-canvas` — to include in canvas brief accessibility sections
+- `design-prototype` — to implement ARIA attributes in coded prototype
+
+---
+
 ## Bridge to Figma
 
 | A11y artifact | Figma skill | How it's used |
@@ -197,6 +243,7 @@ Write to `design/10_ACCESSIBILITY/keyboard-nav-plan.md`.
 - [ ] `design/10_ACCESSIBILITY/color-contrast-audit.md` — all color combos tested, failures flagged
 - [ ] `design/10_ACCESSIBILITY/aria-patterns.md` — per-component ARIA semantics
 - [ ] `design/10_ACCESSIBILITY/keyboard-nav-plan.md` — tab order, focus management, shortcuts
+- [ ] `design/10_ACCESSIBILITY/screen-reader-specs/` — per-screen SR specs (navigation order, landmarks, announcements, touch targets)
 
 ---
 

@@ -14,6 +14,8 @@ description: >
 
 # Component Creation Workflow
 
+> **Required reading:** Before any `figma_execute` call, follow the rules in [_figma-api-rules.md](../_figma-api-rules.md) — pre-flight checklist, error table, HUG enforcement, and variable binding patterns.
+
 ## Naming conventions
 
 ### Published components (appear in Assets panel, reusable across files)
@@ -149,6 +151,60 @@ Most designers only componentize buttons and inputs. Aim for near-total componen
 **Hidden** (`.` prefix) if: it only exists to make a published component work, has no standalone utility, and is always nested inside another component.
 
 When in doubt, publish it — hidden components have update limitations.
+
+---
+
+## Variable binding enforcement
+
+After binding variables to a component, call `setExplicitVariableModeForCollection` recursively on the node and all children. Without this, variables appear unresolved in the Figma UI ("ghost mode"):
+
+```js
+function applyMode(node, collectionId, modeId) {
+  node.setExplicitVariableModeForCollection(collectionId, modeId);
+  if ('children' in node) {
+    node.children.forEach(child => applyMode(child, collectionId, modeId));
+  }
+}
+```
+
+Call this after every batch of variable bindings, passing the collection ID and the target mode (e.g., Light Mode).
+
+---
+
+## HUG enforcement for component sets
+
+When creating variant component sets via `combineAsVariants`, Figma defaults all frames to FIXED sizing at 100px — causing "portrait-aspect" components. Run HUG enforcement before AND after combining:
+
+```js
+function enforceHug(node) {
+  if (node.type === 'FRAME' || node.type === 'COMPONENT') {
+    node.layoutSizingHorizontal = 'HUG';
+    node.layoutSizingVertical = 'HUG';
+  }
+  if ('children' in node) node.children.forEach(enforceHug);
+}
+
+// Before combining
+variants.forEach(enforceHug);
+// After combining
+const componentSet = figma.combineAsVariants(variants, parent);
+componentSet.children.forEach(enforceHug);
+```
+
+After combining, manually grid-layout the variants (they stack at 0,0). See [_figma-api-rules.md](../_figma-api-rules.md) for the grid layout snippet.
+
+---
+
+## Generation Notes
+
+After creating a component, add a `⚠️ Generation Notes` frame on the same page documenting:
+- Assumptions made during creation (e.g., default variant chosen)
+- Missing tokens or unresolved variable bindings
+- Properties from the canvas brief not yet modeled (e.g., `iconEnd` not wired)
+- Focus ring colour conflicts (token matches background)
+- Any contract/brief props not representable in Figma
+
+Place the notes frame below the component set. Use light yellow fill (`#FFFBEB`), auto-layout vertical, HUG sizing. If no issues, write "No issues — all tokens resolved, all props wired."
 
 ---
 

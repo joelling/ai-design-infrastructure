@@ -59,6 +59,36 @@ Step 7: Publish the file as a library
 - Inventory initialization in Step 6 records what was published in Step 7
 - Figma Styles (Step 3) must be created in the Foundation file before they can be referenced
 
+### State persistence for long builds
+
+Foundation DLS builds span 20–100+ `figma_execute` calls across potentially multiple sessions. To survive context truncation and session breaks, persist build state to disk:
+
+**State file:** `design/foundation-build-state.json`
+
+```json
+{
+  "fileKey": "abc123",
+  "currentStep": 3,
+  "completedSteps": [1, 2],
+  "entities": {
+    "pages": { "Cover Page": "0:1", "Documentation": "4:3770" },
+    "collections": { "01_Colour Styles": "VariableCollectionId:..." },
+    "styles": { "textStyleCount": 27, "effectStyleCount": 4, "gridStyleCount": 3 },
+    "docComponents": { "Artboard header": "5:355", "Section header": "84:6711" }
+  },
+  "lastUpdated": "2026-03-28T10:00:00Z"
+}
+```
+
+**On session start:** Read the state file. If it exists, skip completed steps and resume from `currentStep`.
+
+**After each step:** Write the updated state file with new entity IDs and bump `currentStep`.
+
+**Resume protocol:** If starting a new session mid-build, run a read-only `figma_execute` scan to verify the state file matches the actual file contents (pages exist, collections exist, styles exist). Reconcile any discrepancies before proceeding.
+
+**Continuation prompt** (give to user when resuming in a new chat):
+> "I'm continuing a Foundation DLS build. File key: {fileKey}. Read `design/foundation-build-state.json` and resume from step {currentStep}."
+
 ---
 
 ## DLS File — Page Structure

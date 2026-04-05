@@ -27,6 +27,16 @@ Level 3 (Component)   --> alias to semantics OR primitives, component-specific
 - Component tokens MUST alias to either semantic or primitive tokens. Never raw values at component level.
 - Primitives hold the only raw values in the entire system.
 
+### Token resolution fallback chain
+
+When binding a value to a component property, resolve tokens in this order:
+
+1. **Component token** — e.g. `stroke_component_tokens/stroke_button` → use if it exists
+2. **Semantic token** — e.g. `color_button-bg/default` → use if no component token covers the case
+3. **Primitive token** — e.g. `Colour Styles/Primary Colour/Blue/Blue 60` → last resort before raw values
+
+If none exists at any level, **create the token first** (starting at the appropriate level), then bind it. Never skip levels to use a raw value.
+
 ---
 
 ## 8 Variable Collections
