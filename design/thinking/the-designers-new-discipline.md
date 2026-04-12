@@ -128,4 +128,4 @@ And they will be wrong earlier, at greater scale, with better documentation.
 
 ---
 
-*Filed in: design/foundations/*
+*Filed in: design/thinking/*
