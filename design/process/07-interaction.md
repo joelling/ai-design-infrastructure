@@ -54,7 +54,7 @@ A screen may combine patterns (e.g., a dashboard with a filterable list widget).
 
 **3. Write behavioral specifications.** For each key interaction, write given/when/then specs. Include variations (different preconditions leading to different outcomes) and error paths (what happens when things go wrong).
 
-**4. Define the error strategy.** Create a unified approach: error categories (validation, network, permission, system, data conflict), when validation happens (on blur, on submit, real-time), error message format ([what happened] + [why] + [what to do]), and destructive action protection.
+**4. Define the error strategy.** Copy `design/templates/error-strategy.tpl.md` to `design/07_INTERACTION/error-strategy.md` if the file does not already exist. The template pre-seeds the 5 error categories, display patterns, and `aria-live` defaults. Fill the PROJECT-SPECIFIC sections: validation timing rules, recovery actions per category, destructive action confirmation patterns, and project-specific error examples.
 
 **5. Define feedback and micro-interactions.** Transition and feedback specs belong in this artifact, not in Figma. Figma implements what the interaction spec defines.
 
@@ -78,13 +78,14 @@ A screen may combine patterns (e.g., a dashboard with a filterable list widget).
 
 ## Outputs
 
-| File | What it contains |
-|------|-----------------|
-| `design/07_INTERACTION/interaction-model.md` | Per-screen interaction patterns + feedback/transitions |
-| `design/07_INTERACTION/state-inventory.md` | All states for every screen and major component |
-| `design/07_INTERACTION/behavioral-spec.md` | Given/when/then specs for key interactions |
-| `design/07_INTERACTION/error-strategy.md` | Unified error handling approach |
-| `design/07_INTERACTION/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| File | Type | What it contains |
+|------|------|-----------------|
+| `design/07_INTERACTION/interaction-model.md` | synthesis | Per-screen interaction patterns + feedback/transitions |
+| `design/07_INTERACTION/state-inventory.md` | synthesis | All states for every screen and major component |
+| `design/07_INTERACTION/behavioral-spec.md` | synthesis | Given/when/then specs for key interactions |
+| `design/07_INTERACTION/error-strategy.md` | hybrid template | Error taxonomy, display patterns, `aria-live` defaults pre-seeded; project examples filled by mode |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
 ## Rules
 

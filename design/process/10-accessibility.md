@@ -34,23 +34,25 @@ For every design decision, ask: "Can someone use this if they can't see it? Can'
 
 **0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
-**1. Define requirements.** Set the WCAG target (typically 2.1 AA minimum). Define assistive technology support levels. Document domain-specific accessibility requirements.
+**1. Define requirements.** Copy `design/templates/a11y-requirements.tpl.md` to `design/10_ACCESSIBILITY/accessibility-requirements.md` if the file does not already exist. The template pre-seeds the WCAG 2.1 AA target, AT support matrix, keyboard navigation requirements, focus management standards, contrast minimums, and motion rules. Fill the PROJECT-SPECIFIC section with domain or regulatory additions.
 
 **2. Audit color contrast.** Test every color combination from the visual spec. Text on background (4.5:1 for normal, 3:1 for large), UI elements on background (3:1). Flag failures with suggested fixes. Verify that no information is conveyed by color alone — always pair with text, icon, or pattern.
 
-**3. Define ARIA patterns.** For each component type, document: ARIA role, states (expanded, selected, disabled), properties (label, describedby, live), keyboard interactions, focus management, and screen reader announcements.
+**3. Define ARIA patterns.** Copy `design/templates/aria-reference.tpl.md` to `design/10_ACCESSIBILITY/aria-reference.md` if the file does not already exist — this is a static reference and requires no project customization. Then create `design/10_ACCESSIBILITY/aria-application.md` with the project-specific component-to-role mapping: for each component in the project's component set, document ARIA role, states, properties, keyboard interactions, focus management, and screen reader announcements.
 
 **4. Plan keyboard navigation.** Define global keyboard shortcuts. For each screen, specify the tab order. Define focus management rules: where focus goes when a modal opens/closes, when inline errors appear, when new content loads.
 
 ## Outputs
 
-| File | What it contains |
-|------|-----------------|
-| `design/10_ACCESSIBILITY/accessibility-requirements.md` | WCAG target, AT support matrix |
-| `design/10_ACCESSIBILITY/color-contrast-audit.md` | All color combos tested, failures flagged |
-| `design/10_ACCESSIBILITY/aria-patterns.md` | Per-component ARIA semantics |
-| `design/10_ACCESSIBILITY/keyboard-nav-plan.md` | Tab order, focus management, shortcuts |
-| `design/10_ACCESSIBILITY/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| File | Type | What it contains |
+|------|------|-----------------|
+| `design/10_ACCESSIBILITY/accessibility-requirements.md` | pure template | WCAG 2.1 AA target, AT support matrix, focus management standards; domain additions filled by mode |
+| `design/10_ACCESSIBILITY/color-contrast-audit.md` | synthesis | All color combos tested, failures flagged |
+| `design/10_ACCESSIBILITY/aria-reference.md` | pure template | Static ARIA role reference table for standard component types; no project customization required |
+| `design/10_ACCESSIBILITY/aria-application.md` | synthesis | Per-component ARIA role mapping for this project's specific component set |
+| `design/10_ACCESSIBILITY/keyboard-nav-plan.md` | synthesis | Tab order, focus management, shortcuts |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
 ## Rules
 

@@ -165,7 +165,8 @@ Every output file carries a version comment as its first line:
 | `design/01_DISCOVERY/domain-glossary.md` | All domain terms assembled cross-type — definitions and UI implications | 3 |
 | `design/01_DISCOVERY/competitive-analysis.md` | Analogous systems — patterns and pitfalls | 3 |
 | `design/01_DISCOVERY/design-brief.md` | Problem statement, design principles, constraints, success metrics, scope | 3 |
-| `design/01_DISCOVERY/_upstream.md` | Produced artifact manifest — versions and downstream consumers | — |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
 ## Rules
 

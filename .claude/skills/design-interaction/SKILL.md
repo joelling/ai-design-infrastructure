@@ -127,32 +127,12 @@ Write to `design/07_INTERACTION/behavioral-spec.md`.
 
 ### Step 4 — Error strategy
 
-Define a unified error handling approach:
+Copy `design/templates/error-strategy.tpl.md` to `design/07_INTERACTION/error-strategy.md` if the file does not already exist. The template pre-seeds the 5 error categories, display patterns, and `aria-live` defaults. Fill the PROJECT-SPECIFIC sections:
 
-```markdown
-## Error Strategy
-
-### Error categories
-| Category | Severity | Example | Display pattern | Recovery action |
-|----------|----------|---------|----------------|-----------------|
-| Validation | Low | Invalid input | Inline, next to field | Fix and resubmit |
-| Network | Medium | Request timeout | Banner/toast | Retry |
-| Permission | Medium | Unauthorized action | Inline message | Request access |
-| System | High | Server error | Full-screen or modal | Retry later / contact support |
-| Data conflict | Medium | Stale data / conflict | Modal with options | Choose version |
-
-### Validation timing
-- [When does validation happen? On blur? On submit? Real-time?]
-
-### Error message format
-- Structure: [What happened] + [Why] + [What to do]
-- Tone: [Reference design-content voice & tone when available]
-
-### Destructive action protection
-- [Which actions require confirmation? How is confirmation presented?]
-```
-
-Write to `design/07_INTERACTION/error-strategy.md`.
+- Validation timing rules (on blur, on submit, real-time)
+- Recovery actions per category
+- Destructive action confirmation pattern
+- Project-specific error examples for each category
 
 ### Step 5 — Feedback & micro-interactions
 
@@ -196,7 +176,7 @@ Add to `design/07_INTERACTION/interaction-model.md` or write separately.
 - [ ] `design/07_INTERACTION/interaction-model.md` — per-screen interaction patterns + feedback/transitions
 - [ ] `design/07_INTERACTION/state-inventory.md` — all states for every screen and major component
 - [ ] `design/07_INTERACTION/behavioral-spec.md` — given/when/then specs for key interactions
-- [ ] `design/07_INTERACTION/error-strategy.md` — unified error handling approach
+- [ ] `design/07_INTERACTION/error-strategy.md` — unified error handling approach `[hybrid template]`
 
 ---
 

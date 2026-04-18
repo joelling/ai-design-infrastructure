@@ -60,29 +60,7 @@ node design/scripts/sync-manifest.js accessibility                     # update 
 
 ### Step 1 — Requirements definition
 
-```markdown
-## Accessibility Requirements
-
-### Compliance target
-- **WCAG version:** 2.1 (or 2.2 if applicable)
-- **Conformance level:** AA (minimum for government/institutional systems)
-- **Legal/regulatory basis:** [cite if applicable]
-
-### Assistive technology support
-| Technology | Support level | Notes |
-|-----------|--------------|-------|
-| Screen readers (NVDA, JAWS, VoiceOver) | Full | [notes] |
-| Keyboard-only navigation | Full | [notes] |
-| Screen magnification (200%-400%) | Full | [notes] |
-| Voice control (Dragon, Voice Control) | Partial | [notes] |
-| Switch access | Partial | [notes] |
-
-### Key constraints
-- [Any domain-specific accessibility requirements]
-- [Organizational accessibility standards beyond WCAG]
-```
-
-Write to `design/10_ACCESSIBILITY/accessibility-requirements.md`.
+Copy `design/templates/a11y-requirements.tpl.md` to `design/10_ACCESSIBILITY/accessibility-requirements.md` if the file does not already exist. The template pre-seeds the WCAG 2.1 AA target, AT support matrix, keyboard navigation requirements, focus management standards, contrast minimums, and motion rules. Fill the PROJECT-SPECIFIC section with domain or regulatory additions.
 
 ### Step 2 — Color contrast audit
 
@@ -114,35 +92,16 @@ Write to `design/10_ACCESSIBILITY/color-contrast-audit.md`.
 
 ### Step 3 — ARIA patterns
 
-For each component type, define the ARIA semantics:
+Copy `design/templates/aria-reference.tpl.md` to `design/10_ACCESSIBILITY/aria-reference.md` if the file does not already exist — this is a static reference and requires no project customization.
 
-```markdown
-## ARIA Patterns
+Then create `design/10_ACCESSIBILITY/aria-application.md` with the project-specific component-to-role mapping. For each component in the project's component set, document:
 
-### [Component type]
 - **Role:** [ARIA role]
 - **States:** [aria-expanded, aria-selected, aria-disabled, etc.]
 - **Properties:** [aria-label, aria-describedby, aria-live, etc.]
 - **Keyboard:** [which keys do what]
 - **Focus management:** [where does focus go on open/close/action]
 - **Screen reader announcement:** [what is announced and when]
-
-### Common patterns reference
-| Pattern | ARIA role | Key interactions | Announcement |
-|---------|----------|-----------------|-------------|
-| Button | button | Enter/Space to activate | "[label], button" |
-| Link | link | Enter to follow | "[label], link" |
-| Text input | textbox | Type to enter | "[label], edit text" |
-| Checkbox | checkbox | Space to toggle | "[label], checkbox, [checked/unchecked]" |
-| Select/Dropdown | combobox/listbox | Arrow keys to navigate | "[label], combobox, [value]" |
-| Modal dialog | dialog | Esc to close, Tab trapped | "[title], dialog" |
-| Data table | table | Arrow keys for cells | "[caption], table, [rows] x [cols]" |
-| Tab panel | tablist/tab/tabpanel | Arrow keys between tabs | "[label], tab, [selected]" |
-| Toast/Alert | status/alert | — (auto-announced) | "[message]" |
-| Navigation | navigation | Tab between items | "[label], navigation" |
-```
-
-Write to `design/10_ACCESSIBILITY/aria-patterns.md`.
 
 ### Step 4 — Keyboard navigation plan
 
@@ -239,11 +198,12 @@ Generate one spec per screen. These specs are consumed by:
 
 ## Output checklist
 
-- [ ] `design/10_ACCESSIBILITY/accessibility-requirements.md` — WCAG target, AT support matrix
-- [ ] `design/10_ACCESSIBILITY/color-contrast-audit.md` — all color combos tested, failures flagged
-- [ ] `design/10_ACCESSIBILITY/aria-patterns.md` — per-component ARIA semantics
-- [ ] `design/10_ACCESSIBILITY/keyboard-nav-plan.md` — tab order, focus management, shortcuts
-- [ ] `design/10_ACCESSIBILITY/screen-reader-specs/` — per-screen SR specs (navigation order, landmarks, announcements, touch targets)
+- [ ] `design/10_ACCESSIBILITY/accessibility-requirements.md` — WCAG target, AT support matrix `[pure template]`
+- [ ] `design/10_ACCESSIBILITY/color-contrast-audit.md` — all color combos tested, failures flagged `[synthesis]`
+- [ ] `design/10_ACCESSIBILITY/aria-reference.md` — static ARIA role reference table `[pure template]`
+- [ ] `design/10_ACCESSIBILITY/aria-application.md` — per-component ARIA role mapping for this project `[synthesis]`
+- [ ] `design/10_ACCESSIBILITY/keyboard-nav-plan.md` — tab order, focus management, shortcuts `[synthesis]`
+- [ ] `design/10_ACCESSIBILITY/screen-reader-specs/` — per-screen SR specs (navigation order, landmarks, announcements, touch targets) `[synthesis]`
 
 ---
 

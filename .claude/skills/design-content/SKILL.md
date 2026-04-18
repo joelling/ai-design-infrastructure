@@ -61,30 +61,7 @@ node design/scripts/sync-manifest.js content                       # update mani
 
 ### Step 1 — Voice & tone
 
-```markdown
-## Voice & Tone Guidelines
-
-### Voice (consistent personality)
-Our voice is: [3-4 adjectives]
-- [Adjective 1]: [what this means in practice, with example]
-- [Adjective 2]: [what this means in practice, with example]
-- [Adjective 3]: [what this means in practice, with example]
-
-Our voice is NOT:
-- [Anti-adjective]: [what we avoid, with counter-example]
-
-### Tone (shifts by context)
-| Context | Tone shift | Example |
-|---------|-----------|---------|
-| Success | [how tone changes] | "[example message]" |
-| Error | [how tone changes] | "[example message]" |
-| Warning | [how tone changes] | "[example message]" |
-| Onboarding/help | [how tone changes] | "[example message]" |
-| Critical/destructive | [how tone changes] | "[example message]" |
-| Neutral/informational | [baseline tone] | "[example message]" |
-```
-
-Write to `design/09_CONTENT/voice-tone.md`.
+Copy `design/templates/voice-tone.tpl.md` to `design/09_CONTENT/voice-tone.md` if the file does not already exist. The template pre-seeds the context category rows (Success, Error, Warning, Onboarding, Critical, Neutral) and voice adjective format. Fill the PROJECT-SPECIFIC sections: voice adjective values, definitions, and all tone descriptions per context.
 
 ### Step 2 — Terminology guide
 
@@ -114,78 +91,11 @@ Write to `design/09_CONTENT/terminology.md`.
 
 ### Step 3 — Microcopy patterns
 
-```markdown
-## Microcopy Patterns
-
-### Button labels
-| Action type | Pattern | Example | Anti-example |
-|-------------|---------|---------|-------------|
-| Create | [verb] + [noun] | "Add record" | "Submit" (too vague) |
-| Confirm | [specific verb] | "Save changes" | "OK" (too vague) |
-| Cancel | "Cancel" | "Cancel" | "Go back" (ambiguous) |
-| Destructive | [verb] + [noun] | "Delete record" | "Remove" (too vague) |
-| Navigate | [destination] | "View details" | "Click here" |
-
-### Form labels
-| Element | Pattern | Example |
-|---------|---------|---------|
-| Field label | [Noun phrase, sentence case] | "Date of birth" |
-| Placeholder | [Example value or instruction] | "e.g., 15 Mar 1990" |
-| Helper text | [Additional context] | "Must be 18 or older" |
-| Required indicator | [pattern] | [asterisk? word?] |
-
-### Validation messages
-| Type | Pattern | Example |
-|------|---------|---------|
-| Required field | "[Field] is required" | "Date of birth is required" |
-| Format error | "[Field] must be [format]" | "Phone must be 8 digits" |
-| Range error | "[Field] must be [constraint]" | "Age must be between 18 and 65" |
-| Conflict | "[Issue]. [Resolution]" | "This record was updated by someone else. Review changes." |
-
-### Empty states
-| Context | Structure | Example |
-|---------|-----------|---------|
-| No data yet | [Icon] + [message] + [CTA] | "No records found. Add your first record." |
-| Filtered to zero | [message] + [suggestion] | "No results match your filters. Try adjusting your criteria." |
-| Permission denied | [message] + [action] | "You don't have access to this section. Contact your administrator." |
-
-### Status messages
-| Status type | Pattern | Duration | Example |
-|-------------|---------|----------|---------|
-| Success | "[What happened] successfully" | Auto-dismiss 4s | "Record saved successfully" |
-| In progress | "[Action] in progress..." | Until complete | "Importing records..." |
-| Error | "[What happened]. [What to do]." | Persistent | "Save failed. Check your connection and try again." |
-```
-
-Write to `design/09_CONTENT/microcopy-patterns.md`.
+Copy `design/templates/microcopy-patterns.tpl.md` to `design/09_CONTENT/microcopy-patterns.md` if the file does not already exist. The template pre-seeds pattern type headings and structural rules (button label format, form field composition, validation message format, empty state anatomy, status anatomy). Fill the PROJECT-SPECIFIC copy examples below each rule using project terminology and voice/tone.
 
 ### Step 4 — Content templates
 
-```markdown
-## Content Templates
-
-### Notification template
-**Subject:** [Action] — [Object]
-**Body:** [What happened]. [What to do next, if anything].
-
-### Confirmation dialog template
-**Title:** [Verb] [object]?
-**Body:** [Consequence of action]. [Is it reversible?]
-**Primary action:** [Specific verb]
-**Secondary action:** Cancel
-
-### Help text template
-[One sentence explaining what this feature/field does].
-[One sentence explaining why it matters or what to enter].
-
-### Timestamp display
-- Within 1 hour: "X minutes ago"
-- Within 24 hours: "X hours ago"
-- Within 7 days: "[Day], [time]"
-- Beyond 7 days: "[Date]"
-```
-
-Write to `design/09_CONTENT/content-templates.md`.
+Copy `design/templates/content-templates.tpl.md` to `design/09_CONTENT/content-templates.md` if the file does not already exist. The template pre-seeds template type inventory (notification, confirmation dialog, help text, timestamp display logic) with section schemas. Fill the PROJECT-SPECIFIC examples using project terminology and voice/tone.
 
 ---
 
@@ -203,10 +113,10 @@ Write to `design/09_CONTENT/content-templates.md`.
 
 ## Output checklist
 
-- [ ] `design/09_CONTENT/voice-tone.md` — voice principles, tone shifts by context
-- [ ] `design/09_CONTENT/terminology.md` — canonical terms, formatting conventions, abbreviation rules
-- [ ] `design/09_CONTENT/microcopy-patterns.md` — patterns for buttons, forms, validation, empty states, status messages
-- [ ] `design/09_CONTENT/content-templates.md` — templates for notifications, dialogs, help text, timestamps
+- [ ] `design/09_CONTENT/voice-tone.md` — voice principles, tone shifts by context `[hybrid template]`
+- [ ] `design/09_CONTENT/terminology.md` — canonical terms, formatting conventions, abbreviation rules `[synthesis]`
+- [ ] `design/09_CONTENT/microcopy-patterns.md` — patterns for buttons, forms, validation, empty states, status messages `[hybrid template]`
+- [ ] `design/09_CONTENT/content-templates.md` — templates for notifications, dialogs, help text, timestamps `[hybrid template]`
 
 ---
 

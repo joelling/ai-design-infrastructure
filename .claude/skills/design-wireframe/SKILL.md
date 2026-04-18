@@ -87,13 +87,7 @@ design/14_WIREFRAME/
     └── style.css
 ```
 
-Generate `style.css` — the shared stylesheet:
-- Monospace font only (`monospace` or `Courier New`)
-- Dark text on white background
-- Single accent colour for clickable regions (e.g., `#0066cc` for links)
-- No other colours, no gradients, no shadows, no border-radius
-- `max-width: 72ch` for wireframe content
-- Review framing header styled prominently
+Copy `design/templates/wireframe-style.css` to `design/14_WIREFRAME/screens/style.css` if the file does not already exist. This static stylesheet is never regenerated — it enforces monospace font, single accent color for clickable regions, no other color, and `max-width: 72ch`.
 
 ### Step 2 — Build screen by screen
 
@@ -141,27 +135,7 @@ Create `screens/index.html`:
 
 ### Step 5 — Stakeholder review
 
-Present wireframes and collect structured feedback in `feedback/round-N.md`:
-
-```markdown
-# Wireframe Review — Round N
-
-Date: [date]
-Reviewers: [names]
-
-## Per-screen feedback
-
-### [Screen Name]
-- **Missing:** [what should be here but isn't]
-- **Wrong:** [what's here but incorrect]
-- **Unnecessary:** [what shouldn't be here]
-- **Misplaced:** [what's in the wrong position]
-
-## Flow-level feedback
-- **Missing screens:** [what screens are absent from the flow]
-- **Wrong order:** [where the navigation sequence is incorrect]
-- **Dead ends:** [where users get stuck]
-```
+Present wireframes for review. For each review round, copy `design/templates/wireframe-feedback.tpl.md` to `design/14_WIREFRAME/feedback/round-N.md`. Collect structured feedback per screen (missing / wrong / unnecessary / misplaced) and at the flow level (missing screens, wrong order, dead ends).
 
 ### Step 6 — Incorporate feedback
 
@@ -208,9 +182,10 @@ When Figma execution begins for these screens:
 
 ## Output checklist
 
-- [ ] `design/14_WIREFRAME/manifest.md` — complete with screen mappings and review status
-- [ ] `design/14_WIREFRAME/screens/index.html` — entry point with screen map and flow
-- [ ] `design/14_WIREFRAME/screens/style.css` — monospace, no polish
+- [ ] `design/14_WIREFRAME/manifest.md` — complete with screen mappings and review status `[synthesis]`
+- [ ] `design/14_WIREFRAME/screens/index.html` — entry point with screen map and flow `[synthesis]`
+- [ ] `design/14_WIREFRAME/screens/style.css` — monospace, no polish `[pure template]`
+- [ ] `design/14_WIREFRAME/feedback/round-N.md` — structured feedback per review round `[pure template]`
 - [ ] All wireframe pages include review framing header
 - [ ] All clickable regions link to correct target screens
 - [ ] Walking skeleton flow navigable end-to-end

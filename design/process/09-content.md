@@ -40,23 +40,24 @@ And one source of truth: the **terminology guide**. Every concept in the product
 
 **0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which upstream artifacts are available and which are absent.
 
-**1. Define voice and tone.** Describe the product's voice with 3-4 adjectives, each with practical examples. Define how tone shifts by context: success, error, warning, onboarding, critical/destructive, and neutral.
+**1. Define voice and tone.** Copy `design/templates/voice-tone.tpl.md` to `design/09_CONTENT/voice-tone.md` if the file does not already exist. The template pre-seeds the context category rows (Success, Error, Warning, Onboarding, Critical, Neutral) and voice adjective format. Fill the PROJECT-SPECIFIC sections: voice adjective values, definitions, and all tone descriptions per context.
 
 **2. Build the terminology guide.** For every concept in the product, establish: the canonical label, abbreviation rules, terms to never use, and role-specific display rules. Define formatting conventions for dates, times, numbers, names, and status labels.
 
-**3. Create microcopy patterns.** Define patterns for: button labels (by action type), form labels (field label, placeholder, helper text, required indicator), validation messages (by error type), empty states (by context), and status messages (by type, with duration).
+**3. Create microcopy patterns.** Copy `design/templates/microcopy-patterns.tpl.md` to `design/09_CONTENT/microcopy-patterns.md` if the file does not already exist. The template pre-seeds pattern type headings and structural rules (button label format, form field composition, validation message format, empty state anatomy, status anatomy). Fill the PROJECT-SPECIFIC copy examples below each rule using project terminology and voice/tone.
 
-**4. Write content templates.** Create reusable templates for: notifications, confirmation dialogs, help text, and timestamp display rules.
+**4. Write content templates.** Copy `design/templates/content-templates.tpl.md` to `design/09_CONTENT/content-templates.md` if the file does not already exist. The template pre-seeds template type inventory (notification, confirmation dialog, help text, timestamp display logic) with section schemas. Fill the PROJECT-SPECIFIC examples using project terminology and voice/tone.
 
 ## Outputs
 
-| File | What it contains |
-|------|-----------------|
-| `design/09_CONTENT/voice-tone.md` | Voice principles, tone shifts by context |
-| `design/09_CONTENT/terminology.md` | Canonical terms, formatting conventions, abbreviation rules |
-| `design/09_CONTENT/microcopy-patterns.md` | Patterns for buttons, forms, validation, empty states, status |
-| `design/09_CONTENT/content-templates.md` | Templates for notifications, dialogs, help text, timestamps |
-| `design/09_CONTENT/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+| File | Type | What it contains |
+|------|------|-----------------|
+| `design/09_CONTENT/voice-tone.md` | hybrid template | Context category rows pre-seeded; voice adjectives and tone descriptions filled by mode |
+| `design/09_CONTENT/terminology.md` | synthesis | Canonical terms, formatting conventions, abbreviation rules |
+| `design/09_CONTENT/microcopy-patterns.md` | hybrid template | Pattern type headings and structural rules pre-seeded; copy examples filled by mode |
+| `design/09_CONTENT/content-templates.md` | hybrid template | Template type inventory with schemas pre-seeded; project examples filled by mode |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
 ## Rules
 

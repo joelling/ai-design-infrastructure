@@ -15,7 +15,7 @@
 - Git provides full version history of all process changes
 
 ### Skill architecture principles
-When deciding whether a process mode should map to one skill or multiple skills, follow the seven principles documented in the **Skill architecture** section of `design/process/README.md`. The decision flowchart evaluates: external tool boundaries (P1), independent re-invocation (P2), hard data dependency gates (P3), context window budget (P4), artifact coherence (P5), failure blast radius (P6), and distinct timing/triggers (P7). Currently all design-* chapters are correctly single-skill; the Figma chapter is correctly split into 11 skills (triggers P1, P2, P3, P6, P7). Two skills are on the watch list for potential future splits: `design-validation` and `design-prototype`.
+When deciding whether a process mode should map to one skill or multiple skills, follow the seven principles documented in the **Skill architecture** section of `design/process/README.md`. The decision flowchart evaluates: external tool boundaries (P1), independent re-invocation (P2), hard data dependency gates (P3), context window budget (P4), artifact coherence (P5), failure blast radius (P6), and distinct timing/triggers (P7). Currently all design-* chapters are correctly single-skill; the Figma chapter is correctly split into 11 skills (triggers P1, P2, P3, P6, P7). Two skills are on the watch list for potential future splits: `design-research` (if Phase B synthesis grows complex enough for independent invocation from Phase A) and `design-prototype` (if drift-sync logic warrants independent invocation).
 
 ### What triggers propagation
 Any change to a process chapter must cascade to infrastructure. This includes:
@@ -55,8 +55,8 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 8. **`design-visual`** — Brand attributes, color/typography rationale, visual language
 9. **`design-content`** — Voice & tone, microcopy patterns, terminology guide
 10. **`design-accessibility`** — WCAG, ARIA patterns, keyboard nav, contrast audit
-11. **`design-validation`** — Heuristic evaluation, test plans, review checklist
-12. **`design-governance`** — Design system versioning, contribution rules, deprecation policy
+11. **`design-research`** — Two-phase: Phase A (init) writes scenario scripts and test plan before build; Phase B (synthesis, periodic) synthesizes completed usability findings into research-findings.md, writes increment flags to user-models and stories, and feeds behavioral evidence to governance Phase B
+12. **`design-governance`** — Two-phase: Phase A (init) sets versioning, contribution rules, deprecation policy from templates; Phase B (synthesis, periodic) codifies implicit conventions as design principles, elevates recurring patterns, refines quality gates
 
 ### TIER 4 — DEVELOP (build, prototype, and keep in sync)
 
@@ -108,8 +108,13 @@ The wireframe is a validation gate (disposable, archived when Figma starts). The
 - Establishing visual direction → `design-visual`
 - Defining text and labels → `design-content`
 - Ensuring accessibility → `design-accessibility`
-- Validating design decisions → `design-validation`
-- Managing design system lifecycle → `design-governance`
+- Creating research scenarios and test plan before build → `design-research` Phase A
+- Usability testing completed, findings need synthesis → `design-research` Phase B
+- Persona model needs confidence update from research evidence → `design-research` Phase B
+- Managing design system lifecycle (first time) → `design-governance` Phase A
+- Codifying patterns, principles, or what the project has learned → `design-governance` Phase B
+- After design-research Phase B produces governance-input files → `design-governance` Phase B
+- After figma-audit reveals repeated violation patterns → `design-governance` Phase B
 - Ready to build → `design-canvas` → `design-wireframe` → Figma pipeline → `design-prototype`
 - Canvas briefs ready for structural validation → `design-wireframe`
 - Canvas brief updated after wireframe exists → re-run `design-wireframe` for affected screens
@@ -176,8 +181,8 @@ All design artifacts → `design/` directory at project root (including `design/
 | Business rules register | `design-canvas`, `design-interaction` | Constraint table in canvas briefs, behavioral spec triggers |
 | Walking skeleton | `design-prototype` | Primary flow order for wiring screens |
 | Story map + release slices | `design-prototype` | Scope and secondary flows |
-| Validation checklist | `figma-audit` | Extends audit with UX-specific checks |
-| Behavioral archetypes | `design-journeys`, `design-interaction`, `design-visual`, `design-content`, `design-validation`, `design-canvas` | Archetype tensions inform state priorities, information density, terminology, and scenario coverage |
+| Research findings (RF-NNN) | `design-user-models`, `design-stories`, `design-governance` | Increment flags update persona confidence; story flags identify gaps; governance behavioral evidence stream |
+| Behavioral archetypes | `design-journeys`, `design-interaction`, `design-visual`, `design-content`, `design-research`, `design-canvas` | Archetype tensions inform state priorities, information density, terminology, and scenario coverage |
 | BRD User Stories | All modes, `sync-brd.py` | Master cross-track collaboration document; AC enriched by every contributing mode |
 | BRD RBAC | `design-ia` | Role-feature access matrix from navigation model |
 | BRD Notification Mapping | `design-interaction` | Trigger events from error strategy and notification flows |

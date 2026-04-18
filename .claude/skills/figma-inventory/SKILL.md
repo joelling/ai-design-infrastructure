@@ -121,7 +121,7 @@ Entries are added automatically by other skills:
 
 When starting a new project or adding inventory to an existing project:
 
-1. Create `design/12_GOVERNANCE/inventory.md` with the table header
+1. Copy `design/templates/design-inventory.tpl.md` to `design/12_GOVERNANCE/inventory.md` if the file does not already exist — the template pre-seeds the status value definitions, column schema, and lifecycle log structure `[schema template]`
 2. Run full reconciliation against all Figma files
 3. Populate entries with best-guess status based on location
 4. Review with designer for accuracy

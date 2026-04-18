@@ -125,7 +125,8 @@ The evolution log serves two purposes:
 | `design/02_USER_MODELS/jtbd.md` | Complete JTBD matrix + edge cases |
 | `design/02_USER_MODELS/behavioral-dimensions.md` | 2–5 tension axes with poles, evidence, and design relevance per dimension |
 | `design/02_USER_MODELS/behavioral-archetypes.md` | Named archetypes with dimension coordinates, participant mapping, persona cross-reference, and design implications |
-| `design/02_USER_MODELS/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
 ### Artifact version header
 

@@ -58,7 +58,7 @@ The prototype consumes canvas briefs, Figma screens, and story/interaction artif
 
 **0. Check upstream sync.** Run the upstream sync check described above. If this is a first run, note which canvas briefs and Figma screens are available.
 
-**1. Choose technology and scaffold.** Select a stack appropriate for the project (vanilla HTML/CSS/JS, React, Next.js, Svelte, etc.). The process is technology agnostic — what matters is that the prototype can render screens, handle navigation, and respond to interactions. Scaffold the project in `design/16_PROTOTYPE/`.
+**1. Choose technology and scaffold.** Select a stack appropriate for the project (vanilla HTML/CSS/JS, React, Next.js, Svelte, etc.). The process is technology agnostic — what matters is that the prototype can render screens, handle navigation, and respond to interactions. Scaffold the project in `design/16_PROTOTYPE/`. Copy `design/templates/prototype-manifest.tpl.md` to `design/16_PROTOTYPE/manifest.md` and `design/templates/drift-log.tpl.md` to `design/16_PROTOTYPE/drift-log.md` if those files do not already exist.
 
 **2. Build screen by screen.** For each screen in scope:
    - Read the canvas brief for structure, content, and states
@@ -82,11 +82,13 @@ The prototype consumes canvas briefs, Figma screens, and story/interaction artif
 
 ## Outputs
 
-| File | What it contains |
-|------|-----------------|
-| `design/16_PROTOTYPE/manifest.md` | Screen-to-file mapping, tech stack, sync hashes, build/run instructions |
-| `design/16_PROTOTYPE/drift-log.md` | Record of detected drifts and resolutions |
-| `design/16_PROTOTYPE/[project files]` | The prototype source code |
+| File | Type | What it contains |
+|------|------|-----------------|
+| `design/16_PROTOTYPE/manifest.md` | schema template | Screen-to-file mapping, tech stack, sync hashes, build/run instructions — schema pre-seeded from `design/templates/prototype-manifest.tpl.md` |
+| `design/16_PROTOTYPE/drift-log.md` | schema template | Record of detected drifts and resolutions — schema pre-seeded from `design/templates/drift-log.tpl.md` |
+| `design/16_PROTOTYPE/[project files]` | synthesis | The prototype source code |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
 ### Manifest format
 

@@ -97,7 +97,8 @@ Downstream modes enrich AC by appending new bullets with inline source tags: `[B
 | `design/05_STORIES/walking-skeleton.md` | Thinnest end-to-end slice identified |
 | `design/05_STORIES/release-slices.md` | Incremental release slices with MVP boundary |
 | `design/05_STORIES/mvp-scope.md` | Consolidated MVP definition |
-| `design/05_STORIES/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 | `design/BRD.xlsx` | Master BRD — User Stories sheet populated from story map; enriched by downstream modes |
 | `design/BRD_manifest.md` | Tracks which modes have contributed to BRD and at what artifact versions |
 

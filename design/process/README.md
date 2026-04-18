@@ -30,8 +30,8 @@ This directory describes the complete design process — from understanding the 
 | 08 | [Visual Design](08-visual.md) | `design-visual` | 3 — Design |
 | 09 | [Content Strategy](09-content.md) | `design-content` | 3 — Design |
 | 10 | [Accessibility](10-accessibility.md) | `design-accessibility` | 3 — Design |
-| 11 | [Design Validation](11-validation.md) | `design-validation` | 3 — Design |
-| 12 | [Design System Governance](12-governance.md) | `design-governance` | 3 — Design |
+| 11 | [Design Research](11-validation.md) | `design-research` | 3 — Design (init) / Lifecycle (synthesis) |
+| 12 | [Design System Governance](12-governance.md) | `design-governance` | 3 — Design (init) / Lifecycle (synthesis) |
 | 13 | [Design-to-Canvas Synthesis](13-canvas.md) | `design-canvas` | 4 — Develop |
 | 14 | [Clickable ASCII Wireframe](14-wireframe.md) | `design-wireframe` | 4 — Develop |
 | 15 | [Figma Execution Pipeline](15-figma-pipeline.md) | `figma-*` | 4 — Develop |
@@ -87,6 +87,12 @@ Discovery first because you can't design for users you don't understand. Definit
 
 But real projects aren't linear. You might start visual exploration early to test a brand direction. You might revisit personas after journey mapping reveals edge cases. The tiers are a guide, not a cage.
 
+### Governance as a lifecycle mode
+
+Modes 11 and 12 each operate in two phases. **Mode 11 (`design-research`)** Phase A runs once before build, producing scenario scripts and a test plan. Phase B runs after usability testing completes, synthesizing findings into research-findings.md, writing increment flags to user-models and stories, and preparing behavioral evidence for governance. Phase B requires actual research output — it never synthesizes without evidence.
+
+**Mode 12 (`design-governance`)** is the only mode that codifies design principles. **Phase A (init)** runs once in Tier 3, after visual language and interaction design are established — it sets up the governance framework from templates. **Phase B (synthesis)** has no fixed tier position: it runs periodically throughout the project lifecycle, triggered by accumulated evidence (validation findings, audit violations, canvas brief patterns). Phase B reads what the project has learned and codifies it as explicit design principles, elevates recurring patterns to a named pattern library, and refines quality gates. It should run after each significant validation round, after audit reveals repeated violations, or after every five or more new canvas briefs.
+
 ---
 
 ## Artifact storage
@@ -111,7 +117,7 @@ design/
   08_VISUAL/                           ← Tier 3
   09_CONTENT/                          ← Tier 3
   10_ACCESSIBILITY/                    ← Tier 3
-  11_VALIDATION/                       ← Tier 3
+  11_RESEARCH/                         ← Tier 3
   12_GOVERNANCE/                       ← Tier 3
   13_CANVAS/                           ← Tier 4
   14_WIREFRAME/                        ← Tier 4 (clickable ASCII wireframes, archived when Figma starts)
@@ -314,14 +320,17 @@ Keep as one skill.
 
 | Mode | Skills | Principles triggered | Verdict |
 |------|--------|---------------------|---------|
-| 01-12, 14, 16 (design-*) | 1 each | None triggered (14 triggers P2, P6, P7) | Correctly single-skill |
+| 01-10, 14, 16 (design-*) | 1 each | None triggered (14 triggers P2, P6, P7) | Correctly single-skill |
+| 11 (`design-research`) | 1 (two-phase) | P2, P7 — init runs once pre-build; synthesis runs after each research round | Single-skill; watch for split if Phase B synthesis grows complex (approaching P4) |
+| 12 (`design-governance`) | 1 (two-phase) | P2, P7 — init runs once in Tier 3; synthesis runs periodically across all tiers | Single-skill for now; watch for split if synthesis complexity grows (approaching P4) |
 | 15 (Figma pipeline) | 11 skills | P1, P2, P3, P6, P7 | Correctly multi-skill |
 
 ### Watch list
 
 | Skill | Condition for split | Principle |
 |-------|-------------------|-----------|
-| `design-validation` | If pre-build and post-build phases diverge enough to need independent invocation | P2, P7 |
+| `design-governance` | If Phase B synthesis grows complex enough to need its own context (approaching ~400 lines) — natural split: `design-governance` (init config) + `design-principles` (periodic synthesis) | P2, P4, P7 |
+| `design-research` | If Phase B synthesis grows complex enough to warrant independent invocation from Phase A | P2, P4, P7 |
 | `design-prototype` | If drift-sync logic becomes complex enough for independent re-invocation | P2, P6 |
 
 ### Anti-patterns

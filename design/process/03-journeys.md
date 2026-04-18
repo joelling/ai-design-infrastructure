@@ -66,7 +66,8 @@ The critical lens: **technology and UI agnostic**. Describe "provides the requir
 | `design/03_JOURNEYS/[journey-name]-journey.md` | One per primary journey (minimum 2) |
 | `design/03_JOURNEYS/service-blueprint.md` | Full service blueprint |
 | `design/03_JOURNEYS/task-flows/[task-name].md` | One per discrete user task (minimum 4) |
-| `design/03_JOURNEYS/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
 ## Rules
 

@@ -127,7 +127,8 @@ The remaining sections, each referencing frame numbers where behavior differs pe
 | File | What it contains |
 |------|-----------------|
 | `design/13_CANVAS/{ScreenID}_{screen-name}.md` | One complete brief per screen. Screen ID prefix from `screen-inventory.md`. States/frames are sections within the file. |
-| `design/13_CANVAS/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
 ### Naming convention
 

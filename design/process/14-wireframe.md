@@ -57,7 +57,7 @@ The Tier 4 sync loop remains three nodes: Canvas ↔ Figma ↔ Prototype.
 
 **0. Check upstream sync.** Run the upstream sync check described above. Verify canvas briefs exist for screens to be wireframed.
 
-**1. Scaffold wireframe directory.** Create `design/14_WIREFRAME/` structure if it doesn't exist: `screens/`, `feedback/`, `archive/`. Generate the shared `style.css` (monospace, no colour except single accent for clickable regions).
+**1. Scaffold wireframe directory.** Create `design/14_WIREFRAME/` structure if it doesn't exist: `screens/`, `feedback/`, `archive/`. Copy `design/templates/wireframe-style.css` to `design/14_WIREFRAME/screens/style.css` if the file does not already exist — this static stylesheet is never regenerated.
 
 **2. Build screen by screen.** For each canvas brief in scope:
    - Read Section 1 (frame inventory) — determines how many wireframes this screen needs
@@ -83,7 +83,7 @@ The Tier 4 sync loop remains three nodes: Canvas ↔ Figma ↔ Prototype.
    - Flow diagram showing walking skeleton navigation
    - Entry point for stakeholder review
 
-**6. Stakeholder review gate.** Present wireframes for review. Collect structured feedback using the template in `feedback/round-N.md`:
+**6. Stakeholder review gate.** Present wireframes for review. For each review round, copy `design/templates/wireframe-feedback.tpl.md` to `design/14_WIREFRAME/feedback/round-N.md`. Collect structured feedback:
    - Per screen: what's missing, what's wrong, what's unnecessary, what's in the wrong place
    - Flow-level: what screens are missing, what's the wrong order, where do users get lost
 
@@ -99,13 +99,14 @@ The Tier 4 sync loop remains three nodes: Canvas ↔ Figma ↔ Prototype.
 
 ## Outputs
 
-| File | What it contains |
-|------|-----------------|
-| `design/14_WIREFRAME/manifest.md` | Screen-to-file mapping, review status, feedback round history |
-| `design/14_WIREFRAME/screens/*.html` | Clickable ASCII wireframe pages |
-| `design/14_WIREFRAME/screens/style.css` | Shared monospace stylesheet |
-| `design/14_WIREFRAME/feedback/round-N.md` | Structured feedback per review round |
-| `design/14_WIREFRAME/_upstream.md` | Consumed canvas brief versions |
+| File | Type | What it contains |
+|------|------|-----------------|
+| `design/14_WIREFRAME/manifest.md` | synthesis | Screen-to-file mapping, review status, feedback round history |
+| `design/14_WIREFRAME/screens/*.html` | synthesis | Clickable ASCII wireframe pages |
+| `design/14_WIREFRAME/screens/style.css` | pure template | Shared monospace stylesheet — copied from `design/templates/wireframe-style.css`; never regenerated |
+| `design/14_WIREFRAME/feedback/round-N.md` | pure template | Structured feedback capture — copied from `design/templates/wireframe-feedback.tpl.md` per review round |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
 ### Manifest format
 

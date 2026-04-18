@@ -1,0 +1,131 @@
+/* wireframe-style.css — ASCII wireframe base stylesheet */
+/* Static asset. Copy to design/14_WIREFRAME/screens/style.css. Never project-specific. */
+
+:root {
+  --font-mono: "Courier New", Courier, monospace;
+  --font-size-base: 13px;
+  --line-height: 1.5;
+  --color-border: #888;
+  --color-accent: #0066cc;
+  --color-bg: #fff;
+  --color-text: #111;
+  --color-label: #555;
+  --color-active: #0044aa;
+  --color-hotspot: rgba(0, 102, 204, 0.12);
+  --max-width: 900px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  background: var(--color-bg);
+  padding: 24px;
+}
+
+/* Screen container */
+.screen {
+  max-width: var(--max-width);
+  margin: 0 auto 48px;
+  border: 1px solid var(--color-border);
+  padding: 16px;
+}
+
+.screen-title {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  color: var(--color-label);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Pre-formatted wireframe content */
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Clickable hotspots */
+.hotspot {
+  display: inline;
+  cursor: pointer;
+  background: var(--color-hotspot);
+  border-bottom: 1px dashed var(--color-accent);
+  color: var(--color-active);
+  text-decoration: none;
+}
+
+.hotspot:hover {
+  background: rgba(0, 68, 170, 0.18);
+}
+
+.hotspot:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+/* State panel (hidden by default, toggled by hotspot JS) */
+.state-panel {
+  display: none;
+  border-left: 3px solid var(--color-accent);
+  padding: 8px 12px;
+  margin: 8px 0;
+  background: #f5f8ff;
+}
+
+.state-panel.visible {
+  display: block;
+}
+
+/* Annotation labels */
+.annotation {
+  color: var(--color-label);
+  font-style: italic;
+  font-size: calc(var(--font-size-base) - 1px);
+}
+
+/* Navigation between screens */
+nav.wireframe-nav {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  margin-bottom: 32px;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  background: #fafafa;
+}
+
+nav.wireframe-nav a {
+  color: var(--color-active);
+  text-decoration: none;
+  margin-right: 16px;
+}
+
+nav.wireframe-nav a:hover,
+nav.wireframe-nav a:focus {
+  text-decoration: underline;
+}
+
+nav.wireframe-nav a.current {
+  font-weight: bold;
+  color: var(--color-text);
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Print */
+@media print {
+  .hotspot { color: var(--color-text); background: none; border-bottom: none; }
+  nav.wireframe-nav { display: none; }
+}

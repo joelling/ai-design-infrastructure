@@ -54,7 +54,8 @@ You are defining the product's visual personality. Every choice — color, typog
 | `design/08_VISUAL/color-rationale.md` | Full palette with rationale, WCAG contrast, dark mode strategy |
 | `design/08_VISUAL/typography-rationale.md` | Font selection, type scale, hierarchy rules |
 | `design/08_VISUAL/visual-language.md` | Spacing, elevation, radius, iconography, grid |
-| `design/08_VISUAL/_upstream.md` | Upstream dependency manifest — consumed and produced artifact versions |
+
+*`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
 ## Rules
 

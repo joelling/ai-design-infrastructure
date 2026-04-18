@@ -103,7 +103,7 @@ Choose a stack appropriate for the project. Common options:
 - Svelte/Vue — lightweight component model
 - Any framework — the process doesn't prescribe
 
-Scaffold in `design/16_PROTOTYPE/`. Create the manifest file.
+Scaffold in `design/16_PROTOTYPE/`. Copy `design/templates/prototype-manifest.tpl.md` to `design/16_PROTOTYPE/manifest.md` and `design/templates/drift-log.tpl.md` to `design/16_PROTOTYPE/drift-log.md` if those files do not already exist.
 
 ### Step 2 — Build screen by screen
 
@@ -239,8 +239,8 @@ Each screen in the manifest carries a sync hash. When any node changes, hashes a
 
 ## Output checklist
 
-- [ ] `design/16_PROTOTYPE/manifest.md` — complete with all screen mappings and sync hashes
-- [ ] `design/16_PROTOTYPE/drift-log.md` — all drifts logged and resolved
+- [ ] `design/16_PROTOTYPE/manifest.md` — complete with all screen mappings and sync hashes `[schema template]`
+- [ ] `design/16_PROTOTYPE/drift-log.md` — all drifts logged and resolved `[schema template]`
 - [ ] Walking skeleton flow works end-to-end
 - [ ] All screens match their canvas briefs (content, states, components)
 - [ ] All screens visually match their Figma implementations
