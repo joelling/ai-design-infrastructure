@@ -1,3 +1,7 @@
+---
+operation: ingest
+---
+
 # Journey Mapping
 
 > **Tier 2 — Definition** | Mode: `design-journeys`

@@ -1,3 +1,7 @@
+---
+operation: query
+---
+
 # Coded Prototype
 
 > **Tier 4 — Develop** | Mode: `design-prototype`

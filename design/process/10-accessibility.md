@@ -1,3 +1,7 @@
+---
+operation: ingest
+---
+
 # Accessibility
 
 > **Tier 3 — Design** | Mode: `design-accessibility`

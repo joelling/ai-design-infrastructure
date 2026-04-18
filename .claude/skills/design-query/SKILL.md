@@ -16,6 +16,8 @@ description: >
 
 # Design Query — Artifact Corpus Search + Project Wiki
 
+> **Not the same as canvas briefs.** `design-canvas` aggregates upstream artifacts **per screen** — one brief per screen, authoritative for build-time intent. `design-query` aggregates them **per entity** — one page per persona / principle / business rule / pattern, authoritative for cross-cutting retrieval. Same corpus, orthogonal axes. They never supersede each other.
+
 ## Purpose
 
 **Phase A (bootstrap):** Generate `design/WIKI/` — a cross-referenced entity wiki synthesized

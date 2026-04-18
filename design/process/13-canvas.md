@@ -1,3 +1,7 @@
+---
+operation: query
+---
+
 # Design-to-Canvas Synthesis
 
 > **Tier 4 — Develop** | Mode: `design-canvas`

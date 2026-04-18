@@ -29,7 +29,23 @@ function markdownHotReload() {
             const tierMatch = content.match(/>\s+\*\*Tier\s+(\d+)/);
             const tier = tierMatch ? parseInt(tierMatch[1]) : filename === 'README.md' ? 0 : 5;
 
-            return { filename, title, tier };
+            // Parse YAML frontmatter `operation:` field — may be a string
+            // ("ingest") or a list ("[ingest, lint]").
+            const frontmatter = content.match(/^---\n([\s\S]*?)\n---/);
+            let operations = [];
+            if (frontmatter) {
+              const opMatch = frontmatter[1].match(/^operation:\s*(.+)$/m);
+              if (opMatch) {
+                const raw = opMatch[1].trim();
+                if (raw.startsWith('[')) {
+                  operations = raw.slice(1, -1).split(',').map(s => s.trim()).filter(Boolean);
+                } else {
+                  operations = [raw];
+                }
+              }
+            }
+
+            return { filename, title, tier, operations };
           });
 
           res.setHeader('Content-Type', 'application/json');
@@ -42,7 +58,11 @@ function markdownHotReload() {
         const filepath = path.join(processDir, filename);
 
         if (fs.existsSync(filepath)) {
-          const content = fs.readFileSync(filepath, 'utf-8');
+          let content = fs.readFileSync(filepath, 'utf-8');
+          // Strip YAML frontmatter before sending to the browser — the
+          // `operation:` field is metadata for the listing endpoint, not
+          // reading content.
+          content = content.replace(/^---\n[\s\S]*?\n---\n+/, '');
           res.setHeader('Content-Type', 'text/plain');
           res.end(content);
           return;

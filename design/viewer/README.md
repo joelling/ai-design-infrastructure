@@ -28,6 +28,7 @@ Opens automatically at **http://localhost:5200**
 ## Usage
 
 - **Navigate chapters** — click any item in the left sidebar
+- **Switch grouping** — the `By Tier` / `By Operation` toggle at the top of the sidebar regroups chapters. `By Tier` is the canonical pipeline order (Discovery → Definition → Design → Develop). `By Operation` groups chapters under the Ingest / Query / Lint operational model — a chapter with multiple operations (e.g. `design-research` is both ingest and lint) appears in every group it belongs to. Selection persists per browser.
 - **Keyboard shortcuts** — `←` / `→` arrow keys to move between chapters; `⌘J` / `⌘K` for next/prev
 - **Jump to a section** — use the "In this chapter" table of contents at the top of each article
 - **Deep link** — the URL hash updates as you navigate (`#01-discovery.md`), so you can bookmark or share a specific chapter

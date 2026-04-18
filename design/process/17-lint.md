@@ -1,6 +1,12 @@
+---
+operation: lint
+---
+
 # Design Lint
 
 > **Cross-cutting — all tiers | Lifecycle** | Mode: `design-lint`
+
+> **Audit-skill split.** `design-lint` covers **cross-tier semantic health** (orphans, staleness, principle violations, propagation gaps). Figma-mechanical checks (tokens, auto-layout, detached components) live in `figma-audit`. Nielsen 10 heuristic evaluation lives in `design-validation`. All three are complementary; don't duplicate their work here.
 
 ## Why this matters
 

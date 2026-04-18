@@ -1,22 +1,21 @@
 ---
 name: figma-audit
 description: >
-  Audits a Figma file or page for design system violations: hardcoded values, missing
-  variable bindings, non-auto-layout frames, detached components, and publishing issues.
-  Also runs UX heuristic audit (Nielsen's 10 applied to built screens) and completeness
-  audit (brief→screen verification) as extended post-build checks. Use this skill for
-  design QA, before library migrations, or any time you want to verify the file is clean.
-  Triggers on: "audit", "design QA", "check file", "find hardcoded values", "check for
-  non-components", "check auto-layout", "find issues", "design system check", "before
-  library mode", "validate tokens", "clean up", "heuristic audit", "UX audit", "screen
-  completeness", "design review", "review screens", "check screens against briefs", or
-  any time a component is acting unexpectedly and you suspect a token/variable issue.
-  Run this before every library migration.
+  Figma-mechanical audit. Checks a Figma file for design-system violations: hardcoded values,
+  missing variable bindings, non-auto-layout frames, detached components, inventory/lifecycle
+  drift, and publishing issues. Also runs a completeness audit (brief→screen verification).
+  Use before library migrations or for in-file QA. Triggers on: "figma audit", "design QA",
+  "check file", "find hardcoded values", "check for non-components", "check auto-layout",
+  "design system check", "before library mode", "validate tokens", "clean up", "screen
+  completeness", "check screens against briefs", or any time a component is acting
+  unexpectedly. Run before every library migration.
 ---
 
-# Design Audit — Figma System Health Check
+# Figma Audit — File Health Check
 
-Run this audit before library migrations, periodically during active design, or whenever something looks off. The goal is zero violations in a healthy file.
+Run this before library migrations, periodically during active design, or whenever something looks off in the file. The goal is zero violations in a healthy Figma file.
+
+> **Scope note — audit-skill split.** This skill covers Figma-mechanical checks (tokens, auto-layout, components, inventory). Nielsen 10 heuristic evaluation lives in `design-validation`. Cross-tier semantic health (orphans, staleness, principle violations) lives in `design-lint`. All three are complementary, not overlapping.
 
 ---
 
@@ -86,27 +85,7 @@ Run this audit before library migrations, periodically during active design, or 
 **How**: Verify: `draft` components are on working pages, `staged` are in Parking Lot, `published` are in library files.
 **Fix**: Update inventory status to match actual location, or flag for investigation if a component moved without the proper workflow.
 
-### Check 11 — UX Heuristic Audit
-**What**: Built screens evaluated against Nielsen's 10 usability heuristics. Run post-build, against completed Figma screens compared with canvas briefs. Requires canvas briefs to exist.
-**How**: For each screen on the current page, verify each heuristic. Rate: **Pass** / **Needs work** / **Violation**.
-
-| # | Heuristic | What to verify |
-|---|-----------|---------------|
-| 1 | Visibility of system status | Loading states, progress indicators, and async feedback built for all state-change actions |
-| 2 | Match between system and real world | Labels and terminology match domain glossary and terminology guide |
-| 3 | User control and freedom | Undo, cancel, and escape routes present for all destructive or multi-step actions |
-| 4 | Consistency and standards | Same pattern uses the same component across all screens; platform conventions followed |
-| 5 | Error prevention | Confirmation dialogs present for destructive actions; constraints and defaults prevent common errors |
-| 6 | Recognition rather than recall | Options visible; no critical information buried behind unlabeled icons or collapsed sections |
-| 7 | Flexibility and efficiency of use | Expert paths or shortcuts present where archetypes require them |
-| 8 | Aesthetic and minimalist design | Information density matches canvas brief intent; no low-priority content competing with primary |
-| 9 | Help users recover from errors | Error messages follow the error strategy: what happened + why + what to do |
-| 10 | Help and documentation | Contextual help present at known friction points identified in behavioral spec |
-
-**Fix**: Document each Violation as a UX heuristic finding in the audit report.
-**Governance feed**: Heuristic violations appearing on 3+ screens are flagged with `GOVERNANCE SIGNAL` in the audit report. Governance Phase B reads these as structural evidence when evaluating design principle candidates.
-
-### Check 12 — Completeness Audit
+### Check 11 — Completeness Audit
 **What**: Per-screen verification that the built Figma screen covers everything the canvas brief specifies.
 **How**: For each screen on the current page, locate its canvas brief in `design/13_CANVAS/`. Verify each category:
 
@@ -120,7 +99,8 @@ Run this audit before library migrations, periodically during active design, or 
 | Story coverage | Every DS-NNN in canvas brief traceability block is addressed by at least one element or interaction; no features without story trace |
 
 **Fix**: Document each gap as a completeness finding. Brief → Figma gaps must be reconciled before canvas briefs are marked final.
-**Skip condition**: If no canvas briefs exist for the current page, skip Check 12 and note that completeness audit cannot run.
+**Skip condition**: If no canvas briefs exist for the current page, skip Check 11 and note that completeness audit cannot run.
+**Heuristic evaluation note**: Nielsen 10 / UX heuristic evaluation is **not** part of this skill. Route those checks to `design-validation` — it owns heuristic evaluation, cognitive walkthroughs, and post-build review checklists.
 
 ---
 
@@ -154,10 +134,6 @@ After running all checks, report findings as:
 ### Remaining Issues (requires manual attention)
 - [Anything you couldn't fix automatically]
 
-### UX Heuristic Violations (N found)
-- [Heuristic N — Screen name] → [issue description] → [Needs work / Violation]
-- GOVERNANCE SIGNAL: [Heuristic N — pattern] — found in [screen1], [screen2], [screen3] (repeat if 3+ screens)
-
 ### Completeness Gaps (N found)
 - [Category — Screen name] → [gap description] → [story reference if applicable]
 ```
@@ -168,23 +144,22 @@ After running all checks, report findings as:
 
 1. **Detached components** — highest risk, breaks update propagation
 2. **Hardcoded colors** — most visible in theming/dark mode
-3. **UX heuristic violations (Violation severity)** — user-facing quality; fix before delivery
-4. **Non-auto-layout frames** — breaks responsive resizing
-5. **Hardcoded spacing/radius** — affects consistency
-6. **Completeness gaps** — reconcile with canvas briefs before marking screens final
-7. **Missing component properties** — affects usability
+3. **Non-auto-layout frames** — breaks responsive resizing
+4. **Hardcoded spacing/radius** — affects consistency
+5. **Completeness gaps** — reconcile with canvas briefs before marking screens final
+6. **Missing component properties** — affects usability
 
 ---
 
 ## Pre-library-migration audit (stricter)
 
 When running an audit before a library migration, apply zero-tolerance:
-- All 12 checks must pass before migration starts
+- All 11 checks must pass before migration starts
 - No hardcoded values allowed — every value must have a token
 - No detached components allowed — must be relinked or recreated
-- No UX heuristic violations at Violation severity — resolve or document as accepted risk with justification
 - All completeness gaps reconciled with canvas briefs
 - Document any intentional exceptions with an annotation component
+- Run `design-validation` separately for Nielsen heuristic evaluation before migration — violations there should also be resolved or explicitly accepted
 
 ---
 

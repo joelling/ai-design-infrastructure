@@ -1,3 +1,7 @@
+---
+operation: ingest
+---
+
 # Design Discovery
 
 > **Tier 1 — Discovery** | Mode: `design-discovery`

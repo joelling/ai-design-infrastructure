@@ -13,6 +13,8 @@ description: >
 
 # Design Lint — Health Check Across All Tiers
 
+> **Scope note — audit-skill split.** `design-lint` covers **cross-tier semantic health**: orphans, staleness, principle violations, propagation gaps. Figma-mechanical checks (tokens, auto-layout, detached components) live in `figma-audit`. Nielsen 10 heuristic evaluation lives in `design-validation`. All three are complementary — don't duplicate their work here.
+
 ## Purpose
 
 Run a full health check across all design tiers. Combines mechanical script-based checks

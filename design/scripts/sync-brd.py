@@ -6,10 +6,15 @@ Validates bidirectional consistency between design/BRD.xlsx and design artifacts
   - business-rules-register.md (BR-NN IDs)
   - screen-inventory.md (story-to-screen mapping)
   - release-slices.md (story IDs)
-  - BRD_manifest.md (artifact version freshness)
+  - BRD.xlsx "Manifest" sheet (artifact version freshness; migrated from BRD_manifest.md in v2.1)
 
 Usage:
     python design/scripts/sync-brd.py [project_root]
+    python design/scripts/sync-brd.py --migrate-manifest [project_root]
+
+The --migrate-manifest flag performs a one-shot v2.1 migration that moves
+design/BRD_manifest.md contents into the BRD.xlsx "Manifest" sheet and deletes
+the source .md file.
 
 Exit code 1 if errors found, 0 otherwise.
 """
@@ -148,8 +153,8 @@ def check_feature_coverage(brd_ids, feature_by_row, brd_path):
     return warnings
 
 
-def check_manifest_freshness(manifest_path):
-    """Check 5: Read BRD_manifest.md and warn if any mode shows '—' (never contributed)."""
+def check_manifest_freshness_md(manifest_path):
+    """Legacy (pre-v2.1): read BRD_manifest.md and warn if any mode shows '—'."""
     content = read_file(manifest_path)
     if content is None:
         return None, []
@@ -159,7 +164,6 @@ def check_manifest_freshness(manifest_path):
         line = line.strip()
         if line.startswith('|') and not line.startswith('|---') and not line.startswith('| Mode'):
             cols = [c.strip() for c in line.split('|')]
-            # cols: ['', mode, last_contributed, artifact_version, stories_touched, '']
             if len(cols) >= 5:
                 mode = cols[1]
                 last_contributed = cols[2]
@@ -169,6 +173,103 @@ def check_manifest_freshness(manifest_path):
     return content, warnings
 
 
+def check_manifest_freshness_sheet(brd_path):
+    """v2.1+: read BRD.xlsx "Manifest" sheet and warn if any mode shows '—'."""
+    if not os.path.isfile(brd_path):
+        return None, []
+
+    wb = load_workbook(brd_path, data_only=True)
+    sheet = None
+    for name in wb.sheetnames:
+        if name.lower() == 'manifest':
+            sheet = wb[name]
+            break
+
+    if sheet is None:
+        wb.close()
+        return None, []
+
+    warnings = []
+    # Expected columns: Mode | Last contributed | Artifact version | Stories touched | Notes
+    # Row 1 = header
+    for row_num in range(2, sheet.max_row + 1):
+        mode = sheet.cell(row=row_num, column=1).value
+        last_contributed = sheet.cell(row=row_num, column=2).value
+        if not mode:
+            continue
+        if last_contributed is None or str(last_contributed).strip() in ('—', ''):
+            warnings.append(f"Mode '{mode}' has never contributed to BRD")
+
+    wb.close()
+    return True, warnings
+
+
+def migrate_manifest_to_sheet(brd_path, manifest_path):
+    """
+    One-shot v2.1 migration: move design/BRD_manifest.md contents into a
+    "Manifest" sheet inside BRD.xlsx, then delete the .md file.
+    """
+    if not os.path.isfile(brd_path):
+        print(f"✗ BRD not found at {brd_path}. Nothing to migrate into.")
+        return 1
+    if not os.path.isfile(manifest_path):
+        print(f"ℹ BRD_manifest.md not found at {manifest_path} — already migrated or never existed.")
+        return 0
+
+    content = read_file(manifest_path)
+    if content is None:
+        print(f"✗ Could not read {manifest_path}")
+        return 1
+
+    # Parse markdown table rows
+    rows = []
+    for line in content.splitlines():
+        line = line.strip()
+        if line.startswith('|') and not line.startswith('|---') and not line.startswith('| Mode'):
+            cols = [c.strip() for c in line.split('|')]
+            # Leading and trailing '' from split — drop them
+            cols = [c for c in cols if c != '']
+            if cols:
+                rows.append(cols)
+
+    if not rows:
+        print(f"⚠ No table rows parsed from {manifest_path}. Migration aborted — inspect manually.")
+        return 1
+
+    # Extract header from the markdown too
+    header = None
+    for line in content.splitlines():
+        line = line.strip()
+        if line.startswith('| Mode'):
+            header = [c.strip() for c in line.split('|') if c.strip() != '']
+            break
+    if header is None:
+        header = ['Mode', 'Last contributed', 'Artifact version', 'Stories touched', 'Notes']
+
+    wb = load_workbook(brd_path)
+    if 'Manifest' in wb.sheetnames:
+        print(f"✗ BRD already has a 'Manifest' sheet. Aborting to avoid overwrite.")
+        print(f"  Resolve manually: review both sources and delete one.")
+        wb.close()
+        return 1
+
+    sheet = wb.create_sheet('Manifest')
+    sheet.append(header)
+    for row in rows:
+        # Pad/truncate to header length
+        padded = row + [''] * (len(header) - len(row))
+        sheet.append(padded[:len(header)])
+
+    wb.save(brd_path)
+    wb.close()
+
+    os.remove(manifest_path)
+    print(f"✓ Migrated {len(rows)} row(s) from BRD_manifest.md into BRD.xlsx → Manifest sheet.")
+    print(f"✓ Deleted {manifest_path}")
+    print(f"\nReview with `git status` and commit when ready.")
+    return 0
+
+
 def check_release_slices_to_brd(release_ids, brd_ids):
     """Check 6: Every DS-NNN in release-slices.md exists in BRD col D."""
     missing = sorted(release_ids - brd_ids, key=lambda x: int(x.split('-')[1]))
@@ -176,7 +277,10 @@ def check_release_slices_to_brd(release_ids, brd_ids):
 
 
 def main():
-    root = resolve_root(sys.argv)
+    argv = [a for a in sys.argv if a != '--migrate-manifest']
+    migrate_flag = '--migrate-manifest' in sys.argv
+
+    root = resolve_root(argv)
 
     brd_path = os.path.join(root, 'design', 'BRD.xlsx')
     story_map_path = os.path.join(root, 'design', '05_STORIES', 'story-map.md')
@@ -184,6 +288,11 @@ def main():
     screen_inv_path = os.path.join(root, 'design', '06_INFORMATION_ARCHITECTURE', 'screen-inventory.md')
     release_slices_path = os.path.join(root, 'design', '05_STORIES', 'release-slices.md')
     manifest_path = os.path.join(root, 'design', 'BRD_manifest.md')
+
+    if migrate_flag:
+        print("=== BRD Manifest Migration (v2.1) ===\n")
+        rc = migrate_manifest_to_sheet(brd_path, manifest_path)
+        sys.exit(rc)
 
     errors = 0
     warnings = 0
@@ -271,18 +380,32 @@ def main():
         print()
 
     # ---- Check 5: Manifest freshness ----
+    # v2.1+: prefer the Manifest sheet inside BRD.xlsx; fall back to BRD_manifest.md
     print("--- 5. Manifest Freshness ---")
-    manifest_content, manifest_warnings = check_manifest_freshness(manifest_path)
-    if manifest_content is None:
-        print(f"WARNING: BRD_manifest.md not found at {manifest_path} — skipping\n")
-        warnings += 1
-    elif not manifest_warnings:
-        print("✓ All modes have contributed to BRD\n")
+    sheet_present, sheet_warnings = check_manifest_freshness_sheet(brd_path)
+    if sheet_present:
+        if not sheet_warnings:
+            print("✓ All modes have contributed to BRD (Manifest sheet)\n")
+        else:
+            for w in sheet_warnings:
+                print(f"⚠ {w}")
+                warnings += 1
+            print()
     else:
-        for w in manifest_warnings:
-            print(f"⚠ {w}")
+        manifest_content, manifest_warnings = check_manifest_freshness_md(manifest_path)
+        if manifest_content is None:
+            print(f"WARNING: No Manifest sheet in BRD.xlsx and no BRD_manifest.md found — skipping")
+            print(f"         (v2.1 migrates the manifest into the xlsx; run sync-brd.py --migrate-manifest if upgrading)\n")
             warnings += 1
-        print()
+        else:
+            print(f"ℹ Reading legacy BRD_manifest.md. Run --migrate-manifest to consolidate into BRD.xlsx.")
+            if not manifest_warnings:
+                print("✓ All modes have contributed to BRD\n")
+            else:
+                for w in manifest_warnings:
+                    print(f"⚠ {w}")
+                    warnings += 1
+                print()
 
     # ---- Check 6: Release Slices → BRD ----
     print("--- 6. Release Slices → BRD ---")

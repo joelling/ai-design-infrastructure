@@ -1,5 +1,5 @@
 Design System Project
-<!-- toolchain-version: 2.0.0 | updated: 2026-04-18 -->
+<!-- toolchain-version: 2.1.0 | updated: 2026-04-18 -->
 
 ## Design Playbook — Single Source of Truth
 
@@ -30,6 +30,26 @@ Any change to a process chapter must cascade to infrastructure. This includes:
 ## Design Process Pipeline — Upstream Design Modes
 
 Skills directory: `.claude/skills/` — read each SKILL.md for full workflow instructions.
+
+### Operational model — Ingest / Query / Lint
+
+The 30 skills are grouped under three elemental operations (after Karpathy's LLM wiki pattern). This is a cross-cutting lens — a skill's tier tells you *when* it runs; its operation tells you *what kind of work* it does. The viewer reflects this grouping via a sidebar toggle (`By Tier` / `By Operation`); each process chapter's `operation:` YAML frontmatter drives the grouping.
+
+- **INGEST** — produce authoritative artifacts from raw inputs or upstream artifacts. Discovery, user-models, journeys, process-flows, stories, IA, interaction, visual, content, accessibility, research Phase A, governance Phase A, figma-handoff, figma-file-setup, figma-tokens, figma-page-setup, figma-component.
+- **QUERY** — aggregate artifacts into a retrieval surface at a specific axis (per-screen, per-entity, per-flow). Canvas, wireframe, prototype, query Phase A, figma-docs, figma-inventory, figma-parking-lot.
+- **LINT** — cross-check artifacts for drift, gaps, or principle violations. design-lint, design-validation, figma-audit, research Phase B, governance Phase B, query Phase B.
+
+### Synthesis pass order
+
+Three skills run a Phase B synthesis pass after Phase A ingest. They consume each other — run in this order, or the later passes will miss upstream signal:
+
+| Order | Pass | Consumes | Produces |
+|---|---|---|---|
+| 1 | `design-research` Phase B | completed test sessions | research-findings.md, persona confidence flags, governance-input files |
+| 2 | `design-governance` Phase B | research-findings.md + governance-input files + figma-audit patterns | codified principles, pattern elevations, quality-gate refinements |
+| 3 | `design-query` Phase B | everything above + all upstream artifacts | WIKI updates, gap flags |
+
+Each Phase B must warn in step 0 if its predecessor is stale.
 
 ### Ordering: Flexible with Guardrails
 - Modes CAN be invoked in any order

@@ -1,3 +1,7 @@
+---
+operation: [ingest, lint]
+---
+
 # Design System Governance
 
 > **Tier 3 — Design (init) | Lifecycle — all tiers (synthesis)** | Mode: `design-governance`

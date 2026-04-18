@@ -1,3 +1,7 @@
+---
+operation: ingest
+---
+
 # Interaction Design
 
 > **Tier 3 — Design** | Mode: `design-interaction`

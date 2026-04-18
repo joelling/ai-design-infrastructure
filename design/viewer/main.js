@@ -40,6 +40,7 @@ marked.use({
 let chapters = [];
 let activeChapter = null;
 let scrollPositions = {};
+let viewMode = localStorage.getItem('viewer.viewMode') || 'tier'; // 'tier' | 'operation'
 
 const TIER_META = {
   0: { label: 'Overview', color: '#6B7280' },
@@ -47,6 +48,13 @@ const TIER_META = {
   2: { label: 'Tier 2 — Definition', color: '#2563EB' },
   3: { label: 'Tier 3 — Design', color: '#7C3AED' },
   4: { label: 'Tier 4 — Develop', color: '#059669' },
+};
+
+const OPERATION_META = {
+  ingest: { label: 'Ingest', color: '#D97706', description: 'Turn raw or upstream inputs into authoritative artifacts' },
+  query:  { label: 'Query',  color: '#2563EB', description: 'Aggregate artifacts into a retrieval surface' },
+  lint:   { label: 'Lint',   color: '#DC2626', description: 'Cross-check for drift, gaps, and principle violations' },
+  overview: { label: 'Overview', color: '#6B7280', description: 'Orientation' },
 };
 
 // ─── Chapter loading ──────────────────────────────────────────
@@ -88,8 +96,46 @@ async function loadChapter(filename) {
 
 function renderNav() {
   const nav = document.getElementById('nav');
-  let currentTier = -1;
 
+  const toggleHtml = `
+    <div class="view-toggle" role="tablist" aria-label="Grouping mode">
+      <button class="view-toggle-btn ${viewMode === 'tier' ? 'active' : ''}" data-view="tier" role="tab" aria-selected="${viewMode === 'tier'}">By Tier</button>
+      <button class="view-toggle-btn ${viewMode === 'operation' ? 'active' : ''}" data-view="operation" role="tab" aria-selected="${viewMode === 'operation'}">By Operation</button>
+    </div>
+  `;
+
+  nav.innerHTML = toggleHtml + (viewMode === 'tier' ? renderTierGroups() : renderOperationGroups());
+
+  nav.querySelectorAll('.view-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewMode = btn.dataset.view;
+      localStorage.setItem('viewer.viewMode', viewMode);
+      renderNav();
+    });
+  });
+}
+
+function chapterLabel(chapter) {
+  if (chapter.filename === 'README.md') return 'Overview';
+  return chapter.title
+    .replace(/^Design-to-Canvas\s*/, 'Canvas ')
+    .replace(/^Design System\s*/, '')
+    .replace(/^Design\s*/, '');
+}
+
+function chapterButton(chapter) {
+  const number = chapter.filename.match(/^(\d+)/)?.[1] || '';
+  return `<button
+    class="nav-item ${activeChapter === chapter.filename ? 'active' : ''}"
+    data-filename="${chapter.filename}"
+    onclick="window.loadChapter('${chapter.filename}')">
+    ${number ? `<span class="nav-number">${number}</span>` : ''}
+    <span class="nav-label">${chapterLabel(chapter)}</span>
+  </button>`;
+}
+
+function renderTierGroups() {
+  let currentTier = -1;
   let html = '';
 
   for (const chapter of chapters) {
@@ -103,28 +149,37 @@ function renderNav() {
           ${meta.label}
         </div>`;
     }
+    html += chapterButton(chapter);
+  }
+  html += '</div>';
+  return html;
+}
 
-    const isReadme = chapter.filename === 'README.md';
-    const label = isReadme
-      ? 'Overview'
-      : chapter.title
-          .replace(/^Design-to-Canvas\s*/, 'Canvas ')
-          .replace(/^Design System\s*/, '')
-          .replace(/^Design\s*/, '');
+function renderOperationGroups() {
+  // A chapter with multiple operations appears in each group.
+  const order = ['overview', 'ingest', 'query', 'lint'];
+  let html = '';
 
-    const number = chapter.filename.match(/^(\d+)/)?.[1] || '';
+  for (const op of order) {
+    const opChapters = chapters.filter(c => {
+      const ops = c.operations && c.operations.length > 0
+        ? c.operations
+        : (c.filename === 'README.md' ? ['overview'] : []);
+      return ops.includes(op);
+    });
+    if (opChapters.length === 0) continue;
 
-    html += `<button
-      class="nav-item ${activeChapter === chapter.filename ? 'active' : ''}"
-      data-filename="${chapter.filename}"
-      onclick="window.loadChapter('${chapter.filename}')">
-      ${number ? `<span class="nav-number">${number}</span>` : ''}
-      <span class="nav-label">${label}</span>
-    </button>`;
+    const meta = OPERATION_META[op];
+    html += `<div class="nav-group">
+      <div class="nav-group-label" style="--tier-color: ${meta.color}" title="${meta.description}">
+        <span class="tier-dot" style="background: ${meta.color}"></span>
+        ${meta.label}
+      </div>`;
+    for (const chapter of opChapters) html += chapterButton(chapter);
+    html += '</div>';
   }
 
-  html += '</div>';
-  nav.innerHTML = html;
+  return html;
 }
 
 function updateActiveNav() {

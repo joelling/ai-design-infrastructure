@@ -1,3 +1,7 @@
+---
+operation: [ingest, query]
+---
+
 # Figma Execution Pipeline
 
 > **Tier 4 — Develop** | Modes: `figma-*`

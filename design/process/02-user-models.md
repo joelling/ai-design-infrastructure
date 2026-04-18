@@ -1,3 +1,7 @@
+---
+operation: ingest
+---
+
 # User Models
 
 > **Tier 1 — Discovery** | Mode: `design-user-models`

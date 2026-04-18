@@ -1,3 +1,7 @@
+---
+operation: query
+---
+
 # Clickable ASCII Wireframe
 
 > **Tier 4 — Develop** | Mode: `design-wireframe`

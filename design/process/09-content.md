@@ -1,3 +1,7 @@
+---
+operation: ingest
+---
+
 # Content Strategy
 
 > **Tier 3 — Design** | Mode: `design-content`

@@ -1,3 +1,7 @@
+---
+operation: ingest
+---
+
 # Process Flows
 
 > **Tier 2 — Definition** | Mode: `design-process-flows`

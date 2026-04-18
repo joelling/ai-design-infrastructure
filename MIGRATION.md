@@ -1,13 +1,21 @@
-# Upgrading to v2
+# Upgrading to v2 / v2.1
 
-This guide is for designers who already have a project using this toolchain (v1) and want to upgrade to v2.
+This guide is for designers who already have a project using an older version of this toolchain and want to upgrade.
 
-**v2 adds three new capabilities:**
+**v2 added three capabilities:**
 1. **`design-query`** — Ask natural-language questions about your entire project and get cited answers. Also bootstraps a cross-referenced Project Wiki (`design/WIKI/`).
 2. **`design-lint`** — Run a full health check across all tiers and get a severity-classified report (`design/LINT_REPORT.md`).
 3. **Decision Log** — Append-only record of key design decisions with evidence and trade-offs (`design/DECISION_LOG.md`).
 
-None of this touches your existing artifacts. All your personas, stories, journeys, canvas briefs, and Figma files stay exactly as they are.
+**v2.1 adds a cleanup layer on top:**
+1. **Operational-model lens** — every process chapter carries an `operation:` tag (Ingest / Query / Lint). The viewer exposes a `By Tier` / `By Operation` toggle.
+2. **Automatic wiki format migration** — v2.0 wikis with `[text](path.md)` links are rewritten to `[[wikilink]]` format. Script detects and prompts on `git pull`.
+3. **BRD manifest consolidation** — the standalone `BRD_manifest.md` merges into `BRD.xlsx` as a "Manifest" sheet. One file going forward.
+4. **Thinking directory cleanup** — `design/thinking/` essays retire; the agentic-design narrative moves to `WIKI/about.md`.
+5. **Batch ingest orchestrator** — `design/scripts/ingest-batch.js` runs discovery over a backlog of inputs in one pass and re-runs affected downstream modes in dependency order.
+6. **Audit-skill split clarified** — `figma-audit` is Figma-mechanical only; Nielsen heuristics live in `design-validation`; cross-tier semantic checks live in `design-lint`.
+
+None of this touches your existing artifacts. Personas, stories, journeys, canvas briefs, and Figma files stay exactly as they are.
 
 ---
 
@@ -32,7 +40,7 @@ Open Claude Code in your project. Then type:
 
 > **"Check if my project needs any v2 migration steps."**
 
-Claude will read `design/.migration-status.md` and tell you what's pending. There are three possible responses:
+Claude will read `design/.migration-status.md` and tell you what's pending. The most common responses below — depending on which version you're upgrading from, you may see one or several.
 
 ---
 
@@ -64,6 +72,56 @@ Your project has existing design artifacts but the Project Wiki hasn't been gene
 3. Say **"Looks good, save the log"** when you're satisfied
 
 > The automatic reconstruction captures only decisions that were documented in artifact rationale sections. Implicit decisions — why one persona was prioritized, why a journey was scoped a certain way — won't be there. Fill those in manually if they matter.
+
+---
+
+### WIKI wikilink format rewrite (v2.1)
+
+Your project has a v2.0 wiki with `[text](path.md)` style links. v2.1 standardizes on Obsidian `[[wikilink]]` syntax so the wiki renders correctly in Obsidian's graph view.
+
+Say: **"Run the wiki format migration"**
+
+Claude will run `node design/scripts/migrate-wiki-format.js`, which rewrites links in place across `design/WIKI/*.md`. Review the diff (`git diff design/WIKI/`) before committing.
+
+Dry-run first if you want a preview:
+```bash
+node design/scripts/migrate-wiki-format.js --dry-run
+```
+
+---
+
+### BRD Manifest consolidation (v2.1)
+
+The standalone `design/BRD_manifest.md` is being retired — its contents move into `design/BRD.xlsx` as a "Manifest" sheet. Single source, single file.
+
+Say: **"Run the BRD manifest migration"**
+
+Claude will run `python design/scripts/sync-brd.py --migrate-manifest`, which copies the table into the xlsx and deletes the `.md` file. Your existing BRD data is untouched.
+
+---
+
+### Thinking directory cleanup (v2.1)
+
+`design/thinking/` contains legacy essays and the agentic-design narrative. v2.1:
+- Moves `agentic-design-narrative.md` → `design/WIKI/about.md` (preserved)
+- Archives `ai-design-infrastructure-summary.md` for you to fold manually into README.md (not auto-written — READMEs are hand-crafted)
+- Deletes three essays (`intentionality-led-design.md`, `signal-and-contact.md`, `the-designers-new-discipline.md`)
+
+Say: **"Run the thinking directory cleanup"**
+
+Claude will run `node design/scripts/migrate-thinking.js`. Dry-run first if you want a preview:
+```bash
+node design/scripts/migrate-thinking.js --dry-run
+```
+
+---
+
+### Informational notes (v2.1)
+
+These show up in the status file but require no action:
+
+- **Batch ingest orchestrator available** — `node design/scripts/ingest-batch.js <dir>` processes a backlog of raw inputs in one pass. Use it only if you want to — the per-mode flow still works.
+- **Audit-skill split** — `figma-audit` no longer includes Nielsen 10 heuristics. Use `design-validation` for heuristic evaluation going forward. No artifact impact.
 
 ---
 

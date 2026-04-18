@@ -1,6 +1,12 @@
+---
+operation: [query, lint]
+---
+
 # Design Query
 
 > **Cross-cutting — all tiers | Compounding** | Mode: `design-query`
+
+> **Not the same as canvas briefs.** `design-canvas` aggregates upstream artifacts **per screen** — one brief per screen, authoritative for build-time intent. `design-query` aggregates them **per entity** — one page per persona / principle / business rule / pattern, authoritative for cross-cutting retrieval. Same corpus, orthogonal axes.
 
 ## Why this matters
 

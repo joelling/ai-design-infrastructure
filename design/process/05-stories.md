@@ -1,3 +1,7 @@
+---
+operation: ingest
+---
+
 # User Story Mapping
 
 > **Tier 2 — Definition** | Mode: `design-stories`

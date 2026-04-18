@@ -19,6 +19,8 @@ description: >
 > - **Hard rules:** Be honest — flag real issues. Test scenarios must use persona context and mock data. Never skip error/edge-case scenarios.
 > - **Common mistake:** Running only post-build validation — pre-build evaluation catches structural issues before they're expensive to fix
 
+> **Scope note — audit-skill split.** This skill owns Nielsen 10 heuristic evaluation, cognitive walkthroughs, usability test plans, and post-build review checklists. Figma-mechanical audits (hardcoded values, detached components, auto-layout compliance) live in `figma-audit`. Cross-tier semantic health (orphans, staleness, principle violations) lives in `design-lint`. Run all three before a library migration.
+
 ## Purpose
 
 Validate design decisions through structured evaluation methods. This mode runs at two points: (1) **pre-build** — evaluating the design plan before Figma work begins, and (2) **post-build** — reviewing completed Figma screens against design requirements. It produces test plans, evaluation results, and review checklists.
@@ -286,5 +288,6 @@ Always update the upstream artifact first, then let the fix propagate downstream
 - Heuristic evaluation should be honest — flag real issues, not just confirm the design is good.
 - Test scenarios must use persona context and mock data — not abstract instructions.
 - The review checklist extends `figma-audit` (which checks tokens/auto-layout) with UX-specific checks (hierarchy, content, a11y). Both should be run.
+- **Nielsen 10 heuristic evaluation is owned here, not by `figma-audit`.** If heuristic violations recur across 3+ screens, flag them in `heuristic-evaluation.md` with a `GOVERNANCE SIGNAL` line — `design-governance` Phase B reads these as structural evidence when evaluating design principle candidates.
 - Post-build validation feeds back into upstream modes — use the handoff triggers table above to route issues to the correct skill.
 - Never skip error/edge-case scenarios — these are where most usability issues hide.

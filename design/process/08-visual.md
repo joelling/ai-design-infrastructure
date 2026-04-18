@@ -1,3 +1,7 @@
+---
+operation: ingest
+---
+
 # Visual Design
 
 > **Tier 3 — Design** | Mode: `design-visual`

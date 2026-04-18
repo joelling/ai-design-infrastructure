@@ -1,3 +1,7 @@
+---
+operation: overview
+---
+
 # Process Overview
 
 > **This is a read-only reference.** Designers read these files to understand the process, diagnose issues, and decide on improvements. To make changes, tell Claude what to change — Claude will update the process files and propagate changes to all skill files and CLAUDE.md automatically.
