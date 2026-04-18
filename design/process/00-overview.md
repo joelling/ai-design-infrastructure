@@ -46,8 +46,12 @@ TIER 4: DEVELOP            → Build screens, prototype, and keep everything in 
 | 11 | [Design Validation](11-validation.md) | `design-validation` | 3 — Design |
 | 12 | [Design System Governance](12-governance.md) | `design-governance` | 3 — Design |
 | 13 | [Design-to-Canvas Synthesis](13-canvas.md) | `design-canvas` | 4 — Develop |
-| 14 | [Figma Execution Pipeline](15-figma-pipeline.md) | `figma-*` | 4 — Develop |
-| 15 | [Coded Prototype](16-prototype.md) | `design-prototype` | 4 — Develop |
+| 14 | [Wireframe Validation](14-wireframe.md) | `design-wireframe` | 4 — Develop |
+| 15 | [Figma Execution Pipeline](15-figma-pipeline.md) | `figma-*` | 4 — Develop |
+| 16 | [Figma Screen Composition](16-figma-screen-compose.md) | `figma-screen-compose` | 4 — Develop |
+| 17 | [Coded Prototype](17-prototype.md) | `design-prototype` | 4 — Develop |
+| 18 | [Design Lint](18-lint.md) | `design-lint` | Cross-cutting |
+| 19 | [Design Query](19-query.md) | `design-query` | Cross-cutting |
 
 ---
 

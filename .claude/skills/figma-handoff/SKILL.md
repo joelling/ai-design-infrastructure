@@ -46,6 +46,12 @@ For each detected change, classify it:
 | **Modified component** | Existing component was edited | Variant added, property changed |
 | **New page** | A new page was added | New screen page |
 | **Structural change** | Layout or hierarchy changed | Frames reordered, sections added/removed |
+| **Override on logged composition** | Designer modified an instance placed by `figma-screen-compose` | Cross-reference the screen's composition log; route per the rules below |
+
+**Override on logged composition — routing:** Cross-reference `design/15_FIGMA/composition-logs/{ScreenID}_composition-log.md`. Decide:
+- (a) **Promote to brief edit** — propose as commented-out block at end of brief MD; designer reviews
+- (b) **Promote to composition rule** — surface to `design-governance` Phase B if the override repeats across screens
+- (c) **Accept as one-off** — record in the composition log so future re-runs do not undo it
 
 ### Step 3 — Analyze intent
 

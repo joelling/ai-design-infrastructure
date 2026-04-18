@@ -61,6 +61,7 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 - `design/07_INTERACTION/error-strategy.md` — error handling patterns
 - `design/10_ACCESSIBILITY/keyboard-nav-plan.md` — keyboard navigation
 - `design/09_CONTENT/microcopy-patterns.md` — dynamic content patterns
+- `design/15_FIGMA/composition-logs/{ScreenID}_composition-log.md` — read alongside Figma + canvas brief for "why this layout" disambiguation when brief and Figma do not fully agree
 
 ---
 

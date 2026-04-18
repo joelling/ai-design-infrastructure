@@ -44,6 +44,10 @@ Each entry tracks one design system asset:
 | Created | Date created | `2026-03-28` |
 | Updated | Date last modified | `2026-03-28` |
 | Notes | Action history, decisions, references | `Moved to Parking Lot 2026-03-28` |
+| triggering_screen | The ScreenID that surfaced the need (set by `figma-screen-compose`) | `OV-01` |
+| requested_by | The skill that surfaced the need — currently only `figma-screen-compose` | `figma-screen-compose` |
+
+> The `triggering_screen` and `requested_by` fields let `design-governance` Phase B cluster missing-component requests across screens to spot Template promotion candidates.
 
 ### ID prefixes
 

@@ -38,6 +38,8 @@ description: >
 - `design/07_INTERACTION/interaction-model.md`
 - `design/12_GOVERNANCE/changelog.md`
 - Figma inventory lifecycle events
+- `figma-screen-compose` Phase A pattern reports (e.g. "12 of 14 list views share Header→Filter→ListItem") — Template promotion candidates
+- Clusters of `draft` inventory entries with `requested_by: figma-screen-compose` (multiple screens needing the same component) — DS roadmap signal
 
 ---
 

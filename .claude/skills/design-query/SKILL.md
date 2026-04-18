@@ -90,6 +90,7 @@ For each tier directory that exists, read the primary output files. Prioritize:
 - Validation: `research-findings.md` if it exists
 - Governance: `design-principles.md`, `pattern-library.md` if they exist
 - Canvas: all canvas brief files in `design/13_CANVAS/` if they exist
+- Composition logs: `design/15_FIGMA/composition-logs/` — canonical evidence of Figma execution; answers "why was this laid out this way / why does this screen use component X / what was deviated and why"
 
 ### Step 2 — Generate wiki entity pages
 

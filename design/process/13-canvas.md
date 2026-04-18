@@ -175,6 +175,7 @@ When a canvas brief is initiated (or a screen idea arrives) before the full upst
 
 - Canvas brief is initiated and Section 2 traceability cannot be filled without fabricating story IDs
 - `node design/scripts/sync-traceability.js` reports orphan story IDs in a canvas brief
+- A `figma-screen-compose` Phase A gap report or composition log surfaces a brief contradiction or missing intent (e.g. layout hierarchy contradicts a state, a section references content not in §7, a referenced component has no story coverage). Composition runs propose brief edits as **commented-out blocks at the end of the brief MD** — never auto-applied. Designer accepts, edits the brief, and the depth-of-reach matrix above governs how far the change cascades upstream.
 
 ### Propagation stops when
 

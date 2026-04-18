@@ -35,9 +35,10 @@ This directory describes the complete design process — from understanding the 
 | 13 | [Design-to-Canvas Synthesis](13-canvas.md) | `design-canvas` | 4 — Develop |
 | 14 | [Clickable ASCII Wireframe](14-wireframe.md) | `design-wireframe` | 4 — Develop |
 | 15 | [Figma Execution Pipeline](15-figma-pipeline.md) | `figma-*` | 4 — Develop |
-| 16 | [Coded Prototype](16-prototype.md) | `design-prototype` | 4 — Develop |
-| 17 | [Design Lint](17-lint.md) | `design-lint` | Cross-cutting — all tiers |
-| 18 | [Design Query + Wiki](18-query.md) | `design-query` | Cross-cutting — all tiers |
+| 16 | [Figma Screen Composition](16-figma-screen-compose.md) | `figma-screen-compose` | 4 — Develop |
+| 17 | [Coded Prototype](17-prototype.md) | `design-prototype` | 4 — Develop |
+| 18 | [Design Lint](18-lint.md) | `design-lint` | Cross-cutting — all tiers |
+| 19 | [Design Query + Wiki](19-query.md) | `design-query` | Cross-cutting — all tiers |
 
 ---
 
@@ -322,10 +323,11 @@ Keep as one skill.
 
 | Mode | Skills | Principles triggered | Verdict |
 |------|--------|---------------------|---------|
-| 01-10, 14, 16 (design-*) | 1 each | None triggered (14 triggers P2, P6, P7) | Correctly single-skill |
+| 01-10, 14, 17 (design-*) | 1 each | None triggered (14 triggers P2, P6, P7) | Correctly single-skill |
 | 11 (`design-research`) | 1 (two-phase) | P2, P7 — init runs once pre-build; synthesis runs after each research round | Single-skill; watch for split if Phase B synthesis grows complex (approaching P4) |
 | 12 (`design-governance`) | 1 (two-phase) | P2, P7 — init runs once in Tier 3; synthesis runs periodically across all tiers | Single-skill for now; watch for split if synthesis complexity grows (approaching P4) |
 | 15 (Figma pipeline) | 11 skills | P1, P2, P3, P6, P7 | Correctly multi-skill |
+| 16 (`figma-screen-compose`) | 1 (two-phase) | P2, P3, P7 — Plan reads, Execute mutates; runs only after page-setup + component | Single-skill; watch for split if Plan grows complex enough to be batched independently |
 
 ### Watch list
 

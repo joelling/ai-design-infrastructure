@@ -17,6 +17,13 @@ The Parking Lot page is the holding area between "just built on a working page" 
 
 ---
 
+## Triggers
+
+- Run after each completed page (existing trigger) — including after a `figma-screen-compose` Phase B run.
+- **On session start, surface the needed-but-missing queue from inventory:** all `draft`-status entries with `requested_by: figma-screen-compose`. These are components that `figma-screen-compose` requested but couldn't find published. Designer can resolve them in batch via `figma-component`.
+
+---
+
 ## Parking Lot page structure
 
 The page should have a single root auto-layout frame (vertical, `semantic/spacing/2xl` gap) containing category sections in this order:

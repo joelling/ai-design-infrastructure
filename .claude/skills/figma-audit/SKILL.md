@@ -85,6 +85,11 @@ Run this before library migrations, periodically during active design, or whenev
 **How**: Verify: `draft` components are on working pages, `staged` are in Parking Lot, `published` are in library files.
 **Fix**: Update inventory status to match actual location, or flag for investigation if a component moved without the proper workflow.
 
+### Check 10a — Composition log sync
+**What**: Audit Figma screens against the composition log at `design/15_FIGMA/composition-logs/{ScreenID}_composition-log.md` and against canvas brief acceptance criteria.
+**How**: For each screen on the current page, read its composition log and diff against current Figma nodes.
+**Fix**: Flag any instance not present in the composition log (untracked composition), and any composition log entry that does not correspond to a current Figma node (stale log).
+
 ### Check 11 — Completeness Audit
 **What**: Per-screen verification that the built Figma screen covers everything the canvas brief specifies.
 **How**: For each screen on the current page, locate its canvas brief in `design/13_CANVAS/`. Verify each category:

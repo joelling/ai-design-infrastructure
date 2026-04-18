@@ -108,6 +108,10 @@ For components that need to accept variable inner content (modals, cards, dialog
 ### 7. Placement
 - Place the completed component to the **left of the current artboard** (outside the main frame)
 - It stays there until the page is done, then moves to the Parking Lot
+- Components built here are staged in `[STAGING]` to the left of the artboard; `figma-screen-compose` places them into the screen frames per the canvas brief
+
+### 7a. Resolving the needed-but-missing queue
+When `figma-screen-compose` finds a brief-referenced component is not yet `published`, it drops a `[MISSING] CMP-NNN` placeholder and writes a `draft` inventory entry (`requested_by: figma-screen-compose`, `triggering_screen: {ScreenID}`). Run `figma-component` to resolve these draft entries — they are the needed-but-missing queue.
 
 ---
 

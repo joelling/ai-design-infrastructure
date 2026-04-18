@@ -56,6 +56,7 @@ After completing:
 ```bash
 node design/scripts/sync-status.js          # version staleness sweep
 node design/scripts/sync-traceability.js    # bidirectional traceability validation
+node design/scripts/sync-composition.js     # brief ↔ composition log structural checks
 ```
 
 ---
@@ -103,6 +104,13 @@ Run these LLM-based checks. Read the relevant files and evaluate:
 **1g — Migration status**
 - Check `design/.migration-status.md` for pending bootstraps
 - Report each as an Info item
+
+**1h — Composition log health (figma-screen-compose)**
+- Brief ↔ composition log sync: every composition log in `design/15_FIGMA/composition-logs/` references a real brief; the brief sync-hash at composition time matches a real brief revision
+- Orphan compositions: composition log exists for a brief that has been deleted
+- Deviation backlog age: accepted deviations in composition logs that haven't been rolled back into brief edits in N days
+- Missing-component queue age: `draft` inventory entries with `requested_by: figma-screen-compose` older than N days
+- Run `node design/scripts/sync-composition.js` for the structural checks; the age/orphan semantic checks are LLM passes
 
 ### Step 2 — Classify by severity
 

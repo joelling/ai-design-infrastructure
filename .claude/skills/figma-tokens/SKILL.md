@@ -607,6 +607,12 @@ Use `figma_rename_mode` to rename the default mode (e.g., rename "Mode 1" to "Li
 
 ---
 
+## Triggers from figma-screen-compose
+
+When `figma-screen-compose` Phase A reports a token gap (a brief references a token that isn't in the catalogue, or an existing token has the wrong scope), run `figma-tokens` to resolve. Reinforce: always check linked-library variable collections, not just local — `getLocalVariableCollectionsAsync()` returns only local, and library-published tokens won't be visible without checking linked collections.
+
+---
+
 ## Checklist When Adding a New Token
 
 1. Does it exist already? Check with `figma_get_variables` first

@@ -3,7 +3,7 @@ Design System Project
 
 ## Design Playbook — Single Source of Truth
 
-**`design/process/`** is the single source of truth for the entire design process. It contains numbered mode files (01 through 18) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
+**`design/process/`** is the single source of truth for the entire design process. It contains numbered mode files (01 through 19) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
 
 ### How changes work
 - **Designers do not edit the process files directly** — all changes go through Claude
@@ -16,7 +16,7 @@ Design System Project
 - Git provides full version history of all process changes
 
 ### Skill architecture principles
-When deciding whether a process mode should map to one skill or multiple skills, follow the seven principles documented in the **Skill architecture** section of `design/process/README.md`. The decision flowchart evaluates: external tool boundaries (P1), independent re-invocation (P2), hard data dependency gates (P3), context window budget (P4), artifact coherence (P5), failure blast radius (P6), and distinct timing/triggers (P7). Currently all design-* chapters are correctly single-skill; the Figma chapter is correctly split into 11 skills (triggers P1, P2, P3, P6, P7). Two skills are on the watch list for potential future splits: `design-research` (if Phase B synthesis grows complex enough for independent invocation from Phase A) and `design-prototype` (if drift-sync logic warrants independent invocation).
+When deciding whether a process mode should map to one skill or multiple skills, follow the seven principles documented in the **Skill architecture** section of `design/process/README.md`. The decision flowchart evaluates: external tool boundaries (P1), independent re-invocation (P2), hard data dependency gates (P3), context window budget (P4), artifact coherence (P5), failure blast radius (P6), and distinct timing/triggers (P7). Currently all design-* chapters are correctly single-skill; the Figma chapter is correctly split into 12 skills (triggers P1, P2, P3, P6, P7), with `figma-screen-compose` filling the placement gap between `figma-component` and `figma-parking-lot`. Three skills are on the watch list for potential future splits: `design-research` (if Phase B synthesis grows complex enough for independent invocation from Phase A), `design-prototype` (if drift-sync logic warrants independent invocation), and `figma-screen-compose` (if Plan grows complex enough to be batched independently from Execute).
 
 ### What triggers propagation
 Any change to a process chapter must cascade to infrastructure. This includes:
@@ -33,9 +33,9 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 
 ### Operational model — Ingest / Query / Lint
 
-The 30 skills are grouped under three elemental operations (after Karpathy's LLM wiki pattern). This is a cross-cutting lens — a skill's tier tells you *when* it runs; its operation tells you *what kind of work* it does. The viewer reflects this grouping via a sidebar toggle (`By Tier` / `By Operation`); each process chapter's `operation:` YAML frontmatter drives the grouping.
+The 31 skills are grouped under three elemental operations (after Karpathy's LLM wiki pattern). This is a cross-cutting lens — a skill's tier tells you *when* it runs; its operation tells you *what kind of work* it does. The viewer reflects this grouping via a sidebar toggle (`By Tier` / `By Operation`); each process chapter's `operation:` YAML frontmatter drives the grouping.
 
-- **INGEST** — produce authoritative artifacts from raw inputs or upstream artifacts. Discovery, user-models, journeys, process-flows, stories, IA, interaction, visual, content, accessibility, research Phase A, governance Phase A, figma-handoff, figma-file-setup, figma-tokens, figma-page-setup, figma-component.
+- **INGEST** — produce authoritative artifacts from raw inputs or upstream artifacts. Discovery, user-models, journeys, process-flows, stories, IA, interaction, visual, content, accessibility, research Phase A, governance Phase A, figma-handoff, figma-file-setup, figma-tokens, figma-page-setup, figma-component, figma-screen-compose.
 - **QUERY** — aggregate artifacts into a retrieval surface at a specific axis (per-screen, per-entity, per-flow). Canvas, wireframe, prototype, query Phase A, figma-docs, figma-inventory, figma-parking-lot.
 - **LINT** — cross-check artifacts for drift, gaps, or principle violations. design-lint, design-validation, figma-audit, research Phase B, governance Phase B, query Phase B.
 
@@ -107,19 +107,22 @@ The wireframe is a validation gate (disposable, archived when Figma starts). The
 4. **`figma-tokens`** — Run before placing any design element. Token system must exist first.
 5. **`figma-page-setup`** — Run before drawing anything on a new screen or page.
 6. **`figma-component`** — Use for every UI element built. No exceptions.
-7. **`figma-parking-lot`** — Run at the end of each completed page.
-8. **`figma-inventory`** — Run after any component or token lifecycle change.
-9. **`figma-audit`** — Run before any library migration.
-10. **`figma-docs`** — Run after audit passes, for documentation pages.
-11. **`figma-library-mode`** — Run only during library migration phase.
+7. **`figma-screen-compose`** — Two-phase (Plan/Execute). Place published-library component instances into Header/Content/Footer per the canvas brief. Wrapper-frame-first; per-section screenshot review; missing components leave `[MISSING]` placeholders + `draft` inventory entries. Writes append-only composition log per screen.
+8. **`figma-parking-lot`** — Run at the end of each completed page. Reads needed-but-missing inventory queue (`requested_by: figma-screen-compose`).
+9. **`figma-inventory`** — Run after any component or token lifecycle change. Two new fields: `triggering_screen`, `requested_by`.
+10. **`figma-audit`** — Run before any library migration. Audits against composition log + brief acceptance criteria.
+11. **`figma-docs`** — Run after audit passes, for documentation pages.
+12. **`figma-library-mode`** — Run only during library migration phase.
 
 #### Develop loop sync rules:
-| Change type | Behavior |
-|---|---|
-| Content/label change | **Auto-sync** all three nodes |
-| State addition/removal | **Auto-sync** all three nodes |
-| Visual tweak | Figma → Prototype auto-syncs. Brief notes delta. |
-| Structural change | **Flag drift** — designer approves, canvas brief updates first, then propagates |
+| Direction | Trivial change (content/label) | Structural change |
+|---|---|---|
+| **Canvas → Figma → Prototype** | **Auto-sync** all three nodes | **Flag drift** — designer approves, canvas brief updates first, then propagates |
+| **Figma → Canvas (via composition log)** | **Always require approval** — proposed brief edit written as commented-out block at end of brief MD | **Always require approval** |
+
+Rationale for the asymmetry: composition log is *evidence*; canvas brief is *intent*. Auto-merging trivial Figma drift back into the brief erodes the brief's role as the single source of truth.
+
+Visual tweaks made in Figma still auto-sync to prototype (Figma → Prototype is symmetric). Only the upstream direction (Figma → Canvas) requires designer approval.
 
 ### Trigger rules:
 - Starting a new design project → `design-discovery` first
@@ -152,6 +155,13 @@ The wireframe is a validation gate (disposable, archived when Figma starts). The
 - Designer made changes in Figma → `figma-handoff` to detect and harmonize
 - Need inventory status or reconciliation → `figma-inventory`
 - Documentation pages needed for tokens or components → `figma-docs`
+- Canvas brief exists, page is set up, screen is empty → `figma-screen-compose` Phase A (Plan)
+- `figma-screen-compose` Phase A approved → Phase B (Execute)
+- Canvas brief revised and re-saved → re-run `figma-screen-compose` Phase A on affected screens (sync-hash diff)
+- Batch UI workload starting (multiple screens) → `figma-screen-compose` Phase A in batch mode for pattern report
+- Designer fine-tuned in Figma after compose → next session `figma-handoff` classifies overrides against logged compositions
+- Mid-stream missing component during composition → no block; placeholder + inventory `draft` entry + queue surfaces in next `figma-parking-lot`
+- After `figma-screen-compose` runs → `node design/scripts/sync-composition.js` to validate composition logs ↔ briefs ↔ inventory
 - Story map updated → update BRD User Stories sheet (new/changed/retired stories)
 - Business rules register updated → enrich BRD acceptance criteria with [BR-NN] tags
 - Screen inventory updated → update BRD Feature/Touchpoint column + RBAC sheet
@@ -168,7 +178,7 @@ The wireframe is a validation gate (disposable, archived when Figma starts). The
 - After `git pull` updating the toolchain → run `node design/scripts/migrate.js` to check for pending v2 bootstraps (or it runs automatically if post-merge hook is installed)
 
 ### Artifact storage:
-All design artifacts → `design/` directory at project root (including `design/14_WIREFRAME/`, `design/16_PROTOTYPE/`, `design/WIKI/`, `design/LINT_REPORT.md`, and `design/DECISION_LOG.md`)
+All design artifacts → `design/` directory at project root (including `design/14_WIREFRAME/`, `design/15_FIGMA/composition-logs/`, `design/16_PROTOTYPE/`, `design/WIKI/`, `design/LINT_REPORT.md`, and `design/DECISION_LOG.md`)
 
 ### BRD — Master Business Requirement Document
 - Path: `design/BRD.xlsx`
@@ -231,6 +241,8 @@ All design artifacts → `design/` directory at project root (including `design/
 - **Decision Log is append-only** — entries are never edited or deleted; corrections are new entries that reference and supersede the old one
 - **Wiki is for navigation, not authority** — always cite the source artifact; the wiki pages are synthesis, not ground truth
 - **On git pull: check migration status** — run `node design/scripts/migrate.js` or confirm with Claude that no bootstraps are pending
+- **`figma-screen-compose` places only published-library instances** — never local components, never parking-lot components; all property overrides via `setProperties` (never raw `node.characters`)
+- **Composition logs are append-only and evidence-only** — never edit prior runs; brief edits proposed by composition runs are written as commented-out blocks at the end of the brief MD and require explicit designer approval
 
 ### Cross-reference: Design artifacts → Develop loop
 | Design artifact | Feeds into | How |
@@ -254,8 +266,9 @@ All design artifacts → `design/` directory at project root (including `design/
 | BRD Notification Mapping | `design-interaction` | Trigger events from error strategy and notification flows |
 | BRD Data Fields | `design-ia` | Field-level details from content inventory |
 | BRD LOV | `design-content` | Canonical terms from terminology guide |
-| Designer edits (external) | `figma-handoff` | Detected changes harmonized into design system |
-| Governance inventory | `figma-inventory` | Lifecycle tracking, status, action history |
+| Designer edits (external) | `figma-handoff` | Detected changes harmonized into design system; classifies overrides against logged compositions |
+| Governance inventory | `figma-inventory` | Lifecycle tracking, status, action history; new fields `triggering_screen` and `requested_by` for compose-driven drafts |
+| Composition logs | `design-prototype`, `figma-handoff`, `figma-audit`, `design-lint`, `design-query`, `design-governance` Phase B | Per-screen append-only evidence of `figma-screen-compose` runs — `design/15_FIGMA/composition-logs/{ScreenID}_composition-log.md` |
 | Documentation components | `figma-docs` | Token visualization, component usage guides, Storybook stories |
 
 ### File architecture (3-file DLS):

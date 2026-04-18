@@ -312,3 +312,11 @@ Append a sync hash comment at the bottom of each brief:
 ```
 
 Update the hash after every sync resolution.
+
+---
+
+## Relationship to figma-screen-compose
+
+Composition logs at `design/15_FIGMA/composition-logs/{ScreenID}_composition-log.md` from `figma-screen-compose` are the canonical evidence of Figma execution against a brief. When composition surfaces brief contradictions or gaps, the proposal is written as a **commented-out block at the end of the brief MD** — never auto-applied. Designer reviews and accepts.
+
+**Asymmetry:** Canvas → Figma auto-syncs trivial changes; Figma → Canvas always requires designer approval.

@@ -177,6 +177,7 @@ When Figma execution begins for these screens:
 - **One wireframe per frame per significant breakpoint.** Only where layout fundamentally changes.
 - **Wireframes are disposable.** Archived when Figma starts, never synced, never maintained.
 - **If stakeholders comment on aesthetics, the wireframe is too refined.** Strip it back.
+- **Soft gate for composition.** When `figma-screen-compose` Phase A starts, it warns if no wireframe exists for the screen (soft gate — designer can proceed). The wireframe remains the structural validation gate before visual execution; composition fills frames the wireframe has already validated.
 
 ---
 
