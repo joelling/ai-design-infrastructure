@@ -1,8 +1,9 @@
-# MSI Test — Design System Project
+Design System Project
+<!-- toolchain-version: 2.0.0 | updated: 2026-04-18 -->
 
 ## Design Playbook — Single Source of Truth
 
-**`design/process/`** is the single source of truth for the entire design process. It contains numbered mode files (01 through 16) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
+**`design/process/`** is the single source of truth for the entire design process. It contains numbered mode files (01 through 18) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
 
 ### How changes work
 - **Designers do not edit the process files directly** — all changes go through Claude
@@ -57,6 +58,10 @@ Skills directory: `.claude/skills/` — read each SKILL.md for full workflow ins
 10. **`design-accessibility`** — WCAG, ARIA patterns, keyboard nav, contrast audit
 11. **`design-research`** — Two-phase: Phase A (init) writes scenario scripts and test plan before build; Phase B (synthesis, periodic) synthesizes completed usability findings into research-findings.md, writes increment flags to user-models and stories, and feeds behavioral evidence to governance Phase B
 12. **`design-governance`** — Two-phase: Phase A (init) sets versioning, contribution rules, deprecation policy from templates; Phase B (synthesis, periodic) codifies implicit conventions as design principles, elevates recurring patterns, refines quality gates
+
+### CROSS-CUTTING — COMPOUNDING KNOWLEDGE (invoke at any tier, any time)
+17. **`design-lint`** — Health check across all tiers: runs structural sync scripts (sync-status.js, sync-traceability.js) + LLM semantic checks (persona confidence vs. evidence, orphaned business rules, uncovered interaction states, accessibility gaps, research propagation, governance principle violations). Outputs `design/LINT_REPORT.md` by severity: 🔴 Critical / 🟡 Warning / 🟢 Info.
+18. **`design-query`** — Two-phase: Phase A (wiki bootstrap) synthesizes all tier artifacts into `design/WIKI/` — cross-referenced entity pages for personas, principles, business rules, patterns, and constraints. Ongoing: accepts natural-language questions, returns cited answers from artifact corpus, files insights back (gaps → canvas AC, contradictions → lint queue, patterns → governance Phase B). **This is the compounding loop: every query makes the corpus richer.**
 
 ### TIER 4 — DEVELOP (build, prototype, and keep in sync)
 
@@ -134,15 +139,51 @@ The wireframe is a validation gate (disposable, archived when Figma starts). The
 - Terminology guide updated → update BRD LOV sheet + align AC language
 - Canvas synthesis reveals AC gap → add [CANVAS] tagged AC to BRD
 - Screen idea or canvas brief arrives without upstream stories → apply canvas-first backward propagation rule (see `design/process/13-canvas.md` — depth-of-reach matrix: AC gap only → BRD auto; missing story → designer decision; missing journey stage → designer decision; new persona behavior → designer decision; new persona → HARD BLOCK until discovery runs)
+- Anything feels out of sync, broken, or missing → `design-lint` for a health report
+- Before entering Tier 4 → run `design-lint` to clear Critical findings
+- After any research Phase B or governance Phase B synthesis → run `design-lint` to catch propagation gaps
+- Asking "what do we know about X?" or searching across artifacts → `design-query`
+- After Tier 3 stabilizes (first time) → run `design-query` Phase A to bootstrap `design/WIKI/`
+- Querying reveals a gap, contradiction, or undocumented decision → `design-query` files it back with designer confirmation
+- After `git pull` updating the toolchain → run `node design/scripts/migrate.js` to check for pending v2 bootstraps (or it runs automatically if post-merge hook is installed)
 
 ### Artifact storage:
-All design artifacts → `design/` directory at project root (including `design/14_WIREFRAME/` and `design/16_PROTOTYPE/`)
+All design artifacts → `design/` directory at project root (including `design/14_WIREFRAME/`, `design/16_PROTOTYPE/`, `design/WIKI/`, `design/LINT_REPORT.md`, and `design/DECISION_LOG.md`)
 
 ### BRD — Master Business Requirement Document
 - Path: `design/BRD.xlsx`
 - Manifest: `design/BRD_manifest.md`
 - Blank template: `BRD_Template_v1.0.xlsx` (project root — copy to `design/BRD.xlsx` on project init)
 - Validation: `python design/scripts/sync-brd.py`
+
+### Decision Log — Append-only design decision record
+- Path: `design/DECISION_LOG.md`
+- Purpose: Append-only chronological record of key design decisions — what was decided, why, what was rejected, which artifacts are affected
+- Written by: each skill appends an entry when it makes a significant design decision
+- Format per entry:
+  ```
+  ## YYYY-MM-DD — [Decision topic]
+  Decision: [what was decided]
+  Evidence: [persona IDs, BR-NNN, DS-NNN, artifact paths]
+  Trade-off: [what was rejected and why]
+  Affects: [story IDs, canvas briefs, artifact paths]
+  ```
+- Bootstrap: for existing projects, run `design-query` and say "set up the decision log" — Claude reconstructs from documented rationale + designer fills gaps
+- Not validated by scripts — maintained by skills and designer review
+
+### Project Wiki — Cross-referenced entity knowledge base
+- Path: `design/WIKI/`
+- Entry point: `design/WIKI/index.md`
+- Generated by: `design-query` Phase A (bootstrap) + ongoing query file-backs
+- Contents: personas/, principles/, patterns/, constraints/ (business-rules, accessibility)
+- Purpose: cross-referenced synthesis for navigation, onboarding, and query answering
+- Bootstrap: run `design-query` Phase A after Tier 3 stabilizes
+- Migration: `node design/scripts/migrate.js` detects whether bootstrap is pending
+
+### Toolchain migration
+- Migration script: `node design/scripts/migrate.js` — detects pending v2 bootstraps, writes `design/.migration-status.md`
+- Post-merge hook: `design/scripts/post-merge-hook.sh` — install to `.git/hooks/post-merge` for automatic detection on git pull
+- On new capabilities: Claude reports pending bootstraps at the top of the next skill invocation
 
 ### Non-negotiable rules:
 - Journeys and stories are TECH AND UI AGNOSTIC — no screen references, no button names, no UI patterns
@@ -165,6 +206,11 @@ All design artifacts → `design/` directory at project root (including `design/
 - **BRD acceptance criteria are UI agnostic** — "allow user to select from a list" not "show dropdown of values"
 - **BRD AC uses bullet points, one requirement per bullet** — story-origin bullets are untagged (implied); downstream modes append tagged bullets inline: [BR-NN], [FLOW], [STATE], [BEHAVIOR], [A11Y], [CANVAS]
 - **BRD and story-map.md share story IDs** — bidirectional sync, validated by sync-brd.py
+- **Design-lint never auto-fixes** — it reports and prioritizes, designer decides what to act on; Critical findings should be resolved before Tier 4
+- **design-query never auto-modifies artifacts** — all file-backs (gaps, contradictions, undocumented decisions) require explicit designer confirmation
+- **Decision Log is append-only** — entries are never edited or deleted; corrections are new entries that reference and supersede the old one
+- **Wiki is for navigation, not authority** — always cite the source artifact; the wiki pages are synthesis, not ground truth
+- **On git pull: check migration status** — run `node design/scripts/migrate.js` or confirm with Claude that no bootstraps are pending
 
 ### Cross-reference: Design artifacts → Develop loop
 | Design artifact | Feeds into | How |

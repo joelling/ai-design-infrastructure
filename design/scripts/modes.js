@@ -182,6 +182,20 @@ export const MODES = {
     ],
     downstream: [],
   },
+  lint: {
+    label: 'Design Lint',
+    tier: null,  // cross-cutting — all tiers
+    outputDir: 'design/LINT',
+    inputs: [],  // reads all artifact directories; no fixed input list
+    downstream: [],
+  },
+  query: {
+    label: 'Design Query',
+    tier: null,  // cross-cutting — all tiers
+    outputDir: 'design/WIKI',
+    inputs: [],  // reads all artifact directories; no fixed input list
+    downstream: [],
+  },
 };
 
 export const TIER_LABELS = {
@@ -189,6 +203,7 @@ export const TIER_LABELS = {
   2: 'Definition',
   3: 'Design',
   4: 'Develop',
+  null: 'Cross-cutting',
 };
 
 /**

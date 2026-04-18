@@ -36,6 +36,8 @@ This directory describes the complete design process — from understanding the 
 | 14 | [Clickable ASCII Wireframe](14-wireframe.md) | `design-wireframe` | 4 — Develop |
 | 15 | [Figma Execution Pipeline](15-figma-pipeline.md) | `figma-*` | 4 — Develop |
 | 16 | [Coded Prototype](16-prototype.md) | `design-prototype` | 4 — Develop |
+| 17 | [Design Lint](17-lint.md) | `design-lint` | Cross-cutting — all tiers |
+| 18 | [Design Query + Wiki](18-query.md) | `design-query` | Cross-cutting — all tiers |
 
 ---
 
