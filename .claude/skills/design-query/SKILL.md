@@ -96,6 +96,11 @@ Create these files in `design/WIKI/`:
 **Personas** (`design/WIKI/personas/{persona-id}.md` — one per persona):
 ```markdown
 <!-- artifact: design/WIKI/personas/{id}.md | version: 1 | mode: design-query | updated: YYYY-MM-DD -->
+---
+tags:
+  - wiki/persona
+  - confidence/{tier}
+---
 
 # {Persona name} — {Persona ID}
 
@@ -113,10 +118,10 @@ Create these files in `design/WIKI/`:
 ## Where they appear
 | Artifact | Reference |
 |---|---|
-| Journeys | [list journey files that reference this persona] |
-| Stories | [DS-NNN IDs shaped by this persona] |
-| Canvas briefs | [screen IDs where this persona is referenced] |
-| Interaction states | [states shaped by this persona's needs] |
+| Journeys | [[{journey-filename}]], [[{journey-filename}]] |
+| Stories | [[story-map]] — DS-NNN, DS-NNN |
+| Canvas briefs | [[{ScreenID} {screen-name}]], [[{ScreenID} {screen-name}]] |
+| Interaction states | [[state-inventory]] — {state names} |
 
 ## Key design implications
 [2–3 actionable implications synthesized from all references]
@@ -125,6 +130,10 @@ Create these files in `design/WIKI/`:
 **Design Principles** (`design/WIKI/principles/index.md`):
 ```markdown
 <!-- artifact: design/WIKI/principles/index.md | version: 1 | mode: design-query | updated: YYYY-MM-DD -->
+---
+tags:
+  - wiki/principles
+---
 
 # Design Principles
 
@@ -132,12 +141,17 @@ Create these files in `design/WIKI/`:
 
 | ID | Principle | State | Screens influenced |
 |---|---|---|---|
-| GP-001 | [statement] | established | [list] |
+| GP-001 | [statement] | established | [[{ScreenID} {screen-name}]], [[{ScreenID} {screen-name}]] |
 ```
 
 **Business Rules** (`design/WIKI/constraints/business-rules.md`):
 ```markdown
 <!-- artifact: design/WIKI/constraints/business-rules.md | version: 1 | mode: design-query | updated: YYYY-MM-DD -->
+---
+tags:
+  - wiki/constraints
+  - wiki/business-rules
+---
 
 # Business Rules — Cross-Referenced
 
@@ -145,12 +159,17 @@ Create these files in `design/WIKI/`:
 
 | ID | Rule | Canvas briefs | Stories |
 |---|---|---|---|
-| BR-01 | [rule text] | [P-02, P-05] | [DS-NNN] |
+| BR-01 | [rule text] | [[{ScreenID} {screen-name}]], [[{ScreenID} {screen-name}]] | [[story-map]] — DS-NNN |
 ```
 
 **Accessibility Constraints** (`design/WIKI/constraints/accessibility.md`):
 ```markdown
 <!-- artifact: design/WIKI/constraints/accessibility.md | version: 1 | mode: design-query | updated: YYYY-MM-DD -->
+---
+tags:
+  - wiki/constraints
+  - wiki/accessibility
+---
 
 # Accessibility Requirements — Cross-Referenced
 
@@ -160,12 +179,16 @@ Create these files in `design/WIKI/`:
 
 | Pattern | Applies to | Canvas briefs |
 |---|---|---|
-| [ARIA pattern] | [component type] | [screens] |
+| [ARIA pattern] | [component type] | [[{ScreenID} {screen-name}]], [[{ScreenID} {screen-name}]] |
 ```
 
 **Patterns** (`design/WIKI/patterns/index.md`):
 ```markdown
 <!-- artifact: design/WIKI/patterns/index.md | version: 1 | mode: design-query | updated: YYYY-MM-DD -->
+---
+tags:
+  - wiki/patterns
+---
 
 # Interaction & Layout Patterns
 
@@ -173,12 +196,16 @@ Create these files in `design/WIKI/`:
 
 | Pattern | Definition | Instances |
 |---|---|---|
-| [name] | [abstract definition] | [canvas briefs] |
+| [name] | [abstract definition] | [[{ScreenID} {screen-name}]], [[{ScreenID} {screen-name}]] |
 ```
 
 **Wiki Index** (`design/WIKI/index.md`):
 ```markdown
 <!-- artifact: design/WIKI/index.md | version: 1 | mode: design-query | updated: YYYY-MM-DD -->
+---
+tags:
+  - wiki/index
+---
 
 # Project Wiki — {Project name from design-brief.md}
 
@@ -187,23 +214,23 @@ Create these files in `design/WIKI/`:
 **Entities:** {N personas | N principles | N business rules | N patterns}
 
 ## Quick reference
-- [Personas](personas/) — who we're designing for
-- [Design Principles](principles/index.md) — codified design decisions
-- [Business Rules](constraints/business-rules.md) — constraints with screen cross-refs
-- [Accessibility](constraints/accessibility.md) — WCAG requirements and ARIA patterns
-- [Patterns](patterns/index.md) — recurring interaction and layout patterns
+- [[personas/index|Personas]] — who we're designing for
+- [[principles/index|Design Principles]] — codified design decisions
+- [[constraints/business-rules|Business Rules]] — constraints with screen cross-refs
+- [[constraints/accessibility|Accessibility]] — WCAG requirements and ARIA patterns
+- [[patterns/index|Patterns]] — recurring interaction and layout patterns
 
 ## Project context
 [3–5 sentence synthesis from design-brief.md and value-framework.md]
 
 ## What we know about the users
-[2–3 key cross-cutting insights from persona + journey synthesis]
+[2–3 key cross-cutting insights synthesised from [[personas/index|personas]] and journeys]
 
 ## What we know about the domain
-[2–3 key constraints or opportunities from discovery + process flows]
+[2–3 key constraints or opportunities; see [[constraints/business-rules|business rules]] for the full register]
 
 ## Design system state
-[Token coverage, component status, governance state — based on what exists]
+[Token coverage, component status; see [[principles/index|design principles]] for governance state]
 ```
 
 ### Step 3 — Update migration status
@@ -283,3 +310,4 @@ Always ask before filing back. Present the proposed change to the designer and w
 - Query results with no gaps, contradictions, or patterns need no file-back — just answer.
 - Wiki pages carry version headers. When a source artifact version advances past what the wiki page recorded, the wiki page is stale — flag it and offer to update.
 - The wiki is readable by someone who has never run any design mode — it must be self-contained and jargon-free where possible.
+- **Obsidian graph compatibility:** all cross-references between wiki pages and to canvas briefs must use `[[wikilinks]]`, not regular markdown links. Regular links are invisible to Obsidian's graph engine. Use `[[filename|display text]]` when a readable label is needed. Every entity page must include YAML frontmatter with a `tags:` block using the `wiki/{type}` convention so nodes can be filtered and coloured by type in the graph view.
