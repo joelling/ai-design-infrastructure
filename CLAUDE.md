@@ -176,6 +176,8 @@ Visual tweaks made in Figma still auto-sync to prototype (Figma → Prototype is
 - After Tier 3 stabilizes (first time) → run `design-query` Phase A to bootstrap `design/WIKI/`
 - Querying reveals a gap, contradiction, or undocumented decision → `design-query` files it back with designer confirmation
 - After `git pull` updating the toolchain → run `node design/scripts/migrate.js` to check for pending v2 bootstraps (or it runs automatically if post-merge hook is installed)
+- Any source artifact version bumped → run `node design/scripts/sync-wiki.js` to detect stale wiki pages and refresh `design/WIKI/.backlinks.json`
+- After any artifact is retired or replaced (Split / Merge / Supersede) → run `node design/scripts/sync-retirement.js` to validate `superseded_by` / `merged_into` / `supersedes` pointer integrity
 
 ### Artifact storage:
 All design artifacts → `design/` directory at project root (including `design/14_WIREFRAME/`, `design/15_FIGMA/composition-logs/`, `design/16_PROTOTYPE/`, `design/WIKI/`, `design/LINT_REPORT.md`, and `design/DECISION_LOG.md`)
