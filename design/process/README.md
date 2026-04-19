@@ -245,9 +245,42 @@ Artifacts can be retired without being deleted — retirement preserves history,
 - Still accept incoming references (other artifacts may continue to cite them for history)
 - Keep their stable IDs forever — retired IDs are never reassigned
 
-Retirable artifact types include: personas, stories (DS-NNN), screens (P-/OV-/DE-), business rules (BR-NN), design principles (GP-NNN), patterns (PA-NNN), canvas briefs, interaction specs, wireframes, components (via `figma-inventory` lifecycle), and wiki entity pages. When in doubt, retire rather than delete.
+Retirable artifact types include: personas, stories (DS-NNN), screens (P-/OV-/DE-), business rules (BR-NN), design principles (GP-NNN), patterns (PA-NNN), canvas briefs, interaction specs, wireframes, components (via `figma-inventory` lifecycle), and wiki entity pages.
 
-**Known gap:** `sync-traceability.js` does not yet validate that `[BR-NN]` tags in BRD acceptance criteria correspond to entries in the business rules register. BR-NN tag orphans require manual cross-check until a validation script is added.
+#### When to retire vs. when to edit — the framework
+
+**Core principle:** retire when the artifact's *meaning to its consumers* changes; edit when its meaning stays the same. Stable IDs are a contract with downstream artifacts — every persona, story, business rule, and screen ID has been cited, validated, and shipped against. Volume of edits is a poor signal: a one-word change can break the contract; 200 lines of new evidence may not. Decide by semantic impact, not edit size.
+
+**Three-tier classification** — applies to any output type:
+
+| Tier | Action | When to use | Why |
+|---|---|---|---|
+| **Refinement** | Edit + bump version | The artifact says the same thing, just better/clearer/with more evidence | No downstream consumer would reach a different conclusion |
+| **Revision** | Edit + bump version + Decision Log entry | Substantive update — new constraint, reordered sub-elements, sharpened scope — but the artifact still refers to the same "thing in the world" | History matters but consumers don't need to re-validate |
+| **Replacement** | Retire + create new ID(s) | The artifact's identity, scope, or foundational claim changes such that downstream consumers must re-evaluate | Preserves the integrity of the stable-ID contract |
+
+**Decision criteria** — apply in order; the first "yes" wins:
+
+1. **Identity test** — Does the stable ID still refer to the same thing in the world? *Persona splits into two roles → Replace. Story scope expands to absorb a sibling story → Replace.*
+2. **Contract test** — Would a downstream consumer that already validated against this artifact reasonably reach a different conclusion now? *BR-06 changes from "warn" to "block" → Replace. BR-06 wording sharpens, behaviour identical → Edit.*
+3. **Reversal test** — Does the change reverse, contradict, or invalidate a foundational claim of the prior version? *Persona's primary JTBD flips → Replace. Persona's secondary JTBD added → Edit.*
+4. **Historical-value test** — Would seeing the old version help future readers understand why downstream decisions were made the way they were? *Old version was cited in a Decision Log entry or shaped a Figma screen that still exists → Retire (preserve history). Old version was a draft nobody depended on → Edit.*
+5. **Otherwise** — Edit, bump version, and let the version header carry the audit trail.
+
+**Three named patterns for replacement:**
+
+- **Split** — Original retired; new IDs created. Retired artifact's frontmatter carries `superseded_by: [NEW-ID-A, NEW-ID-B]` and a brief why-split note.
+- **Merge** — One surviving ID kept (usually the older or higher-coverage one). Other IDs retired with `merged_into: SURVIVOR-ID`.
+- **Supersede** — One-to-one replacement (rare; usually means you should have edited unless the meaning genuinely changed). Old → `superseded_by: NEW-ID`. New → `supersedes: OLD-ID`.
+
+**Edge cases:**
+
+- **Synthesized artifacts (wiki pages, canvas briefs) never retire on their own.** They re-derive from sources. They are "retired" only by retiring their source — `sync-wiki.js` will then mark the wiki page stale and `design-query` will regenerate or remove it on the next pass.
+- **Composition logs and the Decision Log are append-only — never edited, never retired.** Corrections are new entries that reference and supersede the old one.
+- **Figma components have their own lifecycle** managed by `figma-inventory` (`draft → published → deprecated → retired`). The convention here complements that — the retirement *marker* is identical (`status: retired`) but the lifecycle states stay where they are.
+- **High-degree nodes have a higher retirement bar.** A persona referenced by 40 canvas briefs retires only when the Identity, Contract, or Reversal test triggers — not on Historical-value alone, because the propagation cost is too high. When in doubt for a high-degree node, prefer Revision (edit + Decision Log) over Replacement.
+
+**Known gap:** `sync-traceability.js` does not yet validate that `[BR-NN]` tags in BRD acceptance criteria correspond to entries in the business rules register. BR-NN tag orphans require manual cross-check until a validation script is added. It also does not yet validate `superseded_by` / `merged_into` / `supersedes` pointer integrity — a future `sync-retirement.js` may close this gap.
 
 Mode config (output dirs, inputs, downstream consumers) is defined in `design/scripts/modes.js`.
 
