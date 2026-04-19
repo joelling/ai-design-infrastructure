@@ -211,7 +211,8 @@ Three CLI scripts in `design/scripts/` automate the error-prone parts of the syn
 | `sync-version.js` | `node design/scripts/sync-version.js <read\|init\|bump> <file> [mode]` | Read, initialize, or increment artifact version headers |
 | `sync-manifest.js` | `node design/scripts/sync-manifest.js <mode-name>` | Scan a mode's inputs and outputs, write `_upstream.md` manifest |
 | `sync-status.js` | `node design/scripts/sync-status.js` | Pipeline sweep — scan all manifests, detect staleness, report |
-| `sync-traceability.js` | `node design/scripts/sync-traceability.js` | Validate bidirectional consistency: canvas briefs ↔ story map ↔ screen inventory ↔ interaction specs ↔ business rules |
+| `sync-traceability.js` | `node design/scripts/sync-traceability.js` | Validate bidirectional consistency: canvas briefs ↔ story map ↔ screen inventory ↔ interaction specs ↔ business rules. Honors `status: retired` markers and excludes retired artifacts from orphan checks |
+| `sync-wiki.js` | `node design/scripts/sync-wiki.js` | Wiki staleness check — compare `evidence:` versions in `design/WIKI/**.md` against current source artifact versions. Also regenerates `design/WIKI/.backlinks.json` — the reverse index of every `[[wikilink]]` and stable ID (DS-NNN, BR-NN, GP-NNN, P-/OV-/DE-, PER-NNN, RF-NNN, PA-NNN) across the `design/` corpus |
 
 **Typical workflow:**
 1. After completing a mode, run `sync-version.js init` or `bump` on each output file
@@ -222,6 +223,29 @@ Three CLI scripts in `design/scripts/` automate the error-prone parts of the syn
 - Any canvas brief is created or updated
 - Story map changes (new, modified, or retired stories)
 - Screen inventory changes (new screens, renamed screens, story-to-screen reassignments)
+- Any artifact is retired (marker added — sync-traceability.js will exclude it from orphan checks and list it under section 9 of the report)
+
+**Run `sync-wiki.js` after:**
+- Any source artifact is bumped — catches wiki pages whose synthesized content now lags the source
+- A project-wide read of the graph is needed — the generated `design/WIKI/.backlinks.json` lists every artifact or wiki page referencing a given target, keyed by target name
+
+### Retirement status convention
+
+Artifacts can be retired without being deleted — retirement preserves history, keeps stable IDs from being reused, and excludes the artifact from orphan and coverage checks. There is one canonical convention across the toolchain:
+
+| Artifact shape | How to mark retired | Example |
+|---|---|---|
+| File with YAML frontmatter (personas, canvas briefs, interaction specs, wiki pages) | Add `status: retired` inside the first `---` block | `status: retired` |
+| Registry file with one heading per entry (screen-inventory.md, business-rules-register.md) | Append `[retired]` to the heading text | `### P-07 — Legacy Search [retired]` |
+| Registry file with one table row per entry (story-map.md, design-principles table) | Include the word `retired` (or `deprecated`) on the row | `\| DS-013 \| … \| retired — see DS-041 \|` |
+
+`sync-traceability.js` and `sync-wiki.js` both honor these markers. Retired artifacts:
+- Are excluded from orphan / coverage / "missing brief" checks
+- Are listed under "section 9 — Retired Artifacts" in the traceability report for transparency
+- Still accept incoming references (other artifacts may continue to cite them for history)
+- Keep their stable IDs forever — retired IDs are never reassigned
+
+Retirable artifact types include: personas, stories (DS-NNN), screens (P-/OV-/DE-), business rules (BR-NN), design principles (GP-NNN), patterns (PA-NNN), canvas briefs, interaction specs, wireframes, components (via `figma-inventory` lifecycle), and wiki entity pages. When in doubt, retire rather than delete.
 
 **Known gap:** `sync-traceability.js` does not yet validate that `[BR-NN]` tags in BRD acceptance criteria correspond to entries in the business rules register. BR-NN tag orphans require manual cross-check until a validation script is added.
 

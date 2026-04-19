@@ -177,6 +177,25 @@ design/WIKI/
 [State of the design system: token coverage, component count, governance status]
 ```
 
+**Step 2.5 — Shard oversized entity pages**
+
+As projects grow, a persona's "Where they appear" table can list hundreds of rows, and a business-rule register can sprawl. When a single cross-reference table on an entity page exceeds ~200 rows, or the page itself exceeds ~500 lines, split along the table axes:
+
+```
+design/WIKI/personas/{id}/
+  index.md         ← synthesis, JTBD, archetype, design implications
+  stories.md       ← full story table
+  canvas.md        ← full canvas-brief table
+  journeys.md      ← full journey table
+  states.md        ← full interaction-state table
+```
+
+Only split the tables that exceed the threshold; smaller tables stay on the index. The index page must remain self-sufficient for the question "who is this persona?"; sub-pages expose the long-tail traceability.
+
+Cross-references still resolve via `[[personas/{id}]]` (points at the index). Sub-pages are reached explicitly (e.g. `[[personas/{id}/stories]]`).
+
+The same rule applies to `principles/{id}/`, `constraints/business-rules/{id}/`, and `patterns/{id}/` when their tables grow past the thresholds. Small and medium projects keep the flat layout — this is a scale adaptation, not a default.
+
 **Step 3 — Write migration status update**
 Update `design/.migration-status.md` to mark wiki as bootstrapped.
 

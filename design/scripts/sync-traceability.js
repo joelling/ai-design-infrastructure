@@ -24,9 +24,27 @@ const SCREEN_ID_PATTERN = /^(P-\d+|OV-\d+|DE-\d+)_/;
 const STORY_ID_PATTERN = /DS-\d+/g;
 const BR_PATTERN = /BR-\d+/g;
 const HOST_PATTERN = /\*\*Host:\*\*.*?(P-\d+|OV-\d+|DE-\d+)/g;
+const RETIRED_HEADING = /\[retired\]\s*$/i;
+const RETIRED_ROW = /\b(retired|deprecated)\b/i;
+
+function hasRetiredFrontmatter(content) {
+  if (!content || !content.startsWith('---')) return false;
+  const end = content.indexOf('\n---', 3);
+  if (end < 0) return false;
+  const block = content.slice(0, end);
+  return /\bstatus:\s*retired\b/.test(block);
+}
 
 let errorCount = 0;
 let warningCount = 0;
+
+const retiredRegistry = {
+  screens: new Set(),
+  briefs: new Set(),
+  businessRules: new Set(),
+  stories: new Set(),
+  specs: new Set(),
+};
 
 // --- Helpers ---
 
@@ -106,13 +124,18 @@ function loadStoryMapIds() {
     .filter(f => /story.?map/i.test(f.name));
   const allIds = new Set();
   const reservedIds = new Set();
+  const retiredIds = new Set();
   for (const { full } of storyFiles) {
     const content = readFile(full);
     if (!content) continue;
     for (const line of content.split('\n')) {
-      // Skip lines that explicitly declare IDs as reserved, retired, or not assigned
-      if (/\breserved\b|\bretired\b|not assigned in this map/i.test(line)) {
-        for (const id of extractStoryIds(line)) reservedIds.add(id);
+      const retiredLine = /\bretired\b/i.test(line);
+      const reservedLine = /\breserved\b|not assigned in this map/i.test(line);
+      if (retiredLine || reservedLine) {
+        for (const id of extractStoryIds(line)) {
+          reservedIds.add(id);
+          if (retiredLine) retiredIds.add(id);
+        }
         continue;
       }
       for (const id of extractStoryIds(line)) {
@@ -122,7 +145,7 @@ function loadStoryMapIds() {
   }
   // Remove any reserved IDs that snuck in before the reserved line was encountered
   for (const id of reservedIds) allIds.delete(id);
-  return { ids: allIds, files: storyFiles.map(f => f.name) };
+  return { ids: allIds, files: storyFiles.map(f => f.name), retired: retiredIds };
 }
 
 function loadCanvasBriefs() {
@@ -130,6 +153,12 @@ function loadCanvasBriefs() {
     const content = readFile(full) || '';
     const traceSection = extractTraceabilitySection(content);
     const screenIdMatch = name.match(SCREEN_ID_PATTERN);
+    const retired = hasRetiredFrontmatter(content) ||
+      content.split('\n').some(l => /^#{1,6}\s/.test(l) && RETIRED_HEADING.test(l));
+    if (retired) {
+      retiredRegistry.briefs.add(name);
+      if (screenIdMatch) retiredRegistry.screens.add(screenIdMatch[1]);
+    }
     return {
       name,
       full,
@@ -138,6 +167,7 @@ function loadCanvasBriefs() {
       screenId: screenIdMatch ? screenIdMatch[1] : null,
       storyIds: extractStoryIds(traceSection),
       brIds: extractBrIds(traceSection),
+      retired,
     };
   });
 }
@@ -156,8 +186,13 @@ function loadScreenInventory() {
     const headingMatch = line.match(/^#{1,4}\s+(P-\d+|OV-\d+|DE-\d+)\s*[—-]/);
     if (headingMatch) {
       currentScreenId = headingMatch[1];
-      if (!screens.find(s => s.screenId === currentScreenId)) {
-        screens.push({ screenId: currentScreenId, storyIds: [] });
+      const retired = RETIRED_HEADING.test(line);
+      if (retired) retiredRegistry.screens.add(currentScreenId);
+      const existing = screens.find(s => s.screenId === currentScreenId);
+      if (!existing) {
+        screens.push({ screenId: currentScreenId, storyIds: [], retired });
+      } else if (retired) {
+        existing.retired = true;
       }
       continue;
     }
@@ -202,8 +237,34 @@ function loadInteractionSpecs() {
     while ((match = hostRe.exec(content)) !== null) {
       hostIds.add(match[1]);
     }
-    return { name, full, content, hostIds: [...hostIds], brIds: extractBrIds(content) };
+    const retired = hasRetiredFrontmatter(content) ||
+      content.split('\n').some(l => /^#{1,6}\s/.test(l) && RETIRED_HEADING.test(l));
+    if (retired) retiredRegistry.specs.add(name);
+    return { name, full, content, hostIds: [...hostIds], brIds: extractBrIds(content), retired };
   });
+}
+
+/**
+ * Parse the business-rules register for retired BR-NN entries.
+ * Marker: either a `retired`/`deprecated` word on the BR's table row, or
+ * a `[retired]` marker at the end of a `### BR-NN` heading.
+ */
+function loadRetiredBusinessRules() {
+  const registerPath = path.join(projectRoot, 'design/04_PROCESS_FLOWS/business-rules-register.md');
+  const content = readFile(registerPath);
+  if (!content) return;
+  const lines = content.split('\n');
+  for (const line of lines) {
+    const headingMatch = line.match(/^#{1,6}\s+(BR-\d+)\b/);
+    if (headingMatch && RETIRED_HEADING.test(line)) {
+      retiredRegistry.businessRules.add(headingMatch[1]);
+      continue;
+    }
+    if (line.startsWith('|') && RETIRED_ROW.test(line)) {
+      const idMatch = line.match(/BR-\d+/);
+      if (idMatch) retiredRegistry.businessRules.add(idMatch[0]);
+    }
+  }
 }
 
 // --- Checks ---
@@ -233,6 +294,7 @@ function check2_screenInventoryToCanvas(screens, briefs) {
   const canvasScreenIds = new Set(briefs.map(b => b.screenId).filter(Boolean));
   const missing = [];
   for (const screen of screens) {
+    if (screen.retired || retiredRegistry.screens.has(screen.screenId)) continue;
     if (screen.storyIds.length > 0 && !canvasScreenIds.has(screen.screenId)) {
       missing.push(screen.screenId);
     }
@@ -271,6 +333,7 @@ function check4_storyToScreen(storyMapIds, screens) {
   console.log('\n--- 4. Story \u2192 Screen (reverse) ---');
   const screensByStory = new Map();
   for (const screen of screens) {
+    if (screen.retired || retiredRegistry.screens.has(screen.screenId)) continue;
     for (const sid of screen.storyIds) {
       if (!screensByStory.has(sid)) screensByStory.set(sid, []);
       screensByStory.get(sid).push(screen.screenId);
@@ -278,6 +341,7 @@ function check4_storyToScreen(storyMapIds, screens) {
   }
   const unassigned = [];
   for (const sid of [...storyMapIds].sort()) {
+    if (retiredRegistry.stories.has(sid)) continue;
     if (!screensByStory.has(sid)) {
       unassigned.push(sid);
     }
@@ -316,6 +380,7 @@ function check5_canvasToInteractionSpecs(briefs, specs) {
 function check6_canvasToBusinessRules(briefs, storyMapContent, specs) {
   console.log('\n--- 6. Canvas \u2192 Business Rules ---');
   let allGood = true;
+  const skipBrief = brief => brief.retired || (brief.screenId && retiredRegistry.screens.has(brief.screenId));
 
   // Build a map: story ID -> BR IDs from story maps and interaction specs
   const brByStory = new Map();
@@ -327,6 +392,7 @@ function check6_canvasToBusinessRules(briefs, storyMapContent, specs) {
   // Simpler approach: for each canvas brief, collect expected BRs from story map
   // lines containing its story IDs, and from interaction specs hosting its screen
   for (const brief of briefs) {
+    if (skipBrief(brief)) continue;
     const expectedBrs = new Set();
 
     // BRs from story map lines containing this brief's story IDs
@@ -335,7 +401,7 @@ function check6_canvasToBusinessRules(briefs, storyMapContent, specs) {
       for (const line of storyMapLines) {
         if (line.includes(sid)) {
           for (const br of extractBrIds(line)) {
-            expectedBrs.add(br);
+            if (!retiredRegistry.businessRules.has(br)) expectedBrs.add(br);
           }
         }
       }
@@ -344,9 +410,10 @@ function check6_canvasToBusinessRules(briefs, storyMapContent, specs) {
     // BRs from interaction specs that host this screen
     if (brief.screenId) {
       for (const spec of specs) {
+        if (spec.retired) continue;
         if (spec.hostIds.includes(brief.screenId)) {
           for (const br of spec.brIds) {
-            expectedBrs.add(br);
+            if (!retiredRegistry.businessRules.has(br)) expectedBrs.add(br);
           }
         }
       }
@@ -407,7 +474,9 @@ function check8_storyScreenSummary(storyMapIds, screens) {
 
 console.log('=== Canvas \u2194 Stories Traceability Report ===');
 
-const { ids: storyMapIds, files: storyMapFiles } = loadStoryMapIds();
+const { ids: storyMapIds, files: storyMapFiles, retired: retiredStoryIds } = loadStoryMapIds();
+for (const id of retiredStoryIds) retiredRegistry.stories.add(id);
+loadRetiredBusinessRules();
 const briefs = loadCanvasBriefs();
 const screens = loadScreenInventory();
 const specs = loadInteractionSpecs();
@@ -432,6 +501,18 @@ check5_canvasToInteractionSpecs(briefs, specs);
 check6_canvasToBusinessRules(briefs, storyMapContent, specs);
 check7_filenameConvention(briefs);
 check8_storyScreenSummary(storyMapIds, screens);
+
+// --- Retired summary ---
+
+const anyRetired = Object.values(retiredRegistry).some(s => s.size > 0);
+if (anyRetired) {
+  console.log('\n--- 9. Retired Artifacts (excluded from orphan checks) ---');
+  for (const [kind, set] of Object.entries(retiredRegistry)) {
+    if (set.size === 0) continue;
+    const items = [...set].sort().join(', ');
+    console.log(`  ${kind}: ${items}`);
+  }
+}
 
 console.log(`\n=== Summary: ${errorCount} errors, ${warningCount} warnings ===`);
 

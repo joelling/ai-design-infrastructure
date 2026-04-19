@@ -63,7 +63,10 @@ After ongoing query:
 ### Script commands (Phase A)
 ```bash
 node design/scripts/sync-status.js    # assess which tiers have artifacts (read-only)
+node design/scripts/sync-wiki.js      # check wiki staleness + regenerate design/WIKI/.backlinks.json
 ```
+
+Run `sync-wiki.js` after Phase A completes to materialise the reverse index, and re-run it on every ongoing query that updates a wiki page so the backlink file stays current.
 
 ---
 
@@ -236,6 +239,31 @@ tags:
 [Token coverage, component status; see [[principles/index|design principles]] for governance state]
 ```
 
+### Step 2.5 — Shard oversized wiki pages
+
+Entity pages grow as the project grows. Cross-reference tables that list every screen, story, or state a persona touches become unreadable past a few hundred rows. When a page crosses a scale threshold, split it along the table axes; keep the synthesis in the index, move the tables into per-axis sub-pages.
+
+**Thresholds (apply per page):**
+- A single cross-reference table exceeds ~200 rows, **or**
+- The page exceeds ~500 lines in total
+
+When either threshold is hit for an entity (persona, principle, rule, pattern), restructure from `design/WIKI/personas/{id}.md` to:
+
+```
+design/WIKI/personas/{id}/
+  index.md         ← synthesis, JTBD, archetype, key design implications
+  journeys.md      ← full journeys table (if >200 rows)
+  stories.md       ← full story table (if >200 rows)
+  canvas.md        ← full canvas-brief table (if >200 rows)
+  states.md        ← full interaction-state table (if >200 rows)
+```
+
+Only split the tables that exceed the threshold — smaller tables stay on `index.md`. The `index.md` page must still be self-contained enough to answer "who is this persona?" without the sub-pages. Each sub-page carries its own version header citing the same source artifact as the index.
+
+Cross-references to a sharded entity continue to point at `[[personas/{id}]]` (resolves to the index). Sub-pages are reached by `[[personas/{id}/stories]]` etc.
+
+The same rule applies to other entity types — `principles/{id}/`, `constraints/business-rules/{id}/`, `patterns/{id}/` — when their own cross-reference tables exceed the thresholds. For small and medium projects, keep the flat single-file layout.
+
 ### Step 3 — Update migration status
 Write or update `design/.migration-status.md`:
 ```markdown
@@ -313,4 +341,5 @@ Always ask before filing back. Present the proposed change to the designer and w
 - Query results with no gaps, contradictions, or patterns need no file-back — just answer.
 - Wiki pages carry version headers. When a source artifact version advances past what the wiki page recorded, the wiki page is stale — flag it and offer to update.
 - The wiki is readable by someone who has never run any design mode — it must be self-contained and jargon-free where possible.
+- **Shard at scale.** When an entity page's cross-reference table exceeds ~200 rows or the page exceeds ~500 lines, split into a `personas/{id}/` (or analogous) subdirectory with `index.md` holding the synthesis and per-axis sub-pages holding the large tables. Small and medium projects keep the flat layout. See Step 2.5.
 - **Obsidian graph compatibility:** all cross-references between wiki pages and to canvas briefs must use `[[wikilinks]]`, not regular markdown links. Regular links are invisible to Obsidian's graph engine. Use `[[filename|display text]]` when a readable label is needed. Every entity page must include YAML frontmatter with a `tags:` block using the `wiki/{type}` convention so nodes can be filtered and coloured by type in the graph view.
