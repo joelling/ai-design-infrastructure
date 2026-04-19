@@ -9,6 +9,7 @@ description: >
   "token setup", "hardcoded values found", "fix token", "new design token", or when creating
   any variable in Figma. Also use whenever a component needs a value that doesn't yet
   exist as a token -- create the token first, then bind it.
+  Umbrella: `design-foundation-library` (Phase A bootstrap and Phase B token revisions). Token revisions in this skill trigger `design-component-library` Phase B for code-side rebuild.
 ---
 
 # Design Token System -- Foundation DLS Conventions

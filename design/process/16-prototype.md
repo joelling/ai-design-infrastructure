@@ -2,9 +2,9 @@
 operation: query
 ---
 
-# Coded Prototype
+# Prototype
 
-> **Tier 4 — Develop** | Mode: `design-prototype`
+> **Tier 4 — Develop sequential** | Mode: `design-prototype`
 
 ## Why this matters
 
@@ -35,7 +35,7 @@ Changes propagate between all three. See **Sync rules** below.
 
 | Artifact | What it provides | Path |
 |----------|-----------------|------|
-| Canvas briefs | Per-screen spec (structure, content, states, a11y, behavior) | `design/13_CANVAS/[screen]-brief.md` |
+| Canvas briefs | Per-screen spec (structure, content, states, a11y, behavior) | `design/13_CANVAS_BRIEFS/[screen]-brief.md` |
 | Figma screens | Visual reference via MCP (screenshot, inspect, component details) | Figma MCP tools |
 | Walking skeleton | Flow order — which screens to wire first | `design/05_STORIES/walking-skeleton.md` |
 | Story map + release slices | Scope — which stories are in this prototype round | `design/05_STORIES/story-map.md`, `release-slices.md` |

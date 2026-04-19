@@ -13,6 +13,7 @@ description: >
   figma-page-setup and AFTER any required components exist in the published
   Components DLS library. Do NOT use raw figma_execute for this — that bypasses
   composition logging, screenshot review, and back-pressure to upstream.
+  Umbrella: `design-screen-compose` (the per-sprint composition orchestrator). Do not confuse this sub-skill (one-screen mechanics) with the umbrella (per-sprint orchestration across multiple screens).
 ---
 
 # Screen Composition — Canvas Brief → Figma Screens
@@ -70,11 +71,11 @@ Before either phase, verify upstream sync hashes:
 
 | Artifact | Check |
 |---|---|
-| Canvas brief (`design/13_CANVAS/{ScreenID}_*.md`) | Sync hash present, brief version current |
+| Canvas brief (`design/13_CANVAS_BRIEFS/{ScreenID}_*.md`) | Sync hash present, brief version current |
 | Inventory (`design/12_GOVERNANCE/inventory.md`) | Last-updated timestamp newer than last composition for this screen |
 | Page setup (target Figma page) | Header/Content/Footer sub-frames exist, [STAGING] frame present |
 | Token catalogue (linked-library variables) | `figma_get_variables` returns expected collections (Foundation DLS) |
-| Wireframe (`design/14_WIREFRAME/{ScreenID}.txt`) | **Soft warn** if absent — wireframe gate has not run |
+| Wireframe (`design/14_WIREFRAMES/{ScreenID}.txt`) | **Soft warn** if absent — wireframe gate has not run |
 
 Report any mismatches and ask the designer whether to proceed, refresh upstream, or abort.
 
@@ -136,7 +137,7 @@ Surface every gap that would cause Phase B to compromise:
 | **Brief contradiction** | Section 4 conflicts with Section 6 / 7 (e.g., references content for a state that doesn't exist) | Designer edits brief in Claude Code; re-run Phase A |
 | **Ambiguous brief** | Section 4 lists "elements" without explicit order; or Section 12 silent on breakpoint adaptation | Designer disambiguates inline OR accepts agent's stated assumption as deviation |
 | **Visually-plausible-but-semantically-wrong risk** | Brief Section 6 silent on which variant maps to which state (e.g., Button/Primary vs Button/Neutral for "Save") | Plan flags as deviation; never guess silently |
-| **Wireframe absent** | `design/14_WIREFRAME/{ScreenID}.txt` not found | Soft warn; designer chooses |
+| **Wireframe absent** | `design/14_WIREFRAMES/{ScreenID}.txt` not found | Soft warn; designer chooses |
 
 ### A.4 — Batch-mode pattern report (optional)
 
@@ -242,7 +243,7 @@ For every VARIANT property selection, cross-check against brief Section 6's expl
 After each frame is composed, append to `design/15_FIGMA/composition-logs/{ScreenID}_composition-log.md`:
 
 ```markdown
-<!-- artifact: design/15_FIGMA/composition-logs/{ScreenID}_composition-log.md | version: N | mode: figma-screen-compose | updated: YYYY-MM-DD | evidence: design/13_CANVAS/{ScreenID}_*.md@vM -->
+<!-- artifact: design/15_FIGMA/composition-logs/{ScreenID}_composition-log.md | version: N | mode: figma-screen-compose | updated: YYYY-MM-DD | evidence: design/13_CANVAS_BRIEFS/{ScreenID}_*.md@vM -->
 
 # Composition Log — {ScreenID}
 
@@ -287,7 +288,7 @@ After Phase B completes a screen, surface in Claude Code:
 
 - Inventory `draft` entries written this run → "{N} components flagged as needed-but-missing. Run `figma-component` when ready."
 - Token gaps flagged → "{N} token gaps. Run `figma-tokens` when ready."
-- Brief edit proposals → "{N} brief edits proposed in commented blocks at the bottom of `design/13_CANVAS/{ScreenID}_*.md`. Review and accept manually."
+- Brief edit proposals → "{N} brief edits proposed in commented blocks at the bottom of `design/13_CANVAS_BRIEFS/{ScreenID}_*.md`. Review and accept manually."
 - Story orphans (Section 2 references story IDs not in story map) → "Run `node design/scripts/sync-traceability.js`."
 
 ---
@@ -335,11 +336,11 @@ Why the asymmetry: composition log is *evidence* of what got built; brief is the
 ## Inputs / outputs summary
 
 **Reads:**
-- `design/13_CANVAS/{ScreenID}_*.md` — canvas brief
+- `design/13_CANVAS_BRIEFS/{ScreenID}_*.md` — canvas brief
 - `design/12_GOVERNANCE/inventory.md` — filter to `status: published`
 - Linked-library variable collections via `figma_get_variables`
 - Current Figma page state (artboards, sub-frames, staging area)
-- `design/14_WIREFRAME/{ScreenID}.txt` — soft-gate check
+- `design/14_WIREFRAMES/{ScreenID}.txt` — soft-gate check
 
 **Writes:**
 - Figma file mutations (within wrapper frame inside Content sub-frame)

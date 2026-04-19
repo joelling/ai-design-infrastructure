@@ -22,23 +22,24 @@ This directory describes the complete design process — from understanding the 
 |---|------|------|------|
 | 01 | [Discovery](01-discovery.md) | `design-discovery` | 1 — Discovery |
 | 02 | [User Models](02-user-models.md) | `design-user-models` | 1 — Discovery |
-| 03 | [Journey Mapping](03-journeys.md) | `design-journeys` | 2 — Definition |
+| 03 | [Journeys](03-journeys.md) | `design-journeys` | 2 — Definition |
 | 04 | [Process Flows](04-process-flows.md) | `design-process-flows` | 2 — Definition |
-| 05 | [User Story Mapping](05-stories.md) | `design-stories` | 2 — Definition |
+| 05 | [User Stories](05-stories.md) | `design-stories` | 2 — Definition |
 | 06 | [Information Architecture](06-ia.md) | `design-ia` | 2 — Definition |
 | 07 | [Interaction Design](07-interaction.md) | `design-interaction` | 3 — Design |
 | 08 | [Visual Design](08-visual.md) | `design-visual` | 3 — Design |
 | 09 | [Content Strategy](09-content.md) | `design-content` | 3 — Design |
 | 10 | [Accessibility](10-accessibility.md) | `design-accessibility` | 3 — Design |
-| 11 | [Design Research](11-validation.md) | `design-research` | 3 — Design (init) / Lifecycle (synthesis) |
-| 12 | [Design System Governance](12-governance.md) | `design-governance` | 3 — Design (init) / Lifecycle (synthesis) |
-| 13 | [Design-to-Canvas Synthesis](13-canvas.md) | `design-canvas` | 4 — Develop |
-| 14 | [Clickable ASCII Wireframe](14-wireframe.md) | `design-wireframe` | 4 — Develop |
-| 15 | [Figma Execution Pipeline](15-figma-pipeline.md) | `figma-*` | 4 — Develop |
-| 16 | [Figma Screen Composition](16-figma-screen-compose.md) | `figma-screen-compose` | 4 — Develop |
-| 17 | [Coded Prototype](17-prototype.md) | `design-prototype` | 4 — Develop |
-| 18 | [Design Lint](18-lint.md) | `design-lint` | Cross-cutting — all tiers |
-| 19 | [Design Query + Wiki](19-query.md) | `design-query` | Cross-cutting — all tiers |
+| 11 | [Research](11-validation.md) | `design-research` | 3 — Design (init) / Lifecycle (synthesis) |
+| 12 | [Governance](12-governance.md) | `design-governance` | 3 — Design (init) / Lifecycle (synthesis) |
+| 13 | [Canvas Briefs](13-canvas.md) | `design-canvas` | 4 — Develop sequential |
+| 14 | [Wireframes](14-wireframe.md) | `design-wireframe` | 4 — Develop sequential |
+| 15 | [Screen Composition](15-screen-compose.md) | `design-screen-compose` umbrella (`figma-connect`, `figma-handoff`, `figma-file-setup`, `figma-page-setup`, `figma-screen-compose`) | 4 — Develop sequential |
+| 16 | [Prototype](16-prototype.md) | `design-prototype` | 4 — Develop sequential |
+| 17 | [Foundation Library](17-foundation-library.md) | `design-foundation-library` umbrella (`figma-tokens`, `figma-component`, `figma-parking-lot`, `figma-inventory`, `figma-audit`, `figma-docs`, `figma-library-mode`) | 4 — Continuous (Tier 3 bootstrap) |
+| 18 | [Component Library](18-component-library.md) | `design-component-library` | 4 — Continuous (Tier 3 bootstrap) |
+| 19 | [Lint](19-lint.md) | `design-lint` | Cross-cutting — all tiers |
+| 20 | [Query](20-query.md) | `design-query` | Cross-cutting — all tiers |
 
 ---
 
@@ -53,24 +54,52 @@ TIER 3: DESIGN             → Decide how it looks, feels, behaves, and reads
 TIER 4: DEVELOP            → Build screens, prototype, and keep everything in sync
 ```
 
-### The Develop loop (Tier 4)
+### The Develop tier (Tier 4)
 
-Tier 4 is not a linear pipeline — it is a **sync loop** between three nodes:
+Tier 4 has two distinct lifecycles running in parallel:
+
+**Per-sprint sequential pipeline** (chapters 13–16) — runs on each sprint:
 
 ```
-Canvas Brief ──► ASCII Wireframe ──► Figma Screens ◄──sync──► Prototype
-                 (validation gate)       ▲                         │
-                                         └──────── sync ──────────┘
+                            ┌──────────────────────────┐
+                            │ design-foundation-library│  ← upstream publisher (continuous)
+                            │ (Figma library)          │
+                            └────────┬─────────────────┘
+                                     │ instances consumed
+                                     ▼
+   Canvas Brief ──► ASCII Wireframe ──► Screen Composition ◄──sync──► Prototype
+   (intent)        (validation gate)    (Figma screens)              (interaction fidelity)
+        ▲                                                                  │
+        └──────────────── sync loop (per sprint) ──────────────────────────┘
 ```
 
 The **ASCII Wireframe** is a validation gate between canvas briefs and Figma — not a sync node. It validates flow and layout with stakeholders, then is archived when Figma begins.
 
-The **sync loop** remains three nodes (Canvas ↔ Figma ↔ Prototype). Each owns different concerns:
+The **per-sprint sync loop** stays three nodes (Canvas ↔ Figma screens ↔ Prototype). Each owns different concerns:
 - **Canvas Brief** — intent, structure, content, accessibility (aggregated from upstream)
-- **Figma Screens** — visual execution, layout, component implementation
+- **Figma Screens** — visual execution via `design-screen-compose` (composition of library instances per the brief)
 - **Prototype** — interaction fidelity, flow validation, responsive behavior
 
 Changes propagate bidirectionally within the sync loop. Small changes (content, labels, states, visual tweaks) auto-sync. Structural changes (new components, reordered layouts) flag drift and require designer approval before propagating.
+
+**Continuous design-system pipeline** (chapters 17–18) — bootstrapped from Tier 3 visual + content, then runs continuously:
+
+```
+Tier 3 visual + content ──► design-foundation-library Phase A (bootstrap)
+                                       │ publishes Foundation, Components
+                                       ▼
+                            design-component-library Phase A (bootstrap)
+                                       │ Style Dictionary + components + Code Connect/JSON manifest
+                                       ▼
+                            (consumed by per-sprint loop)
+
+design-screen-compose intake ──► design-foundation-library Phase B (continuous)
+designer override intake     ──┘             │ publishes
+                                              ▼
+                                  design-component-library Phase B (continuous)
+```
+
+The two design-system modes are **upstream publishers** the per-sprint loop consumes from. They are not nodes within the per-sprint sync loop. New components flow from the per-sprint loop *into* the design-system intake queue (parking lot inside `design-foundation-library`), not via auto-sync.
 
 ### Ordering philosophy
 
@@ -122,12 +151,40 @@ design/
   10_ACCESSIBILITY/                    ← Tier 3
   11_RESEARCH/                         ← Tier 3
   12_GOVERNANCE/                       ← Tier 3
-  13_CANVAS/                           ← Tier 4
-  14_WIREFRAME/                        ← Tier 4 (clickable ASCII wireframes, archived when Figma starts)
-  16_PROTOTYPE/                        ← Tier 4 (code + manifest + drift log)
+  13_CANVAS_BRIEFS/                    ← Tier 4 sequential
+  14_WIREFRAMES/                       ← Tier 4 sequential (clickable ASCII wireframes, archived when Figma starts)
+  15_FIGMA/                            ← Tier 4 sequential (composition logs from design-screen-compose)
+    composition-logs/
+  15_COMPONENT_LIBRARY/                ← Tier 4 continuous (design-component-library: tokens + components + Code Connect/manifest + Storybook)
+    tokens/
+    components/
+    code-connect/                      ← (only if Code Connect available)
+    figma-mapping.json                 ← (always written; universal Figma↔code bridge)
+    storybook/                         ← (optional)
+    manifest.md
+  16_PROTOTYPE/                        ← Tier 4 sequential (code + manifest + drift log)
 ```
 
 Each chapter specifies exactly which files it produces and where.
+
+---
+
+## BRD SSOT mapping
+
+The BRD owns no information. Every sheet in `design/BRD.xlsx` is generated by `sync-brd.py` from a canonical md artifact. The Karpathy graph framework only works if knowledge lives in plain-text artifacts the toolchain can traverse — the Excel BRD is rendering, not authority.
+
+| BRD sheet | Canonical md owner | Notes |
+|---|---|---|
+| User Stories — DS-NNN + AC | `design/05_STORIES/story-map.md` | AC bullets reference `[BR-NN]` foreign keys; `sync-brd.py` joins on `[BR-NN]` and inline-expands the rule text from the register so the BRD shows the combined AC+BR view per story. Other tags ([STATE], [BEHAVIOR], [A11Y], [CANVAS], [NOTIF-NNN]) preserved as in-cell references. |
+| User Stories — Business Rules (joined) | `design/04_PROCESS_FLOWS/business-rules-register.md` | Owns full BR-NN text. BRD never edits BRs directly — it aggregates them inline under each story. |
+| RBAC | `design/06_INFORMATION_ARCHITECTURE/rbac.md` | Standalone role-feature matrix split out from `navigation-model.md` for easier review. |
+| Notification Mapping | `design/06_INFORMATION_ARCHITECTURE/notifications.md` | Canonical NOTIF-NNN catalog (id, channel, recipient, copy template, trigger event). User stories / AC reference notifications by `[NOTIF-NNN]` tag; `error-strategy.md` and `behavioral-spec.md` link to NOTIF-NNN ids instead of carrying message text inline. |
+| Data Fields | `design/06_INFORMATION_ARCHITECTURE/data-dictionary.md` | Global field catalog (id, type, validation, format, source-screen back-references). |
+| LOV | `design/09_CONTENT/terminology.md` | Canonical term/value lists. |
+| Feature/Touchpoint | `design/06_INFORMATION_ARCHITECTURE/screen-inventory.md` | Reverse lookup of "Stories served"; `sync-brd.py` derives the touchpoint column. |
+| Manifest | `design/BRD.xlsx#Manifest` | Lives in the BRD itself; no upstream md. |
+
+**Out of scope for sync-brd.py:** Priority and Release columns are PM concerns, not design decisions. `sync-brd.py` preserves any existing values in those columns and warns on stale; it does not regenerate them. Release slicing (if a project chooses) lives in `design/05_STORIES/release-slices.md`, not the BRD.
 
 ---
 
@@ -151,11 +208,15 @@ These rules span the entire process. They are not suggestions.
 
 8. **The domain glossary and terminology guide are canonical.** One term, one label, everywhere.
 
-9. **The Develop loop stays in sync.** Drift between canvas briefs, Figma screens, and prototype is detected and resolved — auto-sync for small changes, designer approval for structural changes.
+9. **The Develop per-sprint loop stays in sync.** Drift between canvas briefs, Figma screens, and prototype is detected and resolved — auto-sync for small changes, designer approval for structural changes. Design-system modes (`design-foundation-library`, `design-component-library`) are upstream publishers consumed by the loop, not nodes within it.
+
+12. **Per-sprint Figma files are disposable; the Figma library is durable.** `design-screen-compose` writes one Figma file per sprint (pages per epic). The Foundation, Icons & Illustrations, and Components DLS files are owned by `design-foundation-library` and persist across sprints.
+
+13. **Code library tokens are generated, not authored.** `design-component-library` tokens MUST trace back to Figma variables via Style Dictionary build. Manual edits to code tokens are reverted at next build. If Code Connect is unavailable, `design-component-library` writes `figma-mapping.json` as the universal Figma↔code bridge; `design-prototype` reads either surface.
 
 10. **Staleness is visible.** Every mode knows when its upstream has changed. Artifact versions are tracked, and no mode silently operates on outdated inputs.
 
-11. **The BRD is the master business requirement document.** `design/BRD.xlsx` consolidates all user stories with progressively enriched acceptance criteria tagged by source (`[STORY]`, `[BR-NN]`, `[FLOW]`, `[STATE]`, `[BEHAVIOR]`, `[A11Y]`, `[CANVAS]`). Every contributing mode updates it. It is always current. Run `python design/scripts/sync-brd.py` to validate BRD–artifact consistency. Acceptance criteria are UI agnostic — describe what the system enables, not how the interface works.
+11. **The BRD is a generated aggregate, not a source of truth.** `design/BRD.xlsx` is rebuilt from the canonical md artifacts by `python design/scripts/sync-brd.py`. Every sheet derives from a designated md owner — see the BRD SSOT mapping below. Acceptance criteria are UI agnostic — describe what the system enables, not how the interface works. Tagged AC bullets ([BR-NN], [STATE], [BEHAVIOR], [A11Y], [CANVAS], [NOTIF-NNN]) carry source provenance; [BR-NN] tags inline-expand the rule text from the business rules register so the BRD shows the combined AC+BR view per story.
 
 ---
 
@@ -175,7 +236,7 @@ Changes to upstream artifacts ripple downstream. The sync protocol ensures every
 
 Every output file from every mode carries a version comment as its first line:
 
-```markdown
+```text
 <!-- artifact: [path] | version: [N] | mode: [mode-name] | updated: [date] | evidence: [upstream-file@vN, ...] -->
 ```
 
@@ -211,7 +272,9 @@ Three CLI scripts in `design/scripts/` automate the error-prone parts of the syn
 | `sync-version.js` | `node design/scripts/sync-version.js <read\|init\|bump> <file> [mode]` | Read, initialize, or increment artifact version headers |
 | `sync-manifest.js` | `node design/scripts/sync-manifest.js <mode-name>` | Scan a mode's inputs and outputs, write `_upstream.md` manifest |
 | `sync-status.js` | `node design/scripts/sync-status.js` | Pipeline sweep — scan all manifests, detect staleness, report |
-| `sync-traceability.js` | `node design/scripts/sync-traceability.js` | Validate bidirectional consistency: canvas briefs ↔ story map ↔ screen inventory ↔ interaction specs ↔ business rules |
+| `sync-traceability.js` | `node design/scripts/sync-traceability.js` | Validate bidirectional consistency: canvas briefs ↔ story map ↔ screen inventory ↔ interaction specs ↔ business rules. Honors `status: retired` markers and excludes retired artifacts from orphan checks |
+| `sync-wiki.js` | `node design/scripts/sync-wiki.js` | Wiki staleness check — compare `evidence:` versions in `design/WIKI/**.md` against current source artifact versions. Also regenerates `design/WIKI/.backlinks.json` — the reverse index of every `[[wikilink]]` and stable ID (DS-NNN, BR-NN, GP-NNN, P-/OV-/DE-, PER-NNN, RF-NNN, PA-NNN) across the `design/` corpus |
+| `sync-retirement.js` | `node design/scripts/sync-retirement.js` | Retirement-pointer integrity — every retired artifact must declare at least one `superseded_by` / `merged_into` / `supersedes` pointer; targets must resolve to known IDs; reverse pointers must be consistent. Skips framework subtrees (`design/process/`, `design/templates/`, `design/scripts/`, `design/viewer/`) since their retirement markers are illustrative, not real |
 
 **Typical workflow:**
 1. After completing a mode, run `sync-version.js init` or `bump` on each output file
@@ -222,8 +285,68 @@ Three CLI scripts in `design/scripts/` automate the error-prone parts of the syn
 - Any canvas brief is created or updated
 - Story map changes (new, modified, or retired stories)
 - Screen inventory changes (new screens, renamed screens, story-to-screen reassignments)
+- Any artifact is retired (marker added — sync-traceability.js will exclude it from orphan checks and list it under section 9 of the report)
 
-**Known gap:** `sync-traceability.js` does not yet validate that `[BR-NN]` tags in BRD acceptance criteria correspond to entries in the business rules register. BR-NN tag orphans require manual cross-check until a validation script is added.
+**Run `sync-wiki.js` after:**
+- Any source artifact is bumped — catches wiki pages whose synthesized content now lags the source
+- A project-wide read of the graph is needed — the generated `design/WIKI/.backlinks.json` lists every artifact or wiki page referencing a given target, keyed by target name
+
+**Run `sync-retirement.js` after:**
+- Any artifact is retired or replaced — confirms `superseded_by` / `merged_into` / `supersedes` pointers are declared and resolve
+- Any Split or Merge pattern is applied — verifies reverse pointers on the new ID(s) point back to the retired ID
+
+### Retirement status convention
+
+Artifacts can be retired without being deleted — retirement preserves history, keeps stable IDs from being reused, and excludes the artifact from orphan and coverage checks. There is one canonical convention across the toolchain:
+
+| Artifact shape | How to mark retired | Example |
+|---|---|---|
+| File with YAML frontmatter (personas, canvas briefs, interaction specs, wiki pages) | Add `status: retired` inside the first `---` block | `status: retired` |
+| Registry file with one heading per entry (screen-inventory.md, business-rules-register.md) | Append `[retired]` to the heading text | `### P-07 — Legacy Search [retired]` |
+| Registry file with one table row per entry (story-map.md, design-principles table) | Include the word `retired` (or `deprecated`) on the row | `\| DS-013 \| … \| retired — see DS-041 \|` |
+
+`sync-traceability.js` and `sync-wiki.js` both honor these markers. Retired artifacts:
+- Are excluded from orphan / coverage / "missing brief" checks
+- Are listed under "section 9 — Retired Artifacts" in the traceability report for transparency
+- Still accept incoming references (other artifacts may continue to cite them for history)
+- Keep their stable IDs forever — retired IDs are never reassigned
+
+Retirable artifact types include: personas, stories (DS-NNN), screens (P-/OV-/DE-), business rules (BR-NN), design principles (GP-NNN), patterns (PA-NNN), canvas briefs, interaction specs, wireframes, components (via `figma-inventory` lifecycle), and wiki entity pages.
+
+#### When to retire vs. when to edit — the framework
+
+**Core principle:** retire when the artifact's *meaning to its consumers* changes; edit when its meaning stays the same. Stable IDs are a contract with downstream artifacts — every persona, story, business rule, and screen ID has been cited, validated, and shipped against. Volume of edits is a poor signal: a one-word change can break the contract; 200 lines of new evidence may not. Decide by semantic impact, not edit size.
+
+**Three-tier classification** — applies to any output type:
+
+| Tier | Action | When to use | Why |
+|---|---|---|---|
+| **Refinement** | Edit + bump version | The artifact says the same thing, just better/clearer/with more evidence | No downstream consumer would reach a different conclusion |
+| **Revision** | Edit + bump version + Decision Log entry | Substantive update — new constraint, reordered sub-elements, sharpened scope — but the artifact still refers to the same "thing in the world" | History matters but consumers don't need to re-validate |
+| **Replacement** | Retire + create new ID(s) | The artifact's identity, scope, or foundational claim changes such that downstream consumers must re-evaluate | Preserves the integrity of the stable-ID contract |
+
+**Decision criteria** — apply in order; the first "yes" wins:
+
+1. **Identity test** — Does the stable ID still refer to the same thing in the world? *Persona splits into two roles → Replace. Story scope expands to absorb a sibling story → Replace.*
+2. **Contract test** — Would a downstream consumer that already validated against this artifact reasonably reach a different conclusion now? *BR-06 changes from "warn" to "block" → Replace. BR-06 wording sharpens, behaviour identical → Edit.*
+3. **Reversal test** — Does the change reverse, contradict, or invalidate a foundational claim of the prior version? *Persona's primary JTBD flips → Replace. Persona's secondary JTBD added → Edit.*
+4. **Historical-value test** — Would seeing the old version help future readers understand why downstream decisions were made the way they were? *Old version was cited in a Decision Log entry or shaped a Figma screen that still exists → Retire (preserve history). Old version was a draft nobody depended on → Edit.*
+5. **Otherwise** — Edit, bump version, and let the version header carry the audit trail.
+
+**Three named patterns for replacement:**
+
+- **Split** — Original retired; new IDs created. Retired artifact's frontmatter carries `superseded_by: [NEW-ID-A, NEW-ID-B]` and a brief why-split note.
+- **Merge** — One surviving ID kept (usually the older or higher-coverage one). Other IDs retired with `merged_into: SURVIVOR-ID`.
+- **Supersede** — One-to-one replacement (rare; usually means you should have edited unless the meaning genuinely changed). Old → `superseded_by: NEW-ID`. New → `supersedes: OLD-ID`.
+
+**Edge cases:**
+
+- **Synthesized artifacts (wiki pages, canvas briefs) never retire on their own.** They re-derive from sources. They are "retired" only by retiring their source — `sync-wiki.js` will then mark the wiki page stale and `design-query` will regenerate or remove it on the next pass.
+- **Composition logs and the Decision Log are append-only — never edited, never retired.** Corrections are new entries that reference and supersede the old one.
+- **Figma components have a domain-specific lifecycle.** `figma-inventory` tracks `draft → staged → audited → published → deprecated → removed`. The terminal `removed` state is semantically equivalent to `status: retired` for other artifacts — the inventory entry is preserved for history, the ID is never reused, and other artifacts may continue to cite the asset. `sync-retirement.js` does not scan `inventory.md`; figma-inventory owns its own integrity via `figma-audit` and the lifecycle transitions.
+- **High-degree nodes have a higher retirement bar.** A persona referenced by 40 canvas briefs retires only when the Identity, Contract, or Reversal test triggers — not on Historical-value alone, because the propagation cost is too high. When in doubt for a high-degree node, prefer Revision (edit + Decision Log) over Replacement.
+
+**Known gap:** `sync-traceability.js` does not yet validate that `[BR-NN]` tags in BRD acceptance criteria correspond to entries in the business rules register. BR-NN tag orphans require manual cross-check until a validation script is added. Retirement-pointer integrity is handled separately by `sync-retirement.js`.
 
 Mode config (output dirs, inputs, downstream consumers) is defined in `design/scripts/modes.js`.
 
@@ -323,11 +446,12 @@ Keep as one skill.
 
 | Mode | Skills | Principles triggered | Verdict |
 |------|--------|---------------------|---------|
-| 01-10, 14, 17 (design-*) | 1 each | None triggered (14 triggers P2, P6, P7) | Correctly single-skill |
+| 01-10, 13, 14, 16 (design-*) | 1 each | None triggered (14 triggers P2, P6, P7; 16 triggers P2, P6) | Correctly single-skill |
 | 11 (`design-research`) | 1 (two-phase) | P2, P7 — init runs once pre-build; synthesis runs after each research round | Single-skill; watch for split if Phase B synthesis grows complex (approaching P4) |
 | 12 (`design-governance`) | 1 (two-phase) | P2, P7 — init runs once in Tier 3; synthesis runs periodically across all tiers | Single-skill for now; watch for split if synthesis complexity grows (approaching P4) |
-| 15 (Figma pipeline) | 11 skills | P1, P2, P3, P6, P7 | Correctly multi-skill |
-| 16 (`figma-screen-compose`) | 1 (two-phase) | P2, P3, P7 — Plan reads, Execute mutates; runs only after page-setup + component | Single-skill; watch for split if Plan grows complex enough to be batched independently |
+| 15 (`design-screen-compose`) | 1 umbrella + 5 sub-skills (`figma-connect`, `figma-handoff`, `figma-file-setup`, `figma-page-setup`, `figma-screen-compose`) | P1, P2, P3, P6, P7 | Correctly multi-skill — sub-skills retained from prior pipeline split; umbrella adds per-sprint composition framing |
+| 17 (`design-foundation-library`) | 1 umbrella + 7 sub-skills (`figma-tokens`, `figma-component`, `figma-parking-lot`, `figma-inventory`, `figma-audit`, `figma-docs`, `figma-library-mode`) | P1, P2, P3, P6, P7 — and the umbrella adds two-phase lifecycle (Phase A bootstrap, Phase B continuous) | Correctly multi-skill umbrella; lifecycle phases mirror `design-research`/`design-governance` |
+| 18 (`design-component-library`) | 1 (two-phase) | P2, P3, P7 — Phase A bootstrap, Phase B continuous; tokens must build before component generation can resolve aliases | Single-skill initially; watch list for split if Style Dictionary, component code, Code Connect, and Storybook collectively exceed P4 budget |
 
 ### Watch list
 
@@ -336,6 +460,7 @@ Keep as one skill.
 | `design-governance` | If Phase B synthesis grows complex enough to need its own context (approaching ~400 lines) — natural split: `design-governance` (init config) + `design-principles` (periodic synthesis) | P2, P4, P7 |
 | `design-research` | If Phase B synthesis grows complex enough to warrant independent invocation from Phase A | P2, P4, P7 |
 | `design-prototype` | If drift-sync logic becomes complex enough for independent re-invocation | P2, P6 |
+| `design-component-library` | If Style Dictionary build, component generation, Code Connect mapping, and Storybook each warrant independent re-invocation — natural splits: `design-component-library-tokens`, `design-component-library-components`, `design-component-library-connect`, `design-component-library-storybook` | P1, P2, P4 |
 
 ### Anti-patterns
 

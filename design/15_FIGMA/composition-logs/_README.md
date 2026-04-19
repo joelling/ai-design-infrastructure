@@ -4,7 +4,7 @@ Append-only, per-screen evidence of `figma-screen-compose` Phase B execution.
 
 ## Purpose
 
-Every Figma screen composed by `figma-screen-compose` writes a markdown log here capturing **what was placed, where, with which property overrides, and why**. Composition logs are *evidence*; canvas briefs in `design/13_CANVAS/` remain *intent*.
+Every Figma screen composed by `figma-screen-compose` writes a markdown log here capturing **what was placed, where, with which property overrides, and why**. Composition logs are *evidence*; canvas briefs in `design/13_CANVAS_BRIEFS/` remain *intent*.
 
 Downstream skills consume these logs:
 - `design-prototype` — disambiguates "why this layout" when Figma + brief don't fully agree
@@ -25,7 +25,7 @@ Downstream skills consume these logs:
 Each file is created on first composition and **appended to** on every subsequent re-run (additive only — never edit or delete prior entries).
 
 ```markdown
-<!-- artifact: design/15_FIGMA/composition-logs/{ScreenID}_composition-log.md | version: N | mode: figma-screen-compose | updated: YYYY-MM-DD | evidence: design/13_CANVAS/{ScreenID}_*.md@vN -->
+<!-- artifact: design/15_FIGMA/composition-logs/{ScreenID}_composition-log.md | version: N | mode: figma-screen-compose | updated: YYYY-MM-DD | evidence: design/13_CANVAS_BRIEFS/{ScreenID}_*.md@vN -->
 
 # Composition Log — {ScreenID}
 

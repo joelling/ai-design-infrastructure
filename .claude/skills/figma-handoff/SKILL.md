@@ -9,6 +9,7 @@ description: >
   "designer handoff", "harmonize", "what changed in figma", "designer made changes",
   "integrate designer work", "sync designer edits", "new elements in figma", "detect changes",
   "human edits", "review figma changes", or when figma-connect detects untracked modifications.
+  Umbrella: `design-screen-compose` (per-sprint Working file detection). Classifier routes new components and token requests to `design-foundation-library`'s parking-lot intake queue (`requested_by: figma-handoff`); local-only sprint overrides stay in the sprint file.
 ---
 
 # Designer Handoff — Detect and Harmonize

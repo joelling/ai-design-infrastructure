@@ -8,6 +8,8 @@ description: >
   "flow validation", "validate layout", "wireframe this screen", "sketch the flow",
   or when canvas briefs are ready and the designer wants structural validation before Figma.
   Upstream dependencies: canvas briefs (hard), walking skeleton, screen inventory.
+  Position: second of the four sequential per-sprint Tier 4 modes (canvas → wireframe →
+  screen-compose → prototype). Soft gate before `design-screen-compose`; archived when Figma starts.
 ---
 
 # Clickable ASCII Wireframe — Structural Validation Before Figma
@@ -15,7 +17,7 @@ description: >
 > **Quick reference**
 > - **Purpose:** Validate flow, layout, and content hierarchy with stakeholders before Figma investment
 > - **Inputs:** Canvas briefs (hard dep), walking skeleton, screen inventory
-> - **Outputs:** Clickable HTML wireframes → `design/14_WIREFRAME/screens/`
+> - **Outputs:** Clickable HTML wireframes → `design/14_WIREFRAMES/screens/`
 > - **Hard rules:** Fidelity anchoring is non-negotiable. No colour, no polish. Feedback flows into canvas briefs, not Figma. Archived when Figma starts.
 > - **Common mistake:** Making wireframes look too polished — if stakeholders comment on aesthetics, the wireframe is too refined
 
@@ -31,7 +33,7 @@ Translate canvas briefs into clickable ASCII wireframes that stakeholders can na
 
 | Required | What it provides | How to check |
 |----------|-----------------|-------------|
-| Canvas briefs | Frame inventory, layout, components, content, states | `design/13_CANVAS/*.md` exists |
+| Canvas briefs | Frame inventory, layout, components, content, states | `design/13_CANVAS_BRIEFS/*.md` exists |
 
 ### Soft dependencies (used if available)
 
@@ -46,7 +48,7 @@ Translate canvas briefs into clickable ASCII wireframes that stakeholders can na
 Before starting this mode's workflow:
 
 0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that wireframed screens trace to documented user needs. If an output cannot be connected, question whether it belongs.
-1. Check `design/14_WIREFRAME/_upstream.md` for the dependency manifest
+1. Check `design/14_WIREFRAMES/_upstream.md` for the dependency manifest
 2. Compare recorded canvas brief versions against current briefs
 3. If briefs have changed, report which wireframes are affected and ask: regenerate or proceed?
 4. If regenerating, rebuild only affected wireframes — don't rebuild the full set
@@ -54,7 +56,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/14_WIREFRAME/_upstream.md` with consumed canvas brief versions
+2. Update `design/14_WIREFRAMES/_upstream.md` with consumed canvas brief versions
 3. Report that wireframes are ready for stakeholder review
 
 ### Script commands
@@ -74,10 +76,10 @@ node design/scripts/sync-manifest.js wireframe                      # update man
 
 ### Step 1 — Scaffold
 
-Create `design/14_WIREFRAME/` if it doesn't exist:
+Create `design/14_WIREFRAMES/` if it doesn't exist:
 
 ```
-design/14_WIREFRAME/
+design/14_WIREFRAMES/
 ├── _upstream.md
 ├── manifest.md
 ├── feedback/
@@ -87,7 +89,7 @@ design/14_WIREFRAME/
     └── style.css
 ```
 
-Copy `design/templates/wireframe-style.css` to `design/14_WIREFRAME/screens/style.css` if the file does not already exist. This static stylesheet is never regenerated — it enforces monospace font, single accent color for clickable regions, no other color, and `max-width: 72ch`.
+Copy `design/templates/wireframe-style.css` to `design/14_WIREFRAMES/screens/style.css` if the file does not already exist. This static stylesheet is never regenerated — it enforces monospace font, single accent color for clickable regions, no other color, and `max-width: 72ch`.
 
 ### Step 2 — Build screen by screen
 
@@ -135,7 +137,7 @@ Create `screens/index.html`:
 
 ### Step 5 — Stakeholder review
 
-Present wireframes for review. For each review round, copy `design/templates/wireframe-feedback.tpl.md` to `design/14_WIREFRAME/feedback/round-N.md`. Collect structured feedback per screen (missing / wrong / unnecessary / misplaced) and at the flow level (missing screens, wrong order, dead ends).
+Present wireframes for review. For each review round, copy `design/templates/wireframe-feedback.tpl.md` to `design/14_WIREFRAMES/feedback/round-N.md`. Collect structured feedback per screen (missing / wrong / unnecessary / misplaced) and at the flow level (missing screens, wrong order, dead ends).
 
 ### Step 6 — Incorporate feedback
 
@@ -164,7 +166,7 @@ When Figma execution begins for these screens:
 
 4. **Deliberate disposability.** Archived when Figma starts. Never maintained alongside high-fidelity work.
 
-5. **Naming discipline.** This is `design-wireframe`, never "lo-fi prototype." `design/14_WIREFRAME/`, never "low-fidelity prototype directory."
+5. **Naming discipline.** This is `design-wireframe`, never "lo-fi prototype." `design/14_WIREFRAMES/`, never "low-fidelity prototype directory."
 
 ---
 
@@ -183,10 +185,10 @@ When Figma execution begins for these screens:
 
 ## Output checklist
 
-- [ ] `design/14_WIREFRAME/manifest.md` — complete with screen mappings and review status `[synthesis]`
-- [ ] `design/14_WIREFRAME/screens/index.html` — entry point with screen map and flow `[synthesis]`
-- [ ] `design/14_WIREFRAME/screens/style.css` — monospace, no polish `[pure template]`
-- [ ] `design/14_WIREFRAME/feedback/round-N.md` — structured feedback per review round `[pure template]`
+- [ ] `design/14_WIREFRAMES/manifest.md` — complete with screen mappings and review status `[synthesis]`
+- [ ] `design/14_WIREFRAMES/screens/index.html` — entry point with screen map and flow `[synthesis]`
+- [ ] `design/14_WIREFRAMES/screens/style.css` — monospace, no polish `[pure template]`
+- [ ] `design/14_WIREFRAMES/feedback/round-N.md` — structured feedback per review round `[pure template]`
 - [ ] All wireframe pages include review framing header
 - [ ] All clickable regions link to correct target screens
 - [ ] Walking skeleton flow navigable end-to-end

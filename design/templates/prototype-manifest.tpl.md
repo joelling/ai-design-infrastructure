@@ -46,7 +46,7 @@ npm run build      # production build
 
 | Screen ID | Canvas brief | Brief version |
 |---|---|---|
-| SCR-001 | `design/13_CANVAS/SCR-001_[name].md` | v[N] |
+| SCR-001 | `design/13_CANVAS_BRIEFS/SCR-001_[name].md` | v[N] |
 
 ---
 

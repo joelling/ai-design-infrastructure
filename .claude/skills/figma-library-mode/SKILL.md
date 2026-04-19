@@ -9,6 +9,7 @@ description: >
   "master library", or whenever the Parking Lot has accumulated enough components to
   warrant a library push. Also use when asked about which file type components belong in,
   or when relinking variables after a library restructure.
+  Umbrella: `design-foundation-library` (library migration phase). Run before `design-component-library` Phase B rebuilds against the migrated library.
 ---
 
 # Library Mode — Migration and Publishing

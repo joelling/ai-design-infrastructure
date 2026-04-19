@@ -2,7 +2,7 @@
 operation: ingest
 ---
 
-# User Story Mapping
+# User Stories
 
 > **Tier 2 — Definition** | Mode: `design-stories`
 >
@@ -62,24 +62,24 @@ Same as journey mapping — stories describe goals and outcomes, not implementat
 
 **6. Consolidate MVP scope.** Document what's included, what's deferred (with rationale), what's out of scope, and the MVP acceptance criteria from a UX perspective.
 
-**7. Consolidate into BRD.** After the story map is complete, consolidate all stories into the BRD (`design/BRD.xlsx`, User Stories sheet). For each story in `story-map.md`:
+**7. Author AC bullets in story-map.md.** `story-map.md` is the canonical source for both the stories themselves and their acceptance criteria. The BRD User Stories sheet is generated from this file by `sync-brd.py` — never authored directly.
 
-- **S/No.** — sequential row number
+For each story in `story-map.md`, capture:
+
+- **DS-NNN** — stable story ID
 - **Epic** — backbone activity name
-- **Feature / Touchpoint** — task name under the backbone activity (leave blank if IA hasn't assigned screens yet — IA mode will populate this later)
-- **User Story ID** — DS-NNN from story-map.md (must match exactly)
 - **User Story** — full "As a [persona], I want to [goal] so that [outcome]" text
-- **Acceptance Criteria** — write as multiple bullet points, one testable requirement per bullet. Use UI-agnostic language (see rules below). Include specific business logic values where known. No source tag on story-origin bullets — it is implied.
-- **Priority** — High / Medium / Low, derived from vertical position in story map and release slices
-- **Release** — release slice name from `release-slices.md`
+- **Acceptance Criteria** — multiple bullet points, one testable requirement per bullet. Use UI-agnostic language (see rules below). Include specific business logic values where known. Story-origin bullets carry no source tag — it is implied. Downstream-enriched bullets carry inline source tags (see "Foreign-key tags" below).
 
-Leave estimation columns (I–P) and assumption columns (Q–V) empty — these are for track reviewers.
-
-After populating, update `design/BRD_manifest.md` with the story-map version consumed and the story IDs written.
+After updating `story-map.md`, run `python design/scripts/sync-brd.py` to regenerate the BRD User Stories sheet. The script:
+- Joins each `[BR-NN]` tag in an AC bullet against `04_PROCESS_FLOWS/business-rules-register.md` and **inline-expands the rule text** into the BRD AC cell, producing the combined AC+BR view that the BRD has historically shown
+- Preserves other tag families (`[STATE]`, `[BEHAVIOR]`, `[A11Y]`, `[CANVAS]`, `[NOTIF-NNN]`) as in-cell references without expansion
+- Derives the Feature/Touchpoint column by reverse lookup against `06_INFORMATION_ARCHITECTURE/sitemap.md` (which screens serve this DS-NNN)
+- Preserves any existing values in Priority and Release columns (these are PM concerns, out of sync-brd.py's regeneration scope)
 
 ### Acceptance criteria language rules
 
-Acceptance criteria in the BRD must be **UI agnostic** — describe what the system must enable, not how the interface implements it:
+Acceptance criteria in `story-map.md` (and therefore the BRD) must be **UI agnostic** — describe what the system must enable, not how the interface implements it:
 
 | Instead of | Write |
 |---|---|
@@ -90,21 +90,39 @@ Acceptance criteria in the BRD must be **UI agnostic** — describe what the sys
 
 Include specific business logic values where applicable: "If country is Singapore, validate NRIC format (S/T followed by 7 digits and a letter)."
 
-Downstream modes enrich AC by appending new bullets with inline source tags: `[BR-NN]` (business rule), `[FLOW]` (process flow), `[STATE]` (interaction state), `[BEHAVIOR]` (behavioral spec), `[A11Y]` (accessibility), `[CANVAS]` (canvas synthesis gap). Tags appear at the end of the bullet they belong to. Story-origin bullets carry no tag.
+### Foreign-key tags in AC bullets
+
+Downstream modes enrich AC by appending new bullets with inline source tags. Tags appear at the end of the bullet they belong to. Story-origin bullets carry no tag.
+
+| Tag | Foreign key resolves to | Owner | sync-brd.py behaviour |
+|---|---|---|---|
+| `[BR-NN]` | Business rule entry in `04_PROCESS_FLOWS/business-rules-register.md` | `design-process-flows` | **Inline-expand** rule text into BRD AC cell |
+| `[NOTIF-NNN]` | Notification in `06_INFORMATION_ARCHITECTURE/notifications.md` | `design-ia` | Preserve as in-cell reference |
+| `[STATE]` | Interaction state in `07_INTERACTION/state-inventory.md` | `design-interaction` | Preserve as in-cell reference |
+| `[BEHAVIOR]` | Behavioral spec in `07_INTERACTION/behavioral-spec.md` | `design-interaction` | Preserve as in-cell reference |
+| `[A11Y]` | Accessibility pattern in `10_ACCESSIBILITY/` | `design-accessibility` | Preserve as in-cell reference |
+| `[CANVAS]` | Gap surfaced during canvas synthesis | `design-canvas` | Preserve as in-cell reference |
+| `[FLOW]` | Process flow step in `04_PROCESS_FLOWS/index.md` | `design-process-flows` | Preserve as in-cell reference |
+
+Example AC bullet with foreign keys:
+- `User receives confirmation [NOTIF-012] after submission completes  [STATE]`
+- `Submission rejected when account balance below threshold [BR-07]  [BEHAVIOR]`
+
+The `[BR-NN]` inline-expansion is the only tag that materially changes the BRD cell text — it preserves the historical BRD behaviour where AC and the governing business rule sit together under each story.
 
 ## Outputs
 
 | File | What it contains |
 |------|-----------------|
 | `design/05_STORIES/backbone.md` | Backbone activities + task decomposition |
-| `design/05_STORIES/story-map.md` | Full story map with all stories, prioritized vertically |
+| `design/05_STORIES/story-map.md` | Canonical source for stories AND acceptance criteria (BRD User Stories sheet derives from this) |
 | `design/05_STORIES/walking-skeleton.md` | Thinnest end-to-end slice identified |
-| `design/05_STORIES/release-slices.md` | Incremental release slices with MVP boundary |
+| `design/05_STORIES/release-slices.md` | Incremental release slices with MVP boundary (PM-owned; not aggregated by sync-brd.py) |
 | `design/05_STORIES/mvp-scope.md` | Consolidated MVP definition |
 
 *`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
-| `design/BRD.xlsx` | Master BRD — User Stories sheet populated from story map; enriched by downstream modes |
-| `design/BRD_manifest.md` | Tracks which modes have contributed to BRD and at what artifact versions |
+
+`design/BRD.xlsx` is **generated**, not authored — `sync-brd.py` aggregates this mode's `story-map.md` (with `[BR-NN]` inline-expansion from the business rules register) plus IA's `rbac.md`, `notifications.md`, `data-dictionary.md`, and content's `terminology.md`. See [README.md → BRD SSOT mapping](README.md#brd-ssot-mapping) for the full sheet-by-sheet ownership table.
 
 ## Rules
 
@@ -115,7 +133,9 @@ Downstream modes enrich AC by appending new bullets with inline source tags: `[B
 - Story IDs should be traceable — use a consistent scheme (e.g., DS-001, DS-002).
 - **Story IDs are stable.** Once assigned, a story ID is permanent. If a story is split, the original ID is retired with a note pointing to its successors. If merged, the surviving ID is kept and the retired one noted. Canvas briefs, interaction specs, and the traceability script depend on stable IDs.
 - If spec user stories exist, decompose them into finer-grained design stories.
-- **BRD stays in sync with story-map.md.** Every story in story-map.md must have a corresponding row in the BRD. Every story ID in the BRD must exist in story-map.md. Run `python design/scripts/sync-brd.py` to validate.
+- **story-map.md is the canonical source for AC; the BRD is a generated rendering.** Never hand-edit the BRD User Stories sheet — edit `story-map.md` and run `sync-brd.py`. Hand-edits to the BRD will be overwritten on the next regeneration.
+- **`[BR-NN]` is a foreign key, not a copy.** AC bullets reference business rules by id; the rule text lives only in `04_PROCESS_FLOWS/business-rules-register.md`. `sync-brd.py` does the inline-expansion at BRD render time. Never copy rule text into AC bullets.
+- **`[NOTIF-NNN]` references replace inline notification copy.** Notification message text lives only in `06_INFORMATION_ARCHITECTURE/notifications.md`. AC bullets reference the id.
 - **Acceptance criteria are UI agnostic.** No screen names, no button labels, no UI patterns. Describe what the system enables, not how the interface works.
 
 ## Feeds into

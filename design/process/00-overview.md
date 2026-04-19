@@ -35,42 +35,46 @@ TIER 4: DEVELOP            → Build screens, prototype, and keep everything in 
 |---|------|------|------|
 | 01 | [Discovery](01-discovery.md) | `design-discovery` | 1 — Discovery |
 | 02 | [User Models](02-user-models.md) | `design-user-models` | 1 — Discovery |
-| 03 | [Journey Mapping](03-journeys.md) | `design-journeys` | 2 — Definition |
+| 03 | [Journeys](03-journeys.md) | `design-journeys` | 2 — Definition |
 | 04 | [Process Flows](04-process-flows.md) | `design-process-flows` | 2 — Definition |
-| 05 | [User Story Mapping](05-stories.md) | `design-stories` | 2 — Definition |
+| 05 | [User Stories](05-stories.md) | `design-stories` | 2 — Definition |
 | 06 | [Information Architecture](06-ia.md) | `design-ia` | 2 — Definition |
 | 07 | [Interaction Design](07-interaction.md) | `design-interaction` | 3 — Design |
 | 08 | [Visual Design](08-visual.md) | `design-visual` | 3 — Design |
 | 09 | [Content Strategy](09-content.md) | `design-content` | 3 — Design |
 | 10 | [Accessibility](10-accessibility.md) | `design-accessibility` | 3 — Design |
-| 11 | [Design Validation](11-validation.md) | `design-validation` | 3 — Design |
-| 12 | [Design System Governance](12-governance.md) | `design-governance` | 3 — Design |
-| 13 | [Design-to-Canvas Synthesis](13-canvas.md) | `design-canvas` | 4 — Develop |
-| 14 | [Wireframe Validation](14-wireframe.md) | `design-wireframe` | 4 — Develop |
-| 15 | [Figma Execution Pipeline](15-figma-pipeline.md) | `figma-*` | 4 — Develop |
-| 16 | [Figma Screen Composition](16-figma-screen-compose.md) | `figma-screen-compose` | 4 — Develop |
-| 17 | [Coded Prototype](17-prototype.md) | `design-prototype` | 4 — Develop |
-| 18 | [Design Lint](18-lint.md) | `design-lint` | Cross-cutting |
-| 19 | [Design Query](19-query.md) | `design-query` | Cross-cutting |
+| 11 | [Research](11-validation.md) | `design-research` | 3 — Design |
+| 12 | [Governance](12-governance.md) | `design-governance` | 3 — Design |
+| 13 | [Canvas Briefs](13-canvas.md) | `design-canvas` | 4 — Develop sequential |
+| 14 | [Wireframes](14-wireframe.md) | `design-wireframe` | 4 — Develop sequential |
+| 15 | [Screen Composition](15-screen-compose.md) | `design-screen-compose` (umbrella) | 4 — Develop sequential |
+| 16 | [Prototype](16-prototype.md) | `design-prototype` | 4 — Develop sequential |
+| 17 | [Foundation Library](17-foundation-library.md) | `design-foundation-library` (umbrella) | 4 — Continuous (Tier 3 bootstrap) |
+| 18 | [Component Library](18-component-library.md) | `design-component-library` | 4 — Continuous (Tier 3 bootstrap) |
+| 19 | [Lint](19-lint.md) | `design-lint` | Cross-cutting |
+| 20 | [Query](20-query.md) | `design-query` | Cross-cutting |
 
 ---
 
-## The Develop loop (Tier 4)
+## The Develop architecture (Tier 4)
 
-Tier 4 is not a linear pipeline — it is a **sync loop** between three nodes:
+Tier 4 is two pipelines, not one:
+
+**Per-sprint sequential pipeline** — Canvas Briefs → Wireframes → Screen Composition → Prototype. Each sprint flows through these four modes. The wireframe is a disposable validation gate; the rest form the **sync loop**:
 
 ```
-Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototype
-     ▲                                                │
-     └────────────────── sync ────────────────────────┘
+Canvas Brief ──► ASCII Wireframe ──► Figma Screens ◄──sync──► Prototype
+  (intent)      (validation gate,    (visual            (interaction
+                 disposable)          execution)          fidelity)
+        ▲                                                       │
+        └────────────────── sync (per sprint) ──────────────────┘
 ```
 
-Each node owns different concerns:
-- **Canvas Brief** — intent, structure, content, accessibility (aggregated from upstream)
-- **Figma Screens** — visual execution, layout, component implementation
-- **Prototype** — interaction fidelity, flow validation, responsive behavior
+**Continuous design-system pipeline** — `design-foundation-library` (Figma library) and `design-component-library` (code library). Both bootstrap once from Tier 3 visual + content (Phase A), then grow continuously throughout the project (Phase B) as new component needs surface from per-sprint work.
 
-Changes propagate bidirectionally. Small changes (content, labels, states, visual tweaks) auto-sync. Structural changes (new components, reordered layouts) flag drift and require designer approval before propagating.
+The two pipelines connect: per-sprint composition consumes published library instances; missing-component placeholders route into the design-system intake queue. The design-system pipeline publishes; the per-sprint pipeline consumes. New components flow upstream via the parking-lot intake queue, never via auto-sync.
+
+Changes within the per-sprint sync loop propagate bidirectionally. Small changes (content, labels, states, visual tweaks) auto-sync. Structural changes (new components, reordered layouts) flag drift and require designer approval. Library publication and token revisions trigger `design-component-library` Phase B for code-side mirror sync.
 
 ---
 
@@ -133,7 +137,7 @@ Changes to upstream artifacts ripple downstream. The sync protocol ensures every
 
 Every output file from every mode carries a version comment as its first line:
 
-```markdown
+```text
 <!-- artifact: [path] | version: [N] | mode: [mode-name] | updated: [date] | evidence: [upstream-file@vN, ...] -->
 ```
 
@@ -185,30 +189,7 @@ The Tier 4 sync loop (canvas ↔ Figma ↔ prototype) operates within the Develo
 
 ## Artifact storage
 
-All design outputs go into the `design/` directory at the project root:
-
-```
-design/
-  process/                             ← this directory (process specification)
-  01-discovery/                           ← Tier 1
-  02-user-models/                         ← Tier 1
-    personas/
-    empathy-maps/
-  03-journeys/                            ← Tier 2
-    task-flows/
-  04-stories/                             ← Tier 2
-  05-ia/                                  ← Tier 2
-  06-interaction/                         ← Tier 3
-  07-visual/                              ← Tier 3
-  08-content/                             ← Tier 3
-  09-accessibility/                       ← Tier 3
-  10-validation/                          ← Tier 3
-  11-governance/                          ← Tier 3
-  12-canvas/                              ← Tier 4
-  13-prototype/                           ← Tier 4 (code + manifest + drift log)
-```
-
-Each chapter specifies exactly which files it produces and where.
+All design outputs go into the `design/` directory at the project root. The full layout is documented in [README.md → Artifact storage](README.md#artifact-storage); each chapter specifies exactly which files it produces and where.
 
 ---
 
@@ -296,17 +277,7 @@ Keep as one skill.
 
 ### Current assessment
 
-| Chapter | Skills | Principles triggered | Verdict |
-|---------|--------|---------------------|---------|
-| 01–11, 14 (design-*) | 1 each | None triggered | Correctly single-skill |
-| 13 (Figma pipeline) | 8 skills | P1, P2, P3, P6, P7 | Correctly multi-skill |
-
-**Watch list**
-
-| Skill | Condition for split | Principle |
-|-------|-------------------|-----------|
-| `design-validation` | If pre-build and post-build phases diverge enough to need independent invocation | P2, P7 |
-| `design-prototype` | If drift-sync logic becomes complex enough for independent re-invocation | P2, P6 |
+For the full Current assessment and Watch list (per chapter, with principles triggered and verdict), see [README.md → Skill architecture → Current assessment](README.md#current-assessment).
 
 **Anti-patterns**
 

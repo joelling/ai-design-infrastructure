@@ -2,7 +2,7 @@
 operation: [query, lint]
 ---
 
-# Design Query
+# Query
 
 > **Cross-cutting — all tiers | Compounding** | Mode: `design-query`
 
@@ -29,7 +29,7 @@ The wiki is not a finished document. It is a living synthesis that gets richer e
 **Phase A (bootstrap):**
 - All artifact directories `design/01_*` through `design/12_*`
 - `design/BRD.xlsx` (via `design/BRD_manifest.md` for metadata)
-- `design/13_CANVAS/` if it exists
+- `design/13_CANVAS_BRIEFS/` if it exists
 
 **Ongoing queries:**
 - `design/WIKI/` — the primary search target (built in Phase A)
@@ -73,7 +73,7 @@ For each tier directory that exists, read the primary output files:
 - Accessibility: `aria-patterns.md`, `keyboard-nav-plan.md`, `color-contrast-audit.md`
 - Validation: `research-findings.md` if it exists
 - Governance: `design-principles.md`, `pattern-library.md` if they exist
-- Canvas: all canvas brief files in `design/13_CANVAS/`
+- Canvas: all canvas brief files in `design/13_CANVAS_BRIEFS/`
 
 **Step 2 — Generate entity pages**
 Write the following files in `design/WIKI/`:
@@ -95,7 +95,7 @@ design/WIKI/
 ```
 
 **Entity page structure — persona:**
-```markdown
+```text
 <!-- artifact: design/WIKI/personas/{id}.md | version: 1 | mode: design-query | updated: YYYY-MM-DD -->
 
 # {Persona name} — {Persona ID}
@@ -120,7 +120,7 @@ design/WIKI/
 ```
 
 **Entity page structure — design principles:**
-```markdown
+```text
 <!-- artifact: design/WIKI/principles/index.md | version: 1 | mode: design-query | updated: YYYY-MM-DD -->
 
 # Design Principles
@@ -132,7 +132,7 @@ design/WIKI/
 ```
 
 **Entity page structure — constraints/business-rules:**
-```markdown
+```text
 <!-- artifact: design/WIKI/constraints/business-rules.md | version: 1 | mode: design-query | updated: YYYY-MM-DD -->
 
 # Business Rules Register — Cross-Referenced
@@ -144,7 +144,7 @@ design/WIKI/
 ```
 
 **Index structure:**
-```markdown
+```text
 <!-- artifact: design/WIKI/index.md | version: 1 | mode: design-query | updated: YYYY-MM-DD -->
 
 # Project Wiki — {Project name}
@@ -177,6 +177,25 @@ design/WIKI/
 [State of the design system: token coverage, component count, governance status]
 ```
 
+**Step 2.5 — Shard oversized entity pages**
+
+As projects grow, a persona's "Where they appear" table can list hundreds of rows, and a business-rule register can sprawl. When a single cross-reference table on an entity page exceeds ~200 rows, or the page itself exceeds ~500 lines, split along the table axes:
+
+```
+design/WIKI/personas/{id}/
+  index.md         ← synthesis, JTBD, archetype, design implications
+  stories.md       ← full story table
+  canvas.md        ← full canvas-brief table
+  journeys.md      ← full journey table
+  states.md        ← full interaction-state table
+```
+
+Only split the tables that exceed the threshold; smaller tables stay on the index. The index page must remain self-sufficient for the question "who is this persona?"; sub-pages expose the long-tail traceability.
+
+Cross-references still resolve via `[[personas/{id}]]` (points at the index). Sub-pages are reached explicitly (e.g. `[[personas/{id}/stories]]`).
+
+The same rule applies to `principles/{id}/`, `constraints/business-rules/{id}/`, and `patterns/{id}/` when their tables grow past the thresholds. Small and medium projects keep the flat layout — this is a scale adaptation, not a default.
+
 **Step 3 — Write migration status update**
 Update `design/.migration-status.md` to mark wiki as bootstrapped.
 
@@ -187,7 +206,7 @@ Update `design/.migration-status.md` to mark wiki as bootstrapped.
 **Step 0 — Parse the question**
 Read `design/WIKI/index.md`. Identify which wiki section(s) and underlying artifacts are most likely to contain the answer. Route accordingly:
 - Questions about users / personas → wiki personas + `design/02_USER_MODELS/`
-- Questions about specific screens / flows → wiki constraints + `design/13_CANVAS/`
+- Questions about specific screens / flows → wiki constraints + `design/13_CANVAS_BRIEFS/`
 - Questions about business rules → wiki constraints + `design/04_PROCESS_FLOWS/`
 - Questions about what we've decided → wiki decisions + `design/DECISION_LOG.md`
 - Questions about design system state → wiki + `design/12_GOVERNANCE/`

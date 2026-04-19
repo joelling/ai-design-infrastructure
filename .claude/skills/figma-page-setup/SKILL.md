@@ -8,6 +8,7 @@ description: >
   "design [feature] page", "new flow", "start designing [x]", or whenever beginning
   design work on a new screen or section of the product. Run this before placing
   any design elements on a new page.
+  Umbrella: `design-screen-compose` (sprint Working file pages). Runs before `figma-screen-compose`.
 ---
 
 # Page Setup — New Screen or Feature
@@ -156,7 +157,7 @@ Clean layer names make developer handoff and Parking Lot sorting dramatically ea
 
 This skill participates in the Tier 4 Develop sync loop. Before setting up a new page:
 
-1. **Check canvas brief exists** — verify `design/13_CANVAS/[screen-name]-brief.md` exists for this screen. Do not set up a page without a brief (except exploratory prototyping).
+1. **Check canvas brief exists** — verify `design/13_CANVAS_BRIEFS/[screen-name]-brief.md` exists for this screen. Do not set up a page without a brief (except exploratory prototyping).
 2. **Check sync hash** — if a brief exists and has a sync hash, confirm the brief is current (not stale from upstream changes).
 3. **Use brief for structure** — page name, sub-frame structure, and breakpoints come from the canvas brief's layout and breakpoint sections.
 

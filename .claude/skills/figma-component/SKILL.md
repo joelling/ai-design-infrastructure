@@ -10,6 +10,7 @@ description: >
   trigger when the user describes a UI pattern that should obviously be a reusable
   component even if they don't use the word "component". Always bias toward
   componentizing — if in doubt, make it a component.
+  Umbrella: `design-foundation-library` (Phase A seed components, Phase B promotion of parking-lot drafts). New publications trigger `design-component-library` Phase B for code-side mirroring.
 ---
 
 # Component Creation Workflow

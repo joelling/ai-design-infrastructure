@@ -4,8 +4,10 @@ description: >
   The critical synthesis mode that bridges upstream design artifacts to Figma execution.
   Aggregates all upstream design decisions — IA, personas, stories, interaction models,
   visual specs, content, accessibility — into a single per-screen canvas brief that tells
-  the Develop loop exactly what to build. Part of the Tier 4 Develop sync loop —
-  canvas briefs define intent, Figma executes visually, the prototype makes it interactive.
+  the Develop loop exactly what to build. First of the four sequential per-sprint Tier 4
+  modes (canvas → wireframe → screen-compose → prototype). Canvas briefs define intent;
+  `design-screen-compose` executes them in Figma using `design-foundation-library` components;
+  `design-prototype` makes the result interactive.
   Triggers on: "canvas brief", "screen brief", "design to canvas", "translate to UI",
   "build screen", "compose screen", "prepare for figma", "screen spec", "canvas spec",
   "aggregate design", "synthesis", or when ready to translate design decisions into
@@ -18,7 +20,7 @@ description: >
 > **Quick reference**
 > - **Purpose:** Aggregate all upstream artifacts into per-screen canvas briefs
 > - **Inputs:** Screen inventory, interaction model, visual spec, content terminology (hard deps) + personas, stories, business rules, states, a11y, validation (soft deps)
-> - **Outputs:** `design/13_CANVAS/{ScreenID}_{screen-name}.md` — one self-contained brief per screen, states as sections
+> - **Outputs:** `design/13_CANVAS_BRIEFS/{ScreenID}_{screen-name}.md` — one self-contained brief per screen, states as sections
 > - **Hard rules:** HARD BLOCK if screen inventory, interaction, visual, or content artifacts are missing. Briefs must be self-contained. One brief per screen. Frame inventory and traceability block are mandatory.
 > - **Common mistake:** Linking to upstream artifacts instead of pulling the relevant information into the brief — briefs must stand alone
 
@@ -74,7 +76,7 @@ Unlike other design modes, `design-canvas` has **hard dependencies**. It will **
 Before starting this mode's workflow:
 
 0. **Value alignment check:** If `design/01_DISCOVERY/value-framework.md` exists, verify that this mode's outputs can be traced to a vision element, driver, or lever defined there. If an output cannot be connected to a documented user need or a value lever, question whether it belongs. If no value framework exists yet, proceed — but flag any outputs whose purpose is unclear.
-1. Check `design/13_CANVAS/_upstream.md` for the dependency manifest
+1. Check `design/13_CANVAS_BRIEFS/_upstream.md` for the dependency manifest
 2. Compare recorded upstream versions against current artifact files (including `story-map.md`, `business-rules-register.md`, and `screen-inventory.md`)
 3. If upstream has changed, report what changed (additive / corrective / structural) and ask the designer: re-process or proceed?
 4. If re-processing, update incrementally — process the delta, don't rebuild from scratch
@@ -88,7 +90,7 @@ Before starting this mode's workflow:
 After completing this mode's workflow:
 
 1. Add or increment `<!-- artifact: ... -->` version headers on all changed output files
-2. Update `design/13_CANVAS/_upstream.md` with consumed and produced artifact versions
+2. Update `design/13_CANVAS_BRIEFS/_upstream.md` with consumed and produced artifact versions
 3. Report which downstream modes are now potentially stale
 
 ### Script commands
@@ -222,7 +224,7 @@ For each screen, pull from all upstream artifacts and compose. **One file per sc
 |-----------|-----------|
 ```
 
-Write to `design/13_CANVAS/{ScreenID}_{screen-name}.md`.
+Write to `design/13_CANVAS_BRIEFS/{ScreenID}_{screen-name}.md`.
 
 ### Step 3 — Cross-reference check
 
@@ -261,7 +263,7 @@ The canvas brief feeds wireframe validation, Figma execution, and the coded prot
 
 ## Output checklist
 
-- [ ] `design/13_CANVAS/{ScreenID}_{screen-name}.md` — one complete brief per screen
+- [ ] `design/13_CANVAS_BRIEFS/{ScreenID}_{screen-name}.md` — one complete brief per screen
 - [ ] Frame inventory (section 1) lists all frames to visualize
 - [ ] Traceability block (section 2) maps stories, business rules, flow steps, and interaction specs
 - [ ] All cross-references verified (stories, components, content, states, business rules, interaction specs)

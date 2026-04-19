@@ -38,7 +38,7 @@ Soft dependencies (the more that exist, the richer the lint run):
 - `design/10_ACCESSIBILITY/` — for accessibility propagation checks
 - `design/11_VALIDATION/research-findings.md` — for research propagation checks
 - `design/12_GOVERNANCE/design-principles.md` — for principle violation checks
-- `design/13_CANVAS/` — for canvas brief coverage
+- `design/13_CANVAS_BRIEFS/` — for canvas brief coverage
 - `design/.migration-status.md` — for pending v2 bootstrap flags
 
 ---
@@ -78,7 +78,7 @@ Run these LLM-based checks. Read the relevant files and evaluate:
 
 **1b — Business rules orphan check**
 - Read all BR-NNN IDs from `design/04_PROCESS_FLOWS/business-rules-register.md`
-- Scan all canvas briefs in `design/13_CANVAS/` for BR-NNN citations in traceability blocks
+- Scan all canvas briefs in `design/13_CANVAS_BRIEFS/` for BR-NNN citations in traceability blocks
 - Flag: any BR-NNN not referenced in any canvas brief (Warning unless Tier 4 has started, then Critical)
 
 **1c — Interaction state coverage**

@@ -2,7 +2,7 @@
 operation: [ingest, lint]
 ---
 
-# Design System Governance
+# Governance
 
 > **Tier 3 — Design (init) | Lifecycle — all tiers (synthesis)** | Mode: `design-governance`
 
@@ -29,7 +29,7 @@ Design systems don't drift because rules were wrong at the start. They drift bec
 | `design/11_VALIDATION/heuristic-evaluation.md` (all runs) | Recurring severity findings → candidate principles to prevent the pattern |
 | `figma-audit` findings since last synthesis run | Repeated violations → missing or wrong rules |
 | `figma-handoff` detected changes since last synthesis run | Consistent designer overrides → convention doesn't match how people think |
-| `design/13_CANVAS/` all canvas briefs | Recurring component patterns across 3+ screens → candidate pattern elevations |
+| `design/13_CANVAS_BRIEFS/` all canvas briefs | Recurring component patterns across 3+ screens → candidate pattern elevations |
 | `design/07_INTERACTION/interaction-model.md` evolution | New patterns in 4+ screens → candidate interaction standard to codify |
 | `design/12_GOVERNANCE/changelog.md` | What keeps changing → signals what needs a stronger or clearer rule |
 | Figma inventory lifecycle events | Components patched repeatedly → missing or violated structural rule |

@@ -8,6 +8,7 @@ description: >
   "start project", "initialize file", "file setup", "DLS setup", "design library setup",
   or when opening a blank Figma file for the first time. Also use when the user wants to
   know what files/pages a project should have, or when reorganising an existing file.
+  Umbrella: shared. `design-foundation-library` Phase A invokes for the Foundation, Icons & Illustrations, and Components DLS files; `design-screen-compose` invokes for sprint Working files.
 ---
 
 # Figma File Setup

@@ -8,6 +8,7 @@ description: >
   "reconnect figma", "kill channels", "figma session", or when any figma_ tool call
   fails or returns an unexpected error. Also use proactively before starting any design
   work to confirm which file is active and connection is healthy.
+  Umbrella: shared by `design-foundation-library` (Phase A and Phase B) and `design-screen-compose` (every sprint session). Always invoked first.
 ---
 
 # Figma Console MCP — Connection Management

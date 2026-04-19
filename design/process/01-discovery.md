@@ -150,7 +150,7 @@ When new inputs are added to an existing discovery (e.g., a new interview transc
 
 Every output file carries a version comment as its first line:
 
-```markdown
+```text
 <!-- artifact: design/01_DISCOVERY/stakeholder-map.md | version: 2 | mode: design-discovery | updated: 2026-03-21 -->
 ```
 

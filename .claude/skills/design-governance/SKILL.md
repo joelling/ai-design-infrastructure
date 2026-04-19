@@ -34,7 +34,7 @@ description: >
 - `design/11_VALIDATION/heuristic-evaluation.md` — all runs
 - `figma-audit` findings since last synthesis run
 - `figma-handoff` detected changes since last synthesis run
-- `design/13_CANVAS/` — all canvas briefs
+- `design/13_CANVAS_BRIEFS/` — all canvas briefs
 - `design/07_INTERACTION/interaction-model.md`
 - `design/12_GOVERNANCE/changelog.md`
 - Figma inventory lifecycle events

@@ -2,7 +2,7 @@
 operation: lint
 ---
 
-# Design Lint
+# Lint
 
 > **Cross-cutting — all tiers | Lifecycle** | Mode: `design-lint`
 
@@ -38,7 +38,7 @@ The output is a health report by severity — not a list of things Claude should
 | `design/10_ACCESSIBILITY/` | ARIA patterns and keyboard nav — are all referenced in canvas briefs? |
 | `design/11_VALIDATION/research-findings.md` | Findings — have confidence tiers in personas been updated? |
 | `design/12_GOVERNANCE/design-principles.md` | Principles — are any violated in canvas briefs or Figma audit findings? |
-| `design/13_CANVAS/` | Canvas briefs — traceability blocks, frame inventory completeness |
+| `design/13_CANVAS_BRIEFS/` | Canvas briefs — traceability blocks, frame inventory completeness |
 | `design/.migration-status.md` | Pending v2 bootstraps (wiki, decision log) |
 
 ## Upstream sync
@@ -75,7 +75,7 @@ For each check, read the relevant files and evaluate:
 
 **Business rules coverage**
 - Read `design/04_PROCESS_FLOWS/business-rules-register.md` for all BR-NNN IDs
-- Check each canvas brief in `design/13_CANVAS/` for BR-NNN references in the traceability block
+- Check each canvas brief in `design/13_CANVAS_BRIEFS/` for BR-NNN references in the traceability block
 - Flag: any BR-NNN that appears in the register but is referenced in zero canvas briefs
 
 **Interaction states coverage**

@@ -20,7 +20,7 @@ import path from 'path';
 
 const projectRoot = path.resolve(import.meta.dirname, '../..');
 
-const CANVAS_DIR = path.join(projectRoot, 'design/13_CANVAS');
+const CANVAS_DIR = path.join(projectRoot, 'design/13_CANVAS_BRIEFS');
 const COMPOSITION_DIR = path.join(projectRoot, 'design/15_FIGMA/composition-logs');
 const INVENTORY_PATH = path.join(projectRoot, 'design/12_GOVERNANCE/inventory.md');
 

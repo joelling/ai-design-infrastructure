@@ -8,6 +8,7 @@ description: >
   "design system docs", "storybook", "documentation page", "token documentation", "usage guide",
   "component docs", "visualize tokens", "document the design system", "docs page", or when
   a new foundation topic needs a documentation page in the DLS file.
+  Umbrella: `design-foundation-library` (Phase A initial documentation; Phase B continuous docs as new tokens/components are published). Storybook docs may be re-emitted by `design-component-library` Phase B for code-side parity.
 ---
 
 # Design System Documentation

@@ -136,7 +136,7 @@ The evolution log serves two purposes:
 
 Every output file carries a version comment as its first line:
 
-```markdown
+```text
 <!-- artifact: design/02_USER_MODELS/personas/reviewer.md | version: 3 | mode: design-user-models | updated: 2026-03-21 | evidence: stakeholder-map.md@v2, qualitative-synthesis.md@v3 -->
 ```
 

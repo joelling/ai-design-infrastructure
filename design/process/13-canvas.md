@@ -2,9 +2,9 @@
 operation: query
 ---
 
-# Design-to-Canvas Synthesis
+# Canvas Briefs
 
-> **Tier 4 — Develop** | Mode: `design-canvas`
+> **Tier 4 — Develop sequential** | Mode: `design-canvas`
 
 ## Why this matters
 
@@ -31,7 +31,7 @@ Additional artifacts are used if available (personas, behavioral archetypes, sto
 
 Canvas briefs aggregate ALL upstream artifacts. The sync protocol here is especially important — a change in any Tier 1-3 mode can affect briefs.
 
-**On entry:** Check `design/13_CANVAS/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files across all upstream modes (IA, interaction, visual, content, accessibility, validation, user-models, stories, process-flows). If upstream has changed since last run:
+**On entry:** Check `design/13_CANVAS_BRIEFS/_upstream.md` (if it exists). Compare recorded upstream artifact versions against current files across all upstream modes (IA, interaction, visual, content, accessibility, validation, user-models, stories, process-flows). If upstream has changed since last run:
 
 1. Report what changed, which briefs are affected, and classify severity (additive / corrective / structural)
 2. Ask the designer: update affected briefs, or proceed with current outputs?
@@ -40,15 +40,15 @@ Canvas briefs aggregate ALL upstream artifacts. The sync protocol here is especi
 **On completion:** After producing or updating briefs:
 
 1. Add or increment version headers and sync hashes on all changed briefs
-2. Update `design/13_CANVAS/_upstream.md` with consumed artifact versions
+2. Update `design/13_CANVAS_BRIEFS/_upstream.md` with consumed artifact versions
 3. Report which downstream modes are now potentially stale (figma skills, prototype)
 
 ### Artifact version header for briefs
 
 Every canvas brief carries a version comment and sync hash:
 
-```markdown
-<!-- artifact: design/13_CANVAS/P-02_project-space.md | version: 2 | mode: design-canvas | updated: 2026-03-21 | evidence: screen-inventory.md@v3, interaction-model.md@v2, visual-language.md@v1, terminology.md@v2 -->
+```text
+<!-- artifact: design/13_CANVAS_BRIEFS/P-02_project-space.md | version: 2 | mode: design-canvas | updated: 2026-03-21 | evidence: screen-inventory.md@v3, interaction-model.md@v2, visual-language.md@v1, terminology.md@v2 -->
 <!-- sync-hash: [hash-value] -->
 ```
 
@@ -130,7 +130,7 @@ The remaining sections, each referencing frame numbers where behavior differs pe
 
 | File | What it contains |
 |------|-----------------|
-| `design/13_CANVAS/{ScreenID}_{screen-name}.md` | One complete brief per screen. Screen ID prefix from `screen-inventory.md`. States/frames are sections within the file. |
+| `design/13_CANVAS_BRIEFS/{ScreenID}_{screen-name}.md` | One complete brief per screen. Screen ID prefix from `screen-inventory.md`. States/frames are sections within the file. |
 
 *`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 

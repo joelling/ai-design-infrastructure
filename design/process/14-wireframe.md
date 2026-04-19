@@ -2,9 +2,9 @@
 operation: query
 ---
 
-# Clickable ASCII Wireframe
+# Wireframes
 
-> **Tier 4 — Develop** | Mode: `design-wireframe`
+> **Tier 4 — Develop sequential** | Mode: `design-wireframe`
 
 ## Why this matters
 
@@ -40,13 +40,13 @@ The Tier 4 sync loop remains three nodes: Canvas ↔ Figma ↔ Prototype.
 
 | Artifact | What it provides | Path |
 |----------|-----------------|------|
-| Canvas briefs | Frame inventory, layout hierarchy, component list, content, states | `design/13_CANVAS/*.md` |
+| Canvas briefs | Frame inventory, layout hierarchy, component list, content, states | `design/13_CANVAS_BRIEFS/*.md` |
 | Walking skeleton | Flow order for wiring screens | `design/05_STORIES/walking-skeleton.md` |
 | Screen inventory | Screen list and purposes | `design/06_INFORMATION_ARCHITECTURE/screen-inventory.md` |
 
 ## Upstream sync
 
-**On entry:** Check `design/14_WIREFRAME/_upstream.md` (if it exists). Compare recorded canvas brief versions against current briefs. If briefs have changed since last run:
+**On entry:** Check `design/14_WIREFRAMES/_upstream.md` (if it exists). Compare recorded canvas brief versions against current briefs. If briefs have changed since last run:
 
 1. Report which canvas briefs changed and which wireframes are affected
 2. Ask the designer: regenerate affected wireframes, or proceed with current?
@@ -54,14 +54,14 @@ The Tier 4 sync loop remains three nodes: Canvas ↔ Figma ↔ Prototype.
 
 **On completion:** After producing or updating wireframes:
 
-1. Update `design/14_WIREFRAME/_upstream.md` with consumed canvas brief versions
+1. Update `design/14_WIREFRAMES/_upstream.md` with consumed canvas brief versions
 2. Report that wireframes are ready for stakeholder review
 
 ## Process
 
 **0. Check upstream sync.** Run the upstream sync check described above. Verify canvas briefs exist for screens to be wireframed.
 
-**1. Scaffold wireframe directory.** Create `design/14_WIREFRAME/` structure if it doesn't exist: `screens/`, `feedback/`, `archive/`. Copy `design/templates/wireframe-style.css` to `design/14_WIREFRAME/screens/style.css` if the file does not already exist — this static stylesheet is never regenerated.
+**1. Scaffold wireframe directory.** Create `design/14_WIREFRAMES/` structure if it doesn't exist: `screens/`, `feedback/`, `archive/`. Copy `design/templates/wireframe-style.css` to `design/14_WIREFRAMES/screens/style.css` if the file does not already exist — this static stylesheet is never regenerated.
 
 **2. Build screen by screen.** For each canvas brief in scope:
    - Read Section 1 (frame inventory) — determines how many wireframes this screen needs
@@ -87,7 +87,7 @@ The Tier 4 sync loop remains three nodes: Canvas ↔ Figma ↔ Prototype.
    - Flow diagram showing walking skeleton navigation
    - Entry point for stakeholder review
 
-**6. Stakeholder review gate.** Present wireframes for review. For each review round, copy `design/templates/wireframe-feedback.tpl.md` to `design/14_WIREFRAME/feedback/round-N.md`. Collect structured feedback:
+**6. Stakeholder review gate.** Present wireframes for review. For each review round, copy `design/templates/wireframe-feedback.tpl.md` to `design/14_WIREFRAMES/feedback/round-N.md`. Collect structured feedback:
    - Per screen: what's missing, what's wrong, what's unnecessary, what's in the wrong place
    - Flow-level: what screens are missing, what's the wrong order, where do users get lost
 
@@ -105,10 +105,10 @@ The Tier 4 sync loop remains three nodes: Canvas ↔ Figma ↔ Prototype.
 
 | File | Type | What it contains |
 |------|------|-----------------|
-| `design/14_WIREFRAME/manifest.md` | synthesis | Screen-to-file mapping, review status, feedback round history |
-| `design/14_WIREFRAME/screens/*.html` | synthesis | Clickable ASCII wireframe pages |
-| `design/14_WIREFRAME/screens/style.css` | pure template | Shared monospace stylesheet — copied from `design/templates/wireframe-style.css`; never regenerated |
-| `design/14_WIREFRAME/feedback/round-N.md` | pure template | Structured feedback capture — copied from `design/templates/wireframe-feedback.tpl.md` per review round |
+| `design/14_WIREFRAMES/manifest.md` | synthesis | Screen-to-file mapping, review status, feedback round history |
+| `design/14_WIREFRAMES/screens/*.html` | synthesis | Clickable ASCII wireframe pages |
+| `design/14_WIREFRAMES/screens/style.css` | pure template | Shared monospace stylesheet — copied from `design/templates/wireframe-style.css`; never regenerated |
+| `design/14_WIREFRAMES/feedback/round-N.md` | pure template | Structured feedback capture — copied from `design/templates/wireframe-feedback.tpl.md` per review round |
 
 *`_upstream.md` is maintained by `sync-manifest.js` and is not a mode deliverable.*
 
@@ -149,7 +149,7 @@ These rules ensure the wireframe's roughness works as intended. They are non-neg
 
 4. **Deliberate disposability.** Wireframes are explicitly archived when Figma starts. They do not persist as a reference during high-fidelity work. This prevents "but the wireframe showed it differently" during Figma review.
 
-5. **Naming discipline.** The skill is `design-wireframe`, never "lo-fi prototype" or "low-fidelity prototype." The artifact directory is `design/14_WIREFRAME/`. Language shapes perception — these are wireframes, not prototypes.
+5. **Naming discipline.** The skill is `design-wireframe`, never "lo-fi prototype" or "low-fidelity prototype." The artifact directory is `design/14_WIREFRAMES/`. Language shapes perception — these are wireframes, not prototypes.
 
 ## Visual conventions
 

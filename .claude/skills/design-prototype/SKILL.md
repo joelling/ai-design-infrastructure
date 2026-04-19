@@ -2,14 +2,17 @@
 name: design-prototype
 description: >
   Builds coded prototypes from Figma screens, canvas briefs, and story maps. Technology
-  agnostic — adapts to the project's chosen stack. Part of the Tier 4 Develop sync loop:
-  canvas briefs define intent, Figma defines visuals, the prototype makes it interactive.
+  agnostic — adapts to the project's chosen stack. Fourth of the four sequential per-sprint
+  Tier 4 modes (canvas → wireframe → screen-compose → prototype). Canvas briefs define intent,
+  Figma defines visuals (via `design-screen-compose`), the prototype makes it interactive.
   Includes drift detection and bidirectional sync with Figma and canvas briefs.
   Triggers on: "prototype", "code prototype", "build prototype", "interactive prototype",
   "wire flows", "make it interactive", "coded prototype", "prototype this", "bring to life",
   or when Figma screens are ready to be turned into a running, interactive experience.
   Upstream dependencies: canvas briefs, Figma screens (via MCP), walking skeleton,
-  interaction model.
+  interaction model. When `design-component-library` is bootstrapped, consume its published
+  code components + Style Dictionary token build via `figma-mapping.json`; otherwise fall back
+  to ad-hoc HTML/CSS and flag the gap so `design-component-library` Phase A is triggered.
 ---
 
 # Coded Prototype — Making Designs Interactive
@@ -49,7 +52,7 @@ Canvas Brief ◄──sync──► Figma Screens ◄──sync──► Prototy
 
 | Required | What it provides | How to check |
 |----------|-----------------|-------------|
-| Canvas briefs | Per-screen spec | `design/13_CANVAS/[screen]-brief.md` exists |
+| Canvas briefs | Per-screen spec | `design/13_CANVAS_BRIEFS/[screen]-brief.md` exists |
 | Figma screens | Visual reference | Figma MCP connection live, screens built |
 | Walking skeleton | Flow order | `design/05_STORIES/walking-skeleton.md` exists |
 | Interaction model | Behavioral specs | `design/07_INTERACTION/interaction-model.md` exists |

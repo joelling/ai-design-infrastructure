@@ -9,6 +9,7 @@ description: >
   inventory", "component list", "what components exist", "asset log", "inventory report",
   "reconcile inventory", "inventory status", "what's published", "what's in draft",
   "component history", "asset tracking", or when needing a full picture of design system assets.
+  Umbrella: `design-foundation-library`. Tracks every component lifecycle event; new fields `triggering_screen` and `requested_by` capture compose-driven `[MISSING]` placeholder requests from `design-screen-compose`.
 ---
 
 # Design System Inventory
@@ -145,6 +146,7 @@ For existing Foundation DLS files, token collections should be pre-populated:
 - The inventory is reconciled during every `figma-audit` run (Checks 8, 9, 10)
 - Token collections are tracked as single entries; individual tokens within are tracked only when they have notable history (e.g., renamed, deprecated)
 - The inventory does NOT replace Figma as the source of truth for visual design — it tracks lifecycle metadata that Figma doesn't store
+- A `removed` inventory entry is the figma-inventory equivalent of the general `status: retired` convention (see "Retirement status convention" in `design/process/README.md`). The inventory record is preserved for history, the ID is never reused, and other artifacts may still cite the asset.
 
 ## Feeds into
 

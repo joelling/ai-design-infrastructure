@@ -2,7 +2,7 @@
 operation: [ingest, lint]
 ---
 
-# Design Research
+# Research
 
 > **Tier 3 — Design (init) | Lifecycle — all tiers (synthesis)** | Mode: `design-research`
 

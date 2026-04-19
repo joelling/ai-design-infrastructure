@@ -9,6 +9,7 @@ description: >
   "finished page", "wrap up page", or at the natural end of working on any screen.
   Also trigger this proactively when you notice components piling up in the left
   staging area of a working page.
+  Umbrella: `design-foundation-library`. Acts as the **intake queue** for components requested by `design-screen-compose` (logged with `requested_by: figma-screen-compose` or `figma-handoff`). Phase B triages each entry: promote, defer, or reject.
 ---
 
 # Parking Lot — Component Staging

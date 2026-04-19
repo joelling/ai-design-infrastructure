@@ -1,4 +1,4 @@
-<!-- Wireframe feedback form — copy per review round: design/14_WIREFRAME/feedback/round-N.md -->
+<!-- Wireframe feedback form — copy per review round: design/14_WIREFRAMES/feedback/round-N.md -->
 
 # Wireframe Review — Round [N]
 

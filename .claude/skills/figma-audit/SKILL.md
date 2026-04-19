@@ -9,6 +9,7 @@ description: >
   "design system check", "before library mode", "validate tokens", "clean up", "screen
   completeness", "check screens against briefs", or any time a component is acting
   unexpectedly. Run before every library migration.
+  Umbrella: `design-foundation-library` (Phase B health check across the DLS files). Findings feed `design-governance` Phase B for pattern elevation; library-migration audits coordinate with `figma-library-mode`.
 ---
 
 # Figma Audit — File Health Check
@@ -92,7 +93,7 @@ Run this before library migrations, periodically during active design, or whenev
 
 ### Check 11 — Completeness Audit
 **What**: Per-screen verification that the built Figma screen covers everything the canvas brief specifies.
-**How**: For each screen on the current page, locate its canvas brief in `design/13_CANVAS/`. Verify each category:
+**How**: For each screen on the current page, locate its canvas brief in `design/13_CANVAS_BRIEFS/`. Verify each category:
 
 | Category | What to check |
 |----------|--------------|

@@ -18,7 +18,7 @@ These items from the previous variance report were confirmed correct in the curr
 | Mode count | 16 (M01–M16) | 16 | ✓ |
 | Mode 14 | Clickable Wireframe | Clickable Wireframe | ✓ |
 | Figma pipeline skills | ①–⑪ (11 steps) | 11 mandatory skills | ✓ |
-| Artifact paths | `14_WIREFRAME`, `16_PROTOTYPE` | Same | ✓ |
+| Artifact paths | `14_WIREFRAMES`, `16_PROTOTYPE` | Same | ✓ |
 | BRD story AC notation | "(untagged story AC)" for M05 | Untagged by convention | ✓ |
 | Figma audit checks | 10 listed | 10 defined | ✓ |
 | Missing skills (handoff, inventory, docs) | All present | All defined | ✓ |

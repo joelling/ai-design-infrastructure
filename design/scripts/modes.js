@@ -25,7 +25,7 @@ export const MODES = {
     downstream: ['journeys', 'stories', 'content', 'visual', 'canvas'],
   },
   journeys: {
-    label: 'Journey Mapping',
+    label: 'Journeys',
     tier: 2,
     outputDir: 'design/03_JOURNEYS',
     inputs: [
@@ -49,7 +49,7 @@ export const MODES = {
     downstream: ['stories', 'ia', 'interaction', 'content', 'canvas', 'design/BRD.xlsx'],
   },
   stories: {
-    label: 'Story Mapping',
+    label: 'User Stories',
     tier: 2,
     outputDir: 'design/05_STORIES',
     inputs: [
@@ -68,6 +68,15 @@ export const MODES = {
       'design/04_PROCESS_FLOWS/',
       'design/05_STORIES/story-map.md',
       'design/02_USER_MODELS/personas/',
+    ],
+    outputs: [
+      'design/06_INFORMATION_ARCHITECTURE/sitemap.md',
+      'design/06_INFORMATION_ARCHITECTURE/navigation-model.md',
+      'design/06_INFORMATION_ARCHITECTURE/screen-inventory.md',
+      'design/06_INFORMATION_ARCHITECTURE/content-inventory.md',
+      'design/06_INFORMATION_ARCHITECTURE/rbac.md',
+      'design/06_INFORMATION_ARCHITECTURE/notifications.md',
+      'design/06_INFORMATION_ARCHITECTURE/data-dictionary.md',
     ],
     downstream: ['interaction', 'content', 'canvas', 'design/BRD.xlsx'],
   },
@@ -118,14 +127,14 @@ export const MODES = {
     downstream: ['canvas'],
   },
   validation: {
-    label: 'Design Validation',
+    label: 'Research',
     tier: 3,
     outputDir: 'design/11_VALIDATION',
     inputs: [],  // flexible — uses whatever exists
     downstream: ['canvas'],
   },
   governance: {
-    label: 'Design Governance',
+    label: 'Governance',
     tier: 3,
     outputDir: 'design/12_GOVERNANCE',
     inputs: [
@@ -136,9 +145,13 @@ export const MODES = {
   canvas: {
     label: 'Canvas Briefs',
     tier: 4,
-    outputDir: 'design/13_CANVAS',
+    track: 'per-sprint',
+    outputDir: 'design/13_CANVAS_BRIEFS',
     inputs: [
       'design/06_INFORMATION_ARCHITECTURE/screen-inventory.md',
+      'design/06_INFORMATION_ARCHITECTURE/rbac.md',
+      'design/06_INFORMATION_ARCHITECTURE/notifications.md',
+      'design/06_INFORMATION_ARCHITECTURE/data-dictionary.md',
       'design/04_PROCESS_FLOWS/index.md',
       'design/04_PROCESS_FLOWS/business-rules-register.md',
       'design/07_INTERACTION/interaction-model.md',
@@ -156,41 +169,86 @@ export const MODES = {
       'design/10_ACCESSIBILITY/color-contrast-audit.md',
       'design/11_VALIDATION/review-checklist.md',
     ],
-    downstream: ['wireframe', 'prototype', 'design/BRD.xlsx'],
+    downstream: ['wireframe', 'screen-compose', 'prototype', 'design/BRD.xlsx'],
   },
   wireframe: {
-    label: 'Clickable ASCII Wireframe',
+    label: 'Wireframes',
     tier: 4,
-    outputDir: 'design/14_WIREFRAME',
+    track: 'per-sprint',
+    outputDir: 'design/14_WIREFRAMES',
     inputs: [
-      'design/13_CANVAS/',
+      'design/13_CANVAS_BRIEFS/',
       'design/05_STORIES/walking-skeleton.md',
       'design/06_INFORMATION_ARCHITECTURE/screen-inventory.md',
     ],
-    downstream: [],
+    downstream: ['screen-compose'],
+  },
+  'screen-compose': {
+    label: 'Screen Composition',
+    tier: 4,
+    track: 'per-sprint',
+    outputDir: 'design/15_FIGMA',
+    inputs: [
+      'design/13_CANVAS_BRIEFS/',
+      'design/06_INFORMATION_ARCHITECTURE/screen-inventory.md',
+      'design/14_WIREFRAMES/',
+    ],
+    downstream: ['prototype'],
+    requires: ['foundation-library'],  // HARD BLOCK — needs published library to compose against
   },
   prototype: {
-    label: 'Coded Prototype',
+    label: 'Prototype',
     tier: 4,
+    track: 'per-sprint',
     outputDir: 'design/16_PROTOTYPE',
     inputs: [
-      'design/13_CANVAS/',
+      'design/13_CANVAS_BRIEFS/',
       'design/05_STORIES/walking-skeleton.md',
       'design/05_STORIES/story-map.md',
       'design/07_INTERACTION/interaction-model.md',
       'design/07_INTERACTION/behavioral-spec.md',
+      'design/15_COMPONENT_LIBRARY/',  // optional — fallback to ad-hoc if absent
     ],
     downstream: [],
   },
+  'foundation-library': {
+    label: 'Foundation Library',
+    tier: 4,
+    track: 'continuous',
+    outputDir: 'design/15_FIGMA',
+    inputs: [
+      'design/07_INTERACTION/state-inventory.md',
+      'design/08_VISUAL/visual-language.md',
+      'design/08_VISUAL/color-rationale.md',
+      'design/08_VISUAL/typography-rationale.md',
+      'design/09_CONTENT/microcopy-patterns.md',
+      'design/10_ACCESSIBILITY/aria-patterns.md',
+      'design/12_GOVERNANCE/design-principles.md',
+    ],
+    downstream: ['screen-compose', 'component-library'],
+  },
+  'component-library': {
+    label: 'Component Library',
+    tier: 4,
+    track: 'continuous',
+    outputDir: 'design/15_COMPONENT_LIBRARY',
+    inputs: [
+      'design/15_FIGMA/',  // Figma library is the upstream source of truth
+      'design/08_VISUAL/visual-language.md',
+      'design/12_GOVERNANCE/design-principles.md',
+    ],
+    downstream: ['prototype'],
+    requires: ['foundation-library'],  // HARD BLOCK — needs Figma library to mirror
+  },
   lint: {
-    label: 'Design Lint',
+    label: 'Lint',
     tier: null,  // cross-cutting — all tiers
     outputDir: 'design/LINT',
     inputs: [],  // reads all artifact directories; no fixed input list
     downstream: [],
   },
   query: {
-    label: 'Design Query',
+    label: 'Query',
     tier: null,  // cross-cutting — all tiers
     outputDir: 'design/WIKI',
     inputs: [],  // reads all artifact directories; no fixed input list
