@@ -213,6 +213,7 @@ Three CLI scripts in `design/scripts/` automate the error-prone parts of the syn
 | `sync-status.js` | `node design/scripts/sync-status.js` | Pipeline sweep — scan all manifests, detect staleness, report |
 | `sync-traceability.js` | `node design/scripts/sync-traceability.js` | Validate bidirectional consistency: canvas briefs ↔ story map ↔ screen inventory ↔ interaction specs ↔ business rules. Honors `status: retired` markers and excludes retired artifacts from orphan checks |
 | `sync-wiki.js` | `node design/scripts/sync-wiki.js` | Wiki staleness check — compare `evidence:` versions in `design/WIKI/**.md` against current source artifact versions. Also regenerates `design/WIKI/.backlinks.json` — the reverse index of every `[[wikilink]]` and stable ID (DS-NNN, BR-NN, GP-NNN, P-/OV-/DE-, PER-NNN, RF-NNN, PA-NNN) across the `design/` corpus |
+| `sync-retirement.js` | `node design/scripts/sync-retirement.js` | Retirement-pointer integrity — every retired artifact must declare at least one `superseded_by` / `merged_into` / `supersedes` pointer; targets must resolve to known IDs; reverse pointers must be consistent. Skips framework subtrees (`design/process/`, `design/templates/`, `design/scripts/`, `design/viewer/`) since their retirement markers are illustrative, not real |
 
 **Typical workflow:**
 1. After completing a mode, run `sync-version.js init` or `bump` on each output file
@@ -228,6 +229,10 @@ Three CLI scripts in `design/scripts/` automate the error-prone parts of the syn
 **Run `sync-wiki.js` after:**
 - Any source artifact is bumped — catches wiki pages whose synthesized content now lags the source
 - A project-wide read of the graph is needed — the generated `design/WIKI/.backlinks.json` lists every artifact or wiki page referencing a given target, keyed by target name
+
+**Run `sync-retirement.js` after:**
+- Any artifact is retired or replaced — confirms `superseded_by` / `merged_into` / `supersedes` pointers are declared and resolve
+- Any Split or Merge pattern is applied — verifies reverse pointers on the new ID(s) point back to the retired ID
 
 ### Retirement status convention
 
@@ -280,7 +285,7 @@ Retirable artifact types include: personas, stories (DS-NNN), screens (P-/OV-/DE
 - **Figma components have their own lifecycle** managed by `figma-inventory` (`draft → published → deprecated → retired`). The convention here complements that — the retirement *marker* is identical (`status: retired`) but the lifecycle states stay where they are.
 - **High-degree nodes have a higher retirement bar.** A persona referenced by 40 canvas briefs retires only when the Identity, Contract, or Reversal test triggers — not on Historical-value alone, because the propagation cost is too high. When in doubt for a high-degree node, prefer Revision (edit + Decision Log) over Replacement.
 
-**Known gap:** `sync-traceability.js` does not yet validate that `[BR-NN]` tags in BRD acceptance criteria correspond to entries in the business rules register. BR-NN tag orphans require manual cross-check until a validation script is added. It also does not yet validate `superseded_by` / `merged_into` / `supersedes` pointer integrity — a future `sync-retirement.js` may close this gap.
+**Known gap:** `sync-traceability.js` does not yet validate that `[BR-NN]` tags in BRD acceptance criteria correspond to entries in the business rules register. BR-NN tag orphans require manual cross-check until a validation script is added. Retirement-pointer integrity is handled separately by `sync-retirement.js`.
 
 Mode config (output dirs, inputs, downstream consumers) is defined in `design/scripts/modes.js`.
 
