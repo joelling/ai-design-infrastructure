@@ -18,9 +18,9 @@ Design Query closes this gap. It gives designers a natural-language interface to
 
 **There are two phases:**
 
-**Phase A (wiki bootstrap):** Run once, after Tier 3 artifacts stabilize. Claude reads all existing tier artifacts and generates `design/WIKI/` — cross-referenced entity pages organized by category. This becomes the primary query target and project onboarding artifact.
+**Phase A (wiki bootstrap):** Run once, after Tier 3 artifacts stabilize. The AI assistant reads all existing tier artifacts and generates `design/WIKI/` — cross-referenced entity pages organized by category. This becomes the primary query target and project onboarding artifact.
 
-**Ongoing (query mode):** Designer asks a question → Claude synthesizes a cited answer from the artifact corpus and wiki → insights file back (gaps become AC notes, contradictions flag to the lint queue, novel patterns elevate to governance).
+**Ongoing (query mode):** Designer asks a question → the assistant synthesizes a cited answer from the artifact corpus and wiki → insights file back (gaps become AC notes, contradictions flag to the lint queue, novel patterns elevate to governance).
 
 The wiki is not a finished document. It is a living synthesis that gets richer every time someone queries it.
 
@@ -33,14 +33,14 @@ The wiki is not a finished document. It is a living synthesis that gets richer e
 
 **Ongoing queries:**
 - `design/WIKI/` — the primary search target (built in Phase A)
-- The specific artifact files most likely to contain the answer (Claude retrieves based on query topic)
+- The specific artifact files most likely to contain the answer (retrieved based on query topic)
 - `design/LINT_REPORT.md` — consulted for any query touching health or gaps
 
 ## Upstream sync
 
 **Phase A:** Check `design/.migration-status.md`. If wiki bootstrap is not listed as pending, wiki may already exist — check `design/WIKI/index.md` before regenerating.
 
-**Ongoing:** No formal upstream check. Claude reads the wiki index on entry to understand what's been indexed, then retrieves targeted artifacts as needed.
+**Ongoing:** No formal upstream check. The AI assistant reads the wiki index on entry to understand what's been indexed, then retrieves targeted artifacts as needed.
 
 **On completion (Phase A):**
 1. Write `design/WIKI/` with versioned entity pages

@@ -1,0 +1,17 @@
+{
+  "_comment": "Project-scoped MCP server config for Claude Code. Mirrors .bob/mcp.json so both harnesses run against the same server surface. Replace placeholder paths/tokens with environment values (GITHUB_TOKEN, FIGMA_PAT) or resolve via your OS keychain.",
+  "mcpServers": {
+    "figma-console": {
+      "command": "npx",
+      "args": ["-y", "figma-console-mcp"],
+      "env": {}
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}

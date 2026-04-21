@@ -1,0 +1,30 @@
+# .bobignore — exclude paths from Bob's file indexer.
+# Same semantics as .gitignore. Keep Bob and Claude out of each other's harness
+# directories when both live on the same checkout.
+
+# Claude Code harness — out of scope for Bob
+.claude/
+CLAUDE.md
+
+# Generated / ephemeral
+design/LINT_REPORT.md
+design/.migration-status.md
+design/WIKI/.backlinks.json
+
+# Local env & secrets
+.env
+.env.*
+!.env.example
+
+# Node / Python artefacts
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/settings.json

@@ -24,7 +24,7 @@ You are reading the project as a whole — not through the lens of any single de
 - **Confidence check:** Do user model confidence tiers match the evidence that's been gathered?
 - **Propagation check:** Have research findings, governance decisions, and audit results been incorporated into the artifacts that depend on them?
 
-The output is a health report by severity — not a list of things Claude should fix automatically, but a clear prioritized list the designer can act on.
+The output is a health report by severity — not a list of things the AI assistant should fix automatically, but a clear prioritized list the designer can act on.
 
 ## Inputs
 

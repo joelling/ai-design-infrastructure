@@ -1,0 +1,108 @@
+# Propagation Spec — Design Process Fan-out Targets
+# Read by the `workflow-update` skill (both .claude/ and .bob/ copies).
+# When design/process/*.md is edited, every matching target must be updated
+# in the same session. Adding a new harness = one edit to this file.
+#
+# Shape
+# -----
+# harnesses:             registered AI-assistant harnesses
+# chapters.map:          chapter file → primary skill (or __umbrella__ / __index__)
+# umbrellas:             conceptual modes realised through multiple sub-skill dirs
+# harness_infra_skills:  skills that exist per harness but don't trace to a chapter
+# targets:               fan-out targets for a given change category
+# sync_script:           CI-like command that enforces mirror parity
+#
+# Conventions
+# -----------
+# - Paths are repo-root-relative.
+# - `__index__` means the chapter contributes only to indexes/orchestration,
+#   not to a single SKILL.md.
+# - `__umbrella__:name` means the chapter describes an umbrella whose sub-skills
+#   are listed under `umbrellas.name.sub_skills`.
+# - If a harness is missing a mirror (incremental buildout), sync-skills.js
+#   reports it as a warning by default (without --strict it does not fail).
+
+version: 1
+
+harnesses:
+  - name: claude
+    skills_dir: .claude/skills
+    orchestration_doc: CLAUDE.md
+  - name: bob
+    skills_dir: .bob/skills
+    orchestration_doc: BOB.md
+
+chapters:
+  dir: design/process
+  map:
+    "00-overview.md":            __index__
+    "01-discovery.md":           design-discovery
+    "02-user-models.md":         design-user-models
+    "03-journeys.md":            design-journeys
+    "04-process-flows.md":       design-process-flows
+    "05-stories.md":             design-stories
+    "06-ia.md":                  design-ia
+    "07-interaction.md":         design-interaction
+    "08-visual.md":              design-visual
+    "09-content.md":             design-content
+    "10-accessibility.md":       design-accessibility
+    "11-validation.md":          design-research
+    "12-governance.md":          design-governance
+    "13-canvas.md":              design-canvas
+    "14-wireframe.md":           design-wireframe
+    "15-screen-compose.md":      __umbrella__:screen-compose
+    "16-prototype.md":           design-prototype
+    "17-foundation-library.md":  __umbrella__:foundation-library
+    "18-component-library.md":   design-component-library
+    "19-lint.md":                design-lint
+    "20-query.md":               design-query
+    "README.md":                 __index__
+
+umbrellas:
+  screen-compose:
+    chapter: 15-screen-compose.md
+    sub_skills:
+      - figma-connect
+      - figma-handoff
+      - figma-file-setup
+      - figma-page-setup
+      - figma-screen-compose
+  foundation-library:
+    chapter: 17-foundation-library.md
+    sub_skills:
+      - figma-tokens
+      - figma-component
+      - figma-parking-lot
+      - figma-inventory
+      - figma-audit
+      - figma-docs
+      - figma-library-mode
+
+harness_infra_skills:
+  - workflow-update
+  - design-validation
+
+targets:
+  per_chapter:
+    # Chapter change → update mirror SKILL.md in every harness that has one.
+    # For an umbrella chapter, update every sub_skill SKILL.md.
+    - "{harness.skills_dir}/{skill}/SKILL.md"
+  orchestration:
+    - path: CLAUDE.md
+      harness: claude
+    - path: BOB.md
+      harness: bob
+  index:
+    - design/process/README.md
+    - design/process/00-overview.md
+    - README.md
+  mapping_table:
+    - .bob/rules/50-bob-adaptations.md
+
+sync_script:
+  command: node design/scripts/sync-skills.js
+  failure_modes:
+    - skill listed in inventory has no SKILL.md in a registered harness
+    - SKILL.md dir name not in the inventory derived from this file
+    - frontmatter `name:` mismatch between mirrored SKILL.md files
+    - SSOT pointer in a non-Claude SKILL.md does not resolve to an existing chapter

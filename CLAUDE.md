@@ -5,13 +5,20 @@ Design System Project
 
 **`design/process/`** is the single source of truth for the entire design process. It contains numbered mode files (01 through 20) plus a README, each describing one design mode — its purpose, mental model, process, outputs, rules, and downstream connections.
 
+### Multi-harness support
+
+This repository supports two AI-assistant harnesses in parallel: Claude Code (via `.claude/` + this file) and IBM Bob (via `.bob/` + `BOB.md`). Both consume the same `design/process/` chapters as authoritative. The fan-out spec is `design/process/_propagation.yaml`; mirror parity is enforced by `node design/scripts/sync-skills.js`. `.bobignore` keeps Bob out of `.claude/`; Claude does not read `.bob/` during design work. Both SKILL.md sets must stay semantically aligned — the `workflow-update` skill handles this automatically.
+
 ### How changes work
 - **Designers do not edit the process files directly** — all changes go through Claude
 - When a designer identifies a process improvement, they tell Claude what to change
-- Claude edits the relevant `design/process/*.md` file AND immediately propagates to all affected files:
+- Claude edits the relevant `design/process/*.md` file AND immediately propagates to all affected files per `design/process/_propagation.yaml`:
   - `.claude/skills/*/SKILL.md` — updates the corresponding skill's workflow, rules, dependencies, or outputs
-  - `CLAUDE.md` — updates pipeline summaries, trigger rules, and cross-references below
-  - `design/process/README.md` — updates the chapter index if modes are added/removed/reordered
+  - `.bob/skills/*/SKILL.md` — mirrored updates for the Bob harness (preserving the `<!-- mirror: bob | SSOT: ... -->` pointer and any `{{MCP_PREFIX}}` placeholders)
+  - `CLAUDE.md` AND `BOB.md` — both orchestration docs updated in lockstep; divergence is a bug
+  - `design/process/README.md` and `design/process/00-overview.md` — chapter index / tier labels when modes are added/removed/reordered
+  - `.bob/rules/50-bob-adaptations.md` — when a new tool dependency needs a Claude→Bob mapping entry
+- Claude runs `node design/scripts/sync-skills.js` to confirm parity before reporting done
 - Claude summarizes what was propagated so the designer can review via `git diff`
 - Git provides full version history of all process changes
 

@@ -4,7 +4,7 @@ operation: overview
 
 # Process Overview
 
-> **This is a read-only reference.** Designers read these files to understand the process, diagnose issues, and decide on improvements. To make changes, tell Claude what to change — Claude will update the process files and propagate changes to all skill files and CLAUDE.md automatically.
+> **This is a read-only reference.** Designers read these files to understand the process, diagnose issues, and decide on improvements. To make changes, describe the change to the AI assistant — the `workflow-update` skill edits the relevant chapter and propagates to every registered harness (SKILL.md mirrors, orchestration docs, indexes, and harness-adaptation notes) per `design/process/_propagation.yaml`.
 
 ---
 
@@ -14,7 +14,7 @@ This directory describes the complete design process — from understanding the 
 
 **If you're starting a new project:** Read from `01-discovery.md`. Follow the chapters in order.
 
-**If something isn't working:** Find the chapter that covers that part of the process. Read the mental model and process steps. Identify what's off. Tell Claude what to change.
+**If something isn't working:** Find the chapter that covers that part of the process. Read the mental model and process steps. Identify what's off. Describe the change to the AI assistant — it routes to the `workflow-update` skill, which edits this file and propagates.
 
 **If you want to understand how a design decision was made:** Trace it back through the chapters. Every decision should connect to a persona, a story, or a design principle documented here.
 
@@ -166,7 +166,7 @@ When re-processing with new upstream data, modes update incrementally — proces
 
 ### Automation scripts
 
-Three CLI scripts in `design/scripts/` automate the error-prone parts of the sync protocol. Claude invokes them explicitly — no hooks, no watchers.
+Three CLI scripts in `design/scripts/` automate the error-prone parts of the sync protocol. The active AI assistant invokes them explicitly — no hooks, no watchers.
 
 | Script | Usage | What it does |
 |--------|-------|-------------|

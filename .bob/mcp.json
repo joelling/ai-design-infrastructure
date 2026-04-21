@@ -1,0 +1,33 @@
+{
+  "_comment": "Project-scoped MCP server config for IBM Bob. Mirrors .mcp.json for Claude Code. `alwaysAllow` is intentionally conservative — Bob users should review each tool invocation on first use and graduate frequently-used safe tools into this list explicitly.",
+  "mcpServers": {
+    "figma-console": {
+      "command": "npx",
+      "args": ["-y", "figma-console-mcp"],
+      "env": {},
+      "alwaysAllow": [
+        "get_status",
+        "read_current_file",
+        "read_selection",
+        "get_variables",
+        "get_components"
+      ],
+      "disabled": false
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "alwaysAllow": [
+        "search_code",
+        "get_file_contents",
+        "list_commits",
+        "list_branches",
+        "list_pull_requests"
+      ],
+      "disabled": false
+    }
+  }
+}
